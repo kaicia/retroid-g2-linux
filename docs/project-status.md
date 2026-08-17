@@ -208,7 +208,30 @@ ChatGPT should inspect the actual GitHub result before treating a task as comple
 
 The Codex `chatgpt.com/s/cd_...` share link may not be directly readable by ChatGPT's web retrieval layer. Therefore GitHub is the authoritative result channel for this project.
 
-## 10. Current Phase
+## 10. GitHub Write Access Verification
+
+GitHub write access is now confirmed to work from the ChatGPT GitHub connection.
+
+Previously, attempts to write project documentation from ChatGPT did not work because the connected GitHub authorization/write state was not correctly available at that time.
+
+The current connection is different and has been verified by an actual write operation:
+
+1. ChatGPT accessed `kaicia/retroid-g2-linux`.
+2. ChatGPT created `docs/project-status.md` directly on `main`.
+3. GitHub accepted the file creation and created a real commit.
+4. The resulting commit SHA was verified.
+5. ChatGPT subsequently fetched the file from `main` and verified its contents.
+
+This means ChatGPT can currently perform direct GitHub documentation/repository writes through the connected GitHub integration.
+
+This capability is separate from the Codex Cloud workflow. The preferred division of responsibility is:
+
+- ChatGPT: project planning, documentation/status updates, review, verification, and GitHub project management when appropriate.
+- Codex Cloud: actual code investigation, code modification, testing, and implementation work whenever practical.
+
+Direct ChatGPT GitHub writes should not bypass the Codex workflow for substantial implementation work unless there is a clear reason to do so.
+
+## 11. Current Phase
 
 ### Phase 0 — Development and Project Workflow Setup
 
@@ -216,6 +239,7 @@ Completed/verified:
 
 - [x] GitHub repository created
 - [x] GitHub access verified
+- [x] GitHub write access verified with an actual documentation commit
 - [x] Codespaces identified as a development environment
 - [x] Project documentation structure planned
 - [x] GitHub chosen as the project's persistent record
@@ -245,7 +269,7 @@ Later phases will cover:
 - Phase 5 — SteamOS integration
 - Phase 6 — Real G2 hardware testing
 
-## 11. Test PR
+## 12. Test PR
 
 PR #2 was created only to verify the Codex Cloud PR-comment trigger. It must not be merged into `main`.
 
