@@ -25,11 +25,11 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
 
-      - name: Run OpenCode with OpenRouter DeepSeek V4 Flash Free
+      - name: Run OpenCode with OpenRouter Qwen3 Coder Free
         uses: anomalyco/opencode/github@latest
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          model: openrouter/deepseek/deepseek-v4-flash:free
+          model: openrouter/qwen/qwen3-coder:free
           use_github_token: true
