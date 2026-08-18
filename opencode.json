@@ -3,8 +3,8 @@
   "provider": {
     "openrouter": {
       "models": {
-        "deepseek/deepseek-v4-flash:free": {
-          "name": "DeepSeek V4 Flash Free"
+        "qwen/qwen3-coder:free": {
+          "name": "Qwen3 Coder Free"
         }
       }
     }
