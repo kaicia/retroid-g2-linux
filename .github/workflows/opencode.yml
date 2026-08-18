@@ -25,11 +25,11 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
 
-      - name: Run OpenCode with OpenRouter Qwen3 Coder Free
+      - name: Run OpenCode with OpenRouter Free Models Router
         uses: anomalyco/opencode/github@latest
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          model: openrouter/qwen/qwen3-coder:free
+          model: openrouter/free
           use_github_token: true
