@@ -1,11 +1,11 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "openrouter/free",
+  "model": "openrouter/cohere/north-mini-code:free",
   "provider": {
     "openrouter": {
       "models": {
-        "free": {
-          "name": "OpenRouter Free Models Router"
+        "cohere/north-mini-code:free": {
+          "name": "Cohere North Mini Code (free)"
         }
       }
     }
