@@ -22,8 +22,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          fetch-depth: 1
-          persist-credentials: false
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Verify Git remote and credentials
+        run: |
+          git remote -v
+          git status --short
+          git config --get remote.origin.url
 
       - name: Run OpenCode with OpenRouter free tool-capable coding model
         uses: anomalyco/opencode/github@latest
