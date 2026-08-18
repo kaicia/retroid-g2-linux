@@ -3,7 +3,9 @@
   "provider": {
     "openrouter": {
       "models": {
-        "deepseek/deepseek-v4-flash:free": {}
+        "deepseek/deepseek-v4-flash:free": {
+          "name": "DeepSeek V4 Flash Free"
+        }
       }
     }
   }
