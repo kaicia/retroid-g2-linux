@@ -25,11 +25,11 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
 
-      - name: Run OpenCode with OpenRouter Free Models Router
+      - name: Run OpenCode with OpenRouter GPT-OSS 20B Free
         uses: anomalyco/opencode/github@latest
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          model: openrouter/free
+          model: openrouter/openai/gpt-oss-20b:free
           use_github_token: true
