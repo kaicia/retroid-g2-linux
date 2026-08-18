@@ -25,7 +25,7 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
 
-      - name: Run OpenCode with free DeepSeek V4 Flash
+      - name: Run OpenCode with OpenRouter DeepSeek V4 Flash Free
         uses: anomalyco/opencode/github@latest
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
