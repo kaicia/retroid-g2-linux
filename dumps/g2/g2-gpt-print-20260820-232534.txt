@@ -1,0 +1,107 @@
+
+===== IDENTITY =====
+Retroid Pocket G2
+pineapple
+_b
+soc/1d84000.ufshc
+1d84000.ufshc
+
+===== SGDISK VERSION =====
+GPT fdisk (sgdisk) version 1.0.9.2
+
+
+===== UFS GPT PRINT READONLY =====
+--- /dev/block/sda ---
+Problem opening /dev/block/sda for reading! Error is 13.
+You must run this program as root or use sudo!
+--- /dev/block/sdb ---
+Problem opening /dev/block/sdb for reading! Error is 13.
+You must run this program as root or use sudo!
+--- /dev/block/sdc ---
+Problem opening /dev/block/sdc for reading! Error is 13.
+You must run this program as root or use sudo!
+--- /dev/block/sdd ---
+Problem opening /dev/block/sdd for reading! Error is 13.
+You must run this program as root or use sudo!
+--- /dev/block/sde ---
+Problem opening /dev/block/sde for reading! Error is 13.
+You must run this program as root or use sudo!
+--- /dev/block/sdf ---
+Problem opening /dev/block/sdf for reading! Error is 13.
+You must run this program as root or use sudo!
+
+===== UFS GPT PARTITION INFO =====
+--- xbl_a -> /dev/block/sdb1 ---
+Problem opening /dev/block/sdb for reading! Error is 13.
+You must run this program as root or use sudo!
+--- xbl_b -> /dev/block/sdc1 ---
+Problem opening /dev/block/sdc for reading! Error is 13.
+You must run this program as root or use sudo!
+--- abl_a -> /dev/block/sde9 ---
+Problem opening /dev/block/sde for reading! Error is 13.
+You must run this program as root or use sudo!
+--- abl_b -> /dev/block/sde38 ---
+Problem opening /dev/block/sde3 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- uefi_a -> /dev/block/sde2 ---
+Problem opening /dev/block/sde for reading! Error is 13.
+You must run this program as root or use sudo!
+--- uefi_b -> /dev/block/sde31 ---
+Problem opening /dev/block/sde3 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- uefisecapp_a -> /dev/block/sde17 ---
+Problem opening /dev/block/sde1 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- uefisecapp_b -> /dev/block/sde46 ---
+Problem opening /dev/block/sde4 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- boot_a -> /dev/block/sde12 ---
+Problem opening /dev/block/sde1 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- boot_b -> /dev/block/sde41 ---
+Problem opening /dev/block/sde4 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- init_boot_a -> /dev/block/sde28 ---
+Problem opening /dev/block/sde2 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- init_boot_b -> /dev/block/sde56 ---
+Problem opening /dev/block/sde5 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- vendor_boot_a -> /dev/block/sde23 ---
+Problem opening /dev/block/sde2 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- vendor_boot_b -> /dev/block/sde52 ---
+Problem opening /dev/block/sde5 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- dtbo_a -> /dev/block/sde16 ---
+Problem opening /dev/block/sde1 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- dtbo_b -> /dev/block/sde45 ---
+Problem opening /dev/block/sde4 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- vbmeta_a -> /dev/block/sde15 ---
+Problem opening /dev/block/sde1 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- vbmeta_b -> /dev/block/sde44 ---
+Problem opening /dev/block/sde4 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- recovery_a -> /dev/block/sde26 ---
+Problem opening /dev/block/sde2 for reading! Error is 13.
+You must run this program as root or use sudo!
+--- recovery_b -> /dev/block/sde54 ---
+Problem opening /dev/block/sde5 for reading! Error is 13.
+You must run this program as root or use sudo!
+
+===== MICROSD GPT PRINT READONLY =====
+Problem opening /dev/block/mmcblk1 for reading! Error is 13.
+You must run this program as root or use sudo!
+
+===== MICROSD PARTITION INFO =====
+Problem opening /dev/block/mmcblk1 for reading! Error is 13.
+You must run this program as root or use sudo!
+
+===== BLKID =====
+
+===== SAFETY =====
+READ-ONLY GPT AUDIT ONLY
+No partition contents were read and no write/erase/format/repartition/slot/AVB operations were performed.
