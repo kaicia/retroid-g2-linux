@@ -1,0 +1,1081 @@
+
+===== IDENTITY =====
+Retroid Pocket G2
+pineapple
+qti/pineapple/pineapple:15/AQ3A.250226.002/eng.RPG2.20260123.180002:user/dev-keys
+AQ3A.250226.002
+eng.RPG2.20260123.180002
+15
+Linux localhost 6.1.115-android14-11-maybe-dirty #1 SMP PREEMPT Thu Jan  1 00:00:00 UTC 1970 aarch64 Toybox
+
+===== BOOT PROPERTIES =====
+[ro.boot.avb_version]: [1.2]
+[ro.boot.baseband]: [apq]
+[ro.boot.boot_devices]: [soc/1d84000.ufshc]
+[ro.boot.bootdevice]: [1d84000.ufshc]
+[ro.boot.bootreason]: [shutdown,userrequested]
+[ro.boot.console]: [0]
+[ro.boot.dtb_idx]: [3]
+[ro.boot.dtbo_idx]: [18]
+[ro.boot.dynamic_partitions]: [true]
+[ro.boot.flash.locked]: [0]
+[ro.boot.force_normal_boot]: [0]
+[ro.boot.fstab_suffix]: [default]
+[ro.boot.hardware]: [qcom]
+[ro.boot.hardware.revision]: [Qualcomm G2 Gen 2]
+[ro.boot.hypervisor.protected_vm.supported]: [true]
+[ro.boot.keymaster]: [1]
+[ro.boot.load_modules_parallel]: [true]
+[ro.boot.memcg]: [1]
+[ro.boot.product.vendor.sku]: [cliffs]
+[ro.boot.serialno]: [MC94528AQF092400414]
+[ro.boot.slot_suffix]: [_b]
+[ro.boot.usbcontroller]: [a600000.dwc3]
+[ro.boot.vbmeta.avb_version]: [1.2]
+[ro.boot.vbmeta.device]: [PARTUUID=9163a2d9-8083-6c35-2bad-63c913b616c4]
+[ro.boot.vbmeta.device_state]: [unlocked]
+[ro.boot.vbmeta.digest]: [662a31cbb3d55c212e362b6bdf129371794f2f546e6165b371bc6b1b3f90b57e]
+[ro.boot.vbmeta.hash_alg]: [sha256]
+[ro.boot.vbmeta.size]: [16064]
+[ro.boot.vendor.qspa]: [true]
+[ro.boot.vendor.qspa.audio]: [enabled]
+[ro.boot.vendor.qspa.camera]: [disabled]
+[ro.boot.vendor.qspa.comp]: [enabled]
+[ro.boot.vendor.qspa.comp1]: [enabled]
+[ro.boot.vendor.qspa.display]: [enabled]
+[ro.boot.vendor.qspa.display1]: [enabled]
+[ro.boot.vendor.qspa.eva]: [enabled]
+[ro.boot.vendor.qspa.gpu]: [enabled]
+[ro.boot.vendor.qspa.modem]: [disabled]
+[ro.boot.vendor.qspa.nav]: [disabled]
+[ro.boot.vendor.qspa.npu]: [enabled]
+[ro.boot.vendor.qspa.nsp]: [disabled]
+[ro.boot.vendor.qspa.sensors]: [enabled]
+[ro.boot.vendor.qspa.spss]: [enabled]
+[ro.boot.vendor.qspa.video]: [enabled]
+[ro.boot.vendor.qspa.wlan]: [enabled]
+[ro.boot.verifiedbootstate]: [orange]
+[ro.boot.veritymode]: [enforcing]
+[ro.boot.veritymode.managed]: [yes]
+[ro.bootimage.build.date]: [Fri Jan 23 18:48:27 HKT 2026]
+[ro.bootimage.build.date.utc]: [1769165307]
+[ro.bootimage.build.fingerprint]: [qti/pineapple/pineapple:14/UKQ1.250213.001/RPG201231848:user/release-keys]
+[ro.bootimage.build.id]: [UKQ1.250213.001]
+[ro.bootimage.build.tags]: [release-keys]
+[ro.bootimage.build.type]: [user]
+[ro.bootimage.build.version.incremental]: [eng.RPG2.20260123.185014]
+[ro.bootimage.build.version.release]: [14]
+[ro.bootimage.build.version.release_or_codename]: [14]
+[ro.bootimage.build.version.sdk]: [34]
+[ro.bootloader]: [unknown]
+[ro.build.version.all_codenames]: [REL]
+[ro.build.version.base_os]: []
+[ro.build.version.codename]: [REL]
+[ro.build.version.incremental]: [eng.RPG2.20260123.180002]
+[ro.build.version.known_codenames]: [Base,Base11,Cupcake,Donut,Eclair,Eclair01,EclairMr1,Froyo,Gingerbread,GingerbreadMr1,Honeycomb,HoneycombMr1,HoneycombMr2,IceCreamSandwich,IceCreamSandwichMr1,JellyBean,JellyBeanMr1,JellyBeanMr2,Kitkat,KitkatWatch,Lollipop,LollipopMr1,M,N,NMr1,O,OMr1,P,Q,R,S,Sv2,Tiramisu,UpsideDownCake,VanillaIceCream]
+[ro.build.version.min_supported_target_sdk]: [28]
+[ro.build.version.preview_sdk]: [0]
+[ro.build.version.preview_sdk_fingerprint]: [REL]
+[ro.build.version.release]: [15]
+[ro.build.version.release_or_codename]: [15]
+[ro.build.version.release_or_preview_display]: [15]
+[ro.build.version.sdk]: [35]
+[ro.build.version.security_patch]: [2025-03-05]
+
+===== CMDLINE / BOOTCONFIG =====
+cat: /proc/cmdline: Permission denied
+bootconfig unavailable
+
+===== CURRENT SLOT =====
+_b
+
+
+===== BY-NAME BLOCK DEVICES =====
+total 0
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 ALIGN_TO_128K_1 -> /dev/block/sdd1
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 ALIGN_TO_128K_2 -> /dev/block/sdf1
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 abl_a -> /dev/block/sde9
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 abl_b -> /dev/block/sde38
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 aop_a -> /dev/block/sde3
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 aop_b -> /dev/block/sde32
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 aop_config_a -> /dev/block/sde4
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 aop_config_b -> /dev/block/sde33
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 apdp -> /dev/block/sdb5
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 apdpb -> /dev/block/sdc5
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 bluetooth_a -> /dev/block/sde8
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 bluetooth_b -> /dev/block/sde37
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 boot_a -> /dev/block/sde12
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 boot_b -> /dev/block/sde41
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 cdt -> /dev/block/sdd2
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 connsec -> /dev/block/sde68
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 cpucp_a -> /dev/block/sde21
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 cpucp_b -> /dev/block/sde50
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 cpucp_dtb_a -> /dev/block/sde29
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 cpucp_dtb_b -> /dev/block/sde57
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 ddr -> /dev/block/sdd3
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 devcfg_a -> /dev/block/sde13
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 devcfg_b -> /dev/block/sde42
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 devinfo -> /dev/block/sde59
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 dpm -> /dev/block/sde73
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 dsp_a -> /dev/block/sde10
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 dsp_b -> /dev/block/sde39
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 dtbo_a -> /dev/block/sde16
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 dtbo_b -> /dev/block/sde45
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 featenabler_a -> /dev/block/sde22
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 featenabler_b -> /dev/block/sde51
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 frp -> /dev/block/sda5
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 fsc -> /dev/block/sdf7
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 fsg -> /dev/block/sdf6
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 hyp_a -> /dev/block/sde6
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 hyp_b -> /dev/block/sde35
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 imagefv_a -> /dev/block/sde18
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 imagefv_b -> /dev/block/sde47
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 init_boot_a -> /dev/block/sde28
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 init_boot_b -> /dev/block/sde56
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 keymaster_a -> /dev/block/sde11
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 keymaster_b -> /dev/block/sde40
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 keystore -> /dev/block/sda4
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 logdump -> /dev/block/sde62
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 logfs -> /dev/block/sde61
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 mdcompress -> /dev/block/sde67
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 metadata -> /dev/block/sda9
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 misc -> /dev/block/sda3
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 modem_a -> /dev/block/sde7
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 modem_b -> /dev/block/sde36
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 modemst1 -> /dev/block/sdf2
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 modemst2 -> /dev/block/sdf3
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 multiimgoem_a -> /dev/block/sdb4
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 multiimgoem_b -> /dev/block/sdc4
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 multiimgqti_a -> /dev/block/sdb3
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 multiimgqti_b -> /dev/block/sdc3
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 odm -> /dev/block/sdf4
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 persist -> /dev/block/sda2
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 pvmfw_a -> /dev/block/sde30
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 pvmfw_b -> /dev/block/sde58
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 qmcs -> /dev/block/sde24
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 qupfw_a -> /dev/block/sde14
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 qupfw_b -> /dev/block/sde43
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 qweslicstore_a -> /dev/block/sde25
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 qweslicstore_b -> /dev/block/sde53
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 rawdump -> /dev/block/sda10
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 recovery_a -> /dev/block/sde26
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 recovery_b -> /dev/block/sde54
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 reserve1 -> /dev/block/sda11
+lrwxrwxrwx 1 root root 14 1970-10-16 16:33 sda -> /dev/block/sda
+lrwxrwxrwx 1 root root 14 1970-10-16 16:33 sdb -> /dev/block/sdb
+lrwxrwxrwx 1 root root 14 1970-10-16 16:33 sdc -> /dev/block/sdc
+lrwxrwxrwx 1 root root 14 1970-10-16 16:33 sdd -> /dev/block/sdd
+lrwxrwxrwx 1 root root 14 1970-10-16 16:33 sde -> /dev/block/sde
+lrwxrwxrwx 1 root root 14 1970-10-16 16:33 sdf -> /dev/block/sdf
+lrwxrwxrwx 1 root root 14 1970-10-16 16:33 sdg -> /dev/block/sdg
+lrwxrwxrwx 1 root root 14 1970-10-16 16:33 sdh -> /dev/block/sdh
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 secdata -> /dev/block/sde65
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 shrm_a -> /dev/block/sde19
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 shrm_b -> /dev/block/sde48
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 splash -> /dev/block/sde1
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 spunvm -> /dev/block/sde70
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 ssd -> /dev/block/sda1
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 ssign -> /dev/block/sdf5
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 storsec -> /dev/block/sde63
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 super -> /dev/block/sda6
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 toolsfv -> /dev/block/sde60
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 tz_a -> /dev/block/sde5
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 tz_b -> /dev/block/sde34
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 tzsc -> /dev/block/sde69
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 uefi_a -> /dev/block/sde2
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 uefi_b -> /dev/block/sde31
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 uefisecapp_a -> /dev/block/sde17
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 uefisecapp_b -> /dev/block/sde46
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 uefivarstore -> /dev/block/sde64
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 userdata -> /dev/block/sda12
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 vbmeta_a -> /dev/block/sde15
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 vbmeta_b -> /dev/block/sde44
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 vbmeta_system_a -> /dev/block/sda7
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 vbmeta_system_b -> /dev/block/sda8
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 vendor_boot_a -> /dev/block/sde23
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 vendor_boot_b -> /dev/block/sde52
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 vm-bootsys_a -> /dev/block/sde20
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 vm-bootsys_b -> /dev/block/sde49
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 vm-persist -> /dev/block/sde66
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 xbl_a -> /dev/block/sdb1
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 xbl_b -> /dev/block/sdc1
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 xbl_config_a -> /dev/block/sdb2
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 xbl_config_b -> /dev/block/sdc2
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 xbl_ramdump_a -> /dev/block/sde27
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 xbl_ramdump_b -> /dev/block/sde55
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 xbl_sc_logs -> /dev/block/sde72
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 xbl_sc_test_mode -> /dev/block/sde71
+
+===== BLOCK DEVICE SIZES =====
+dm-0 2904 sectors
+dm-1 2313576 sectors
+dm-10 8728 sectors
+dm-11 48296 sectors
+dm-12 133192 sectors
+dm-13 11032 sectors
+dm-14 2686136 sectors
+dm-15 910672 sectors
+dm-16 2276896 sectors
+dm-17 4935400 sectors
+dm-18 123952 sectors
+dm-19 23528 sectors
+dm-2 2729368 sectors
+dm-20 2696 sectors
+dm-23 8592 sectors
+dm-27 47072 sectors
+dm-3 24064 sectors
+dm-31 44152 sectors
+dm-32 1240 sectors
+dm-34 1712 sectors
+dm-39 11840 sectors
+dm-4 925448 sectors
+dm-41 8872 sectors
+dm-42 27792 sectors
+dm-44 9544 sectors
+dm-45 512 sectors
+dm-47 9104 sectors
+dm-48 1168 sectors
+dm-49 18104 sectors
+dm-5 5014696 sectors
+dm-51 12640 sectors
+dm-52 57936 sectors
+dm-55 56624 sectors
+dm-56 9016 sectors
+dm-57 48096 sectors
+dm-58 33000 sectors
+dm-59 35400 sectors
+dm-6 126104 sectors
+dm-60 173444760 sectors
+dm-7 9488 sectors
+dm-8 55944 sectors
+dm-9 208456 sectors
+loop0 15088 sectors
+loop1 1648 sectors
+loop10 2608 sectors
+loop11 54448 sectors
+loop12 13424 sectors
+loop13 536 sectors
+loop14 47616 sectors
+loop15 47488 sectors
+loop16 12200 sectors
+loop17 15088 sectors
+loop18 130392 sectors
+loop19 146968 sectors
+loop2 48504 sectors
+loop20 1648 sectors
+loop21 6736 sectors
+loop22 25776 sectors
+loop23 35704 sectors
+loop24 33288 sectors
+loop25 48496 sectors
+loop26 9112 sectors
+loop27 57096 sectors
+loop28 58416 sectors
+loop29 12768 sectors
+loop3 71024 sectors
+loop30 18272 sectors
+loop31 1208 sectors
+loop32 9200 sectors
+loop33 536 sectors
+loop34 28040 sectors
+loop35 11960 sectors
+loop36 8968 sectors
+loop37 1752 sectors
+loop38 1280 sectors
+loop39 44528 sectors
+loop4 71024 sectors
+loop40 9648 sectors
+loop41 7112 sectors
+loop42 8688 sectors
+loop5 1648 sectors
+loop6 44320 sectors
+loop7 48504 sectors
+loop8 8208 sectors
+loop9 47464 sectors
+mmcblk1 2002780160 sectors
+mmcblk1p1 2002778079 sectors
+ram0 16384 sectors
+ram1 16384 sectors
+ram10 16384 sectors
+ram11 16384 sectors
+ram12 16384 sectors
+ram13 16384 sectors
+ram14 16384 sectors
+ram15 16384 sectors
+ram2 16384 sectors
+ram3 16384 sectors
+ram4 16384 sectors
+ram5 16384 sectors
+ram6 16384 sectors
+ram7 16384 sectors
+ram8 16384 sectors
+ram9 16384 sectors
+sda 224428032 sectors
+sda1 16 sectors
+sda10 25575424 sectors
+sda11 40960 sectors
+sda12 173444760 sectors
+sda2 65536 sectors
+sda3 2048 sectors
+sda4 1024 sectors
+sda5 1024 sectors
+sda6 25165824 sectors
+sda7 128 sectors
+sda8 128 sectors
+sda9 131072 sectors
+sdb 40960 sectors
+sdb1 7168 sectors
+sdb2 600 sectors
+sdb3 64 sectors
+sdb4 64 sectors
+sdb5 512 sectors
+sdc 40960 sectors
+sdc1 7168 sectors
+sdc2 600 sectors
+sdc3 64 sectors
+sdc4 64 sectors
+sdc5 512 sectors
+sdd 65536 sectors
+sdd1 208 sectors
+sdd2 256 sectors
+sdd3 2048 sectors
+sde 8388608 sectors
+sde1 66848 sectors
+sde10 131072 sectors
+sde11 1024 sectors
+sde12 196608 sectors
+sde13 256 sectors
+sde14 160 sectors
+sde15 128 sectors
+sde16 65536 sectors
+sde17 4096 sectors
+sde18 4096 sectors
+sde19 512 sectors
+sde2 10240 sectors
+sde20 1100000 sectors
+sde21 2048 sectors
+sde22 256 sectors
+sde23 196608 sectors
+sde24 61440 sectors
+sde25 512 sectors
+sde26 204800 sectors
+sde27 4096 sectors
+sde28 16384 sectors
+sde29 128 sectors
+sde3 1024 sectors
+sde30 2048 sectors
+sde31 10240 sectors
+sde32 1024 sectors
+sde33 1024 sectors
+sde34 8192 sectors
+sde35 16384 sectors
+sde36 716800 sectors
+sde37 8192 sectors
+sde38 2048 sectors
+sde39 131072 sectors
+sde4 1024 sectors
+sde40 1024 sectors
+sde41 196608 sectors
+sde42 256 sectors
+sde43 160 sectors
+sde44 128 sectors
+sde45 65536 sectors
+sde46 4096 sectors
+sde47 4096 sectors
+sde48 512 sectors
+sde49 1100000 sectors
+sde5 8192 sectors
+sde50 2048 sectors
+sde51 256 sectors
+sde52 196608 sectors
+sde53 512 sectors
+sde54 204800 sectors
+sde55 4096 sectors
+sde56 16384 sectors
+sde57 128 sectors
+sde58 2048 sectors
+sde59 8 sectors
+sde6 16384 sectors
+sde60 2048 sectors
+sde61 16384 sectors
+sde62 1048576 sectors
+sde63 256 sectors
+sde64 1024 sectors
+sde65 56 sectors
+sde66 245760 sectors
+sde67 40960 sectors
+sde68 256 sectors
+sde69 256 sectors
+sde7 716800 sectors
+sde70 65536 sectors
+sde71 128 sectors
+sde72 256 sectors
+sde73 16 sectors
+sde8 8192 sectors
+sde9 2048 sectors
+sdf 65536 sectors
+sdf1 208 sectors
+sdf2 8192 sectors
+sdf3 8192 sectors
+sdf4 1024 sectors
+sdf5 1024 sectors
+sdf6 8192 sectors
+sdf7 256 sectors
+sdg 8388608 sectors
+sdh 8388608 sectors
+zram0 12582912 sectors
+
+===== MMC AND SD DEVICE IDENTITY =====
+--- mmcblk1 ---
+size: 2002780160
+removable: 0
+type: SD
+name: FG8Y7
+model: vendor: --- mmcblk1p1 ---
+size: 2002778079
+removable: type: name: model: vendor: --- sda ---
+size: 224428032
+removable: 0
+type: 0
+name: model: HN8T05DEHKX073  
+vendor: SKhynix 
+--- sdb ---
+size: 40960
+removable: 0
+type: 0
+name: model: HN8T05DEHKX073  
+vendor: SKhynix 
+--- sdc ---
+size: 40960
+removable: 0
+type: 0
+name: model: HN8T05DEHKX073  
+vendor: SKhynix 
+--- sdd ---
+size: 65536
+removable: 0
+type: 0
+name: model: HN8T05DEHKX073  
+vendor: SKhynix 
+--- sde ---
+size: 8388608
+removable: 0
+type: 0
+name: model: HN8T05DEHKX073  
+vendor: SKhynix 
+--- sdf ---
+size: 65536
+removable: 0
+type: 0
+name: model: HN8T05DEHKX073  
+vendor: SKhynix 
+--- sdg ---
+size: 8388608
+removable: 0
+type: 0
+name: model: HN8T05DEHKX073  
+vendor: SKhynix 
+--- sdh ---
+size: 8388608
+removable: 0
+type: 0
+name: model: HN8T05DEHKX073  
+vendor: SKhynix 
+
+===== SD PARTITIONS =====
+brw------- 1 root root 179,   0 1970-10-16 16:33 /dev/block/mmcblk1
+brw------- 1 root root 179,   1 1970-10-16 16:33 /dev/block/mmcblk1p1
+
+===== SD MOUNT =====
+tmpfs on /storage type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=755,gid=1000)
+/dev/block/dm-60 on /data_mirror/storage_area type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/fuse on /storage/emulated type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=1023,group_id=1023,allow_other)
+(null) on /mnt/media_rw/C5D7-C07A type exfat (rw,dirsync,nosuid,nodev,noexec,noatime,uid=1023,gid=1023,fmask=0007,dmask=0007,allow_utime=0020,iocharset=utf8,errors=remount-ro)
+/dev/fuse on /storage/C5D7-C07A type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=1023,group_id=1023,allow_other)
+
+===== MMC SYSFS AND DRIVER =====
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001
+/sys/bus/mmc/drivers/mmcblk
+
+===== SDHCI SYSFS =====
+total 0
+drwxr-xr-x   6 root root    0 1970-10-16 16:33 .
+drwxr-xr-x 375 root root    0 1970-10-16 16:33 ..
+-rw-r--r--   1 root root 4096 1970-10-16 16:33 clk_gating
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 driver -> ../../../../bus/platform/drivers/sdhci_msm
+-rw-r--r--   1 root root 4096 1970-10-16 16:33 driver_override
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 iommu -> ../15000000.apps-smmu/iommu/smmu.0x0000000015000000
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 iommu_group -> ../../../../kernel/iommu_groups/1
+drwxr-xr-x   3 root root    0 1970-10-16 16:33 leds
+drwxr-xr-x   3 root root    0 1970-10-16 16:33 mmc_host
+-r--r--r--   1 root root 4096 1970-10-16 16:33 modalias
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 of_node -> ../../../../firmware/devicetree/base/soc/sdhci@8804000
+-rw-r--r--   1 root root 4096 1970-10-16 16:33 pm_qos
+drwxr-xr-x   2 root root    0 1970-10-16 16:33 power
+drwxr-xr-x   2 root root    0 1970-10-16 16:33 qcom
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 subsystem -> ../../../../bus/platform
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 supplier:platform:100000.clock-controller -> ../../../virtual/devlink/platform:100000.clock-controller--platform:8804000.sdhci
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 supplier:platform:15000000.apps-smmu -> ../../../virtual/devlink/platform:15000000.apps-smmu--platform:8804000.sdhci
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 supplier:platform:1600000.interconnect -> ../../../virtual/devlink/platform:1600000.interconnect--platform:8804000.sdhci
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 supplier:platform:16e0000.interconnect -> ../../../virtual/devlink/platform:16e0000.interconnect--platform:8804000.sdhci
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 supplier:platform:17a00000.rsc:drv@2:rpmh-regulator-ldob13 -> ../../../virtual/devlink/platform:17a00000.rsc:drv@2:rpmh-regulator-ldob13--platform:8804000.sdhci
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 supplier:platform:17a00000.rsc:drv@2:rpmh-regulator-ldob23 -> ../../../virtual/devlink/platform:17a00000.rsc:drv@2:rpmh-regulator-ldob23--platform:8804000.sdhci
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 supplier:platform:24100000.interconnect -> ../../../virtual/devlink/platform:24100000.interconnect--platform:8804000.sdhci
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 supplier:platform:f000000.pinctrl -> ../../../virtual/devlink/platform:f000000.pinctrl--platform:8804000.sdhci
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 supplier:platform:soc:interconnect@1 -> ../../../virtual/devlink/platform:soc:interconnect@1--platform:8804000.sdhci
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 supplier:regulator:regulator.42 -> ../../../virtual/devlink/regulator:regulator.42--platform:8804000.sdhci
+lrwxrwxrwx   1 root root    0 1970-10-16 16:33 supplier:regulator:regulator.50 -> ../../../virtual/devlink/regulator:regulator.50--platform:8804000.sdhci
+-rw-r--r--   1 root root 4096 1970-10-16 16:33 uevent
+/sys/devices/platform/soc/8804000.sdhci/clk_gating
+/sys/devices/platform/soc/8804000.sdhci/driver_override
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/brightness
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/max_brightness
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/async
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/autosuspend_delay_ms
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/control
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/runtime_active_kids
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/runtime_active_time
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/runtime_enabled
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/runtime_status
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/runtime_suspended_time
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/runtime_usage
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/trigger
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/uevent
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/cid
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/csd
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/date
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/dsr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/erase_size
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/fwrev
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/hwrev
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/manfid
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/name
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/ocr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/oemid
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/preferred_erase_size
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/rca
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/scr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/serial
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/ssr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/type
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/uevent
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/async
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/autosuspend_delay_ms
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/control
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_active_kids
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_active_time
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_enabled
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_status
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_suspended_time
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_usage
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/uevent
+/sys/devices/platform/soc/8804000.sdhci/modalias
+/sys/devices/platform/soc/8804000.sdhci/pm_qos
+/sys/devices/platform/soc/8804000.sdhci/power/async
+/sys/devices/platform/soc/8804000.sdhci/power/autosuspend_delay_ms
+/sys/devices/platform/soc/8804000.sdhci/power/control
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_active_kids
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_active_time
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_enabled
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_status
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_suspended_time
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_usage
+/sys/devices/platform/soc/8804000.sdhci/qcom/dbg_state
+/sys/devices/platform/soc/8804000.sdhci/uevent
+
+===== DEVICE TREE SDHCI =====
+DT=/sys/firmware/devicetree/base/soc/sdhci@8804000
+/sys/firmware/devicetree/base/soc/sdhci@8804000/bus-width
+/sys/firmware/devicetree/base/soc/sdhci@8804000/cd-debounce-delay-ms
+/sys/firmware/devicetree/base/soc/sdhci@8804000/cd-gpios
+/sys/firmware/devicetree/base/soc/sdhci@8804000/clock-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/clocks
+/sys/firmware/devicetree/base/soc/sdhci@8804000/compatible
+/sys/firmware/devicetree/base/soc/sdhci@8804000/dma-coherent
+/sys/firmware/devicetree/base/soc/sdhci@8804000/interconnect-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/interconnects
+/sys/firmware/devicetree/base/soc/sdhci@8804000/interrupt-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/interrupts
+/sys/firmware/devicetree/base/soc/sdhci@8804000/iommus
+/sys/firmware/devicetree/base/soc/sdhci@8804000/name
+/sys/firmware/devicetree/base/soc/sdhci@8804000/no-mmc
+/sys/firmware/devicetree/base/soc/sdhci@8804000/no-sdio
+/sys/firmware/devicetree/base/soc/sdhci@8804000/operating-points-v2
+/sys/firmware/devicetree/base/soc/sdhci@8804000/phandle
+/sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-0
+/sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-1
+/sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,dll-hsr-list
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,iommu-dma
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,iommu-dma-addr-pool
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,iommu-geometry
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,restore-after-cx-collapse
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,vdd-current-level
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,vdd-io-current-level
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,vdd-io-voltage-level
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,vdd-voltage-level
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos0/mask
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos0/name
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos0/vote
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos1/mask
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos1/name
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos1/vote
+/sys/firmware/devicetree/base/soc/sdhci@8804000/reg
+/sys/firmware/devicetree/base/soc/sdhci@8804000/reg-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/reset-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/resets
+/sys/firmware/devicetree/base/soc/sdhci@8804000/status
+/sys/firmware/devicetree/base/soc/sdhci@8804000/vdd-io-supply
+/sys/firmware/devicetree/base/soc/sdhci@8804000/vdd-supply
+--- bus-width ---
+ 00 00 00 04
+--- cd-debounce-delay-ms ---
+ 00 00 05 dc
+--- cd-gpios ---
+ 00 00 01 6c 00 00 00 1f 00 00 00 01
+--- clock-names ---
+ 69 66 61 63 65 00 63 6f 72 65 00
+--- clocks ---
+ 00 00 01 6f 00 00 00 6c 00 00 01 6f 00 00 00 6d
+--- compatible ---
+ 71 63 6f 6d 2c 73 64 68 63 69 2d 6d 73 6d 2d 76
+ 35 00
+--- interconnect-names ---
+ 73 64 68 63 2d 64 64 72 00 63 70 75 2d 73 64 68
+ 63 00
+--- interconnects ---
+ 00 00 01 a2 00 00 00 2f 00 00 01 89 00 00 02 00
+ 00 00 01 a3 00 00 00 02 00 00 01 a4 00 00 02 1e
+--- interrupt-names ---
+ 68 63 5f 69 72 71 00 70 77 72 5f 69 72 71 00
+--- interrupts ---
+ 00 00 00 00 00 00 00 cf 00 00 00 04 00 00 00 00
+ 00 00 00 df 00 00 00 04
+--- iommus ---
+ 00 00 01 2a 00 00 01 40 00 00 00 00
+--- name ---
+ 73 64 68 63 69 00
+--- no-mmc ---
+--- no-sdio ---
+--- operating-points-v2 ---
+ 00 00 01 a5
+--- phandle ---
+ 00 00 03 cf
+--- pinctrl-0 ---
+ 00 00 03 ac
+--- pinctrl-1 ---
+ 00 00 03 ad
+--- pinctrl-names ---
+ 64 65 66 61 75 6c 74 00 73 6c 65 65 70 00
+--- qcom,dll-hsr-list ---
+ 00 07 44 2c 00 00 00 00 00 00 00 10 09 01 06 c0
+ 80 04 08 68
+--- qcom,iommu-dma ---
+ 66 61 73 74 6d 61 70 00
+--- qcom,iommu-dma-addr-pool ---
+ 40 00 00 00 10 00 00 00
+--- qcom,iommu-geometry ---
+ 40 00 00 00 10 00 00 00
+--- qcom,restore-after-cx-collapse ---
+--- qcom,vdd-current-level ---
+ 00 00 00 00 00 0c 35 00
+--- qcom,vdd-io-current-level ---
+ 00 00 00 00 00 00 55 f0
+--- qcom,vdd-io-voltage-level ---
+ 00 1b 77 40 00 2d 2a 80
+--- qcom,vdd-voltage-level ---
+ 00 2d 2a 80 00 2d 2a 80
+--- reg ---
+ 08 80 40 00 00 00 10 00
+--- reg-names ---
+ 68 63 00
+--- reset-names ---
+ 63 6f 72 65 5f 72 65 73 65 74 00
+--- resets ---
+ 00 00 01 6f 00 00 00 11
+--- status ---
+ 6f 6b 00
+--- vdd-io-supply ---
+ 00 00 03 59
+--- vdd-supply ---
+ 00 00 03 52
+
+===== SD PINCTRL =====
+--- sdc2_on ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/bias-disable
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/drive-strength
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/function
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/pins
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/bias-pull-up
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/drive-strength
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/function
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/pins
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/bias-pull-up
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/drive-strength
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/function
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/pins
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/sd-cd/bias-pull-up
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/sd-cd/drive-strength
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/sd-cd/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/sd-cd/pins
+[clk]
+name:  63 6c 6b 00
+pins:  67 70 69 6f 36 32 00
+drive-strength:  00 00 00 10
+[cmd]
+name:  63 6d 64 00
+pins:  67 70 69 6f 35 31 00
+drive-strength:  00 00 00 0a
+bias-pull-up: [data]
+name:  64 61 74 61 00
+pins:  67 70 69 6f 33 38 00 67 70 69 6f 33 39 00 67 70
+ 69 6f 34 38 00 67 70 69 6f 34 39 00
+drive-strength:  00 00 00 0a
+bias-pull-up: [sd-cd]
+name:  73 64 2d 63 64 00
+pins:  67 70 69 6f 33 31 00
+drive-strength:  00 00 00 02
+bias-pull-up: --- sdc2_off ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/bias-disable
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/drive-strength
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/function
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/pins
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/bias-pull-up
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/drive-strength
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/function
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/pins
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/bias-pull-up
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/drive-strength
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/function
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/pins
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/sd-cd/bias-pull-up
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/sd-cd/drive-strength
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/sd-cd/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/sd-cd/pins
+[clk]
+name:  63 6c 6b 00
+pins:  67 70 69 6f 36 32 00
+drive-strength:  00 00 00 02
+[cmd]
+name:  63 6d 64 00
+pins:  67 70 69 6f 35 31 00
+drive-strength:  00 00 00 02
+bias-pull-up: [data]
+name:  64 61 74 61 00
+pins:  67 70 69 6f 33 38 00 67 70 69 6f 33 39 00 67 70
+ 69 6f 34 38 00 67 70 69 6f 34 39 00
+drive-strength:  00 00 00 02
+bias-pull-up: [sd-cd]
+name:  73 64 2d 63 64 00
+pins:  67 70 69 6f 33 31 00
+drive-strength:  00 00 00 02
+bias-pull-up: 
+===== REGULATOR PHANDLES =====
+--- phandle 00000352 ---
+/sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob13/regulator-pmxr2230-l13
+--- phandle 00000359 ---
+/sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob23/regulator-pmxr2230-l23
+
+===== BOOT PARTITION NODES =====
+--- uefi_a ---
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 /dev/block/by-name/uefi_a -> /dev/block/sde2
+--- uefi_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/uefi_b -> /dev/block/sde31
+--- uefisecapp_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/uefisecapp_a -> /dev/block/sde17
+--- uefisecapp_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/uefisecapp_b -> /dev/block/sde46
+--- boot_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/boot_a -> /dev/block/sde12
+--- boot_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/boot_b -> /dev/block/sde41
+--- init_boot_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/init_boot_a -> /dev/block/sde28
+--- init_boot_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/init_boot_b -> /dev/block/sde56
+--- vendor_boot_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/vendor_boot_a -> /dev/block/sde23
+--- vendor_boot_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/vendor_boot_b -> /dev/block/sde52
+--- dtbo_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/dtbo_a -> /dev/block/sde16
+--- dtbo_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/dtbo_b -> /dev/block/sde45
+--- vbmeta_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/vbmeta_a -> /dev/block/sde15
+--- vbmeta_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/vbmeta_b -> /dev/block/sde44
+--- abl_a ---
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 /dev/block/by-name/abl_a -> /dev/block/sde9
+--- abl_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/abl_b -> /dev/block/sde38
+--- xbl_a ---
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 /dev/block/by-name/xbl_a -> /dev/block/sdb1
+--- xbl_b ---
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 /dev/block/by-name/xbl_b -> /dev/block/sdc1
+--- recovery_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/recovery_a -> /dev/block/sde26
+--- recovery_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/recovery_b -> /dev/block/sde54
+
+===== FILESYSTEM / STORAGE SUMMARY =====
+Filesystem        Size Used Avail Use% Mounted on
+/dev/block/dm-14  1.2G 1.2G     0 100% /
+tmpfs             3.5G 2.0M  3.5G   1% /dev
+tmpfs             3.5G    0  3.5G   0% /mnt
+/dev/block/sda9    62M  34M   28M  56% /metadata
+/dev/block/dm-15  444M 443M     0 100% /system_ext
+/dev/block/dm-16  1.0G 1.0G     0 100% /product
+/dev/block/dm-17  2.3G 2.3G     0 100% /vendor
+/dev/block/dm-18   60M  60M     0 100% /vendor_dlkm
+/dev/block/dm-19   11M  11M     0 100% /system_dlkm
+/dev/block/dm-20  1.2M 1.2M     0 100% /odm
+tmpfs             3.5G  16K  3.5G   1% /apex
+tmpfs             3.5G 4.0K  3.5G   1% /bootstrap-apex
+tmpfs             3.5G 888K  3.5G   1% /linkerconfig
+/dev/block/loop0  7.2M 7.2M     0 100% /bootstrap-apex/com.android.runtime@1
+/dev/block/loop1  780K 748K   16K  98% /bootstrap-apex/com.android.tzdata@352090000
+/dev/block/loop3   34M  34M     0 100% /bootstrap-apex/com.android.i18n@1
+/dev/block/loop2   23M  23M     0 100% /bootstrap-apex/com.android.vndk.v34@1
+tmpfs             3.5G    0  3.5G   0% /tmp
+/dev/block/sda2    27M 2.0M   24M   8% /mnt/vendor/persist
+/dev/block/sde36  350M  99M  251M  29% /vendor/firmware_mnt
+/dev/block/sde39   58M  34M   22M  61% /vendor/dsp
+/dev/block/sde37   64M 1.6M   62M   3% /vendor/bt_firmware
+/dev/block/sde24   30M    0   30M   0% /mnt/vendor/qmcs
+/dev/block/sde70   32M    0   32M   0% /mnt/vendor/spunvm
+/dev/block/dm-60   83G  61G   22G  74% /data
+tmpfs             3.5G    0  3.5G   0% /data_mirror
+/dev/block/loop5  780K 752K   12K  99% /apex/com.android.sdkext@352090000
+/dev/block/loop4   34M  34M     0 100% /apex/com.android.i18n@1
+/dev/block/loop6   21M  21M     0 100% /apex/com.android.btservices@352090000
+/dev/block/dm-27   23M  23M     0 100% /apex/com.android.permission@352090000
+/dev/block/loop7   23M  23M     0 100% /apex/com.android.vndk.v34@1
+/dev/block/loop21 3.2M 3.1M     0 100% /apex/com.android.compos@2
+/dev/block/loop8  3.9M 3.9M     0 100% /apex/com.google.android.widevine@343213000
+/dev/block/loop22  12M  12M     0 100% /apex/com.android.healthfitness@352090000
+/dev/block/loop19  71M  71M     0 100% /apex/com.android.virt@2
+/dev/block/loop10 1.2M 1.1M  8.0K 100% /apex/com.android.rkpd@352090000
+/dev/block/loop13 232K 112K  116K  50% /apex/com.android.apex.cts.shim@1
+/dev/block/dm-57   23M  23M     0 100% /apex/com.android.extservices@352090000
+/dev/block/loop18  63M  63M     0 100% /apex/com.android.vndk.v30@1
+/dev/block/loop12 6.4M 6.4M     0 100% /apex/com.android.nfcservices@352090000
+/dev/block/loop16 5.8M 5.8M     0 100% /apex/com.android.devicelock@1
+/dev/block/loop20 780K 748K   16K  98% /apex/com.android.tzdata@352090000
+/dev/block/dm-58   16M  16M     0 100% /apex/com.android.tethering@352090000
+/dev/block/dm-59   17M  17M     0 100% /apex/com.android.mediaprovider@352090000
+/dev/block/loop15  23M  23M     0 100% /apex/com.android.vndk.v31@1
+/dev/block/loop17 7.2M 7.2M     0 100% /apex/com.android.runtime@1
+/dev/block/loop11  26M  26M     0 100% /apex/com.android.vndk.v33@1
+/dev/block/dm-48  560K 532K   20K  97% /apex/com.android.configinfrastructure@352090000
+/dev/block/dm-51  6.1M 6.1M     0 100% /apex/com.android.adbd@352090000
+/dev/block/dm-47  4.4M 4.3M     0 100% /apex/com.android.appsearch@352090000
+/dev/block/loop14  23M  23M     0 100% /apex/com.android.vndk.v32@1
+/dev/block/dm-34  832K 804K   12K  99% /apex/com.android.ipsec@352090000
+/dev/block/dm-41  4.3M 4.2M     0 100% /apex/com.android.neuralnetworks@352090000
+/dev/block/dm-56  4.3M 4.3M     0 100% /apex/com.android.uwb@352090000
+/dev/block/dm-45  232K 104K  124K  46% /apex/com.android.scheduling@352090000
+/dev/block/loop41 3.4M 3.3M     0 100% /apex/com.android.os.statsd@352090000
+/dev/block/dm-49  8.8M 8.7M     0 100% /apex/com.android.wifi@352090000
+/dev/block/dm-42   14M  14M     0 100% /apex/com.android.ondevicepersonalization@352090000
+/dev/block/dm-23  4.1M 4.1M     0 100% /apex/com.android.resolv@352090000
+/dev/block/dm-52   28M  28M     0 100% /apex/com.android.media.swcodec@352090000
+/dev/block/dm-39  5.7M 5.7M     0 100% /apex/com.android.media@352090000
+/dev/block/dm-55   28M  28M     0 100% /apex/com.android.art@352090000
+/dev/block/dm-31   22M  21M     0 100% /apex/com.android.adservices@352090000
+/dev/block/dm-44  4.6M 4.5M     0 100% /apex/com.android.conscrypt@352090000
+/dev/block/dm-32  596K 568K   16K  98% /apex/com.android.profiling@352090000
+/dev/fuse          83G  61G   22G  74% /mnt/installer/0/emulated
+/dev/fuse         955G 696G  259G  73% /mnt/installer/0/C5D7-C07A
+
+===== MOUNT TABLE =====
+/dev/block/dm-14 on / type ext4 (ro,seclabel,relatime,discard)
+tmpfs on /dev type tmpfs (rw,seclabel,nosuid,relatime,size=3728188k,nr_inodes=932047,mode=755)
+devpts on /dev/pts type devpts (rw,seclabel,relatime,mode=600,ptmxmode=000)
+proc on /proc type proc (rw,relatime,gid=3009,hidepid=invisible)
+sysfs on /sys type sysfs (rw,seclabel,relatime)
+selinuxfs on /sys/fs/selinux type selinuxfs (rw,relatime)
+tmpfs on /mnt type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=755,gid=1000)
+tmpfs on /mnt/installer type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=755,gid=1000)
+tmpfs on /mnt/androidwritable type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=755,gid=1000)
+/dev/block/sda9 on /metadata type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,alloc_mode=reuse,checkpoint_merge,fsync_mode=posix,memory=normal)
+/dev/block/dm-15 on /system_ext type ext4 (ro,seclabel,relatime,discard)
+/dev/block/dm-16 on /product type ext4 (ro,seclabel,relatime,discard)
+/dev/block/dm-17 on /vendor type ext4 (ro,seclabel,relatime,discard)
+/dev/block/dm-18 on /vendor_dlkm type ext4 (ro,seclabel,relatime,discard)
+/dev/block/dm-19 on /system_dlkm type ext4 (ro,seclabel,relatime,discard)
+/dev/block/dm-20 on /odm type ext4 (ro,seclabel,relatime,discard)
+tmpfs on /apex type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=755)
+tmpfs on /bootstrap-apex type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=755)
+tmpfs on /linkerconfig type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=755)
+none on /dev/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,blkio)
+none on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,memory_recursiveprot)
+none on /dev/cpuctl type cgroup (rw,nosuid,nodev,noexec,relatime,cpu)
+none on /dev/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,cpuset,noprefix,release_agent=/sbin/cpuset_release_agent)
+none on /dev/memcg type cgroup (rw,nosuid,nodev,noexec,relatime,memory)
+/dev/block/loop0 on /bootstrap-apex/com.android.runtime@1 type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/system/apex/com.android.runtime.apex)
+/dev/block/loop0 on /bootstrap-apex/com.android.runtime type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/system/apex/com.android.runtime.apex)
+/dev/block/loop1 on /bootstrap-apex/com.android.tzdata@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/vendor/apex/com.google.android.widevine.nonupdatable.apex)
+/dev/block/loop3 on /bootstrap-apex/com.android.i18n@1 type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/data/apex/decompressed/com.android.tethering@352090000.decompressed.apex)
+/dev/block/loop2 on /bootstrap-apex/com.android.vndk.v34@1 type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/system/apex/com.android.devicelock.apex)
+/dev/block/loop1 on /bootstrap-apex/com.android.tzdata type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/vendor/apex/com.google.android.widevine.nonupdatable.apex)
+/dev/block/loop3 on /bootstrap-apex/com.android.i18n type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/data/apex/decompressed/com.android.tethering@352090000.decompressed.apex)
+/dev/block/loop2 on /bootstrap-apex/com.android.vndk.v34 type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/system/apex/com.android.devicelock.apex)
+tmpfs on /bootstrap-apex/apex-info-list.xml type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=755)
+tracefs on /sys/kernel/tracing type tracefs (rw,seclabel,relatime,gid=3012)
+tmpfs on /tmp type tmpfs (rw,seclabel,relatime,size=3728188k,nr_inodes=932047)
+none on /config type configfs (rw,nosuid,nodev,noexec,relatime)
+binder on /dev/binderfs type binder (rw,relatime,max=1048576,stats=global)
+none on /sys/fs/fuse/connections type fusectl (rw,relatime)
+bpf on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,relatime)
+pstore on /sys/fs/pstore type pstore (rw,seclabel,nosuid,nodev,noexec,relatime)
+/dev/block/sda2 on /mnt/vendor/persist type ext4 (rw,seclabel,nosuid,nodev,noatime)
+/dev/block/sde36 on /vendor/firmware_mnt type vfat (ro,context=u:object_r:firmware_file:s0,relatime,uid=1000,gid=1000,fmask=0337,dmask=0227,codepage=437,iocharset=iso8859-1,shortname=lower,errors=remount-ro)
+/dev/block/sde39 on /vendor/dsp type ext4 (ro,seclabel,nosuid,nodev,relatime)
+/dev/block/sde37 on /vendor/bt_firmware type vfat (ro,context=u:object_r:bt_firmware_file:s0,relatime,uid=1002,gid=3002,fmask=0337,dmask=0227,codepage=437,iocharset=iso8859-1,shortname=lower,errors=remount-ro)
+/dev/block/sde24 on /mnt/vendor/qmcs type vfat (rw,context=u:object_r:vendor_qmcs_file:s0,nosuid,nodev,noatime,fmask=0000,dmask=0000,allow_utime=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+/dev/block/sde70 on /mnt/vendor/spunvm type vfat (rw,context=u:object_r:vendor_spunvm_file:s0,nosuid,nodev,noatime,fmask=0000,dmask=0000,allow_utime=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+tmpfs on /storage type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=755,gid=1000)
+/dev/block/dm-60 on /data type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+tmpfs on /linkerconfig type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=755)
+tmpfs on /data_mirror type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=700,gid=1000)
+/dev/block/dm-60 on /data_mirror/data_ce/null type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data_mirror/data_de/null type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data_mirror/misc_ce/null type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data_mirror/misc_de/null type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data_mirror/storage_area type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data_mirror/cur_profiles type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data_mirror/ref_profiles type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/loop5 on /apex/com.android.sdkext@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/data/apex/decompressed/com.android.conscrypt@352090000.decompressed.apex)
+/dev/block/loop5 on /apex/com.android.sdkext type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/data/apex/decompressed/com.android.conscrypt@352090000.decompressed.apex)
+/dev/block/loop4 on /apex/com.android.i18n@1 type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/data/apex/decompressed/com.android.appsearch@352090000.decompressed.apex)
+/dev/block/loop4 on /apex/com.android.i18n type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/data/apex/decompressed/com.android.appsearch@352090000.decompressed.apex)
+/dev/block/loop6 on /apex/com.android.btservices@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop6 on /apex/com.android.btservices type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-27 on /apex/com.android.permission@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-27 on /apex/com.android.permission type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop7 on /apex/com.android.vndk.v34@1 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop21 on /apex/com.android.compos@2 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop8 on /apex/com.google.android.widevine@343213000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop22 on /apex/com.android.healthfitness@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop19 on /apex/com.android.virt@2 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop10 on /apex/com.android.rkpd@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop22 on /apex/com.android.healthfitness type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop21 on /apex/com.android.compos type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop19 on /apex/com.android.virt type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop8 on /apex/com.google.android.widevine type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop13 on /apex/com.android.apex.cts.shim@1 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-57 on /apex/com.android.extservices@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop18 on /apex/com.android.vndk.v30@1 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop7 on /apex/com.android.vndk.v34 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop12 on /apex/com.android.nfcservices@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop10 on /apex/com.android.rkpd type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop16 on /apex/com.android.devicelock@1 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop20 on /apex/com.android.tzdata@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop18 on /apex/com.android.vndk.v30 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-57 on /apex/com.android.extservices type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop16 on /apex/com.android.devicelock type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-58 on /apex/com.android.tethering@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-59 on /apex/com.android.mediaprovider@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop20 on /apex/com.android.tzdata type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop12 on /apex/com.android.nfcservices type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-58 on /apex/com.android.tethering type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-59 on /apex/com.android.mediaprovider type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop15 on /apex/com.android.vndk.v31@1 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop15 on /apex/com.android.vndk.v31 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop17 on /apex/com.android.runtime@1 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop17 on /apex/com.android.runtime type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop13 on /apex/com.android.apex.cts.shim type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop11 on /apex/com.android.vndk.v33@1 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-48 on /apex/com.android.configinfrastructure@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop11 on /apex/com.android.vndk.v33 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-48 on /apex/com.android.configinfrastructure type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-51 on /apex/com.android.adbd@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-47 on /apex/com.android.appsearch@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop14 on /apex/com.android.vndk.v32@1 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-34 on /apex/com.android.ipsec@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-51 on /apex/com.android.adbd type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-47 on /apex/com.android.appsearch type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop14 on /apex/com.android.vndk.v32 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-41 on /apex/com.android.neuralnetworks@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-34 on /apex/com.android.ipsec type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-41 on /apex/com.android.neuralnetworks type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-56 on /apex/com.android.uwb@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-45 on /apex/com.android.scheduling@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop41 on /apex/com.android.os.statsd@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-49 on /apex/com.android.wifi@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-42 on /apex/com.android.ondevicepersonalization@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-23 on /apex/com.android.resolv@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-52 on /apex/com.android.media.swcodec@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-39 on /apex/com.android.media@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-55 on /apex/com.android.art@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-31 on /apex/com.android.adservices@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-23 on /apex/com.android.resolv type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-52 on /apex/com.android.media.swcodec type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop41 on /apex/com.android.os.statsd type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-45 on /apex/com.android.scheduling type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-49 on /apex/com.android.wifi type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-56 on /apex/com.android.uwb type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-42 on /apex/com.android.ondevicepersonalization type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-39 on /apex/com.android.media type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-44 on /apex/com.android.conscrypt@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-31 on /apex/com.android.adservices type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-32 on /apex/com.android.profiling@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-55 on /apex/com.android.art type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-44 on /apex/com.android.conscrypt type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-32 on /apex/com.android.profiling type ext4 (ro,dirsync,seclabel,nodev,noatime)
+tmpfs on /apex/apex-info-list.xml type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=755)
+/dev/block/dm-60 on /data_mirror/data_ce/null/0 type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data/user/0 type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+adb on /dev/usb-ffs/adb type functionfs (rw,relatime)
+diag on /dev/ffs-diag type functionfs (rw,relatime)
+diag_mdm on /dev/ffs-diag-1 type functionfs (rw,relatime)
+diag_mdm2 on /dev/ffs-diag-2 type functionfs (rw,relatime)
+mtp on /dev/usb-ffs/mtp type functionfs (rw,relatime)
+ptp on /dev/usb-ffs/ptp type functionfs (rw,relatime)
+/dev/fuse on /mnt/installer/0/emulated type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=1023,group_id=1023,allow_other)
+/dev/fuse on /mnt/androidwritable/0/emulated type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=1023,group_id=1023,allow_other)
+/dev/fuse on /mnt/user/0/emulated type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=1023,group_id=1023,allow_other)
+/dev/fuse on /storage/emulated type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=1023,group_id=1023,allow_other)
+/dev/block/dm-60 on /mnt/pass_through/0/emulated type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+(null) on /mnt/media_rw/C5D7-C07A type exfat (rw,dirsync,nosuid,nodev,noexec,noatime,uid=1023,gid=1023,fmask=0007,dmask=0007,allow_utime=0020,iocharset=utf8,errors=remount-ro)
+/dev/fuse on /mnt/installer/0/C5D7-C07A type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=1023,group_id=1023,allow_other)
+/dev/fuse on /mnt/androidwritable/0/C5D7-C07A type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=1023,group_id=1023,allow_other)
+/dev/fuse on /mnt/user/0/C5D7-C07A type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=1023,group_id=1023,allow_other)
+/dev/fuse on /storage/C5D7-C07A type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=1023,group_id=1023,allow_other)
+(null) on /mnt/pass_through/0/C5D7-C07A type exfat (rw,dirsync,nosuid,nodev,noexec,noatime,uid=1023,gid=1023,fmask=0007,dmask=0007,allow_utime=0020,iocharset=utf8,errors=remount-ro)
+
+===== KERNEL MMC / SD LOGS =====
+[    0.285681] [  T183] platform 17a00000.rsc:drv@2:rpmh-regulator-mmcxlvl: Fixed dependency cycle(s) with /soc/rsc@17a00000/drv@2/rpmh-regulator-mmcxlvl/regulator-pm_v8-s6-level
+[    0.378058] [  T201] qcom,rpmh-regulator 17a00000.rsc:drv@2:rpmh-regulator-mxclvl: Failed to create device link (0x180) with 17a00000.rsc:drv@2:rpmh-regulator-mmcxlvl
+[    0.447372] [    T8] sdhci_msm 8804000.sdhci: Adding to iommu group 1
+[    0.448657] [    T8] RPG2 common[mmc_of_parse(333)]cd_debounce_delay_ms=1500!
+[    0.448683] [    T8] sdhci_msm 8804000.sdhci: Got CD GPIO
+[    0.453106] [    T8] sdhci_msm 8804000.sdhci: TCXO clk not present (-2)
+[    0.453111] [    T8] sdhci_msm 8804000.sdhci: Failed to get bus_scale data
+[    0.453691] [    T8] RPG2 msm-kernel[sdhci_msm_set_caps(4980)]cd_debounce_delay_ms MMC_CAP_AGGRESSIVE_PM=128!
+[    0.673112] [   T88] mmc1: non-supported SD ext reg layout
+[    0.674159] [   T88]  mmcblk1: p1
+[    1.123850] [   T88] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[   12.732590] [  T140] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[   12.761344] [ T1045] exFAT-fs (mmcblk1p1): Volume was not properly unmounted. Some data may be corrupt. Please run fsck.
+[   14.706240] [  T783] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[   40.653564] [  T783] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[  369.579579] [  T741] type=1400 audit(1787233061.627:1374): avc:  denied  { open } for  comm="cat" path="/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/size" dev="sysfs" ino=85357 scontext=u:r:shell:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[  499.294799] [  T741] type=1400 audit(1787233191.343:1381): avc:  denied  { read } for  comm="cat" name="type" dev="sysfs" ino=85331 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_mmc_device_type:s0 tclass=file permissive=1
+[  499.295012] [  T741] type=1400 audit(1787233191.343:1382): avc:  denied  { open } for  comm="cat" path="/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/type" dev="sysfs" ino=85331 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_mmc_device_type:s0 tclass=file permissive=1
+[  926.444843] [  T741] type=1400 audit(1787233618.491:2235): avc:  denied  { read } for  comm="cat" name="type" dev="sysfs" ino=85331 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_mmc_device_type:s0 tclass=file permissive=1
+[  926.445027] [  T741] type=1400 audit(1787233618.491:2236): avc:  denied  { open } for  comm="cat" path="/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/type" dev="sysfs" ino=85331 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_mmc_device_type:s0 tclass=file permissive=1
+
+===== END: READ-ONLY INVESTIGATION =====
+Output: /sdcard/g2-readonly-investigation.txt
