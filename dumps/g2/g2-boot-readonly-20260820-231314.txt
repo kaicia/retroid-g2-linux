@@ -1,0 +1,555 @@
+
+===== IDENTITY =====
+Retroid Pocket G2
+pineapple
+qti/pineapple/pineapple:15/AQ3A.250226.002/eng.RPG2.20260123.180002:user/dev-keys
+AQ3A.250226.002
+15
+Linux localhost 6.1.115-android14-11-maybe-dirty #1 SMP PREEMPT Thu Jan  1 00:00:00 UTC 1970 aarch64 Toybox
+
+===== BOOT PROPERTIES =====
+[ro.boot.avb_version]: [1.2]
+[ro.boot.baseband]: [apq]
+[ro.boot.boot_devices]: [soc/1d84000.ufshc]
+[ro.boot.bootdevice]: [1d84000.ufshc]
+[ro.boot.bootreason]: [shutdown,userrequested]
+[ro.boot.console]: [0]
+[ro.boot.dtb_idx]: [3]
+[ro.boot.dtbo_idx]: [18]
+[ro.boot.dynamic_partitions]: [true]
+[ro.boot.flash.locked]: [0]
+[ro.boot.force_normal_boot]: [0]
+[ro.boot.fstab_suffix]: [default]
+[ro.boot.hardware]: [qcom]
+[ro.boot.hardware.revision]: [Qualcomm G2 Gen 2]
+[ro.boot.hypervisor.protected_vm.supported]: [true]
+[ro.boot.keymaster]: [1]
+[ro.boot.load_modules_parallel]: [true]
+[ro.boot.memcg]: [1]
+[ro.boot.product.vendor.sku]: [cliffs]
+[ro.boot.serialno]: [MC94528AQF092400414]
+[ro.boot.slot_suffix]: [_b]
+[ro.boot.usbcontroller]: [a600000.dwc3]
+[ro.boot.vbmeta.avb_version]: [1.2]
+[ro.boot.vbmeta.device]: [PARTUUID=9163a2d9-8083-6c35-2bad-63c913b616c4]
+[ro.boot.vbmeta.device_state]: [unlocked]
+[ro.boot.vbmeta.digest]: [662a31cbb3d55c212e362b6bdf129371794f2f546e6165b371bc6b1b3f90b57e]
+[ro.boot.vbmeta.hash_alg]: [sha256]
+[ro.boot.vbmeta.size]: [16064]
+[ro.boot.vendor.qspa]: [true]
+[ro.boot.vendor.qspa.audio]: [enabled]
+[ro.boot.vendor.qspa.camera]: [disabled]
+[ro.boot.vendor.qspa.comp]: [enabled]
+[ro.boot.vendor.qspa.comp1]: [enabled]
+[ro.boot.vendor.qspa.display]: [enabled]
+[ro.boot.vendor.qspa.display1]: [enabled]
+[ro.boot.vendor.qspa.eva]: [enabled]
+[ro.boot.vendor.qspa.gpu]: [enabled]
+[ro.boot.vendor.qspa.modem]: [disabled]
+[ro.boot.vendor.qspa.nav]: [disabled]
+[ro.boot.vendor.qspa.npu]: [enabled]
+[ro.boot.vendor.qspa.nsp]: [disabled]
+[ro.boot.vendor.qspa.sensors]: [enabled]
+[ro.boot.vendor.qspa.spss]: [enabled]
+[ro.boot.vendor.qspa.video]: [enabled]
+[ro.boot.vendor.qspa.wlan]: [enabled]
+[ro.boot.verifiedbootstate]: [orange]
+[ro.boot.veritymode]: [enforcing]
+[ro.boot.veritymode.managed]: [yes]
+
+
+===== BOOT DEVICE / SLOT / SECURITY =====
+ro.boot.boot_devices=soc/1d84000.ufshc
+ro.boot.bootdevice=1d84000.ufshc
+ro.boot.slot_suffix=_b
+ro.boot.slot=
+ro.boot.vbmeta.device_state=unlocked
+ro.boot.verifiedbootstate=orange
+ro.boot.veritymode=enforcing
+ro.boot.flash.locked=0
+ro.boot.dynamic_partitions=true
+
+===== CMDLINE AND BOOTCONFIG =====
+--- /proc/cmdline ---
+cat: /proc/cmdline: Permission denied
+--- /proc/bootconfig ---
+cat: /proc/bootconfig: Permission denied
+
+===== BOOT PARTITION NODE PRESENCE =====
+xbl_a                lrwxrwxrwx 1 root root 15 1970-10-16 16:33 /dev/block/by-name/xbl_a -> /dev/block/sdb1
+xbl_b                lrwxrwxrwx 1 root root 15 1970-10-16 16:33 /dev/block/by-name/xbl_b -> /dev/block/sdc1
+abl_a                lrwxrwxrwx 1 root root 15 1970-10-16 16:33 /dev/block/by-name/abl_a -> /dev/block/sde9
+abl_b                lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/abl_b -> /dev/block/sde38
+uefi_a               lrwxrwxrwx 1 root root 15 1970-10-16 16:33 /dev/block/by-name/uefi_a -> /dev/block/sde2
+uefi_b               lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/uefi_b -> /dev/block/sde31
+uefisecapp_a         lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/uefisecapp_a -> /dev/block/sde17
+uefisecapp_b         lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/uefisecapp_b -> /dev/block/sde46
+boot_a               lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/boot_a -> /dev/block/sde12
+boot_b               lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/boot_b -> /dev/block/sde41
+init_boot_a          lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/init_boot_a -> /dev/block/sde28
+init_boot_b          lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/init_boot_b -> /dev/block/sde56
+vendor_boot_a        lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/vendor_boot_a -> /dev/block/sde23
+vendor_boot_b        lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/vendor_boot_b -> /dev/block/sde52
+dtbo_a               lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/dtbo_a -> /dev/block/sde16
+dtbo_b               lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/dtbo_b -> /dev/block/sde45
+vbmeta_a             lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/vbmeta_a -> /dev/block/sde15
+vbmeta_b             lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/vbmeta_b -> /dev/block/sde44
+recovery_a           lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/recovery_a -> /dev/block/sde26
+recovery_b           lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/recovery_b -> /dev/block/sde54
+
+===== BOOT DEVICE SYSFS =====
+--- /sys/class/block/sda ---
+/sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:0
+/sys/bus/scsi/drivers/sd
+size=224428032
+removable=0
+dev=8:0
+--- /sys/class/block/sde ---
+/sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:4
+/sys/bus/scsi/drivers/sd
+size=8388608
+removable=0
+dev=8:64
+--- /sys/class/block/mmcblk1 ---
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001
+/sys/bus/mmc/drivers/mmcblk
+size=2002780160
+removable=0
+dev=179:0
+
+===== UEFI / EFI / FIRMWARE NODES =====
+--- /sys/firmware/efi ---
+NOT PRESENT
+--- /sys/firmware/devicetree/base/firmware ---
+total 0
+drwxr-xr-x  5 root root 0 1970-10-16 16:33 .
+drwxr-xr-x 15 root root 0 1970-10-16 16:33 ..
+-r--r--r--  1 root root 9 2026-08-20 22:47 name
+-r--r--r--  1 root root 4 2026-08-20 22:47 phandle
+drwxr-xr-x  2 root root 0 2026-08-20 22:47 qcom_scm
+drwxr-xr-x  2 root root 0 2026-08-20 22:47 qcom_smcinvoke
+drwxr-xr-x  2 root root 0 2026-08-20 22:47 qtee_shmbridge
+/sys/firmware/devicetree/base/firmware/qcom_scm/interrupts
+/sys/firmware/devicetree/base/firmware/qcom_scm/qcom,max-queues
+/sys/firmware/devicetree/base/firmware/qcom_scm/compatible
+/sys/firmware/devicetree/base/firmware/qcom_scm/qcom,dload-mode
+/sys/firmware/devicetree/base/firmware/qcom_scm/name
+/sys/firmware/devicetree/base/firmware/qcom_smcinvoke/compatible
+/sys/firmware/devicetree/base/firmware/qcom_smcinvoke/name
+/sys/firmware/devicetree/base/firmware/qtee_shmbridge/compatible
+/sys/firmware/devicetree/base/firmware/qtee_shmbridge/name
+/sys/firmware/devicetree/base/firmware/phandle
+/sys/firmware/devicetree/base/firmware/name
+--- /proc/device-tree/firmware ---
+total 0
+drwxr-xr-x  5 root root 0 1970-10-16 16:33 .
+drwxr-xr-x 15 root root 0 1970-10-16 16:33 ..
+-r--r--r--  1 root root 9 2026-08-20 22:47 name
+-r--r--r--  1 root root 4 2026-08-20 22:47 phandle
+drwxr-xr-x  2 root root 0 2026-08-20 22:47 qcom_scm
+drwxr-xr-x  2 root root 0 2026-08-20 22:47 qcom_smcinvoke
+drwxr-xr-x  2 root root 0 2026-08-20 22:47 qtee_shmbridge
+/proc/device-tree/firmware/qcom_scm/interrupts
+/proc/device-tree/firmware/qcom_scm/qcom,max-queues
+/proc/device-tree/firmware/qcom_scm/compatible
+/proc/device-tree/firmware/qcom_scm/qcom,dload-mode
+/proc/device-tree/firmware/qcom_scm/name
+/proc/device-tree/firmware/qcom_smcinvoke/compatible
+/proc/device-tree/firmware/qcom_smcinvoke/name
+/proc/device-tree/firmware/qtee_shmbridge/compatible
+/proc/device-tree/firmware/qtee_shmbridge/name
+/proc/device-tree/firmware/phandle
+/proc/device-tree/firmware/name
+--- /sys/firmware ---
+total 0
+drwxr-xr-x  3 root root      0 1970-10-16 16:33 .
+dr-xr-xr-x 14 root root      0 1970-01-01 09:00 ..
+drwxr-xr-x  3 root root      0 1970-10-16 16:33 devicetree
+-r--------  1 root root 655274 1970-10-16 16:33 fdt
+/sys/firmware/devicetree/base/#address-cells
+/sys/firmware/devicetree/base/model
+/sys/firmware/devicetree/base/qcom,board-id
+/sys/firmware/devicetree/base/#size-cells
+/sys/firmware/devicetree/base/interrupt-parent
+/sys/firmware/devicetree/base/compatible
+/sys/firmware/devicetree/base/qcom,msm-id
+/sys/firmware/devicetree/base/name
+/sys/firmware/fdt
+
+===== EFI VARIABLE ACCESS =====
+EFI efivars directory not present
+
+===== DEVICE TREE BOOT / FIRMWARE NODES =====
+--- /sys/firmware/devicetree/base ---
+/sys/firmware/devicetree/base/chosen
+/sys/firmware/devicetree/base/firmware
+/sys/firmware/devicetree/base/reserved-memory/uefi_log_region@81ce4000
+/sys/firmware/devicetree/base/soc/qcom,msm-imem@14680000/boot_stats@6b0
+/sys/firmware/devicetree/base/soc/reboot_reason
+--- /proc/device-tree ---
+
+===== SDHCI / MMC BOOT-RELEVANT SYSFS =====
+--- /sys/devices/platform/soc/8804000.sdhci ---
+/sys/devices/platform/soc/8804000.sdhci/clk_gating
+/sys/devices/platform/soc/8804000.sdhci/driver_override
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/brightness
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/max_brightness
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/async
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/autosuspend_delay_ms
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/control
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/runtime_active_kids
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/runtime_active_time
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/runtime_enabled
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/runtime_status
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/runtime_suspended_time
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/power/runtime_usage
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/trigger
+/sys/devices/platform/soc/8804000.sdhci/leds/mmc1::/uevent
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/cid
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/csd
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/date
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/dsr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/erase_size
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/fwrev
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/hwrev
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/manfid
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/name
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/ocr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/oemid
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/preferred_erase_size
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/rca
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/scr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/serial
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/ssr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/type
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/uevent
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/async
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/autosuspend_delay_ms
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/control
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_active_kids
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_active_time
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_enabled
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_status
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_suspended_time
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_usage
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/uevent
+/sys/devices/platform/soc/8804000.sdhci/modalias
+/sys/devices/platform/soc/8804000.sdhci/pm_qos
+/sys/devices/platform/soc/8804000.sdhci/power/async
+/sys/devices/platform/soc/8804000.sdhci/power/autosuspend_delay_ms
+/sys/devices/platform/soc/8804000.sdhci/power/control
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_active_kids
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_active_time
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_enabled
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_status
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_suspended_time
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_usage
+/sys/devices/platform/soc/8804000.sdhci/qcom/dbg_state
+/sys/devices/platform/soc/8804000.sdhci/uevent
+--- /sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1 ---
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/alignment_offset
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/capability
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/dev
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/discard_alignment
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/diskseq
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/events
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/events_async
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/events_poll_msecs
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/ext_range
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/force_ro
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/hidden
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/inflight
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/range
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/removable
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/ro
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/size
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/stat
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/uevent
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/cid
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/csd
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/date
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/dsr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/erase_size
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/fwrev
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/hwrev
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/manfid
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/name
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/ocr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/oemid
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/power/async
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/power/autosuspend_delay_ms
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/power/control
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/power/runtime_active_kids
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/power/runtime_active_time
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/power/runtime_enabled
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/power/runtime_status
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/power/runtime_suspended_time
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/power/runtime_usage
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/preferred_erase_size
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/rca
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/scr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/serial
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/ssr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/type
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/uevent
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/async
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/autosuspend_delay_ms
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/control
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_active_kids
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_active_time
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_enabled
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_status
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_suspended_time
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_usage
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/uevent
+/sys/bus/platform/drivers/sdhci_msm
+--- /sys/class/mmc_host/mmc1 ---
+/sys/bus/platform/drivers/sdhci_msm
+
+===== KERNEL BOOT / UEFI / MMC LOGS =====
+[    0.000000] [    T0] 1 Booting Linux on physical CPU 0x0000000000 [0x410fd801]
+[    0.000000] [    T0] KVM is not available. Ignoring kvm-arm.mode
+[    0.000000] [    T0] 1 Kernel command line: console=ttynull stack_depot_disable=on cgroup_disable=pressure kasan.page_alloc.sample=10 kasan.stacktrace=off kvm-arm.mode=protected bootconfig ioremap_guard loglevel=6 kpti=0 log_buf_len=256K swiotlb=noforce loop.max_part=7 pcie_ports=compat irqaffinity=0-2 cpufreq.default_governor=performance sysctl.kernel.sched_pelt_multiplier=4 kasan=off cgroup_disable=pressure cgroup.memory=nokmem,nosocket disable_dma32=on kernel.panic_on_rcu_stall=1 fw_devlink.strict=1 service_locator.enable=1 rcupdate.rcu_expedited=1 rcu_nocbs=0-7 no-steal-acc printk.console_no_auto_verbose=1 can.stats_timer=0 ftrace_dump_on_oops firmware_class.path=/vendor/firmware_mnt/image,/vendor/firmware_mnt/image/kiwi,/vendor/vm-system/oemvm/boot,/vendor/vm-system/trustedvm/boot,/vendor/firmware,/vendor/firmware/wlan/qca_cld/kiwi_v2 pci-msm-drv.pcie_sm_regs=0x1D07000,0x1040,0x1048,0x3000,0x1 video=vfb:640x400,bpp=32,memsize=3072000 nosoftlockup bootconfig  msm_drm.dsi_disp
+[    0.000000] [    T0] ITS@0x0000000017140000: Devices Table too large, reduce ids 32->19
+[    0.018696] [    T0] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU3: 0x1001111010312122
+[    0.020155] [    T0] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU4: 0x1001111010312122
+[    0.021477] [    T0] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU5: 0x1001111010312122
+[    0.022396] [    T0] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU6: 0x1001111010312122
+[    0.023572] [    T0] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU7: 0x1001111010312122
+[    0.104327] [    T1] printk: console [ttynull0] enabled
+[    0.127697] [  T113] init: Loading module /lib/modules/qcom-reboot-reason.ko with args ''
+[    0.129690] [   T10] arm-scmi soc:qcom,scmi: SCMI Notifications - Core Enabled.
+[    0.146330] [  T148] shmbridge is enabled
+[    0.147495] [  T148] MEM protection Not enabled, 7
+[    0.230639] [   T10] Modules linked in: qcom_logbuf_vendor_hooks(E) qcom_wdt_core(E) arm_smmu(E) pinctrl_pineapple(E) qcom_logbuf_boot_log(E) pinctrl_volcano(E) pinctrl_cliffs(E) memory_dump_v2(E) pinctrl_msm(E) qcom_pdc(E) qcom_ipc_logging(E) minidump(E) qcom_dma_heaps(E) mem_buf_dev(E) gunyah_qcom(E) qcom_iommu_util(E) mdt_loader(E) crypto_qti(E) gh_cpusys_vm_mem_access(E) secure_buffer(E) qcom_scm(E) thermal_pause(E) socinfo(E) sched_walt(E) gh_rm_drv(E) smem(E) qcom_i2c_pmic(E) phy_qcom_ufs_qmp_v4_crow(E) hwkm(E) qcom_spmi_pmic(E) qcom_pmu_lib(E) phy_qcom_ufs_qrbtc_sdm845(E) stub_regulator(E) phy_qcom_ufs_qmp_v4_pineapple(E) gdsc_regulator(E) icc_debug(E) debug_symbol(E) qnoc_qos(E) gh_arm_drv(E) qcom_llcc_pmu(E) gh_dbl(E) gh_msgq(E) qcom_hwspinlock(E) qcom_scmi_client(E) qcom_cpufreq_hw(E) rtc_pm8xxx(E) cmd_db(E) cpu_hotplug(E) spmi_pmic_arb(E) cqhci(E) qti_regmap_debugfs(E) qcom_scmi_vendor(E) iommu_logger(E) gic_intr_routing(E) icc_test(E) phy_qcom_ufs(E)
+[    0.230732] [   T10]  msm_dma_iommu_mapping(E) debug_regulator(E) tmecom_intf(E) nvmem_qfprom(E) qcom_cpu_vendor_hooks(E) qcom_ipcc(E) proxy_consumer(E) qcom_cpucp(E) nvmem_qcom_spmi_sdam(E) qcom_reboot_reason(E)
+[    0.231449] [   T10] Modules linked in: qcom_logbuf_vendor_hooks(E) qcom_wdt_core(E) arm_smmu(E) pinctrl_pineapple(E) qcom_logbuf_boot_log(E) pinctrl_volcano(E) pinctrl_cliffs(E) memory_dump_v2(E) pinctrl_msm(E) qcom_pdc(E) qcom_ipc_logging(E) minidump(E) qcom_dma_heaps(E) mem_buf_dev(E) gunyah_qcom(E) qcom_iommu_util(E) mdt_loader(E) crypto_qti(E) gh_cpusys_vm_mem_access(E) secure_buffer(E) qcom_scm(E) thermal_pause(E) socinfo(E) sched_walt(E) gh_rm_drv(E) smem(E) qcom_i2c_pmic(E) phy_qcom_ufs_qmp_v4_crow(E) hwkm(E) qcom_spmi_pmic(E) qcom_pmu_lib(E) phy_qcom_ufs_qrbtc_sdm845(E) stub_regulator(E) phy_qcom_ufs_qmp_v4_pineapple(E) gdsc_regulator(E) icc_debug(E) debug_symbol(E) qnoc_qos(E) gh_arm_drv(E) qcom_llcc_pmu(E) gh_dbl(E) gh_msgq(E) qcom_hwspinlock(E) qcom_scmi_client(E) qcom_cpufreq_hw(E) rtc_pm8xxx(E) cmd_db(E) cpu_hotplug(E) spmi_pmic_arb(E) cqhci(E) qti_regmap_debugfs(E) qcom_scmi_vendor(E) iommu_logger(E) gic_intr_routing(E) icc_test(E) phy_qcom_ufs(E)
+[    0.231535] [   T10]  msm_dma_iommu_mapping(E) debug_regulator(E) tmecom_intf(E) nvmem_qfprom(E) qcom_cpu_vendor_hooks(E) qcom_ipcc(E) proxy_consumer(E) qcom_cpucp(E) nvmem_qcom_spmi_sdam(E) qcom_reboot_reason(E)
+[    0.250740] [  T168] msm-dcc 100ff000.dcc_v2: All values written to enable.
+[    0.251267] [  T168] msm-dcc 100ff000.dcc_v2: All values written to enable.
+[    0.252892] [  T168] msm-dcc 100ff000.dcc_v2: All values written to enable.
+[    0.285681] [  T183] platform 17a00000.rsc:drv@2:rpmh-regulator-mmcxlvl: Fixed dependency cycle(s) with /soc/rsc@17a00000/drv@2/rpmh-regulator-mmcxlvl/regulator-pm_v8-s6-level
+[    0.378058] [  T201] qcom,rpmh-regulator 17a00000.rsc:drv@2:rpmh-regulator-mxclvl: Failed to create device link (0x180) with 17a00000.rsc:drv@2:rpmh-regulator-mmcxlvl
+[    0.411958] [   T10] disp_cc_pll0 PLL is already enabled
+[    0.416507] [   T10] qsmmuv500-tbu 7b3000.lpass_qtb: Unable to get the transactiontracker-base
+[    0.418371] [   T10] qsmmuv500-tbu 16cd000.pcie_qtb: Unable to get the transactiontracker-base
+[    0.418416] [   T10] qsmmuv500-tbu 1451000.sf_qtb: Unable to get the transactiontracker-base
+[    0.418442] [   T10] qsmmuv500-tbu 14d0000.mdp_hf_qtb: Unable to get the transactiontracker-base
+[    0.433457] [   T10] qsmmuv500-tbu 14d2000.cam_hf_qtb: Unable to get the transactiontracker-base
+[    0.433771] [   T10] qsmmuv500-tbu 7d3000.nsp_qtb: Unable to get the transactiontracker-base
+[    0.433935] [   T10] qsmmuv500-tbu 16f1000.anoc_1_qtb: Unable to get the transactiontracker-base
+[    0.433971] [   T10] qsmmuv500-tbu 171a000.anoc_2_qtb: Unable to get the transactiontracker-base
+[    0.434463] [   T10] arm-smmu 15000000.apps-smmu: 	coherent table walk
+[    0.436898] [   T10] arm-smmu 15000000.apps-smmu: 	preserved 0 boot mappings
+[    0.447372] [    T8] sdhci_msm 8804000.sdhci: Adding to iommu group 1
+[    0.448657] [    T8] RPG2 common[mmc_of_parse(333)]cd_debounce_delay_ms=1500!
+[    0.448683] [    T8] sdhci_msm 8804000.sdhci: Got CD GPIO
+[    0.453106] [    T8] sdhci_msm 8804000.sdhci: TCXO clk not present (-2)
+[    0.453111] [    T8] sdhci_msm 8804000.sdhci: Failed to get bus_scale data
+[    0.453691] [    T8] RPG2 msm-kernel[sdhci_msm_set_caps(4980)]cd_debounce_delay_ms MMC_CAP_AGGRESSIVE_PM=128!
+[    0.455649] [   T10] ufshcd-qcom 1d84000.ufshc: ufshcd_populate_vreg: unable to find vdd-hba-max-microamp
+[    0.455669] [   T10] ufshcd-qcom 1d84000.ufshc: ufshcd_populate_vreg: Unable to find vccq2-supply regulator, assuming enabled
+[    0.456769] [   T10] ufshcd-qcom 1d84000.ufshc: ufs_qcom_parse_reg_info: Unable to find qcom,vccq2-parent-supply regulator, assuming enabled
+[    0.538844] [   T10] sd 0:0:0:0: [sda] Disabling FUA
+[    0.538846] [   T10] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.540269] [    T8] sd 0:0:0:1: [sdb] Disabling FUA
+[    0.540271] [    T8] sd 0:0:0:1: [sdb] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+[    0.541938] [   T10] sd 0:0:0:2: [sdc] Disabling FUA
+[    0.541940] [   T10] sd 0:0:0:2: [sdc] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+[    0.542721] [  T249] sd 0:0:0:3: [sdd] Disabling FUA
+[    0.542722] [  T249] sd 0:0:0:3: [sdd] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.543660] [   T87] sd 0:0:0:4: [sde] Disabling FUA
+[    0.543661] [   T87] sd 0:0:0:4: [sde] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.545168] [   T10] sd 0:0:0:5: [sdf] Disabling FUA
+[    0.545170] [   T10] sd 0:0:0:5: [sdf] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.546187] [  T249] sd 0:0:0:6: [sdg] Disabling FUA
+[    0.546188] [  T249] sd 0:0:0:6: [sdg] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.547216] [   T10] sd 0:0:0:7: [sdh] Disabling FUA
+[    0.547218] [   T10] sd 0:0:0:7: [sdh] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.673112] [   T88] mmc1: non-supported SD ext reg layout
+[    0.674159] [   T88]  mmcblk1: p1
+[    0.760859] [  T296] apexd: Started. subcommand = --bootstrap
+[    0.760961] [  T296] apexd-bootstrap: Scanning /system/apex for pre-installed ApexFiles
+[    0.761142] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.tethering.capex
+[    0.762078] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.btservices.apex
+[    0.763969] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.sdkext.apex
+[    0.764703] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.i18n.apex
+[    0.765687] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.art.capex
+[    0.766792] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.media.swcodec.capex
+[    0.767652] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.mediaprovider.capex
+[    1.123850] [   T88] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[    1.284176] [  T536] RPG2 msm-kernel[rs_gpio_request(88)]Unable to export gpio342 ret=-38
+[    1.284187] [  T536] RPG2 msm-kernel[rs_gpio_request(88)]Unable to export gpio339 ret=-38
+[    1.318952] [   T10] qsmmuv500-tbu 3de8000.gpu_qtb: Unable to get the transactiontracker-base
+[    1.319406] [   T10] arm-smmu 3da0000.kgsl-smmu: 	coherent table walk
+[    1.319753] [   T10] arm-smmu 3da0000.kgsl-smmu: 	preserved 0 boot mappings
+[    1.645006] [  T673] PDC Init Table not configured
+[    1.684230] [  T644] remoteproc remoteproc0: 9bb00000.remoteproc-wpss is available
+[    1.703775] [  T644] remoteproc remoteproc1: 3000000.remoteproc-adsp is available
+[    1.713911] [   T87] tz_log_dlkm:[tzdbg_query_encrypted_log][1770]: encrypted qseelog enabled is 0
+[    1.717914] [  T736] servicemanager: Loaded APEX Infos from /bootstrap-apex/apex-info-list.xml
+[    1.736432] [  T550] msm-dwc3 a600000.ssusb: Unable to get vbus regulator err: -19
+[    1.905049] [  T709] [drm:dsi_pll_init [msm_drm]] [msm-dsi-info]: DSI_PLL_0: PLL SSC enabled
+[    1.906254] [  T709] [drm:dsi_pll_init [msm_drm]] [msm-dsi-info]: DSI_PLL_1: PLL SSC enabled
+[    1.912229] [  T709] [drm:dsi_panel_parse_hdr_config [msm_drm]] *ERROR* [msm-dsi-error]: dsi_panel_parse_hdr_config:3135, Unable to read color primaries,rc:4294967274
+[    1.945463] [    T1] fsck_msdos: ** /dev/block/bootdevice/by-name/qmcs
+[    1.951238] [  T709] [drm] cont_splash enabled in 1 of 1 display(s)
+[    1.952061] [    T1] fsck_msdos: ** /dev/block/bootdevice/by-name/spunvm
+[    1.993773] [  T558] [FTS_TS/E]get_boot_mode:androidboot.mode=0 mode
+[    2.001543] [  T558] [FTS_TS/I]fts_ts_enable_reg:enable vdd regulator ok
+[    2.001547] [  T558] [FTS_TS/I]fts_ts_enable_reg:enable vcc_i2c regulator ok
+[    2.255315] [ T1030] android.hardware.boot-service.qti: IBootControl AIDL service running...
+[    2.333003] [  T926] fsck.f2fs: Info: Automatic fix mode enabled.
+[    2.427283] [  T926] F2FS-fs (dm-60): Using encoding defined by superblock: utf8-12.1.0 with flags 0x0
+[    2.650950] [  T926] vold: keystore2 Keystore earlyBootEnded returned service specific error: -68
+[    3.196091] [ T1252] update_verifier: Using AIDL version of IBootControl
+[    3.196302] [ T1252] update_verifier: Booting slot 1: isSlotMarkedSuccessful=1
+[    3.464326] [   T70] remoteproc remoteproc0: Booting fw image qca6750/wpss.mdt, size 4844
+[    3.465083] [  T811] remoteproc remoteproc1: Booting fw image adsp2.mdt, size 8044
+[    3.552576] [   T92] coresight-remote-etm soc:wpss_etm0: Connection established between QMI handle and 3 service
+[    3.770265] [  T305] coresight-remote-etm soc:audio_etm0: Connection established between QMI handle and 5 service
+[    4.897470] [ T2041] UDC core: g1: couldn't find an available UDC or it's busy
+[   11.563276] [ T1194] AidlLazyServiceRegistrar: Process has 0 (of 1 available) client(s) in use after notification apexservice has clients: 0
+[   12.028897] [    T1] init: Service 'bootanim' (pid 1730) exited with status 0 oneshot service took 8.046000 seconds in background
+[   12.028907] [    T1] init: Sending signal 9 to service 'bootanim' (pid 1730) process group...
+[   12.082694] [    T8] icnss2_qmi: DMS QMI connection not established
+[   12.092483] [    T8] icnss2_qmi: DMS QMI connection not established
+[   12.105464] [ T1194] AidlLazyServiceRegistrar: Process has 1 (of 1 available) client(s) in use after notification apexservice has clients: 1
+[   12.105590] [ T1194] apexd: markBootCompleted() received by ApexService
+[   12.109527] [    T1] init: processing action (sys.boot_completed=1) from (/system/etc/init/hw/init.rc:1241)
+[   12.109657] [    T1] init: starting service 'exec 26 (/bin/rm -rf /data/per_boot)'...
+[   12.111103] [    T1] init: ... started service 'exec 26 (/bin/rm -rf /data/per_boot)' has pid 2983
+[   12.111114] [    T1] init: SVC_EXEC service 'exec 26 (/bin/rm -rf /data/per_boot)' pid 2983 (uid 1000 gid 1000+0 context default) started; waiting...
+[   12.116936] [    T1] init: Service 'exec 26 (/bin/rm -rf /data/per_boot)' (pid 2983) exited with status 0 waiting took 0.006000 seconds
+[   12.116951] [    T1] init: Sending signal 9 to service 'exec 26 (/bin/rm -rf /data/per_boot)' (pid 2983) process group...
+[   12.118096] [  T294] Boot completed 
+[   12.128178] [  T294] Boot completed 
+[   12.205732] [ T2987] adsprpc : Disabled cdsp daemon
+[   12.450155] [    T8] wlan_pld:pld_is_ipa_offload_disabled:2768:: Not supported on type 6
+[   12.491818] [   T85] [kworke][0x13125776][13:31:48.768107] qca6750: [85:E:WMI] is_service_enabled_tlv: WMI service ext2 bit = 396 is not advertised by fw
+[   12.492382] [   T85] [kworke][0x131281bf][13:31:48.768671] qca6750: [85:E:WMI] is_service_enabled_tlv: WMI service ext2 bit = 390 is not advertised by fw
+[   12.675243] [ T1434] [binder][0x1348146e][13:31:48.951534] qca6750: [1434:E:WMI] is_service_enabled_tlv: WMI service ext2 bit = 397 is not advertised by fw
+[   12.732590] [  T140] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[   12.761344] [ T1045] exFAT-fs (mmcblk1p1): Volume was not properly unmounted. Some data may be corrupt. Please run fsck.
+[   13.005102] [ T1434] [binder][0x13a8b7b7][13:31:49.281391] qca6750: [1434:E:WMI] is_service_enabled_tlv: WMI service ext2 bit = 397 is not advertised by fw
+[   13.127594] [ T1434] [binder][0x13cc9aa7][13:31:49.403883] qca6750: [1434:E:WMI] is_service_enabled_tlv: WMI service ext2 bit = 397 is not advertised by fw
+[   14.544080] [ T2995] min_free_kbytes is not updated to 10878 because user defined value 11584 is preferred
+[   14.706240] [  T783] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[   17.022799] [ T1434] [binder][0x1841c71e][13:31:53.299090] qca6750: [1434:E:WMI] is_service_enabled_tlv: WMI service ext2 bit = 397 is not advertised by fw
+[   17.193836] [ T3226] [schedu][0x1873e2c6][13:31:53.470125] qca6750: [3226:E:CMN_MLME] mlme_sr_update: Spatial Reuse disabled for vdev_id: 0
+[   40.653564] [  T783] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[   64.193056] [    T1] init: Service 'exec 18 (/vendor/bin/init.qti.write.sh /sys/kernel/boot_cdsp/boot 1)' (pid 1366) exited with status 1 oneshot service took 60.741001 seconds in background
+[   64.193075] [    T1] init: Sending signal 9 to service 'exec 18 (/vendor/bin/init.qti.write.sh /sys/kernel/boot_cdsp/boot 1)' (pid 1366) process group...
+[   64.201695] [    T1] init: Service 'exec 19 (/vendor/bin/init.qti.write.sh /sys/devices/virtual/cvp/cvp/boot 1)' (pid 1367) exited with status 1 oneshot service took 60.749001 seconds in background
+[   64.201710] [    T1] init: Sending signal 9 to service 'exec 19 (/vendor/bin/init.qti.write.sh /sys/devices/virtual/cvp/cvp/boot 1)' (pid 1367) process group...
+[   90.866177] [  T741] type=1400 audit(1787232782.915:1332): avc:  denied  { write } for  comm="pool-3-thread-2" name="enable" dev="sysfs" ino=126306 scontext=u:r:system_app:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   90.866318] [  T741] type=1400 audit(1787232782.915:1333): avc:  denied  { read } for  comm="pool-3-thread-2" name="enable" dev="sysfs" ino=126306 scontext=u:r:system_app:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   90.866485] [  T741] type=1400 audit(1787232782.915:1334): avc:  denied  { open } for  comm="pool-3-thread-2" path="/sys/devices/virtual/sn3112l/led/enable" dev="sysfs" ino=126306 scontext=u:r:system_app:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   90.866561] [  T741] type=1400 audit(1787232782.915:1335): avc:  denied  { getattr } for  comm="pool-3-thread-2" path="/sys/devices/virtual/sn3112l/led/enable" dev="sysfs" ino=126306 scontext=u:r:system_app:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[  369.579579] [  T741] type=1400 audit(1787233061.627:1374): avc:  denied  { open } for  comm="cat" path="/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/size" dev="sysfs" ino=85357 scontext=u:r:shell:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[  499.294799] [  T741] type=1400 audit(1787233191.343:1381): avc:  denied  { read } for  comm="cat" name="type" dev="sysfs" ino=85331 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_mmc_device_type:s0 tclass=file permissive=1
+[  499.295012] [  T741] type=1400 audit(1787233191.343:1382): avc:  denied  { open } for  comm="cat" path="/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/type" dev="sysfs" ino=85331 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_mmc_device_type:s0 tclass=file permissive=1
+[  926.444843] [  T741] type=1400 audit(1787233618.491:2235): avc:  denied  { read } for  comm="cat" name="type" dev="sysfs" ino=85331 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_mmc_device_type:s0 tclass=file permissive=1
+[  926.445027] [  T741] type=1400 audit(1787233618.491:2236): avc:  denied  { open } for  comm="cat" path="/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/type" dev="sysfs" ino=85331 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_mmc_device_type:s0 tclass=file permissive=1
+[ 1578.877688] [  T839] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[ 1596.465650] [  T765] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[ 2261.245633] [  T765] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+
+===== MOUNT AND STORAGE SUMMARY =====
+/dev/block/sda9 on /metadata type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,alloc_mode=reuse,checkpoint_merge,fsync_mode=posix,memory=normal)
+/dev/block/loop1 on /bootstrap-apex/com.android.tzdata@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/vendor/apex/com.google.android.widevine.nonupdatable.apex)
+/dev/block/loop3 on /bootstrap-apex/com.android.i18n@1 type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/data/apex/decompressed/com.android.tethering@352090000.decompressed.apex)
+/dev/block/loop1 on /bootstrap-apex/com.android.tzdata type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/vendor/apex/com.google.android.widevine.nonupdatable.apex)
+/dev/block/loop3 on /bootstrap-apex/com.android.i18n type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/data/apex/decompressed/com.android.tethering@352090000.decompressed.apex)
+tmpfs on /storage type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=755,gid=1000)
+/dev/block/dm-60 on /data type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+tmpfs on /data_mirror type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,size=3728188k,nr_inodes=932047,mode=700,gid=1000)
+/dev/block/dm-60 on /data_mirror/data_ce/null type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data_mirror/data_de/null type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data_mirror/misc_ce/null type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data_mirror/misc_de/null type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data_mirror/storage_area type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data_mirror/cur_profiles type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data_mirror/ref_profiles type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/loop5 on /apex/com.android.sdkext@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/data/apex/decompressed/com.android.conscrypt@352090000.decompressed.apex)
+/dev/block/loop5 on /apex/com.android.sdkext type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/data/apex/decompressed/com.android.conscrypt@352090000.decompressed.apex)
+/dev/block/loop4 on /apex/com.android.i18n@1 type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/data/apex/decompressed/com.android.appsearch@352090000.decompressed.apex)
+/dev/block/loop4 on /apex/com.android.i18n type ext4 (ro,dirsync,seclabel,nodev,noatime,file=/data/apex/decompressed/com.android.appsearch@352090000.decompressed.apex)
+/dev/block/loop20 on /apex/com.android.tzdata@352090000 type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/loop20 on /apex/com.android.tzdata type ext4 (ro,dirsync,seclabel,nodev,noatime)
+/dev/block/dm-60 on /data_mirror/data_ce/null/0 type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/block/dm-60 on /data/user/0 type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+/dev/fuse on /storage/emulated type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=1023,group_id=1023,allow_other)
+/dev/block/dm-60 on /mnt/pass_through/0/emulated type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,memory=normal)
+(null) on /mnt/media_rw/C5D7-C07A type exfat (rw,dirsync,nosuid,nodev,noexec,noatime,uid=1023,gid=1023,fmask=0007,dmask=0007,allow_utime=0020,iocharset=utf8,errors=remount-ro)
+/dev/fuse on /storage/C5D7-C07A type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=1023,group_id=1023,allow_other)
+Filesystem        Size Used Avail Use% Mounted on
+/dev/block/dm-14  1.2G 1.2G     0 100% /
+tmpfs             3.5G 2.0M  3.5G   1% /dev
+tmpfs             3.5G    0  3.5G   0% /mnt
+/dev/block/sda9    62M  34M   28M  56% /metadata
+/dev/block/dm-15  444M 443M     0 100% /system_ext
+/dev/block/dm-16  1.0G 1.0G     0 100% /product
+/dev/block/dm-17  2.3G 2.3G     0 100% /vendor
+/dev/block/dm-18   60M  60M     0 100% /vendor_dlkm
+/dev/block/dm-19   11M  11M     0 100% /system_dlkm
+/dev/block/dm-20  1.2M 1.2M     0 100% /odm
+tmpfs             3.5G  16K  3.5G   1% /apex
+tmpfs             3.5G 4.0K  3.5G   1% /bootstrap-apex
+tmpfs             3.5G 888K  3.5G   1% /linkerconfig
+/dev/block/loop0  7.2M 7.2M     0 100% /bootstrap-apex/com.android.runtime@1
+/dev/block/loop1  780K 748K   16K  98% /bootstrap-apex/com.android.tzdata@352090000
+/dev/block/loop3   34M  34M     0 100% /bootstrap-apex/com.android.i18n@1
+/dev/block/loop2   23M  23M     0 100% /bootstrap-apex/com.android.vndk.v34@1
+tmpfs             3.5G    0  3.5G   0% /tmp
+/dev/block/sda2    27M 2.0M   24M   8% /mnt/vendor/persist
+/dev/block/sde36  350M  99M  251M  29% /vendor/firmware_mnt
+/dev/block/sde39   58M  34M   22M  61% /vendor/dsp
+/dev/block/sde37   64M 1.6M   62M   3% /vendor/bt_firmware
+/dev/block/sde24   30M    0   30M   0% /mnt/vendor/qmcs
+/dev/block/sde70   32M    0   32M   0% /mnt/vendor/spunvm
+/dev/block/dm-60   83G  61G   22G  74% /data
+tmpfs             3.5G    0  3.5G   0% /data_mirror
+/dev/block/loop5  780K 752K   12K  99% /apex/com.android.sdkext@352090000
+/dev/block/loop4   34M  34M     0 100% /apex/com.android.i18n@1
+/dev/block/loop6   21M  21M     0 100% /apex/com.android.btservices@352090000
+/dev/block/dm-27   23M  23M     0 100% /apex/com.android.permission@352090000
+/dev/block/loop7   23M  23M     0 100% /apex/com.android.vndk.v34@1
+/dev/block/loop21 3.2M 3.1M     0 100% /apex/com.android.compos@2
+/dev/block/loop8  3.9M 3.9M     0 100% /apex/com.google.android.widevine@343213000
+/dev/block/loop22  12M  12M     0 100% /apex/com.android.healthfitness@352090000
+/dev/block/loop19  71M  71M     0 100% /apex/com.android.virt@2
+/dev/block/loop10 1.2M 1.1M  8.0K 100% /apex/com.android.rkpd@352090000
+/dev/block/loop13 232K 112K  116K  50% /apex/com.android.apex.cts.shim@1
+/dev/block/dm-57   23M  23M     0 100% /apex/com.android.extservices@352090000
+/dev/block/loop18  63M  63M     0 100% /apex/com.android.vndk.v30@1
+/dev/block/loop12 6.4M 6.4M     0 100% /apex/com.android.nfcservices@352090000
+/dev/block/loop16 5.8M 5.8M     0 100% /apex/com.android.devicelock@1
+/dev/block/loop20 780K 748K   16K  98% /apex/com.android.tzdata@352090000
+/dev/block/dm-58   16M  16M     0 100% /apex/com.android.tethering@352090000
+/dev/block/dm-59   17M  17M     0 100% /apex/com.android.mediaprovider@352090000
+/dev/block/loop15  23M  23M     0 100% /apex/com.android.vndk.v31@1
+/dev/block/loop17 7.2M 7.2M     0 100% /apex/com.android.runtime@1
+/dev/block/loop11  26M  26M     0 100% /apex/com.android.vndk.v33@1
+/dev/block/dm-48  560K 532K   20K  97% /apex/com.android.configinfrastructure@352090000
+/dev/block/dm-51  6.1M 6.1M     0 100% /apex/com.android.adbd@352090000
+/dev/block/dm-47  4.4M 4.3M     0 100% /apex/com.android.appsearch@352090000
+/dev/block/loop14  23M  23M     0 100% /apex/com.android.vndk.v32@1
+/dev/block/dm-34  832K 804K   12K  99% /apex/com.android.ipsec@352090000
+/dev/block/dm-41  4.3M 4.2M     0 100% /apex/com.android.neuralnetworks@352090000
+/dev/block/dm-56  4.3M 4.3M     0 100% /apex/com.android.uwb@352090000
+/dev/block/dm-45  232K 104K  124K  46% /apex/com.android.scheduling@352090000
+/dev/block/loop41 3.4M 3.3M     0 100% /apex/com.android.os.statsd@352090000
+/dev/block/dm-49  8.8M 8.7M     0 100% /apex/com.android.wifi@352090000
+/dev/block/dm-42   14M  14M     0 100% /apex/com.android.ondevicepersonalization@352090000
+/dev/block/dm-23  4.1M 4.1M     0 100% /apex/com.android.resolv@352090000
+/dev/block/dm-52   28M  28M     0 100% /apex/com.android.media.swcodec@352090000
+/dev/block/dm-39  5.7M 5.7M     0 100% /apex/com.android.media@352090000
+/dev/block/dm-55   28M  28M     0 100% /apex/com.android.art@352090000
+/dev/block/dm-31   22M  21M     0 100% /apex/com.android.adservices@352090000
+/dev/block/dm-44  4.6M 4.5M     0 100% /apex/com.android.conscrypt@352090000
+/dev/block/dm-32  596K 568K   16K  98% /apex/com.android.profiling@352090000
+/dev/fuse          83G  61G   22G  74% /mnt/installer/0/emulated
+/dev/fuse         955G 696G  259G  73% /mnt/installer/0/C5D7-C07A
+
+===== END READ-ONLY G2 BOOT INVESTIGATION =====
