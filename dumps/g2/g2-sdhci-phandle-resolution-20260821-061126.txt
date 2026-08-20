@@ -1,0 +1,414 @@
+===== IDENTITY =====
+Retroid Pocket G2
+pineapple
+_b
+
+===== SDHCI PHANDLE PROPERTIES =====
+--- clocks ---
+ 00 00 01 6f 00 00 00 6c 00 00 01 6f 00 00 00 6d
+--- resets ---
+ 00 00 01 6f 00 00 00 11
+--- vdd-supply ---
+ 00 00 03 52
+--- vdd-io-supply ---
+ 00 00 03 59
+--- iommus ---
+ 00 00 01 2a 00 00 01 40 00 00 00 00
+--- interconnects ---
+ 00 00 01 a2 00 00 00 2f 00 00 01 89 00 00 02 00
+ 00 00 01 a3 00 00 00 02 00 00 01 a4 00 00 02 1e
+--- operating-points-v2 ---
+ 00 00 01 a5
+--- pinctrl-0 ---
+ 00 00 03 ac
+--- pinctrl-1 ---
+ 00 00 03 ad
+
+===== RESOLVED CLOCK/RESET CONTROLLER 0x0000016f =====
+/sys/firmware/devicetree/base/soc/clock-controller@100000
+
+===== RESOLVED VDD 0x00000352 =====
+/sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob13/regulator-pmxr2230-l13
+
+===== RESOLVED VDD-IO 0x00000359 =====
+/sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob23/regulator-pmxr2230-l23
+
+===== RESOLVED IOMMU 0x0000012a =====
+/sys/firmware/devicetree/base/soc/apps-smmu@15000000
+
+===== RESOLVED PINCTRL 0x000003ac =====
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on
+
+===== RESOLVED PINCTRL 0x000003ad =====
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off
+
+===== RELATED NODE PROPERTIES =====
+--- /sys/firmware/devicetree/base/soc/interconnect@16C0000 ---
+name: interconnect 
+compatible: qcom,cliffs-pcie_anoc 
+--- /sys/firmware/devicetree/base/soc/interconnect@7400000 ---
+name: interconnect 
+compatible: qcom,cliffs-lpass_lpiaon_noc 
+--- /sys/firmware/devicetree/base/soc/qcom,cam_smmu ---
+name: qcom,cam_smmu 
+compatible: qcom,msm-cam-smmu simple-bus 
+--- /sys/firmware/devicetree/base/soc/qcom,cam_smmu/msm_cam_smmu_cre ---
+name: msm_cam_smmu_cre 
+compatible: qcom,msm-cam-smmu-cb 
+--- /sys/firmware/devicetree/base/soc/qcom,cam_smmu/msm_cam_smmu_ife ---
+name: msm_cam_smmu_ife 
+compatible: qcom,msm-cam-smmu-cb 
+--- /sys/firmware/devicetree/base/soc/qcom,cam_smmu/msm_cam_smmu_icp ---
+name: msm_cam_smmu_icp 
+compatible: qcom,msm-cam-smmu-cb 
+--- /sys/firmware/devicetree/base/soc/qcom,cam_smmu/msm_cam_smmu_jpeg ---
+name: msm_cam_smmu_jpeg 
+compatible: qcom,msm-cam-smmu-cb 
+--- /sys/firmware/devicetree/base/soc/qcom,cam_smmu/msm_cam_smmu_cdm ---
+name: msm_cam_smmu_cdm 
+compatible: qcom,msm-cam-smmu-cb 
+--- /sys/firmware/devicetree/base/soc/qcom,cam_smmu/msm_cam_smmu_secure ---
+name: msm_cam_smmu_secure 
+compatible: qcom,msm-cam-smmu-cb 
+--- /sys/firmware/devicetree/base/soc/qcom,smmu_sde_unsec_cb ---
+name: qcom,smmu_sde_unsec_cb 
+compatible: qcom,smmu_sde_unsec 
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000 ---
+name: interconnect 
+compatible: qcom,cliffs-cnoc_cfg 
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000 ---
+name: interconnect 
+compatible: qcom,cliffs-gem_noc 
+--- /sys/firmware/devicetree/base/soc/interconnect@1680000 ---
+name: interconnect 
+compatible: qcom,cliffs-system_noc 
+--- /sys/firmware/devicetree/base/soc/clock-controller@0 ---
+name: clock-controller 
+compatible: qcom,cliffs-debugcc 
+--- /sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pm8550vs@4/pinctrl@8800 ---
+name: pinctrl 
+compatible: qcom,pm8550vs-gpio 
+--- /sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pm7550ba@7/pinctrl@8800 ---
+name: pinctrl 
+compatible: qcom,pm7550ba-gpio 
+--- /sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pm8550vs@2/pinctrl@8800 ---
+name: pinctrl 
+compatible: qcom,pm8550vs-gpio 
+--- /sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pmr735a@4/pinctrl@8800 ---
+name: pinctrl 
+compatible: qcom,pmr735a-gpio 
+--- /sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pm8550ve@8/pinctrl@8800 ---
+name: pinctrl 
+compatible: qcom,pm8550ve-gpio 
+--- /sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pmk8550@0/pinctrl@b800 ---
+name: pinctrl 
+compatible: qcom,pmk8550-gpio 
+--- /sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pm8550vs@3/pinctrl@8800 ---
+name: pinctrl 
+compatible: qcom,pm8550vs-gpio 
+--- /sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pmxr2230@1/pinctrl@8800 ---
+name: pinctrl 
+compatible: qcom,pmxr2230-gpio 
+--- /sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pm8550vs@6/pinctrl@8800 ---
+name: pinctrl 
+compatible: qcom,pm8550vs-gpio 
+--- /sys/firmware/devicetree/base/soc/interconnect@1500000 ---
+name: interconnect 
+compatible: qcom,cliffs-cnoc_main 
+--- /sys/firmware/devicetree/base/soc/msm_cdc_pinctrl@32 ---
+name: msm_cdc_pinctrl 
+compatible: qcom,msm-cdc-pinctrl 
+--- /sys/firmware/devicetree/base/soc/wsa_spkr_en2_pinctrl ---
+name: wsa_spkr_en2_pinctrl 
+compatible: qcom,msm-cdc-pinctrl 
+--- /sys/firmware/devicetree/base/soc/qcom,smmu_sde_sec_cb ---
+name: qcom,smmu_sde_sec_cb 
+compatible: qcom,smmu_sde_sec 
+--- /sys/firmware/devicetree/base/soc/apps-smmu@15000000 ---
+name: apps-smmu 
+compatible: qcom,qsmmu-v500 
+--- /sys/firmware/devicetree/base/soc/clocks ---
+name: clocks 
+--- /sys/firmware/devicetree/base/soc/clocks/usb3_phy_wrapper_gcc_usb30_pipe_clk ---
+name: usb3_phy_wrapper_gcc_usb30_pipe_clk 
+compatible: fixed-clock 
+clock-output-names: usb3_phy_wrapper_gcc_usb30_pipe_clk 
+--- /sys/firmware/devicetree/base/soc/clock-controller@aaf0000 ---
+name: clock-controller 
+compatible: qcom,cliffs-videocc syscon 
+--- /sys/firmware/devicetree/base/soc/interconnect@0 ---
+name: interconnect 
+compatible: qcom,cliffs-clk_virt 
+--- /sys/firmware/devicetree/base/soc/interconnect@1400000 ---
+name: interconnect 
+compatible: qcom,cliffs-mmss_noc 
+--- /sys/firmware/devicetree/base/soc/clock-controller@100000 ---
+name: clock-controller 
+compatible: qcom,cliffs-gcc syscon 
+--- /sys/firmware/devicetree/base/soc/clock-controller@1f40000 ---
+name: clock-controller 
+compatible: qcom,pineapple-tcsrcc syscon 
+--- /sys/firmware/devicetree/base/soc/mem_dump/scandump_smmu ---
+name: scandump_smmu 
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000 ---
+name: interconnect 
+compatible: qcom,cliffs-aggre1_noc 
+--- /sys/firmware/devicetree/base/soc/clock-controller@af00000 ---
+name: clock-controller 
+compatible: qcom,cliffs-dispcc syscon 
+--- /sys/firmware/devicetree/base/soc/clock-controller@3d90000 ---
+name: clock-controller 
+compatible: qcom,cliffs-gpucc syscon 
+--- /sys/firmware/devicetree/base/soc/interconnect@7E40000 ---
+name: interconnect 
+compatible: qcom,cliffs-lpass_ag_noc 
+--- /sys/firmware/devicetree/base/soc/clock-controller@ade0000 ---
+name: clock-controller 
+compatible: qcom,cliffs-camcc syscon 
+--- /sys/firmware/devicetree/base/soc/wsa_spkr_en1_pinctrl ---
+name: wsa_spkr_en1_pinctrl 
+compatible: qcom,msm-cdc-pinctrl 
+--- /sys/firmware/devicetree/base/soc/interconnect@320C0000 ---
+name: interconnect 
+compatible: qcom,cliffs-nsp_noc 
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/wsa_swr_clk_data_pinctrl ---
+name: wsa_swr_clk_data_pinctrl 
+compatible: qcom,msm-cdc-pinctrl 
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/cdc_dmic01_pinctrl ---
+name: cdc_dmic01_pinctrl 
+compatible: qcom,msm-cdc-pinctrl 
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/cdc_dmic45_pinctrl ---
+name: cdc_dmic45_pinctrl 
+compatible: qcom,msm-cdc-pinctrl 
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/quin_mi2s_pinctrl ---
+name: quin_mi2s_pinctrl 
+compatible: qcom,msm-cdc-pinctrl 
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/tx_swr_clk_data_pinctrl ---
+name: tx_swr_clk_data_pinctrl 
+compatible: qcom,msm-cdc-pinctrl 
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/fm_i2s1_pinctrl ---
+name: fm_i2s1_pinctrl 
+compatible: qcom,msm-cdc-pinctrl 
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/lpi_pinctrl@6E80000 ---
+name: lpi_pinctrl 
+compatible: qcom,lpi-pinctrl 
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/cdc_dmic23_pinctrl ---
+name: cdc_dmic23_pinctrl 
+compatible: qcom,msm-cdc-pinctrl 
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/rx_swr_clk_data_pinctrl ---
+name: rx_swr_clk_data_pinctrl 
+compatible: qcom,msm-cdc-pinctrl 
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/cdc_dmic67_pinctrl ---
+name: cdc_dmic67_pinctrl 
+compatible: qcom,msm-cdc-pinctrl 
+--- /sys/firmware/devicetree/base/soc/kgsl-smmu@3da0000 ---
+name: kgsl-smmu 
+compatible: qcom,qsmmu-v500 qcom,adreno-smmu 
+--- /sys/firmware/devicetree/base/soc/interconnect@1 ---
+name: interconnect 
+compatible: qcom,cliffs-mc_virt 
+--- /sys/firmware/devicetree/base/soc/interconnect@7430000 ---
+name: interconnect 
+compatible: qcom,cliffs-lpass_lpicx_noc 
+--- /sys/firmware/devicetree/base/soc/qti,smmu-proxy ---
+name: qti,smmu-proxy 
+compatible: smmu-proxy-sender 
+--- /sys/firmware/devicetree/base/soc/interconnect@1700000 ---
+name: interconnect 
+compatible: qcom,cliffs-aggre2_noc 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldom4 ---
+name: rpmh-regulator-ldom4 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-lcxlvl ---
+name: rpmh-regulator-lcxlvl 
+compatible: qcom,rpmh-arc-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-smpe3 ---
+name: rpmh-regulator-smpe3 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldon2 ---
+name: rpmh-regulator-ldon2 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob18 ---
+name: rpmh-regulator-ldob18 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldom2 ---
+name: rpmh-regulator-ldom2 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-smpb3 ---
+name: rpmh-regulator-smpb3 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob8 ---
+name: rpmh-regulator-ldob8 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-smpe1 ---
+name: rpmh-regulator-smpe1 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldoe6 ---
+name: rpmh-regulator-ldoe6 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob16 ---
+name: rpmh-regulator-ldob16 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-smpb1 ---
+name: rpmh-regulator-smpb1 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ebilvl ---
+name: rpmh-regulator-ebilvl 
+compatible: qcom,rpmh-arc-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldoe4 ---
+name: rpmh-regulator-ldoe4 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-cxlvl ---
+name: rpmh-regulator-cxlvl 
+compatible: qcom,rpmh-arc-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/clock-controller ---
+name: clock-controller 
+compatible: qcom,cliffs-rpmh-clk 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob4 ---
+name: rpmh-regulator-ldob4 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldoe2 ---
+name: rpmh-regulator-ldoe2 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldon7 ---
+name: rpmh-regulator-ldon7 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob22 ---
+name: rpmh-regulator-ldob22 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldom7 ---
+name: rpmh-regulator-ldom7 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob12 ---
+name: rpmh-regulator-ldob12 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob2 ---
+name: rpmh-regulator-ldob2 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldon5 ---
+name: rpmh-regulator-ldon5 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob20 ---
+name: rpmh-regulator-ldob20 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob10 ---
+name: rpmh-regulator-ldob10 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldon3 ---
+name: rpmh-regulator-ldon3 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob19 ---
+name: rpmh-regulator-ldob19 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldom3 ---
+name: rpmh-regulator-ldom3 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob9 ---
+name: rpmh-regulator-ldob9 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-gfxlvl ---
+name: rpmh-regulator-gfxlvl 
+compatible: qcom,rpmh-arc-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-bobb1 ---
+name: rpmh-regulator-bobb1 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-nsplvl ---
+name: rpmh-regulator-nsplvl 
+compatible: qcom,rpmh-arc-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-smpe2 ---
+name: rpmh-regulator-smpe2 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldoe7 ---
+name: rpmh-regulator-ldoe7 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-lmxlvl ---
+name: rpmh-regulator-lmxlvl 
+compatible: qcom,rpmh-arc-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldon1 ---
+name: rpmh-regulator-ldon1 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob17 ---
+name: rpmh-regulator-ldob17 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldom1 ---
+name: rpmh-regulator-ldom1 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-smpb2 ---
+name: rpmh-regulator-smpb2 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob7 ---
+name: rpmh-regulator-ldob7 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldoe5 ---
+name: rpmh-regulator-ldoe5 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-msslvl ---
+name: rpmh-regulator-msslvl 
+compatible: qcom,rpmh-arc-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-mxclvl ---
+name: rpmh-regulator-mxclvl 
+compatible: qcom,rpmh-arc-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob5 ---
+name: rpmh-regulator-ldob5 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldoe3 ---
+name: rpmh-regulator-ldoe3 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-mmcxlvl ---
+name: rpmh-regulator-mmcxlvl 
+compatible: qcom,rpmh-arc-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob23 ---
+name: rpmh-regulator-ldob23 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldod3 ---
+name: rpmh-regulator-ldod3 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-mxlvl ---
+name: rpmh-regulator-mxlvl 
+compatible: qcom,rpmh-arc-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob13 ---
+name: rpmh-regulator-ldob13 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldoc3 ---
+name: rpmh-regulator-ldoc3 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob3 ---
+name: rpmh-regulator-ldob3 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldoe1 ---
+name: rpmh-regulator-ldoe1 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldon6 ---
+name: rpmh-regulator-ldon6 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob21 ---
+name: rpmh-regulator-ldob21 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldod1 ---
+name: rpmh-regulator-ldod1 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldom6 ---
+name: rpmh-regulator-ldom6 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob11 ---
+name: rpmh-regulator-ldob11 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldoc1 ---
+name: rpmh-regulator-ldoc1 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob1 ---
+name: rpmh-regulator-ldob1 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldon4 ---
+name: rpmh-regulator-ldon4 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-smpj1 ---
+name: rpmh-regulator-smpj1 
+compatible: qcom,rpmh-vrm-regulator 
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000 ---
+name: pinctrl 
+compatible: qcom,cliffs-pinctrl 
+
+===== SAFETY =====
+READ-ONLY Device Tree/sysfs audit only.
+No UFS/SD block contents, flash, erase, format, repartition, slot, AVB or firmware operation performed.
