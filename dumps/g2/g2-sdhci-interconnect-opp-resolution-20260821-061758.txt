@@ -1,0 +1,86 @@
+===== IDENTITY =====
+Retroid Pocket G2
+pineapple
+_b
+
+===== SDHCI INTERCONNECT/OPP PROPERTIES =====
+--- interconnects ---
+ 00 00 01 a2 00 00 00 2f 00 00 01 89 00 00 02 00
+ 00 00 01 a3 00 00 00 02 00 00 01 a4 00 00 02 1e
+--- operating-points-v2 ---
+ 00 00 01 a5
+
+===== RESOLVE INTERCONNECT PHANDLES =====
+PHANDLE=000001a2
+/sys/firmware/devicetree/base/soc/interconnect@16E0000
+PHANDLE=00000189
+/sys/firmware/devicetree/base/soc/interconnect@1
+PHANDLE=000001a3
+/sys/firmware/devicetree/base/soc/interconnect@24100000
+PHANDLE=000001a4
+/sys/firmware/devicetree/base/soc/interconnect@1600000
+
+===== RESOLVE OPP PHANDLE =====
+/sys/firmware/devicetree/base/soc/sdhc2-opp-table
+
+===== RESOLVED NODE DETAILS =====
+NODE=/sys/firmware/devicetree/base/soc/interconnect@16E0000
+name: interconnect 
+compatible: qcom,cliffs-aggre1_noc 
+reg: n   ‘€
+NODE=/sys/firmware/devicetree/base/soc/interconnect@1
+name: interconnect 
+compatible: qcom,cliffs-mc_virt 
+NODE=/sys/firmware/devicetree/base/soc/interconnect@24100000
+name: interconnect 
+compatible: qcom,cliffs-gem_noc 
+reg: $   0€
+NODE=/sys/firmware/devicetree/base/soc/interconnect@1600000
+name: interconnect 
+compatible: qcom,cliffs-cnoc_cfg 
+reg: `    i 
+NODE=/sys/firmware/devicetree/base/soc/sdhc2-opp-table
+name: sdhc2-opp-table 
+compatible: operating-points-v2 
+
+===== ALL OPP TABLES =====
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table ---
+compatible:  6f 70 65 72 61 74 69 6e 67 2d 70 6f 69 6e 74 73
+ 2d 76 32 00
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-100000000 ---
+opp-hz:  00 00 00 00 05 f5 e1 00
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-202000000 ---
+opp-hz:  00 00 00 00 0c 0a 46 80
+
+===== ALL RELEVANT INTERCONNECT NODES =====
+--- /sys/firmware/devicetree/base/soc/interconnect@16C0000 ---
+compatible: qcom,cliffs-pcie_anoc 
+--- /sys/firmware/devicetree/base/soc/interconnect@7400000 ---
+compatible: qcom,cliffs-lpass_lpiaon_noc 
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000 ---
+compatible: qcom,cliffs-cnoc_cfg 
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000 ---
+compatible: qcom,cliffs-gem_noc 
+--- /sys/firmware/devicetree/base/soc/interconnect@1680000 ---
+compatible: qcom,cliffs-system_noc 
+--- /sys/firmware/devicetree/base/soc/interconnect@1500000 ---
+compatible: qcom,cliffs-cnoc_main 
+--- /sys/firmware/devicetree/base/soc/interconnect@0 ---
+compatible: qcom,cliffs-clk_virt 
+--- /sys/firmware/devicetree/base/soc/interconnect@1400000 ---
+compatible: qcom,cliffs-mmss_noc 
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000 ---
+compatible: qcom,cliffs-aggre1_noc 
+--- /sys/firmware/devicetree/base/soc/interconnect@7E40000 ---
+compatible: qcom,cliffs-lpass_ag_noc 
+--- /sys/firmware/devicetree/base/soc/interconnect@320C0000 ---
+compatible: qcom,cliffs-nsp_noc 
+--- /sys/firmware/devicetree/base/soc/interconnect@1 ---
+compatible: qcom,cliffs-mc_virt 
+--- /sys/firmware/devicetree/base/soc/interconnect@7430000 ---
+compatible: qcom,cliffs-lpass_lpicx_noc 
+--- /sys/firmware/devicetree/base/soc/interconnect@1700000 ---
+compatible: qcom,cliffs-aggre2_noc 
+
+===== SAFETY =====
+READ-ONLY Device Tree audit only. No UFS/SD block access, flash, erase, format, repartition, slot, AVB or firmware operation.
