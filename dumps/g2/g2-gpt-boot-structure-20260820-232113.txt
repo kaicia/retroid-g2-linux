@@ -1,0 +1,1059 @@
+
+===== IDENTITY =====
+Retroid Pocket G2
+pineapple
+qti/pineapple/pineapple:15/AQ3A.250226.002/eng.RPG2.20260123.180002:user/dev-keys
+_b
+soc/1d84000.ufshc
+1d84000.ufshc
+
+===== BOOT PARTITION METADATA =====
+--- xbl_a ---
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 /dev/block/by-name/xbl_a -> /dev/block/sdb1
+size: 7168
+ro: 0
+start: 48
+dev: 8:17
+--- xbl_b ---
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 /dev/block/by-name/xbl_b -> /dev/block/sdc1
+size: 7168
+ro: 0
+start: 48
+dev: 8:33
+--- abl_a ---
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 /dev/block/by-name/abl_a -> /dev/block/sde9
+size: 2048
+ro: 0
+start: 828752
+dev: 8:73
+--- abl_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/abl_b -> /dev/block/sde38
+size: 2048
+ro: 0
+start: 3584464
+dev: 259:22
+--- uefi_a ---
+lrwxrwxrwx 1 root root 15 1970-10-16 16:33 /dev/block/by-name/uefi_a -> /dev/block/sde2
+size: 10240
+ro: 0
+start: 66896
+dev: 8:66
+--- uefi_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/uefi_b -> /dev/block/sde31
+size: 10240
+ro: 0
+start: 2822608
+dev: 259:15
+--- uefisecapp_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/uefisecapp_a -> /dev/block/sde17
+size: 4096
+ro: 0
+start: 1225584
+dev: 259:1
+--- uefisecapp_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/uefisecapp_b -> /dev/block/sde46
+size: 4096
+ro: 0
+start: 3981296
+dev: 259:30
+--- boot_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/boot_a -> /dev/block/sde12
+size: 196608
+ro: 0
+start: 962896
+dev: 8:76
+--- boot_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/boot_b -> /dev/block/sde41
+size: 196608
+ro: 0
+start: 3718608
+dev: 259:25
+--- init_boot_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/init_boot_a -> /dev/block/sde28
+size: 16384
+ro: 0
+start: 2804048
+dev: 259:12
+--- init_boot_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/init_boot_b -> /dev/block/sde56
+size: 16384
+ro: 0
+start: 5498320
+dev: 259:40
+--- vendor_boot_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/vendor_boot_a -> /dev/block/sde23
+size: 196608
+ro: 0
+start: 2336592
+dev: 259:7
+--- vendor_boot_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/vendor_boot_b -> /dev/block/sde52
+size: 196608
+ro: 0
+start: 5092304
+dev: 259:36
+--- dtbo_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/dtbo_a -> /dev/block/sde16
+size: 65536
+ro: 0
+start: 1160048
+dev: 259:0
+--- dtbo_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/dtbo_b -> /dev/block/sde45
+size: 65536
+ro: 0
+start: 3915760
+dev: 259:29
+--- vbmeta_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/vbmeta_a -> /dev/block/sde15
+size: 128
+ro: 0
+start: 1159920
+dev: 8:79
+--- vbmeta_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/vbmeta_b -> /dev/block/sde44
+size: 128
+ro: 0
+start: 3915632
+dev: 259:28
+--- recovery_a ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/recovery_a -> /dev/block/sde26
+size: 204800
+ro: 0
+start: 2595152
+dev: 259:10
+--- recovery_b ---
+lrwxrwxrwx 1 root root 16 1970-10-16 16:33 /dev/block/by-name/recovery_b -> /dev/block/sde54
+size: 204800
+ro: 0
+start: 5289424
+dev: 259:38
+
+===== WHOLE BLOCK DEVICES =====
+--- sda ---
+size: 224428032
+ro: 0
+removable: 0
+dev: 8:0
+/sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:0
+--- sdb ---
+size: 40960
+ro: 0
+removable: 0
+dev: 8:16
+/sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:1
+--- sdc ---
+size: 40960
+ro: 0
+removable: 0
+dev: 8:32
+/sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:2
+--- sdd ---
+size: 65536
+ro: 0
+removable: 0
+dev: 8:48
+/sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:3
+--- sde ---
+size: 8388608
+ro: 0
+removable: 0
+dev: 8:64
+/sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:4
+--- sdf ---
+size: 65536
+ro: 0
+removable: 0
+dev: 8:80
+/sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:5
+--- mmcblk1 ---
+size: 2002780160
+ro: 0
+removable: 0
+dev: 179:0
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001
+
+===== GPT/EFI USERSPACE AVAILABILITY =====
+/system/bin/sgdisk
+/system/bin/blkid
+/system/bin/toybox
+
+===== GPT METADATA VIA SYSFS =====
+--- sda partitions ---
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sda/sda1/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sda/sda10/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sda/sda11/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sda/sda12/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sda/sda2/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sda/sda3/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sda/sda4/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sda/sda5/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sda/sda6/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sda/sda7/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sda/sda8/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sda/sda9/partition
+--- sdb partitions ---
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdb/sdb1/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdb/sdb2/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdb/sdb3/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdb/sdb4/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdb/sdb5/partition
+--- sdc partitions ---
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdc/sdc1/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdc/sdc2/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdc/sdc3/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdc/sdc4/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdc/sdc5/partition
+--- sdd partitions ---
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdd/sdd1/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdd/sdd2/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdd/sdd3/partition
+--- sde partitions ---
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde1/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde10/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde11/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde12/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde13/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde14/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde15/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde16/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde17/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde18/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde19/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde2/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde20/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde21/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde22/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde23/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde24/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde25/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde26/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde27/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde28/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde29/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde3/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde30/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde31/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde32/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde33/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde34/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde35/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde36/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde37/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde38/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde39/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde4/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde40/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde41/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde42/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde43/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde44/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde45/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde46/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde47/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde48/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde49/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde5/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde50/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde51/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde52/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde53/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde54/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde55/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde56/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde57/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde58/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde59/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde6/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde60/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde61/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde62/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde63/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde64/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde65/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde66/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde67/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde68/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde69/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde7/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde70/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde71/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde72/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde73/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde8/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sde/sde9/partition
+--- sdf partitions ---
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdf/sdf1/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdf/sdf2/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdf/sdf3/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdf/sdf4/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdf/sdf5/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdf/sdf6/partition
+-r--r--r-- 1 root root 4096 2026-08-20 23:21 /sys/class/block/sdf/sdf7/partition
+
+===== UEFI/EFI NODES =====
+--- /sys/firmware/efi ---
+ls: /sys/firmware/efi: No such file or directory
+--- /sys/firmware/devicetree/base/firmware ---
+total 0
+drwxr-xr-x  5 root root 0 1970-10-16 16:33 .
+drwxr-xr-x 15 root root 0 1970-10-16 16:33 ..
+-r--r--r--  1 root root 9 2026-08-20 22:47 name
+-r--r--r--  1 root root 4 2026-08-20 22:47 phandle
+drwxr-xr-x  2 root root 0 2026-08-20 22:47 qcom_scm
+drwxr-xr-x  2 root root 0 2026-08-20 22:47 qcom_smcinvoke
+drwxr-xr-x  2 root root 0 2026-08-20 22:47 qtee_shmbridge
+--- /sys/firmware/devicetree/base/reserved-memory/uefi_log_region@81ce4000 ---
+total 0
+drwxr-xr-x  2 root root  0 2026-08-20 22:47 .
+drwxr-xr-x 61 root root  0 1970-10-16 16:33 ..
+-r--r--r--  1 root root 16 2026-08-20 22:47 name
+-r--r--r--  1 root root  0 2026-08-20 22:47 no-map
+-r--r--r--  1 root root  4 2026-08-20 22:47 phandle
+-r--r--r--  1 root root 16 2026-08-20 22:47 reg
+
+===== DEVICE TREE FIRMWARE / BOOT NODES =====
+/sys/firmware/devicetree/base/firmware
+/sys/firmware/devicetree/base/firmware/name
+/sys/firmware/devicetree/base/firmware/phandle
+/sys/firmware/devicetree/base/firmware/qcom_scm
+/sys/firmware/devicetree/base/firmware/qcom_scm/compatible
+/sys/firmware/devicetree/base/firmware/qcom_scm/interrupts
+/sys/firmware/devicetree/base/firmware/qcom_scm/name
+/sys/firmware/devicetree/base/firmware/qcom_scm/qcom,dload-mode
+/sys/firmware/devicetree/base/firmware/qcom_scm/qcom,max-queues
+/sys/firmware/devicetree/base/firmware/qcom_smcinvoke
+/sys/firmware/devicetree/base/firmware/qcom_smcinvoke/compatible
+/sys/firmware/devicetree/base/firmware/qcom_smcinvoke/name
+/sys/firmware/devicetree/base/firmware/qtee_shmbridge
+/sys/firmware/devicetree/base/firmware/qtee_shmbridge/compatible
+/sys/firmware/devicetree/base/firmware/qtee_shmbridge/name
+/sys/firmware/devicetree/base/reserved-memory
+/sys/firmware/devicetree/base/reserved-memory/#address-cells
+/sys/firmware/devicetree/base/reserved-memory/#size-cells
+/sys/firmware/devicetree/base/reserved-memory/adsp_heap_region
+/sys/firmware/devicetree/base/reserved-memory/adsp_heap_region/alignment
+/sys/firmware/devicetree/base/reserved-memory/adsp_heap_region/alloc-ranges
+/sys/firmware/devicetree/base/reserved-memory/adsp_heap_region/compatible
+/sys/firmware/devicetree/base/reserved-memory/adsp_heap_region/name
+/sys/firmware/devicetree/base/reserved-memory/adsp_heap_region/phandle
+/sys/firmware/devicetree/base/reserved-memory/adsp_heap_region/reusable
+/sys/firmware/devicetree/base/reserved-memory/adsp_heap_region/size
+/sys/firmware/devicetree/base/reserved-memory/adsp_mhi_region@81f00000
+/sys/firmware/devicetree/base/reserved-memory/adsp_mhi_region@81f00000/name
+/sys/firmware/devicetree/base/reserved-memory/adsp_mhi_region@81f00000/no-map
+/sys/firmware/devicetree/base/reserved-memory/adsp_mhi_region@81f00000/phandle
+/sys/firmware/devicetree/base/reserved-memory/adsp_mhi_region@81f00000/reg
+/sys/firmware/devicetree/base/reserved-memory/adspslpi_region@9d400000
+/sys/firmware/devicetree/base/reserved-memory/adspslpi_region@9d400000/name
+/sys/firmware/devicetree/base/reserved-memory/adspslpi_region@9d400000/no-map
+/sys/firmware/devicetree/base/reserved-memory/adspslpi_region@9d400000/phandle
+/sys/firmware/devicetree/base/reserved-memory/adspslpi_region@9d400000/reg
+/sys/firmware/devicetree/base/reserved-memory/aop_cmd_db_region@81c60000
+/sys/firmware/devicetree/base/reserved-memory/aop_cmd_db_region@81c60000/compatible
+/sys/firmware/devicetree/base/reserved-memory/aop_cmd_db_region@81c60000/name
+/sys/firmware/devicetree/base/reserved-memory/aop_cmd_db_region@81c60000/no-map
+/sys/firmware/devicetree/base/reserved-memory/aop_cmd_db_region@81c60000/phandle
+/sys/firmware/devicetree/base/reserved-memory/aop_cmd_db_region@81c60000/reg
+/sys/firmware/devicetree/base/reserved-memory/aop_config_region@81c80000
+/sys/firmware/devicetree/base/reserved-memory/aop_config_region@81c80000/name
+/sys/firmware/devicetree/base/reserved-memory/aop_config_region@81c80000/no-map
+/sys/firmware/devicetree/base/reserved-memory/aop_config_region@81c80000/phandle
+/sys/firmware/devicetree/base/reserved-memory/aop_config_region@81c80000/reg
+/sys/firmware/devicetree/base/reserved-memory/aop_image_region@81c00000
+/sys/firmware/devicetree/base/reserved-memory/aop_image_region@81c00000/name
+/sys/firmware/devicetree/base/reserved-memory/aop_image_region@81c00000/no-map
+/sys/firmware/devicetree/base/reserved-memory/aop_image_region@81c00000/phandle
+/sys/firmware/devicetree/base/reserved-memory/aop_image_region@81c00000/reg
+/sys/firmware/devicetree/base/reserved-memory/camera_region@9b300000
+/sys/firmware/devicetree/base/reserved-memory/camera_region@9b300000/name
+/sys/firmware/devicetree/base/reserved-memory/camera_region@9b300000/no-map
+/sys/firmware/devicetree/base/reserved-memory/camera_region@9b300000/phandle
+/sys/firmware/devicetree/base/reserved-memory/camera_region@9b300000/reg
+/sys/firmware/devicetree/base/reserved-memory/cdsp_eva_region
+/sys/firmware/devicetree/base/reserved-memory/cdsp_eva_region/alignment
+/sys/firmware/devicetree/base/reserved-memory/cdsp_eva_region/alloc-ranges
+/sys/firmware/devicetree/base/reserved-memory/cdsp_eva_region/compatible
+/sys/firmware/devicetree/base/reserved-memory/cdsp_eva_region/name
+/sys/firmware/devicetree/base/reserved-memory/cdsp_eva_region/phandle
+/sys/firmware/devicetree/base/reserved-memory/cdsp_eva_region/reusable
+/sys/firmware/devicetree/base/reserved-memory/cdsp_eva_region/size
+/sys/firmware/devicetree/base/reserved-memory/cdsp_region@99900000
+/sys/firmware/devicetree/base/reserved-memory/cdsp_region@99900000/name
+/sys/firmware/devicetree/base/reserved-memory/cdsp_region@99900000/no-map
+/sys/firmware/devicetree/base/reserved-memory/cdsp_region@99900000/phandle
+/sys/firmware/devicetree/base/reserved-memory/cdsp_region@99900000/reg
+/sys/firmware/devicetree/base/reserved-memory/chipinfo_region@81cf4000
+/sys/firmware/devicetree/base/reserved-memory/chipinfo_region@81cf4000/name
+/sys/firmware/devicetree/base/reserved-memory/chipinfo_region@81cf4000/no-map
+/sys/firmware/devicetree/base/reserved-memory/chipinfo_region@81cf4000/phandle
+/sys/firmware/devicetree/base/reserved-memory/chipinfo_region@81cf4000/reg
+/sys/firmware/devicetree/base/reserved-memory/cpucp_fw_region@d8040000
+/sys/firmware/devicetree/base/reserved-memory/cpucp_fw_region@d8040000/name
+/sys/firmware/devicetree/base/reserved-memory/cpucp_fw_region@d8040000/no-map
+/sys/firmware/devicetree/base/reserved-memory/cpucp_fw_region@d8040000/phandle
+/sys/firmware/devicetree/base/reserved-memory/cpucp_fw_region@d8040000/reg
+/sys/firmware/devicetree/base/reserved-memory/cpusys_vm_region@80e00000
+/sys/firmware/devicetree/base/reserved-memory/cpusys_vm_region@80e00000/name
+/sys/firmware/devicetree/base/reserved-memory/cpusys_vm_region@80e00000/no-map
+/sys/firmware/devicetree/base/reserved-memory/cpusys_vm_region@80e00000/phandle
+/sys/firmware/devicetree/base/reserved-memory/cpusys_vm_region@80e00000/reg
+/sys/firmware/devicetree/base/reserved-memory/cvp_region@9919c000
+/sys/firmware/devicetree/base/reserved-memory/cvp_region@9919c000/name
+/sys/firmware/devicetree/base/reserved-memory/cvp_region@9919c000/no-map
+/sys/firmware/devicetree/base/reserved-memory/cvp_region@9919c000/phandle
+/sys/firmware/devicetree/base/reserved-memory/cvp_region@9919c000/reg
+/sys/firmware/devicetree/base/reserved-memory/debug_kinfo_region
+/sys/firmware/devicetree/base/reserved-memory/debug_kinfo_region/alloc-ranges
+/sys/firmware/devicetree/base/reserved-memory/debug_kinfo_region/name
+/sys/firmware/devicetree/base/reserved-memory/debug_kinfo_region/no-map
+/sys/firmware/devicetree/base/reserved-memory/debug_kinfo_region/phandle
+/sys/firmware/devicetree/base/reserved-memory/debug_kinfo_region/size
+/sys/firmware/devicetree/base/reserved-memory/demura_region_0
+/sys/firmware/devicetree/base/reserved-memory/demura_region_0/label
+/sys/firmware/devicetree/base/reserved-memory/demura_region_0/name
+/sys/firmware/devicetree/base/reserved-memory/demura_region_0/phandle
+/sys/firmware/devicetree/base/reserved-memory/demura_region_0/reg
+/sys/firmware/devicetree/base/reserved-memory/demura_region_1
+/sys/firmware/devicetree/base/reserved-memory/demura_region_1/label
+/sys/firmware/devicetree/base/reserved-memory/demura_region_1/name
+/sys/firmware/devicetree/base/reserved-memory/demura_region_1/phandle
+/sys/firmware/devicetree/base/reserved-memory/demura_region_1/reg
+/sys/firmware/devicetree/base/reserved-memory/dsm_partition_1_region@86b00000
+/sys/firmware/devicetree/base/reserved-memory/dsm_partition_1_region@86b00000/name
+/sys/firmware/devicetree/base/reserved-memory/dsm_partition_1_region@86b00000/no-map
+/sys/firmware/devicetree/base/reserved-memory/dsm_partition_1_region@86b00000/phandle
+/sys/firmware/devicetree/base/reserved-memory/dsm_partition_1_region@86b00000/reg
+/sys/firmware/devicetree/base/reserved-memory/global_sync_region@82600000
+/sys/firmware/devicetree/base/reserved-memory/global_sync_region@82600000/name
+/sys/firmware/devicetree/base/reserved-memory/global_sync_region@82600000/no-map
+/sys/firmware/devicetree/base/reserved-memory/global_sync_region@82600000/phandle
+/sys/firmware/devicetree/base/reserved-memory/global_sync_region@82600000/reg
+/sys/firmware/devicetree/base/reserved-memory/gpu_microcode_region@9899a000
+/sys/firmware/devicetree/base/reserved-memory/gpu_microcode_region@9899a000/name
+/sys/firmware/devicetree/base/reserved-memory/gpu_microcode_region@9899a000/no-map
+/sys/firmware/devicetree/base/reserved-memory/gpu_microcode_region@9899a000/phandle
+/sys/firmware/devicetree/base/reserved-memory/gpu_microcode_region@9899a000/reg
+/sys/firmware/devicetree/base/reserved-memory/gunyah_hyp_region@80000000
+/sys/firmware/devicetree/base/reserved-memory/gunyah_hyp_region@80000000/name
+/sys/firmware/devicetree/base/reserved-memory/gunyah_hyp_region@80000000/no-map
+/sys/firmware/devicetree/base/reserved-memory/gunyah_hyp_region@80000000/phandle
+/sys/firmware/devicetree/base/reserved-memory/gunyah_hyp_region@80000000/reg
+/sys/firmware/devicetree/base/reserved-memory/hyp_mem_database_region@825a0000
+/sys/firmware/devicetree/base/reserved-memory/hyp_mem_database_region@825a0000/name
+/sys/firmware/devicetree/base/reserved-memory/hyp_mem_database_region@825a0000/no-map
+/sys/firmware/devicetree/base/reserved-memory/hyp_mem_database_region@825a0000/phandle
+/sys/firmware/devicetree/base/reserved-memory/hyp_mem_database_region@825a0000/reg
+/sys/firmware/devicetree/base/reserved-memory/ipa_fw_region@98980000
+/sys/firmware/devicetree/base/reserved-memory/ipa_fw_region@98980000/name
+/sys/firmware/devicetree/base/reserved-memory/ipa_fw_region@98980000/no-map
+/sys/firmware/devicetree/base/reserved-memory/ipa_fw_region@98980000/phandle
+/sys/firmware/devicetree/base/reserved-memory/ipa_fw_region@98980000/reg
+/sys/firmware/devicetree/base/reserved-memory/ipa_gsi_region@98990000
+/sys/firmware/devicetree/base/reserved-memory/ipa_gsi_region@98990000/name
+/sys/firmware/devicetree/base/reserved-memory/ipa_gsi_region@98990000/no-map
+/sys/firmware/devicetree/base/reserved-memory/ipa_gsi_region@98990000/phandle
+/sys/firmware/devicetree/base/reserved-memory/ipa_gsi_region@98990000/reg
+/sys/firmware/devicetree/base/reserved-memory/linux,cma
+/sys/firmware/devicetree/base/reserved-memory/linux,cma/alignment
+/sys/firmware/devicetree/base/reserved-memory/linux,cma/alloc-ranges
+/sys/firmware/devicetree/base/reserved-memory/linux,cma/compatible
+/sys/firmware/devicetree/base/reserved-memory/linux,cma/linux,cma-default
+/sys/firmware/devicetree/base/reserved-memory/linux,cma/name
+/sys/firmware/devicetree/base/reserved-memory/linux,cma/phandle
+/sys/firmware/devicetree/base/reserved-memory/linux,cma/reusable
+/sys/firmware/devicetree/base/reserved-memory/linux,cma/size
+/sys/firmware/devicetree/base/reserved-memory/llcc_lpi_region@ff800000
+/sys/firmware/devicetree/base/reserved-memory/llcc_lpi_region@ff800000/name
+/sys/firmware/devicetree/base/reserved-memory/llcc_lpi_region@ff800000/no-map
+/sys/firmware/devicetree/base/reserved-memory/llcc_lpi_region@ff800000/phandle
+/sys/firmware/devicetree/base/reserved-memory/llcc_lpi_region@ff800000/reg
+/sys/firmware/devicetree/base/reserved-memory/mem_dump_region
+/sys/firmware/devicetree/base/reserved-memory/mem_dump_region/alignment
+/sys/firmware/devicetree/base/reserved-memory/mem_dump_region/alloc-ranges
+/sys/firmware/devicetree/base/reserved-memory/mem_dump_region/compatible
+/sys/firmware/devicetree/base/reserved-memory/mem_dump_region/name
+/sys/firmware/devicetree/base/reserved-memory/mem_dump_region/phandle
+/sys/firmware/devicetree/base/reserved-memory/mem_dump_region/reusable
+/sys/firmware/devicetree/base/reserved-memory/mem_dump_region/size
+/sys/firmware/devicetree/base/reserved-memory/mpss_region@8bc00000
+/sys/firmware/devicetree/base/reserved-memory/mpss_region@8bc00000/name
+/sys/firmware/devicetree/base/reserved-memory/mpss_region@8bc00000/no-map
+/sys/firmware/devicetree/base/reserved-memory/mpss_region@8bc00000/phandle
+/sys/firmware/devicetree/base/reserved-memory/mpss_region@8bc00000/reg
+/sys/firmware/devicetree/base/reserved-memory/name
+/sys/firmware/devicetree/base/reserved-memory/non_secure_display_region
+/sys/firmware/devicetree/base/reserved-memory/non_secure_display_region/alignment
+/sys/firmware/devicetree/base/reserved-memory/non_secure_display_region/alloc-ranges
+/sys/firmware/devicetree/base/reserved-memory/non_secure_display_region/compatible
+/sys/firmware/devicetree/base/reserved-memory/non_secure_display_region/name
+/sys/firmware/devicetree/base/reserved-memory/non_secure_display_region/phandle
+/sys/firmware/devicetree/base/reserved-memory/non_secure_display_region/reusable
+/sys/firmware/devicetree/base/reserved-memory/non_secure_display_region/size
+/sys/firmware/devicetree/base/reserved-memory/oem_vm_region@f7c00000
+/sys/firmware/devicetree/base/reserved-memory/oem_vm_region@f7c00000/alignment
+/sys/firmware/devicetree/base/reserved-memory/oem_vm_region@f7c00000/compatible
+/sys/firmware/devicetree/base/reserved-memory/oem_vm_region@f7c00000/name
+/sys/firmware/devicetree/base/reserved-memory/oem_vm_region@f7c00000/phandle
+/sys/firmware/devicetree/base/reserved-memory/oem_vm_region@f7c00000/reg
+/sys/firmware/devicetree/base/reserved-memory/oem_vm_region@f7c00000/reusable
+/sys/firmware/devicetree/base/reserved-memory/phandle
+/sys/firmware/devicetree/base/reserved-memory/pvm_fw_region@824a0000
+/sys/firmware/devicetree/base/reserved-memory/pvm_fw_region@824a0000/name
+/sys/firmware/devicetree/base/reserved-memory/pvm_fw_region@824a0000/no-map
+/sys/firmware/devicetree/base/reserved-memory/pvm_fw_region@824a0000/phandle
+/sys/firmware/devicetree/base/reserved-memory/pvm_fw_region@824a0000/reg
+/sys/firmware/devicetree/base/reserved-memory/q6_adsp_dtb_region@a0600000
+/sys/firmware/devicetree/base/reserved-memory/q6_adsp_dtb_region@a0600000/name
+/sys/firmware/devicetree/base/reserved-memory/q6_adsp_dtb_region@a0600000/no-map
+/sys/firmware/devicetree/base/reserved-memory/q6_adsp_dtb_region@a0600000/phandle
+/sys/firmware/devicetree/base/reserved-memory/q6_adsp_dtb_region@a0600000/reg
+/sys/firmware/devicetree/base/reserved-memory/q6_cdsp_dtb_region@9ad00000
+/sys/firmware/devicetree/base/reserved-memory/q6_cdsp_dtb_region@9ad00000/name
+/sys/firmware/devicetree/base/reserved-memory/q6_cdsp_dtb_region@9ad00000/no-map
+/sys/firmware/devicetree/base/reserved-memory/q6_cdsp_dtb_region@9ad00000/phandle
+/sys/firmware/devicetree/base/reserved-memory/q6_cdsp_dtb_region@9ad00000/reg
+/sys/firmware/devicetree/base/reserved-memory/q6_mpss_dtb_region@98900000
+/sys/firmware/devicetree/base/reserved-memory/q6_mpss_dtb_region@98900000/name
+/sys/firmware/devicetree/base/reserved-memory/q6_mpss_dtb_region@98900000/no-map
+/sys/firmware/devicetree/base/reserved-memory/q6_mpss_dtb_region@98900000/phandle
+/sys/firmware/devicetree/base/reserved-memory/q6_mpss_dtb_region@98900000/reg
+/sys/firmware/devicetree/base/reserved-memory/qdss_apps_region@82800000
+/sys/firmware/devicetree/base/reserved-memory/qdss_apps_region@82800000/compatible
+/sys/firmware/devicetree/base/reserved-memory/qdss_apps_region@82800000/name
+/sys/firmware/devicetree/base/reserved-memory/qdss_apps_region@82800000/phandle
+/sys/firmware/devicetree/base/reserved-memory/qdss_apps_region@82800000/reg
+/sys/firmware/devicetree/base/reserved-memory/qdss_apps_region@82800000/reusable
+/sys/firmware/devicetree/base/reserved-memory/qseecom_region
+/sys/firmware/devicetree/base/reserved-memory/qseecom_region/alignment
+/sys/firmware/devicetree/base/reserved-memory/qseecom_region/alloc-ranges
+/sys/firmware/devicetree/base/reserved-memory/qseecom_region/compatible
+/sys/firmware/devicetree/base/reserved-memory/qseecom_region/name
+/sys/firmware/devicetree/base/reserved-memory/qseecom_region/phandle
+/sys/firmware/devicetree/base/reserved-memory/qseecom_region/reusable
+/sys/firmware/devicetree/base/reserved-memory/qseecom_region/size
+/sys/firmware/devicetree/base/reserved-memory/qseecom_ta_region
+/sys/firmware/devicetree/base/reserved-memory/qseecom_ta_region/alignment
+/sys/firmware/devicetree/base/reserved-memory/qseecom_ta_region/alloc-ranges
+/sys/firmware/devicetree/base/reserved-memory/qseecom_ta_region/compatible
+/sys/firmware/devicetree/base/reserved-memory/qseecom_ta_region/name
+/sys/firmware/devicetree/base/reserved-memory/qseecom_ta_region/phandle
+/sys/firmware/devicetree/base/reserved-memory/qseecom_ta_region/reusable
+/sys/firmware/devicetree/base/reserved-memory/qseecom_ta_region/size
+/sys/firmware/devicetree/base/reserved-memory/qtee_region@d82e0000
+/sys/firmware/devicetree/base/reserved-memory/qtee_region@d82e0000/name
+/sys/firmware/devicetree/base/reserved-memory/qtee_region@d82e0000/no-map
+/sys/firmware/devicetree/base/reserved-memory/qtee_region@d82e0000/phandle
+/sys/firmware/devicetree/base/reserved-memory/qtee_region@d82e0000/reg
+/sys/firmware/devicetree/base/reserved-memory/ramoops_region
+/sys/firmware/devicetree/base/reserved-memory/ramoops_region/alloc-ranges
+/sys/firmware/devicetree/base/reserved-memory/ramoops_region/compatible
+/sys/firmware/devicetree/base/reserved-memory/ramoops_region/mem-type
+/sys/firmware/devicetree/base/reserved-memory/ramoops_region/name
+/sys/firmware/devicetree/base/reserved-memory/ramoops_region/phandle
+/sys/firmware/devicetree/base/reserved-memory/ramoops_region/pmsg-size
+/sys/firmware/devicetree/base/reserved-memory/ramoops_region/size
+/sys/firmware/devicetree/base/reserved-memory/ranges
+/sys/firmware/devicetree/base/reserved-memory/reserved_region@d8200000
+/sys/firmware/devicetree/base/reserved-memory/reserved_region@d8200000/name
+/sys/firmware/devicetree/base/reserved-memory/reserved_region@d8200000/no-map
+/sys/firmware/devicetree/base/reserved-memory/reserved_region@d8200000/phandle
+/sys/firmware/devicetree/base/reserved-memory/reserved_region@d8200000/reg
+/sys/firmware/devicetree/base/reserved-memory/reserved_region@e1bb0000
+/sys/firmware/devicetree/base/reserved-memory/reserved_region@e1bb0000/name
+/sys/firmware/devicetree/base/reserved-memory/reserved_region@e1bb0000/no-map
+/sys/firmware/devicetree/base/reserved-memory/reserved_region@e1bb0000/phandle
+/sys/firmware/devicetree/base/reserved-memory/reserved_region@e1bb0000/reg
+/sys/firmware/devicetree/base/reserved-memory/secdata_apss_region@81cff000
+/sys/firmware/devicetree/base/reserved-memory/secdata_apss_region@81cff000/name
+/sys/firmware/devicetree/base/reserved-memory/secdata_apss_region@81cff000/no-map
+/sys/firmware/devicetree/base/reserved-memory/secdata_apss_region@81cff000/phandle
+/sys/firmware/devicetree/base/reserved-memory/secdata_apss_region@81cff000/reg
+/sys/firmware/devicetree/base/reserved-memory/secure_cdsp_region
+/sys/firmware/devicetree/base/reserved-memory/secure_cdsp_region/alignment
+/sys/firmware/devicetree/base/reserved-memory/secure_cdsp_region/alloc-ranges
+/sys/firmware/devicetree/base/reserved-memory/secure_cdsp_region/compatible
+/sys/firmware/devicetree/base/reserved-memory/secure_cdsp_region/name
+/sys/firmware/devicetree/base/reserved-memory/secure_cdsp_region/phandle
+/sys/firmware/devicetree/base/reserved-memory/secure_cdsp_region/reusable
+/sys/firmware/devicetree/base/reserved-memory/secure_cdsp_region/size
+/sys/firmware/devicetree/base/reserved-memory/smem_region@81d00000
+/sys/firmware/devicetree/base/reserved-memory/smem_region@81d00000/compatible
+/sys/firmware/devicetree/base/reserved-memory/smem_region@81d00000/hwlocks
+/sys/firmware/devicetree/base/reserved-memory/smem_region@81d00000/name
+/sys/firmware/devicetree/base/reserved-memory/smem_region@81d00000/no-map
+/sys/firmware/devicetree/base/reserved-memory/smem_region@81d00000/phandle
+/sys/firmware/devicetree/base/reserved-memory/smem_region@81d00000/reg
+/sys/firmware/devicetree/base/reserved-memory/splash_region
+/sys/firmware/devicetree/base/reserved-memory/splash_region/label
+/sys/firmware/devicetree/base/reserved-memory/splash_region/name
+/sys/firmware/devicetree/base/reserved-memory/splash_region/phandle
+/sys/firmware/devicetree/base/reserved-memory/splash_region/reg
+/sys/firmware/devicetree/base/reserved-memory/tags_region@81200000
+/sys/firmware/devicetree/base/reserved-memory/tags_region@81200000/name
+/sys/firmware/devicetree/base/reserved-memory/tags_region@81200000/no-map
+/sys/firmware/devicetree/base/reserved-memory/tags_region@81200000/phandle
+/sys/firmware/devicetree/base/reserved-memory/tags_region@81200000/reg
+/sys/firmware/devicetree/base/reserved-memory/tatags_region@d8800000
+/sys/firmware/devicetree/base/reserved-memory/tatags_region@d8800000/name
+/sys/firmware/devicetree/base/reserved-memory/tatags_region@d8800000/no-map
+/sys/firmware/devicetree/base/reserved-memory/tatags_region@d8800000/phandle
+/sys/firmware/devicetree/base/reserved-memory/tatags_region@d8800000/reg
+/sys/firmware/devicetree/base/reserved-memory/tme_crash_dump_region@81ca0000
+/sys/firmware/devicetree/base/reserved-memory/tme_crash_dump_region@81ca0000/name
+/sys/firmware/devicetree/base/reserved-memory/tme_crash_dump_region@81ca0000/no-map
+/sys/firmware/devicetree/base/reserved-memory/tme_crash_dump_region@81ca0000/phandle
+/sys/firmware/devicetree/base/reserved-memory/tme_crash_dump_region@81ca0000/reg
+/sys/firmware/devicetree/base/reserved-memory/tme_log_region@81ce0000
+/sys/firmware/devicetree/base/reserved-memory/tme_log_region@81ce0000/name
+/sys/firmware/devicetree/base/reserved-memory/tme_log_region@81ce0000/no-map
+/sys/firmware/devicetree/base/reserved-memory/tme_log_region@81ce0000/phandle
+/sys/firmware/devicetree/base/reserved-memory/tme_log_region@81ce0000/reg
+/sys/firmware/devicetree/base/reserved-memory/trust_ui_vm_region@f3800000
+/sys/firmware/devicetree/base/reserved-memory/trust_ui_vm_region@f3800000/alignment
+/sys/firmware/devicetree/base/reserved-memory/trust_ui_vm_region@f3800000/compatible
+/sys/firmware/devicetree/base/reserved-memory/trust_ui_vm_region@f3800000/name
+/sys/firmware/devicetree/base/reserved-memory/trust_ui_vm_region@f3800000/phandle
+/sys/firmware/devicetree/base/reserved-memory/trust_ui_vm_region@f3800000/reg
+/sys/firmware/devicetree/base/reserved-memory/trust_ui_vm_region@f3800000/reusable
+/sys/firmware/devicetree/base/reserved-memory/tz_stat_region@82700000
+/sys/firmware/devicetree/base/reserved-memory/tz_stat_region@82700000/name
+/sys/firmware/devicetree/base/reserved-memory/tz_stat_region@82700000/no-map
+/sys/firmware/devicetree/base/reserved-memory/tz_stat_region@82700000/phandle
+/sys/firmware/devicetree/base/reserved-memory/tz_stat_region@82700000/reg
+/sys/firmware/devicetree/base/reserved-memory/uefi_log_region@81ce4000
+/sys/firmware/devicetree/base/reserved-memory/uefi_log_region@81ce4000/name
+/sys/firmware/devicetree/base/reserved-memory/uefi_log_region@81ce4000/no-map
+/sys/firmware/devicetree/base/reserved-memory/uefi_log_region@81ce4000/phandle
+/sys/firmware/devicetree/base/reserved-memory/uefi_log_region@81ce4000/reg
+/sys/firmware/devicetree/base/reserved-memory/va_md_mem_region
+/sys/firmware/devicetree/base/reserved-memory/va_md_mem_region/alloc-ranges
+/sys/firmware/devicetree/base/reserved-memory/va_md_mem_region/compatible
+/sys/firmware/devicetree/base/reserved-memory/va_md_mem_region/name
+/sys/firmware/devicetree/base/reserved-memory/va_md_mem_region/phandle
+/sys/firmware/devicetree/base/reserved-memory/va_md_mem_region/reusable
+/sys/firmware/devicetree/base/reserved-memory/va_md_mem_region/size
+/sys/firmware/devicetree/base/reserved-memory/video_region@9899c000
+/sys/firmware/devicetree/base/reserved-memory/video_region@9899c000/name
+/sys/firmware/devicetree/base/reserved-memory/video_region@9899c000/no-map
+/sys/firmware/devicetree/base/reserved-memory/video_region@9899c000/phandle
+/sys/firmware/devicetree/base/reserved-memory/video_region@9899c000/reg
+/sys/firmware/devicetree/base/reserved-memory/vm_comm_mem_region
+/sys/firmware/devicetree/base/reserved-memory/vm_comm_mem_region/alignment
+/sys/firmware/devicetree/base/reserved-memory/vm_comm_mem_region/alloc-ranges
+/sys/firmware/devicetree/base/reserved-memory/vm_comm_mem_region/compatible
+/sys/firmware/devicetree/base/reserved-memory/vm_comm_mem_region/name
+/sys/firmware/devicetree/base/reserved-memory/vm_comm_mem_region/phandle
+/sys/firmware/devicetree/base/reserved-memory/vm_comm_mem_region/reusable
+/sys/firmware/devicetree/base/reserved-memory/vm_comm_mem_region/size
+/sys/firmware/devicetree/base/reserved-memory/wlan_msa_region@a6400000
+/sys/firmware/devicetree/base/reserved-memory/wlan_msa_region@a6400000/name
+/sys/firmware/devicetree/base/reserved-memory/wlan_msa_region@a6400000/no-map
+/sys/firmware/devicetree/base/reserved-memory/wlan_msa_region@a6400000/phandle
+/sys/firmware/devicetree/base/reserved-memory/wlan_msa_region@a6400000/reg
+/sys/firmware/devicetree/base/reserved-memory/wpss_region@9bb00000
+/sys/firmware/devicetree/base/reserved-memory/wpss_region@9bb00000/name
+/sys/firmware/devicetree/base/reserved-memory/wpss_region@9bb00000/no-map
+/sys/firmware/devicetree/base/reserved-memory/wpss_region@9bb00000/phandle
+/sys/firmware/devicetree/base/reserved-memory/wpss_region@9bb00000/reg
+/sys/firmware/devicetree/base/reserved-memory/xbl_dtlog_region@81a00000
+/sys/firmware/devicetree/base/reserved-memory/xbl_dtlog_region@81a00000/name
+/sys/firmware/devicetree/base/reserved-memory/xbl_dtlog_region@81a00000/no-map
+/sys/firmware/devicetree/base/reserved-memory/xbl_dtlog_region@81a00000/phandle
+/sys/firmware/devicetree/base/reserved-memory/xbl_dtlog_region@81a00000/reg
+/sys/firmware/devicetree/base/reserved-memory/xbl_ramdump_region@81a40000
+/sys/firmware/devicetree/base/reserved-memory/xbl_ramdump_region@81a40000/name
+/sys/firmware/devicetree/base/reserved-memory/xbl_ramdump_region@81a40000/no-map
+/sys/firmware/devicetree/base/reserved-memory/xbl_ramdump_region@81a40000/phandle
+/sys/firmware/devicetree/base/reserved-memory/xbl_ramdump_region@81a40000/reg
+/sys/firmware/devicetree/base/reserved-memory/xbl_sc_region@d8000000
+/sys/firmware/devicetree/base/reserved-memory/xbl_sc_region@d8000000/name
+/sys/firmware/devicetree/base/reserved-memory/xbl_sc_region@d8000000/no-map
+/sys/firmware/devicetree/base/reserved-memory/xbl_sc_region@d8000000/phandle
+/sys/firmware/devicetree/base/reserved-memory/xbl_sc_region@d8000000/reg
+
+===== SD BOOT-RELEVANT DT NODES =====
+--- /sys/firmware/devicetree/base/soc/sdhci@8804000 ---
+/sys/firmware/devicetree/base/soc/sdhci@8804000/bus-width
+/sys/firmware/devicetree/base/soc/sdhci@8804000/cd-debounce-delay-ms
+/sys/firmware/devicetree/base/soc/sdhci@8804000/cd-gpios
+/sys/firmware/devicetree/base/soc/sdhci@8804000/clock-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/clocks
+/sys/firmware/devicetree/base/soc/sdhci@8804000/compatible
+/sys/firmware/devicetree/base/soc/sdhci@8804000/dma-coherent
+/sys/firmware/devicetree/base/soc/sdhci@8804000/interconnect-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/interconnects
+/sys/firmware/devicetree/base/soc/sdhci@8804000/interrupt-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/interrupts
+/sys/firmware/devicetree/base/soc/sdhci@8804000/iommus
+/sys/firmware/devicetree/base/soc/sdhci@8804000/name
+/sys/firmware/devicetree/base/soc/sdhci@8804000/no-mmc
+/sys/firmware/devicetree/base/soc/sdhci@8804000/no-sdio
+/sys/firmware/devicetree/base/soc/sdhci@8804000/operating-points-v2
+/sys/firmware/devicetree/base/soc/sdhci@8804000/phandle
+/sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-0
+/sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-1
+/sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,dll-hsr-list
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,iommu-dma
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,iommu-dma-addr-pool
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,iommu-geometry
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,restore-after-cx-collapse
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,vdd-current-level
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,vdd-io-current-level
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,vdd-io-voltage-level
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,vdd-voltage-level
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos0/mask
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos0/name
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos0/vote
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos1/mask
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos1/name
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos1/vote
+/sys/firmware/devicetree/base/soc/sdhci@8804000/reg
+/sys/firmware/devicetree/base/soc/sdhci@8804000/reg-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/reset-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/resets
+/sys/firmware/devicetree/base/soc/sdhci@8804000/status
+/sys/firmware/devicetree/base/soc/sdhci@8804000/vdd-io-supply
+/sys/firmware/devicetree/base/soc/sdhci@8804000/vdd-supply
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000 ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/#gpio-cells
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/#interrupt-cells
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/bt_en_sleep/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/bt_en_sleep/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_active_rst0/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_active_rst0/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_active_rst1/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_active_rst1/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_active_rst2/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_active_rst2/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_active_rst3/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_active_rst3/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_active_rst4/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_active_rst4/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk0_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk0_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk0_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk0_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk1_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk1_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk1_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk1_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk2_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk2_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk2_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk2_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk3_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk3_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk3_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk3_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk4_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk4_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk4_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk4_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk5_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk5_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk5_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_mclk5_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_ponv_front_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_ponv_front_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_ponv_front_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_ponv_front_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_suspend_rst0/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_suspend_rst0/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_suspend_rst1/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_suspend_rst1/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_suspend_rst2/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_suspend_rst2/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_suspend_rst3/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_suspend_rst3/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_suspend_rst4/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cam_sensor_suspend_rst4/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl0_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl0_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl0_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl0_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl1_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl1_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl1_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl1_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl2_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl2_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl2_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl2_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl3_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl3_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl3_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_scl3_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda0_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda0_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda0_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda0_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda1_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda1_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda1_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda1_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda2_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda2_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda2_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda2_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda3_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda3_active/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda3_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda3_suspend/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/compatible
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/fan_det_default/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/fan_mcu_default/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/gpio-controller
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/hwver_gpio_default/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/i2s1_sck/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/i2s1_sd0/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/i2s1_sd1/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/i2s1_ws/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/interrupt-controller
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/interrupts
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/nfc/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pcie0/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_sde/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_sde/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_sde_te/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_sde_te/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_ts_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_ts_int_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_ts_release/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_ts_reset_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qcom,gpios-reserved
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se0_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se0_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se0_spi_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se0_spi_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se10_4uart_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se10_4uart_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se11_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se11_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se11_spi_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se11_spi_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se12_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se12_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se13_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se13_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se13_spi_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se13_spi_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se14_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se14_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se14_spi_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se14_spi_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se15_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se15_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se1_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se1_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se1_i3c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se1_i3c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se1_spi_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se1_spi_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se2_2uart_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se2_2uart_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se2_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se2_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se2_spi_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se2_spi_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se3_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se3_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se3_spi_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se3_spi_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se4_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se4_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se4_i3c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se4_i3c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se4_spi_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se4_spi_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se5_2uart_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se5_2uart_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se6_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se6_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se6_i3c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se6_i3c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se6_spi_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se6_spi_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se7_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se7_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se7_spi_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se7_spi_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se8_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se8_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se8_i3c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se8_i3c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se8_spi_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se8_spi_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se9_i2c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se9_i2c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se9_i3c_pins/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/qupv3_se9_i3c_pins/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/reg
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/spkr_2_sd_n/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/usb_phy_ps/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/usb_phy_ps/phandle
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/wakeup-parent
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/wcd_reset/name
+
+===== KERNEL BOOT LOGS =====
+[    0.000000] [    T0] 1 Booting Linux on physical CPU 0x0000000000 [0x410fd801]
+[    0.000000] [    T0] KVM is not available. Ignoring kvm-arm.mode
+[    0.000000] [    T0] 1 Kernel command line: console=ttynull stack_depot_disable=on cgroup_disable=pressure kasan.page_alloc.sample=10 kasan.stacktrace=off kvm-arm.mode=protected bootconfig ioremap_guard loglevel=6 kpti=0 log_buf_len=256K swiotlb=noforce loop.max_part=7 pcie_ports=compat irqaffinity=0-2 cpufreq.default_governor=performance sysctl.kernel.sched_pelt_multiplier=4 kasan=off cgroup_disable=pressure cgroup.memory=nokmem,nosocket disable_dma32=on kernel.panic_on_rcu_stall=1 fw_devlink.strict=1 service_locator.enable=1 rcupdate.rcu_expedited=1 rcu_nocbs=0-7 no-steal-acc printk.console_no_auto_verbose=1 can.stats_timer=0 ftrace_dump_on_oops firmware_class.path=/vendor/firmware_mnt/image,/vendor/firmware_mnt/image/kiwi,/vendor/vm-system/oemvm/boot,/vendor/vm-system/trustedvm/boot,/vendor/firmware,/vendor/firmware/wlan/qca_cld/kiwi_v2 pci-msm-drv.pcie_sm_regs=0x1D07000,0x1040,0x1048,0x3000,0x1 video=vfb:640x400,bpp=32,memsize=3072000 nosoftlockup bootconfig  msm_drm.dsi_disp
+[    0.000000] [    T0] ITS@0x0000000017140000: Devices Table too large, reduce ids 32->19
+[    0.018696] [    T0] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU3: 0x1001111010312122
+[    0.020155] [    T0] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU4: 0x1001111010312122
+[    0.021477] [    T0] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU5: 0x1001111010312122
+[    0.022396] [    T0] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU6: 0x1001111010312122
+[    0.023572] [    T0] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU7: 0x1001111010312122
+[    0.104327] [    T1] printk: console [ttynull0] enabled
+[    0.127697] [  T113] init: Loading module /lib/modules/qcom-reboot-reason.ko with args ''
+[    0.129690] [   T10] arm-scmi soc:qcom,scmi: SCMI Notifications - Core Enabled.
+[    0.146330] [  T148] shmbridge is enabled
+[    0.147495] [  T148] MEM protection Not enabled, 7
+[    0.230639] [   T10] Modules linked in: qcom_logbuf_vendor_hooks(E) qcom_wdt_core(E) arm_smmu(E) pinctrl_pineapple(E) qcom_logbuf_boot_log(E) pinctrl_volcano(E) pinctrl_cliffs(E) memory_dump_v2(E) pinctrl_msm(E) qcom_pdc(E) qcom_ipc_logging(E) minidump(E) qcom_dma_heaps(E) mem_buf_dev(E) gunyah_qcom(E) qcom_iommu_util(E) mdt_loader(E) crypto_qti(E) gh_cpusys_vm_mem_access(E) secure_buffer(E) qcom_scm(E) thermal_pause(E) socinfo(E) sched_walt(E) gh_rm_drv(E) smem(E) qcom_i2c_pmic(E) phy_qcom_ufs_qmp_v4_crow(E) hwkm(E) qcom_spmi_pmic(E) qcom_pmu_lib(E) phy_qcom_ufs_qrbtc_sdm845(E) stub_regulator(E) phy_qcom_ufs_qmp_v4_pineapple(E) gdsc_regulator(E) icc_debug(E) debug_symbol(E) qnoc_qos(E) gh_arm_drv(E) qcom_llcc_pmu(E) gh_dbl(E) gh_msgq(E) qcom_hwspinlock(E) qcom_scmi_client(E) qcom_cpufreq_hw(E) rtc_pm8xxx(E) cmd_db(E) cpu_hotplug(E) spmi_pmic_arb(E) cqhci(E) qti_regmap_debugfs(E) qcom_scmi_vendor(E) iommu_logger(E) gic_intr_routing(E) icc_test(E) phy_qcom_ufs(E)
+[    0.230732] [   T10]  msm_dma_iommu_mapping(E) debug_regulator(E) tmecom_intf(E) nvmem_qfprom(E) qcom_cpu_vendor_hooks(E) qcom_ipcc(E) proxy_consumer(E) qcom_cpucp(E) nvmem_qcom_spmi_sdam(E) qcom_reboot_reason(E)
+[    0.231449] [   T10] Modules linked in: qcom_logbuf_vendor_hooks(E) qcom_wdt_core(E) arm_smmu(E) pinctrl_pineapple(E) qcom_logbuf_boot_log(E) pinctrl_volcano(E) pinctrl_cliffs(E) memory_dump_v2(E) pinctrl_msm(E) qcom_pdc(E) qcom_ipc_logging(E) minidump(E) qcom_dma_heaps(E) mem_buf_dev(E) gunyah_qcom(E) qcom_iommu_util(E) mdt_loader(E) crypto_qti(E) gh_cpusys_vm_mem_access(E) secure_buffer(E) qcom_scm(E) thermal_pause(E) socinfo(E) sched_walt(E) gh_rm_drv(E) smem(E) qcom_i2c_pmic(E) phy_qcom_ufs_qmp_v4_crow(E) hwkm(E) qcom_spmi_pmic(E) qcom_pmu_lib(E) phy_qcom_ufs_qrbtc_sdm845(E) stub_regulator(E) phy_qcom_ufs_qmp_v4_pineapple(E) gdsc_regulator(E) icc_debug(E) debug_symbol(E) qnoc_qos(E) gh_arm_drv(E) qcom_llcc_pmu(E) gh_dbl(E) gh_msgq(E) qcom_hwspinlock(E) qcom_scmi_client(E) qcom_cpufreq_hw(E) rtc_pm8xxx(E) cmd_db(E) cpu_hotplug(E) spmi_pmic_arb(E) cqhci(E) qti_regmap_debugfs(E) qcom_scmi_vendor(E) iommu_logger(E) gic_intr_routing(E) icc_test(E) phy_qcom_ufs(E)
+[    0.231535] [   T10]  msm_dma_iommu_mapping(E) debug_regulator(E) tmecom_intf(E) nvmem_qfprom(E) qcom_cpu_vendor_hooks(E) qcom_ipcc(E) proxy_consumer(E) qcom_cpucp(E) nvmem_qcom_spmi_sdam(E) qcom_reboot_reason(E)
+[    0.250740] [  T168] msm-dcc 100ff000.dcc_v2: All values written to enable.
+[    0.251267] [  T168] msm-dcc 100ff000.dcc_v2: All values written to enable.
+[    0.252892] [  T168] msm-dcc 100ff000.dcc_v2: All values written to enable.
+[    0.285681] [  T183] platform 17a00000.rsc:drv@2:rpmh-regulator-mmcxlvl: Fixed dependency cycle(s) with /soc/rsc@17a00000/drv@2/rpmh-regulator-mmcxlvl/regulator-pm_v8-s6-level
+[    0.378058] [  T201] qcom,rpmh-regulator 17a00000.rsc:drv@2:rpmh-regulator-mxclvl: Failed to create device link (0x180) with 17a00000.rsc:drv@2:rpmh-regulator-mmcxlvl
+[    0.411958] [   T10] disp_cc_pll0 PLL is already enabled
+[    0.416507] [   T10] qsmmuv500-tbu 7b3000.lpass_qtb: Unable to get the transactiontracker-base
+[    0.418371] [   T10] qsmmuv500-tbu 16cd000.pcie_qtb: Unable to get the transactiontracker-base
+[    0.418416] [   T10] qsmmuv500-tbu 1451000.sf_qtb: Unable to get the transactiontracker-base
+[    0.418442] [   T10] qsmmuv500-tbu 14d0000.mdp_hf_qtb: Unable to get the transactiontracker-base
+[    0.433457] [   T10] qsmmuv500-tbu 14d2000.cam_hf_qtb: Unable to get the transactiontracker-base
+[    0.433771] [   T10] qsmmuv500-tbu 7d3000.nsp_qtb: Unable to get the transactiontracker-base
+[    0.433935] [   T10] qsmmuv500-tbu 16f1000.anoc_1_qtb: Unable to get the transactiontracker-base
+[    0.433971] [   T10] qsmmuv500-tbu 171a000.anoc_2_qtb: Unable to get the transactiontracker-base
+[    0.434463] [   T10] arm-smmu 15000000.apps-smmu: 	coherent table walk
+[    0.436898] [   T10] arm-smmu 15000000.apps-smmu: 	preserved 0 boot mappings
+[    0.447372] [    T8] sdhci_msm 8804000.sdhci: Adding to iommu group 1
+[    0.448657] [    T8] RPG2 common[mmc_of_parse(333)]cd_debounce_delay_ms=1500!
+[    0.448683] [    T8] sdhci_msm 8804000.sdhci: Got CD GPIO
+[    0.453106] [    T8] sdhci_msm 8804000.sdhci: TCXO clk not present (-2)
+[    0.453111] [    T8] sdhci_msm 8804000.sdhci: Failed to get bus_scale data
+[    0.453691] [    T8] RPG2 msm-kernel[sdhci_msm_set_caps(4980)]cd_debounce_delay_ms MMC_CAP_AGGRESSIVE_PM=128!
+[    0.455649] [   T10] ufshcd-qcom 1d84000.ufshc: ufshcd_populate_vreg: unable to find vdd-hba-max-microamp
+[    0.455669] [   T10] ufshcd-qcom 1d84000.ufshc: ufshcd_populate_vreg: Unable to find vccq2-supply regulator, assuming enabled
+[    0.456769] [   T10] ufshcd-qcom 1d84000.ufshc: ufs_qcom_parse_reg_info: Unable to find qcom,vccq2-parent-supply regulator, assuming enabled
+[    0.538844] [   T10] sd 0:0:0:0: [sda] Disabling FUA
+[    0.538846] [   T10] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.540269] [    T8] sd 0:0:0:1: [sdb] Disabling FUA
+[    0.540271] [    T8] sd 0:0:0:1: [sdb] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+[    0.541938] [   T10] sd 0:0:0:2: [sdc] Disabling FUA
+[    0.541940] [   T10] sd 0:0:0:2: [sdc] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+[    0.542721] [  T249] sd 0:0:0:3: [sdd] Disabling FUA
+[    0.542722] [  T249] sd 0:0:0:3: [sdd] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.543660] [   T87] sd 0:0:0:4: [sde] Disabling FUA
+[    0.543661] [   T87] sd 0:0:0:4: [sde] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.545168] [   T10] sd 0:0:0:5: [sdf] Disabling FUA
+[    0.545170] [   T10] sd 0:0:0:5: [sdf] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.546187] [  T249] sd 0:0:0:6: [sdg] Disabling FUA
+[    0.546188] [  T249] sd 0:0:0:6: [sdg] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.547216] [   T10] sd 0:0:0:7: [sdh] Disabling FUA
+[    0.547218] [   T10] sd 0:0:0:7: [sdh] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    0.673112] [   T88] mmc1: non-supported SD ext reg layout
+[    0.674159] [   T88]  mmcblk1: p1
+[    0.760859] [  T296] apexd: Started. subcommand = --bootstrap
+[    0.760961] [  T296] apexd-bootstrap: Scanning /system/apex for pre-installed ApexFiles
+[    0.761142] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.tethering.capex
+[    0.762078] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.btservices.apex
+[    0.763969] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.sdkext.apex
+[    0.764703] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.i18n.apex
+[    0.765687] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.art.capex
+[    0.766792] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.media.swcodec.capex
+[    0.767652] [  T296] apexd-bootstrap: Found pre-installed APEX /system/apex/com.android.mediaprovider.capex
+[    1.123850] [   T88] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[    1.284176] [  T536] RPG2 msm-kernel[rs_gpio_request(88)]Unable to export gpio342 ret=-38
+[    1.284187] [  T536] RPG2 msm-kernel[rs_gpio_request(88)]Unable to export gpio339 ret=-38
+[    1.318952] [   T10] qsmmuv500-tbu 3de8000.gpu_qtb: Unable to get the transactiontracker-base
+[    1.319406] [   T10] arm-smmu 3da0000.kgsl-smmu: 	coherent table walk
+[    1.319753] [   T10] arm-smmu 3da0000.kgsl-smmu: 	preserved 0 boot mappings
+[    1.645006] [  T673] PDC Init Table not configured
+[    1.684230] [  T644] remoteproc remoteproc0: 9bb00000.remoteproc-wpss is available
+[    1.703775] [  T644] remoteproc remoteproc1: 3000000.remoteproc-adsp is available
+[    1.713911] [   T87] tz_log_dlkm:[tzdbg_query_encrypted_log][1770]: encrypted qseelog enabled is 0
+[    1.717914] [  T736] servicemanager: Loaded APEX Infos from /bootstrap-apex/apex-info-list.xml
+[    1.736432] [  T550] msm-dwc3 a600000.ssusb: Unable to get vbus regulator err: -19
+[    1.905049] [  T709] [drm:dsi_pll_init [msm_drm]] [msm-dsi-info]: DSI_PLL_0: PLL SSC enabled
+[    1.906254] [  T709] [drm:dsi_pll_init [msm_drm]] [msm-dsi-info]: DSI_PLL_1: PLL SSC enabled
+[    1.912229] [  T709] [drm:dsi_panel_parse_hdr_config [msm_drm]] *ERROR* [msm-dsi-error]: dsi_panel_parse_hdr_config:3135, Unable to read color primaries,rc:4294967274
+[    1.945463] [    T1] fsck_msdos: ** /dev/block/bootdevice/by-name/qmcs
+[    1.951238] [  T709] [drm] cont_splash enabled in 1 of 1 display(s)
+[    1.952061] [    T1] fsck_msdos: ** /dev/block/bootdevice/by-name/spunvm
+[    1.993773] [  T558] [FTS_TS/E]get_boot_mode:androidboot.mode=0 mode
+[    2.001543] [  T558] [FTS_TS/I]fts_ts_enable_reg:enable vdd regulator ok
+[    2.001547] [  T558] [FTS_TS/I]fts_ts_enable_reg:enable vcc_i2c regulator ok
+[    2.255315] [ T1030] android.hardware.boot-service.qti: IBootControl AIDL service running...
+[    2.333003] [  T926] fsck.f2fs: Info: Automatic fix mode enabled.
+[    2.427283] [  T926] F2FS-fs (dm-60): Using encoding defined by superblock: utf8-12.1.0 with flags 0x0
+[    2.650950] [  T926] vold: keystore2 Keystore earlyBootEnded returned service specific error: -68
+[    3.196091] [ T1252] update_verifier: Using AIDL version of IBootControl
+[    3.196302] [ T1252] update_verifier: Booting slot 1: isSlotMarkedSuccessful=1
+[    3.464326] [   T70] remoteproc remoteproc0: Booting fw image qca6750/wpss.mdt, size 4844
+[    3.465083] [  T811] remoteproc remoteproc1: Booting fw image adsp2.mdt, size 8044
+[    3.552576] [   T92] coresight-remote-etm soc:wpss_etm0: Connection established between QMI handle and 3 service
+[    3.770265] [  T305] coresight-remote-etm soc:audio_etm0: Connection established between QMI handle and 5 service
+[    4.897470] [ T2041] UDC core: g1: couldn't find an available UDC or it's busy
+[   11.563276] [ T1194] AidlLazyServiceRegistrar: Process has 0 (of 1 available) client(s) in use after notification apexservice has clients: 0
+[   12.028897] [    T1] init: Service 'bootanim' (pid 1730) exited with status 0 oneshot service took 8.046000 seconds in background
+[   12.028907] [    T1] init: Sending signal 9 to service 'bootanim' (pid 1730) process group...
+[   12.082694] [    T8] icnss2_qmi: DMS QMI connection not established
+[   12.092483] [    T8] icnss2_qmi: DMS QMI connection not established
+[   12.105464] [ T1194] AidlLazyServiceRegistrar: Process has 1 (of 1 available) client(s) in use after notification apexservice has clients: 1
+[   12.105590] [ T1194] apexd: markBootCompleted() received by ApexService
+[   12.109527] [    T1] init: processing action (sys.boot_completed=1) from (/system/etc/init/hw/init.rc:1241)
+[   12.109657] [    T1] init: starting service 'exec 26 (/bin/rm -rf /data/per_boot)'...
+[   12.111103] [    T1] init: ... started service 'exec 26 (/bin/rm -rf /data/per_boot)' has pid 2983
+[   12.111114] [    T1] init: SVC_EXEC service 'exec 26 (/bin/rm -rf /data/per_boot)' pid 2983 (uid 1000 gid 1000+0 context default) started; waiting...
+[   12.116936] [    T1] init: Service 'exec 26 (/bin/rm -rf /data/per_boot)' (pid 2983) exited with status 0 waiting took 0.006000 seconds
+[   12.116951] [    T1] init: Sending signal 9 to service 'exec 26 (/bin/rm -rf /data/per_boot)' (pid 2983) process group...
+[   12.118096] [  T294] Boot completed 
+[   12.128178] [  T294] Boot completed 
+[   12.205732] [ T2987] adsprpc : Disabled cdsp daemon
+[   12.450155] [    T8] wlan_pld:pld_is_ipa_offload_disabled:2768:: Not supported on type 6
+[   12.491818] [   T85] [kworke][0x13125776][13:31:48.768107] qca6750: [85:E:WMI] is_service_enabled_tlv: WMI service ext2 bit = 396 is not advertised by fw
+[   12.492382] [   T85] [kworke][0x131281bf][13:31:48.768671] qca6750: [85:E:WMI] is_service_enabled_tlv: WMI service ext2 bit = 390 is not advertised by fw
+[   12.675243] [ T1434] [binder][0x1348146e][13:31:48.951534] qca6750: [1434:E:WMI] is_service_enabled_tlv: WMI service ext2 bit = 397 is not advertised by fw
+[   12.732590] [  T140] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[   12.761344] [ T1045] exFAT-fs (mmcblk1p1): Volume was not properly unmounted. Some data may be corrupt. Please run fsck.
+[   13.005102] [ T1434] [binder][0x13a8b7b7][13:31:49.281391] qca6750: [1434:E:WMI] is_service_enabled_tlv: WMI service ext2 bit = 397 is not advertised by fw
+[   13.127594] [ T1434] [binder][0x13cc9aa7][13:31:49.403883] qca6750: [1434:E:WMI] is_service_enabled_tlv: WMI service ext2 bit = 397 is not advertised by fw
+[   14.544080] [ T2995] min_free_kbytes is not updated to 10878 because user defined value 11584 is preferred
+[   14.706240] [  T783] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[   17.022799] [ T1434] [binder][0x1841c71e][13:31:53.299090] qca6750: [1434:E:WMI] is_service_enabled_tlv: WMI service ext2 bit = 397 is not advertised by fw
+[   17.193836] [ T3226] [schedu][0x1873e2c6][13:31:53.470125] qca6750: [3226:E:CMN_MLME] mlme_sr_update: Spatial Reuse disabled for vdev_id: 0
+[   40.653564] [  T783] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[   64.193056] [    T1] init: Service 'exec 18 (/vendor/bin/init.qti.write.sh /sys/kernel/boot_cdsp/boot 1)' (pid 1366) exited with status 1 oneshot service took 60.741001 seconds in background
+[   64.193075] [    T1] init: Sending signal 9 to service 'exec 18 (/vendor/bin/init.qti.write.sh /sys/kernel/boot_cdsp/boot 1)' (pid 1366) process group...
+[   64.201695] [    T1] init: Service 'exec 19 (/vendor/bin/init.qti.write.sh /sys/devices/virtual/cvp/cvp/boot 1)' (pid 1367) exited with status 1 oneshot service took 60.749001 seconds in background
+[   64.201710] [    T1] init: Sending signal 9 to service 'exec 19 (/vendor/bin/init.qti.write.sh /sys/devices/virtual/cvp/cvp/boot 1)' (pid 1367) process group...
+[   90.866177] [  T741] type=1400 audit(1787232782.915:1332): avc:  denied  { write } for  comm="pool-3-thread-2" name="enable" dev="sysfs" ino=126306 scontext=u:r:system_app:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   90.866318] [  T741] type=1400 audit(1787232782.915:1333): avc:  denied  { read } for  comm="pool-3-thread-2" name="enable" dev="sysfs" ino=126306 scontext=u:r:system_app:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   90.866485] [  T741] type=1400 audit(1787232782.915:1334): avc:  denied  { open } for  comm="pool-3-thread-2" path="/sys/devices/virtual/sn3112l/led/enable" dev="sysfs" ino=126306 scontext=u:r:system_app:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[   90.866561] [  T741] type=1400 audit(1787232782.915:1335): avc:  denied  { getattr } for  comm="pool-3-thread-2" path="/sys/devices/virtual/sn3112l/led/enable" dev="sysfs" ino=126306 scontext=u:r:system_app:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[  369.579579] [  T741] type=1400 audit(1787233061.627:1374): avc:  denied  { open } for  comm="cat" path="/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block/mmcblk1/size" dev="sysfs" ino=85357 scontext=u:r:shell:s0 tcontext=u:object_r:sysfs:s0 tclass=file permissive=1
+[  499.294799] [  T741] type=1400 audit(1787233191.343:1381): avc:  denied  { read } for  comm="cat" name="type" dev="sysfs" ino=85331 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_mmc_device_type:s0 tclass=file permissive=1
+[  499.295012] [  T741] type=1400 audit(1787233191.343:1382): avc:  denied  { open } for  comm="cat" path="/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/type" dev="sysfs" ino=85331 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_mmc_device_type:s0 tclass=file permissive=1
+[  926.444843] [  T741] type=1400 audit(1787233618.491:2235): avc:  denied  { read } for  comm="cat" name="type" dev="sysfs" ino=85331 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_mmc_device_type:s0 tclass=file permissive=1
+[  926.445027] [  T741] type=1400 audit(1787233618.491:2236): avc:  denied  { open } for  comm="cat" path="/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/type" dev="sysfs" ino=85331 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_mmc_device_type:s0 tclass=file permissive=1
+[ 1578.877688] [  T839] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[ 1596.465650] [  T765] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[ 2261.245633] [  T765] sdhci_msm 8804000.sdhci: Failed to set performance state 0 (-19)
+[ 2986.114162] [  T741] type=1400 audit(1787235678.163:3216): avc:  denied  { read } for  comm="find" name="sdhci@8804000" dev="sysfs" ino=11565 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_devicetree_soc:s0 tclass=dir permissive=1
+[ 2986.114209] [  T741] type=1400 audit(1787235678.163:3217): avc:  denied  { open } for  comm="find" path="/sys/firmware/devicetree/base/soc/sdhci@8804000" dev="sysfs" ino=11565 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_devicetree_soc:s0 tclass=dir permissive=1
+[ 2986.114253] [  T741] type=1400 audit(1787235678.163:3218): avc:  denied  { getattr } for  comm="find" path="/sys/firmware/devicetree/base/soc/sdhci@8804000/iommus" dev="sysfs" ino=11581 scontext=u:r:shell:s0 tcontext=u:object_r:vendor_sysfs_devicetree_soc:s0 tclass=file permissive=1
+
+===== SAFETY =====
+READ-ONLY AUDIT ONLY
+No dd, flash, erase, format, repartition, slot change, AVB change, or mount-readwrite operations were performed by this script.
