@@ -1,0 +1,269 @@
+
+===== IDENTITY =====
+Retroid Pocket G2
+pineapple
+qti/pineapple/pineapple:15/AQ3A.250226.002/eng.RPG2.20260123.180002:user/dev-keys
+_b
+
+===== SDHCI NODE =====
+drwxr-xr-x 4 root root 0 2026-08-20 22:46 /sys/firmware/devicetree/base/soc/sdhci@8804000
+--- compatible ---
+18 /sys/firmware/devicetree/base/soc/sdhci@8804000/compatible
+ 71 63 6f 6d 2c 73 64 68 63 69 2d 6d 73 6d 2d 76
+ 35 00
+strings: qcom,sdhci-msm-v5 
+--- reg ---
+8 /sys/firmware/devicetree/base/soc/sdhci@8804000/reg
+ 08 80 40 00 00 00 10 00
+strings: €@    
+--- status ---
+3 /sys/firmware/devicetree/base/soc/sdhci@8804000/status
+ 6f 6b 00
+strings: ok 
+--- bus-width ---
+4 /sys/firmware/devicetree/base/soc/sdhci@8804000/bus-width
+ 00 00 00 04
+strings:    
+--- interrupts ---
+24 /sys/firmware/devicetree/base/soc/sdhci@8804000/interrupts
+ 00 00 00 00 00 00 00 cf 00 00 00 04 00 00 00 00
+ 00 00 00 df 00 00 00 04
+strings:        Ï          ß   
+--- interrupt-names ---
+15 /sys/firmware/devicetree/base/soc/sdhci@8804000/interrupt-names
+ 68 63 5f 69 72 71 00 70 77 72 5f 69 72 71 00
+strings: hc_irq pwr_irq 
+--- clocks ---
+16 /sys/firmware/devicetree/base/soc/sdhci@8804000/clocks
+ 00 00 01 6f 00 00 00 6c 00 00 01 6f 00 00 00 6d
+strings:   o   l  o   m
+--- clock-names ---
+11 /sys/firmware/devicetree/base/soc/sdhci@8804000/clock-names
+ 69 66 61 63 65 00 63 6f 72 65 00
+strings: iface core 
+--- resets ---
+8 /sys/firmware/devicetree/base/soc/sdhci@8804000/resets
+ 00 00 01 6f 00 00 00 11
+strings:   o   
+--- reset-names ---
+11 /sys/firmware/devicetree/base/soc/sdhci@8804000/reset-names
+ 63 6f 72 65 5f 72 65 73 65 74 00
+strings: core_reset 
+--- pinctrl-0 ---
+4 /sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-0
+ 00 00 03 ac
+strings:   ¬
+--- pinctrl-1 ---
+4 /sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-1
+ 00 00 03 ad
+strings:   ­
+--- pinctrl-names ---
+14 /sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-names
+ 64 65 66 61 75 6c 74 00 73 6c 65 65 70 00
+strings: default sleep 
+--- cd-gpios ---
+12 /sys/firmware/devicetree/base/soc/sdhci@8804000/cd-gpios
+ 00 00 01 6c 00 00 00 1f 00 00 00 01
+strings:   l      
+--- cd-debounce-delay-ms ---
+4 /sys/firmware/devicetree/base/soc/sdhci@8804000/cd-debounce-delay-ms
+ 00 00 05 dc
+strings:   Ü
+--- vdd-supply ---
+4 /sys/firmware/devicetree/base/soc/sdhci@8804000/vdd-supply
+ 00 00 03 52
+strings:   R
+--- vdd-io-supply ---
+4 /sys/firmware/devicetree/base/soc/sdhci@8804000/vdd-io-supply
+ 00 00 03 59
+strings:   Y
+--- iommus ---
+12 /sys/firmware/devicetree/base/soc/sdhci@8804000/iommus
+ 00 00 01 2a 00 00 01 40 00 00 00 00
+strings:   *  @    
+--- interconnects ---
+32 /sys/firmware/devicetree/base/soc/sdhci@8804000/interconnects
+ 00 00 01 a2 00 00 00 2f 00 00 01 89 00 00 02 00
+ 00 00 01 a3 00 00 00 02 00 00 01 a4 00 00 02 1e
+strings:   ¢   /  ‰     £     ¤  
+--- operating-points-v2 ---
+4 /sys/firmware/devicetree/base/soc/sdhci@8804000/operating-points-v2
+ 00 00 01 a5
+strings:   ¥
+--- qcom,dll-hsr-list ---
+20 /sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,dll-hsr-list
+ 00 07 44 2c 00 00 00 00 00 00 00 10 09 01 06 c0
+ 80 04 08 68
+strings:  D,       	À€h
+--- qcom,restore-after-cx-collapse ---
+0 /sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,restore-after-cx-collapse
+strings: 
+--- qcom,iommu-dma ---
+8 /sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,iommu-dma
+ 66 61 73 74 6d 61 70 00
+strings: fastmap 
+--- qcom,iommu-geometry ---
+8 /sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,iommu-geometry
+ 40 00 00 00 10 00 00 00
+strings: @      
+
+===== SDHCI CHILD/RELATED NODES =====
+/sys/firmware/devicetree/base/soc/sdhci@8804000
+/sys/firmware/devicetree/base/soc/sdhci@8804000/bus-width
+/sys/firmware/devicetree/base/soc/sdhci@8804000/cd-debounce-delay-ms
+/sys/firmware/devicetree/base/soc/sdhci@8804000/cd-gpios
+/sys/firmware/devicetree/base/soc/sdhci@8804000/clock-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/clocks
+/sys/firmware/devicetree/base/soc/sdhci@8804000/compatible
+/sys/firmware/devicetree/base/soc/sdhci@8804000/dma-coherent
+/sys/firmware/devicetree/base/soc/sdhci@8804000/interconnect-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/interconnects
+/sys/firmware/devicetree/base/soc/sdhci@8804000/interrupt-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/interrupts
+/sys/firmware/devicetree/base/soc/sdhci@8804000/iommus
+/sys/firmware/devicetree/base/soc/sdhci@8804000/name
+/sys/firmware/devicetree/base/soc/sdhci@8804000/no-mmc
+/sys/firmware/devicetree/base/soc/sdhci@8804000/no-sdio
+/sys/firmware/devicetree/base/soc/sdhci@8804000/operating-points-v2
+/sys/firmware/devicetree/base/soc/sdhci@8804000/phandle
+/sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-0
+/sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-1
+/sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,dll-hsr-list
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,iommu-dma
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,iommu-dma-addr-pool
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,iommu-geometry
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,restore-after-cx-collapse
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,vdd-current-level
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,vdd-io-current-level
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,vdd-io-voltage-level
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qcom,vdd-voltage-level
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos0
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos0/mask
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos0/name
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos0/vote
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos1
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos1/mask
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos1/name
+/sys/firmware/devicetree/base/soc/sdhci@8804000/qos1/vote
+/sys/firmware/devicetree/base/soc/sdhci@8804000/reg
+/sys/firmware/devicetree/base/soc/sdhci@8804000/reg-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/reset-names
+/sys/firmware/devicetree/base/soc/sdhci@8804000/resets
+/sys/firmware/devicetree/base/soc/sdhci@8804000/status
+/sys/firmware/devicetree/base/soc/sdhci@8804000/vdd-io-supply
+/sys/firmware/devicetree/base/soc/sdhci@8804000/vdd-supply
+
+===== PINCTRL REFERENTS =====
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda0_active ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda0_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda0_active/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda0_suspend ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda0_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda0_suspend/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda1_active ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda1_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda1_active/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda1_suspend ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda1_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda1_suspend/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda2_active ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda2_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda2_active/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda2_suspend ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda2_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda2_suspend/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda3_active ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda3_active/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda3_active/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda3_suspend ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda3_suspend/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/cci_i2c_sda3_suspend/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/i2s1_sd0 ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/i2s1_sd0/name
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/i2s1_sd1 ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/i2s1_sd1/name
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_sde ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_sde/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_sde/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_sde_te ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_sde_te/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/pmx_sde_te/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/name
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/phandle
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/spkr_2_sd_n ---
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/spkr_2_sd_n/name
+
+===== MMIO/SYSFS DRIVER =====
+/sys/devices/platform/soc/8804000.sdhci/clk_gating
+/sys/devices/platform/soc/8804000.sdhci/driver_override
+/sys/devices/platform/soc/8804000.sdhci/modalias
+/sys/devices/platform/soc/8804000.sdhci/pm_qos
+/sys/devices/platform/soc/8804000.sdhci/power/async
+/sys/devices/platform/soc/8804000.sdhci/power/autosuspend_delay_ms
+/sys/devices/platform/soc/8804000.sdhci/power/control
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_active_kids
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_active_time
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_enabled
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_status
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_suspended_time
+/sys/devices/platform/soc/8804000.sdhci/power/runtime_usage
+/sys/devices/platform/soc/8804000.sdhci/qcom/dbg_state
+/sys/devices/platform/soc/8804000.sdhci/uevent
+/sys/bus/platform/drivers/sdhci_msm
+
+===== MMC HOST =====
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/device
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/block
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/cid
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/csd
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/date
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/driver
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/dsr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/erase_size
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/fwrev
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/hwrev
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/manfid
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/name
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/ocr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/oemid
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/power
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/preferred_erase_size
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/rca
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/scr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/serial
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/ssr
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/subsystem
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/type
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001/uevent
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/async
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/autosuspend_delay_ms
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/control
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_active_kids
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_active_time
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_enabled
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_status
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_suspended_time
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/power/runtime_usage
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/subsystem
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/uevent
+
+===== KERNEL CONFIG ACCESS =====
+/proc/config.gz
+
+===== SAFETY =====
+READ-ONLY Device Tree/sysfs audit only
+No UFS/SD block contents were read and no flash/erase/format/repartition/slot/AVB operation was performed.
