@@ -1,0 +1,2008 @@
+
+===== IDENTITY =====
+Retroid Pocket G2
+pineapple
+_b
+soc/1d84000.ufshc
+1d84000.ufshc
+
+===== BLOCK SYSFS METADATA =====
+--- sda ---
+dev: 8:0
+size: 224428032
+alignment_offset: 0
+ro: 0
+removable: 0
+range: 16
+stat:    86885    34536  7482800    52016    39566      120   988696    26794        0    14480    83753      726        0   705464     2601     6602     2340
+device: /sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:0
+driver: /sys/bus/scsi/drivers/sd
+--- sdb ---
+dev: 8:16
+size: 40960
+alignment_offset: 0
+ro: 0
+removable: 0
+range: 16
+stat:        5        0       40        0        0        0        0        0        0        4        0        0        0        0        0        0        0
+device: /sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:1
+driver: /sys/bus/scsi/drivers/sd
+--- sdc ---
+dev: 8:32
+size: 40960
+alignment_offset: 0
+ro: 0
+removable: 0
+range: 16
+stat:        5        0       40        0        0        0        0        0        0        0        0        0        0        0        0        0        0
+device: /sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:2
+driver: /sys/bus/scsi/drivers/sd
+--- sdd ---
+dev: 8:48
+size: 65536
+alignment_offset: 0
+ro: 0
+removable: 0
+range: 16
+stat:        5        0       40        0        0        0        0        0        0        0        0        0        0        0        0        0        0
+device: /sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:3
+driver: /sys/bus/scsi/drivers/sd
+--- sde ---
+dev: 8:64
+size: 8388608
+alignment_offset: 0
+ro: 0
+removable: 0
+range: 16
+stat:      249        8    64176       99        0        0        0        0        0       56       99        0        0        0        0        0        0
+device: /sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:4
+driver: /sys/bus/scsi/drivers/sd
+--- sdf ---
+dev: 8:80
+size: 65536
+alignment_offset: 0
+ro: 0
+removable: 0
+range: 16
+stat:        5        0       40        0        0        0        0        0        0        0        0        0        0        0        0        0        0
+device: /sys/devices/platform/soc/1d84000.ufshc/host0/target0:0:0/0:0:0:5
+driver: /sys/bus/scsi/drivers/sd
+--- mmcblk1 ---
+dev: 179:0
+size: 2002780160
+alignment_offset: 0
+ro: 0
+removable: 0
+range: 8
+stat:    26289  1566191  1593143    32622        0        0        0        0        0    11460    32622        0        0        0        0        0        0
+device: /sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001
+driver: /sys/bus/mmc/drivers/mmcblk
+
+===== PARTITION SYSFS METADATA =====
+--- sda children ---
+[sda1]
+partition: 1
+start: 48
+size: 16
+dev: 8:1
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=1
+DEVNAME=sda1
+DEVTYPE=partition
+DISKSEQ=33
+PARTN=1
+PARTNAME=ssd
+[sda10]
+partition: 10
+start: 25366848
+size: 25575424
+dev: 8:10
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=10
+DEVNAME=sda10
+DEVTYPE=partition
+DISKSEQ=33
+PARTN=10
+PARTNAME=rawdump
+[sda11]
+partition: 11
+start: 50942272
+size: 40960
+dev: 8:11
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=11
+DEVNAME=sda11
+DEVTYPE=partition
+DISKSEQ=33
+PARTN=11
+PARTNAME=reserve1
+[sda12]
+partition: 12
+start: 50983232
+size: 173444760
+dev: 8:12
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=12
+DEVNAME=sda12
+DEVTYPE=partition
+DISKSEQ=33
+PARTN=12
+PARTNAME=userdata
+[sda2]
+partition: 2
+start: 64
+size: 65536
+dev: 8:2
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=2
+DEVNAME=sda2
+DEVTYPE=partition
+DISKSEQ=33
+PARTN=2
+PARTNAME=persist
+[sda3]
+partition: 3
+start: 65600
+size: 2048
+dev: 8:3
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=3
+DEVNAME=sda3
+DEVTYPE=partition
+DISKSEQ=33
+PARTN=3
+PARTNAME=misc
+[sda4]
+partition: 4
+start: 67648
+size: 1024
+dev: 8:4
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=4
+DEVNAME=sda4
+DEVTYPE=partition
+DISKSEQ=33
+PARTN=4
+PARTNAME=keystore
+[sda5]
+partition: 5
+start: 68672
+size: 1024
+dev: 8:5
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=5
+DEVNAME=sda5
+DEVTYPE=partition
+DISKSEQ=33
+PARTN=5
+PARTNAME=frp
+[sda6]
+partition: 6
+start: 69696
+size: 25165824
+dev: 8:6
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=6
+DEVNAME=sda6
+DEVTYPE=partition
+DISKSEQ=33
+PARTN=6
+PARTNAME=super
+[sda7]
+partition: 7
+start: 25235520
+size: 128
+dev: 8:7
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=7
+DEVNAME=sda7
+DEVTYPE=partition
+DISKSEQ=33
+PARTN=7
+PARTNAME=vbmeta_system_a
+[sda8]
+partition: 8
+start: 25235648
+size: 128
+dev: 8:8
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=8
+DEVNAME=sda8
+DEVTYPE=partition
+DISKSEQ=33
+PARTN=8
+PARTNAME=vbmeta_system_b
+[sda9]
+partition: 9
+start: 25235776
+size: 131072
+dev: 8:9
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=9
+DEVNAME=sda9
+DEVTYPE=partition
+DISKSEQ=33
+PARTN=9
+PARTNAME=metadata
+--- sdb children ---
+[sdb1]
+partition: 1
+start: 48
+size: 7168
+dev: 8:17
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=17
+DEVNAME=sdb1
+DEVTYPE=partition
+DISKSEQ=34
+PARTN=1
+PARTNAME=xbl_a
+[sdb2]
+partition: 2
+start: 7216
+size: 600
+dev: 8:18
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=18
+DEVNAME=sdb2
+DEVTYPE=partition
+DISKSEQ=34
+PARTN=2
+PARTNAME=xbl_config_a
+[sdb3]
+partition: 3
+start: 7816
+size: 64
+dev: 8:19
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=19
+DEVNAME=sdb3
+DEVTYPE=partition
+DISKSEQ=34
+PARTN=3
+PARTNAME=multiimgqti_a
+[sdb4]
+partition: 4
+start: 7880
+size: 64
+dev: 8:20
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=20
+DEVNAME=sdb4
+DEVTYPE=partition
+DISKSEQ=34
+PARTN=4
+PARTNAME=multiimgoem_a
+[sdb5]
+partition: 5
+start: 7944
+size: 512
+dev: 8:21
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=21
+DEVNAME=sdb5
+DEVTYPE=partition
+DISKSEQ=34
+PARTN=5
+PARTNAME=apdp
+--- sdc children ---
+[sdc1]
+partition: 1
+start: 48
+size: 7168
+dev: 8:33
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=33
+DEVNAME=sdc1
+DEVTYPE=partition
+DISKSEQ=35
+PARTN=1
+PARTNAME=xbl_b
+[sdc2]
+partition: 2
+start: 7216
+size: 600
+dev: 8:34
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=34
+DEVNAME=sdc2
+DEVTYPE=partition
+DISKSEQ=35
+PARTN=2
+PARTNAME=xbl_config_b
+[sdc3]
+partition: 3
+start: 7816
+size: 64
+dev: 8:35
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=35
+DEVNAME=sdc3
+DEVTYPE=partition
+DISKSEQ=35
+PARTN=3
+PARTNAME=multiimgqti_b
+[sdc4]
+partition: 4
+start: 7880
+size: 64
+dev: 8:36
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=36
+DEVNAME=sdc4
+DEVTYPE=partition
+DISKSEQ=35
+PARTN=4
+PARTNAME=multiimgoem_b
+[sdc5]
+partition: 5
+start: 7944
+size: 512
+dev: 8:37
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=37
+DEVNAME=sdc5
+DEVTYPE=partition
+DISKSEQ=35
+PARTN=5
+PARTNAME=apdpb
+--- sdd children ---
+[sdd1]
+partition: 1
+start: 48
+size: 208
+dev: 8:49
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=49
+DEVNAME=sdd1
+DEVTYPE=partition
+DISKSEQ=36
+PARTN=1
+PARTNAME=ALIGN_TO_128K_1
+[sdd2]
+partition: 2
+start: 256
+size: 256
+dev: 8:50
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=50
+DEVNAME=sdd2
+DEVTYPE=partition
+DISKSEQ=36
+PARTN=2
+PARTNAME=cdt
+[sdd3]
+partition: 3
+start: 512
+size: 2048
+dev: 8:51
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=51
+DEVNAME=sdd3
+DEVTYPE=partition
+DISKSEQ=36
+PARTN=3
+PARTNAME=ddr
+--- sde children ---
+[sde1]
+partition: 1
+start: 48
+size: 66848
+dev: 8:65
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=65
+DEVNAME=sde1
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=1
+PARTNAME=splash
+[sde10]
+partition: 10
+start: 830800
+size: 131072
+dev: 8:74
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=74
+DEVNAME=sde10
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=10
+PARTNAME=dsp_a
+[sde11]
+partition: 11
+start: 961872
+size: 1024
+dev: 8:75
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=75
+DEVNAME=sde11
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=11
+PARTNAME=keymaster_a
+[sde12]
+partition: 12
+start: 962896
+size: 196608
+dev: 8:76
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=76
+DEVNAME=sde12
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=12
+PARTNAME=boot_a
+[sde13]
+partition: 13
+start: 1159504
+size: 256
+dev: 8:77
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=77
+DEVNAME=sde13
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=13
+PARTNAME=devcfg_a
+[sde14]
+partition: 14
+start: 1159760
+size: 160
+dev: 8:78
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=78
+DEVNAME=sde14
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=14
+PARTNAME=qupfw_a
+[sde15]
+partition: 15
+start: 1159920
+size: 128
+dev: 8:79
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=79
+DEVNAME=sde15
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=15
+PARTNAME=vbmeta_a
+[sde16]
+partition: 16
+start: 1160048
+size: 65536
+dev: 259:0
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=0
+DEVNAME=sde16
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=16
+PARTNAME=dtbo_a
+[sde17]
+partition: 17
+start: 1225584
+size: 4096
+dev: 259:1
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=1
+DEVNAME=sde17
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=17
+PARTNAME=uefisecapp_a
+[sde18]
+partition: 18
+start: 1229680
+size: 4096
+dev: 259:2
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=2
+DEVNAME=sde18
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=18
+PARTNAME=imagefv_a
+[sde19]
+partition: 19
+start: 1233776
+size: 512
+dev: 259:3
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=3
+DEVNAME=sde19
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=19
+PARTNAME=shrm_a
+[sde2]
+partition: 2
+start: 66896
+size: 10240
+dev: 8:66
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=66
+DEVNAME=sde2
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=2
+PARTNAME=uefi_a
+[sde20]
+partition: 20
+start: 1234288
+size: 1100000
+dev: 259:4
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=4
+DEVNAME=sde20
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=20
+PARTNAME=vm-bootsys_a
+[sde21]
+partition: 21
+start: 2334288
+size: 2048
+dev: 259:5
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=5
+DEVNAME=sde21
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=21
+PARTNAME=cpucp_a
+[sde22]
+partition: 22
+start: 2336336
+size: 256
+dev: 259:6
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=6
+DEVNAME=sde22
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=22
+PARTNAME=featenabler_a
+[sde23]
+partition: 23
+start: 2336592
+size: 196608
+dev: 259:7
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=7
+DEVNAME=sde23
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=23
+PARTNAME=vendor_boot_a
+[sde24]
+partition: 24
+start: 2533200
+size: 61440
+dev: 259:8
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=8
+DEVNAME=sde24
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=24
+PARTNAME=qmcs
+[sde25]
+partition: 25
+start: 2594640
+size: 512
+dev: 259:9
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=9
+DEVNAME=sde25
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=25
+PARTNAME=qweslicstore_a
+[sde26]
+partition: 26
+start: 2595152
+size: 204800
+dev: 259:10
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=10
+DEVNAME=sde26
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=26
+PARTNAME=recovery_a
+[sde27]
+partition: 27
+start: 2799952
+size: 4096
+dev: 259:11
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=11
+DEVNAME=sde27
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=27
+PARTNAME=xbl_ramdump_a
+[sde28]
+partition: 28
+start: 2804048
+size: 16384
+dev: 259:12
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=12
+DEVNAME=sde28
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=28
+PARTNAME=init_boot_a
+[sde29]
+partition: 29
+start: 2820432
+size: 128
+dev: 259:13
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=13
+DEVNAME=sde29
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=29
+PARTNAME=cpucp_dtb_a
+[sde3]
+partition: 3
+start: 77136
+size: 1024
+dev: 8:67
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=67
+DEVNAME=sde3
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=3
+PARTNAME=aop_a
+[sde30]
+partition: 30
+start: 2820560
+size: 2048
+dev: 259:14
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=14
+DEVNAME=sde30
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=30
+PARTNAME=pvmfw_a
+[sde31]
+partition: 31
+start: 2822608
+size: 10240
+dev: 259:15
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=15
+DEVNAME=sde31
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=31
+PARTNAME=uefi_b
+[sde32]
+partition: 32
+start: 2832848
+size: 1024
+dev: 259:16
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=16
+DEVNAME=sde32
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=32
+PARTNAME=aop_b
+[sde33]
+partition: 33
+start: 2833872
+size: 1024
+dev: 259:17
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=17
+DEVNAME=sde33
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=33
+PARTNAME=aop_config_b
+[sde34]
+partition: 34
+start: 2834896
+size: 8192
+dev: 259:18
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=18
+DEVNAME=sde34
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=34
+PARTNAME=tz_b
+[sde35]
+partition: 35
+start: 2843088
+size: 16384
+dev: 259:19
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=19
+DEVNAME=sde35
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=35
+PARTNAME=hyp_b
+[sde36]
+partition: 36
+start: 2859472
+size: 716800
+dev: 259:20
+alignment_offset: 0
+ro: 1
+uevent:
+MAJOR=259
+MINOR=20
+DEVNAME=sde36
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=36
+PARTNAME=modem_b
+[sde37]
+partition: 37
+start: 3576272
+size: 8192
+dev: 259:21
+alignment_offset: 0
+ro: 1
+uevent:
+MAJOR=259
+MINOR=21
+DEVNAME=sde37
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=37
+PARTNAME=bluetooth_b
+[sde38]
+partition: 38
+start: 3584464
+size: 2048
+dev: 259:22
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=22
+DEVNAME=sde38
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=38
+PARTNAME=abl_b
+[sde39]
+partition: 39
+start: 3586512
+size: 131072
+dev: 259:23
+alignment_offset: 0
+ro: 1
+uevent:
+MAJOR=259
+MINOR=23
+DEVNAME=sde39
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=39
+PARTNAME=dsp_b
+[sde4]
+partition: 4
+start: 78160
+size: 1024
+dev: 8:68
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=68
+DEVNAME=sde4
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=4
+PARTNAME=aop_config_a
+[sde40]
+partition: 40
+start: 3717584
+size: 1024
+dev: 259:24
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=24
+DEVNAME=sde40
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=40
+PARTNAME=keymaster_b
+[sde41]
+partition: 41
+start: 3718608
+size: 196608
+dev: 259:25
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=25
+DEVNAME=sde41
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=41
+PARTNAME=boot_b
+[sde42]
+partition: 42
+start: 3915216
+size: 256
+dev: 259:26
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=26
+DEVNAME=sde42
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=42
+PARTNAME=devcfg_b
+[sde43]
+partition: 43
+start: 3915472
+size: 160
+dev: 259:27
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=27
+DEVNAME=sde43
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=43
+PARTNAME=qupfw_b
+[sde44]
+partition: 44
+start: 3915632
+size: 128
+dev: 259:28
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=28
+DEVNAME=sde44
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=44
+PARTNAME=vbmeta_b
+[sde45]
+partition: 45
+start: 3915760
+size: 65536
+dev: 259:29
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=29
+DEVNAME=sde45
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=45
+PARTNAME=dtbo_b
+[sde46]
+partition: 46
+start: 3981296
+size: 4096
+dev: 259:30
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=30
+DEVNAME=sde46
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=46
+PARTNAME=uefisecapp_b
+[sde47]
+partition: 47
+start: 3985392
+size: 4096
+dev: 259:31
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=31
+DEVNAME=sde47
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=47
+PARTNAME=imagefv_b
+[sde48]
+partition: 48
+start: 3989488
+size: 512
+dev: 259:32
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=32
+DEVNAME=sde48
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=48
+PARTNAME=shrm_b
+[sde49]
+partition: 49
+start: 3990000
+size: 1100000
+dev: 259:33
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=33
+DEVNAME=sde49
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=49
+PARTNAME=vm-bootsys_b
+[sde5]
+partition: 5
+start: 79184
+size: 8192
+dev: 8:69
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=69
+DEVNAME=sde5
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=5
+PARTNAME=tz_a
+[sde50]
+partition: 50
+start: 5090000
+size: 2048
+dev: 259:34
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=34
+DEVNAME=sde50
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=50
+PARTNAME=cpucp_b
+[sde51]
+partition: 51
+start: 5092048
+size: 256
+dev: 259:35
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=35
+DEVNAME=sde51
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=51
+PARTNAME=featenabler_b
+[sde52]
+partition: 52
+start: 5092304
+size: 196608
+dev: 259:36
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=36
+DEVNAME=sde52
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=52
+PARTNAME=vendor_boot_b
+[sde53]
+partition: 53
+start: 5288912
+size: 512
+dev: 259:37
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=37
+DEVNAME=sde53
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=53
+PARTNAME=qweslicstore_b
+[sde54]
+partition: 54
+start: 5289424
+size: 204800
+dev: 259:38
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=38
+DEVNAME=sde54
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=54
+PARTNAME=recovery_b
+[sde55]
+partition: 55
+start: 5494224
+size: 4096
+dev: 259:39
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=39
+DEVNAME=sde55
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=55
+PARTNAME=xbl_ramdump_b
+[sde56]
+partition: 56
+start: 5498320
+size: 16384
+dev: 259:40
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=40
+DEVNAME=sde56
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=56
+PARTNAME=init_boot_b
+[sde57]
+partition: 57
+start: 5514704
+size: 128
+dev: 259:41
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=41
+DEVNAME=sde57
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=57
+PARTNAME=cpucp_dtb_b
+[sde58]
+partition: 58
+start: 5514832
+size: 2048
+dev: 259:42
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=42
+DEVNAME=sde58
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=58
+PARTNAME=pvmfw_b
+[sde59]
+partition: 59
+start: 5516880
+size: 8
+dev: 259:43
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=43
+DEVNAME=sde59
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=59
+PARTNAME=devinfo
+[sde6]
+partition: 6
+start: 87376
+size: 16384
+dev: 8:70
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=70
+DEVNAME=sde6
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=6
+PARTNAME=hyp_a
+[sde60]
+partition: 60
+start: 5516888
+size: 2048
+dev: 259:44
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=44
+DEVNAME=sde60
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=60
+PARTNAME=toolsfv
+[sde61]
+partition: 61
+start: 5518936
+size: 16384
+dev: 259:45
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=45
+DEVNAME=sde61
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=61
+PARTNAME=logfs
+[sde62]
+partition: 62
+start: 5535320
+size: 1048576
+dev: 259:46
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=46
+DEVNAME=sde62
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=62
+PARTNAME=logdump
+[sde63]
+partition: 63
+start: 6583896
+size: 256
+dev: 259:47
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=47
+DEVNAME=sde63
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=63
+PARTNAME=storsec
+[sde64]
+partition: 64
+start: 6584152
+size: 1024
+dev: 259:48
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=48
+DEVNAME=sde64
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=64
+PARTNAME=uefivarstore
+[sde65]
+partition: 65
+start: 6585176
+size: 56
+dev: 259:49
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=49
+DEVNAME=sde65
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=65
+PARTNAME=secdata
+[sde66]
+partition: 66
+start: 6585232
+size: 245760
+dev: 259:50
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=50
+DEVNAME=sde66
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=66
+PARTNAME=vm-persist
+[sde67]
+partition: 67
+start: 6830992
+size: 40960
+dev: 259:51
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=51
+DEVNAME=sde67
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=67
+PARTNAME=mdcompress
+[sde68]
+partition: 68
+start: 6871952
+size: 256
+dev: 259:52
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=52
+DEVNAME=sde68
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=68
+PARTNAME=connsec
+[sde69]
+partition: 69
+start: 6872208
+size: 256
+dev: 259:53
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=53
+DEVNAME=sde69
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=69
+PARTNAME=tzsc
+[sde7]
+partition: 7
+start: 103760
+size: 716800
+dev: 8:71
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=71
+DEVNAME=sde7
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=7
+PARTNAME=modem_a
+[sde70]
+partition: 70
+start: 6872464
+size: 65536
+dev: 259:54
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=54
+DEVNAME=sde70
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=70
+PARTNAME=spunvm
+[sde71]
+partition: 71
+start: 6938000
+size: 128
+dev: 259:55
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=55
+DEVNAME=sde71
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=71
+PARTNAME=xbl_sc_test_mode
+[sde72]
+partition: 72
+start: 6938128
+size: 256
+dev: 259:56
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=56
+DEVNAME=sde72
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=72
+PARTNAME=xbl_sc_logs
+[sde73]
+partition: 73
+start: 6938384
+size: 16
+dev: 259:57
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=259
+MINOR=57
+DEVNAME=sde73
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=73
+PARTNAME=dpm
+[sde8]
+partition: 8
+start: 820560
+size: 8192
+dev: 8:72
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=72
+DEVNAME=sde8
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=8
+PARTNAME=bluetooth_a
+[sde9]
+partition: 9
+start: 828752
+size: 2048
+dev: 8:73
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=73
+DEVNAME=sde9
+DEVTYPE=partition
+DISKSEQ=37
+PARTN=9
+PARTNAME=abl_a
+--- sdf children ---
+[sdf1]
+partition: 1
+start: 48
+size: 208
+dev: 8:81
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=81
+DEVNAME=sdf1
+DEVTYPE=partition
+DISKSEQ=38
+PARTN=1
+PARTNAME=ALIGN_TO_128K_2
+[sdf2]
+partition: 2
+start: 256
+size: 8192
+dev: 8:82
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=82
+DEVNAME=sdf2
+DEVTYPE=partition
+DISKSEQ=38
+PARTN=2
+PARTNAME=modemst1
+[sdf3]
+partition: 3
+start: 8448
+size: 8192
+dev: 8:83
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=83
+DEVNAME=sdf3
+DEVTYPE=partition
+DISKSEQ=38
+PARTN=3
+PARTNAME=modemst2
+[sdf4]
+partition: 4
+start: 16640
+size: 1024
+dev: 8:84
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=84
+DEVNAME=sdf4
+DEVTYPE=partition
+DISKSEQ=38
+PARTN=4
+PARTNAME=odm
+[sdf5]
+partition: 5
+start: 17664
+size: 1024
+dev: 8:85
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=85
+DEVNAME=sdf5
+DEVTYPE=partition
+DISKSEQ=38
+PARTN=5
+PARTNAME=ssign
+[sdf6]
+partition: 6
+start: 18688
+size: 8192
+dev: 8:86
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=86
+DEVNAME=sdf6
+DEVTYPE=partition
+DISKSEQ=38
+PARTN=6
+PARTNAME=fsg
+[sdf7]
+partition: 7
+start: 26880
+size: 256
+dev: 8:87
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=8
+MINOR=87
+DEVNAME=sdf7
+DEVTYPE=partition
+DISKSEQ=38
+PARTN=7
+PARTNAME=fsc
+--- mmcblk1 children ---
+[mmcblk1p1]
+partition: 1
+start: 2048
+size: 2002778079
+dev: 179:1
+alignment_offset: 0
+ro: 0
+uevent:
+MAJOR=179
+MINOR=1
+DEVNAME=mmcblk1p1
+DEVTYPE=partition
+DISKSEQ=62
+PARTN=1
+
+===== BY-NAME RESOLUTION =====
+xbl_a -> /dev/block/sdb1
+  partition: 1
+  start: 48
+  size: 7168
+  dev: 8:17
+  ro: 0
+  alignment_offset: 0
+xbl_b -> /dev/block/sdc1
+  partition: 1
+  start: 48
+  size: 7168
+  dev: 8:33
+  ro: 0
+  alignment_offset: 0
+xbl_config_a -> /dev/block/sdb2
+  partition: 2
+  start: 7216
+  size: 600
+  dev: 8:18
+  ro: 0
+  alignment_offset: 0
+xbl_config_b -> /dev/block/sdc2
+  partition: 2
+  start: 7216
+  size: 600
+  dev: 8:34
+  ro: 0
+  alignment_offset: 0
+abl_a -> /dev/block/sde9
+  partition: 9
+  start: 828752
+  size: 2048
+  dev: 8:73
+  ro: 0
+  alignment_offset: 0
+abl_b -> /dev/block/sde38
+  partition: 38
+  start: 3584464
+  size: 2048
+  dev: 259:22
+  ro: 0
+  alignment_offset: 0
+uefi_a -> /dev/block/sde2
+  partition: 2
+  start: 66896
+  size: 10240
+  dev: 8:66
+  ro: 0
+  alignment_offset: 0
+uefi_b -> /dev/block/sde31
+  partition: 31
+  start: 2822608
+  size: 10240
+  dev: 259:15
+  ro: 0
+  alignment_offset: 0
+uefisecapp_a -> /dev/block/sde17
+  partition: 17
+  start: 1225584
+  size: 4096
+  dev: 259:1
+  ro: 0
+  alignment_offset: 0
+uefisecapp_b -> /dev/block/sde46
+  partition: 46
+  start: 3981296
+  size: 4096
+  dev: 259:30
+  ro: 0
+  alignment_offset: 0
+boot_a -> /dev/block/sde12
+  partition: 12
+  start: 962896
+  size: 196608
+  dev: 8:76
+  ro: 0
+  alignment_offset: 0
+boot_b -> /dev/block/sde41
+  partition: 41
+  start: 3718608
+  size: 196608
+  dev: 259:25
+  ro: 0
+  alignment_offset: 0
+init_boot_a -> /dev/block/sde28
+  partition: 28
+  start: 2804048
+  size: 16384
+  dev: 259:12
+  ro: 0
+  alignment_offset: 0
+init_boot_b -> /dev/block/sde56
+  partition: 56
+  start: 5498320
+  size: 16384
+  dev: 259:40
+  ro: 0
+  alignment_offset: 0
+vendor_boot_a -> /dev/block/sde23
+  partition: 23
+  start: 2336592
+  size: 196608
+  dev: 259:7
+  ro: 0
+  alignment_offset: 0
+vendor_boot_b -> /dev/block/sde52
+  partition: 52
+  start: 5092304
+  size: 196608
+  dev: 259:36
+  ro: 0
+  alignment_offset: 0
+dtbo_a -> /dev/block/sde16
+  partition: 16
+  start: 1160048
+  size: 65536
+  dev: 259:0
+  ro: 0
+  alignment_offset: 0
+dtbo_b -> /dev/block/sde45
+  partition: 45
+  start: 3915760
+  size: 65536
+  dev: 259:29
+  ro: 0
+  alignment_offset: 0
+vbmeta_a -> /dev/block/sde15
+  partition: 15
+  start: 1159920
+  size: 128
+  dev: 8:79
+  ro: 0
+  alignment_offset: 0
+vbmeta_b -> /dev/block/sde44
+  partition: 44
+  start: 3915632
+  size: 128
+  dev: 259:28
+  ro: 0
+  alignment_offset: 0
+recovery_a -> /dev/block/sde26
+  partition: 26
+  start: 2595152
+  size: 204800
+  dev: 259:10
+  ro: 0
+  alignment_offset: 0
+recovery_b -> /dev/block/sde54
+  partition: 54
+  start: 5289424
+  size: 204800
+  dev: 259:38
+  ro: 0
+  alignment_offset: 0
+super -> /dev/block/sda6
+  partition: 6
+  start: 69696
+  size: 25165824
+  dev: 8:6
+  ro: 0
+  alignment_offset: 0
+userdata -> /dev/block/sda12
+  partition: 12
+  start: 50983232
+  size: 173444760
+  dev: 8:12
+  ro: 0
+  alignment_offset: 0
+misc -> /dev/block/sda3
+  partition: 3
+  start: 65600
+  size: 2048
+  dev: 8:3
+  ro: 0
+  alignment_offset: 0
+persist -> /dev/block/sda2
+  partition: 2
+  start: 64
+  size: 65536
+  dev: 8:2
+  ro: 0
+  alignment_offset: 0
+modem_a -> /dev/block/sde7
+  partition: 7
+  start: 103760
+  size: 716800
+  dev: 8:71
+  ro: 0
+  alignment_offset: 0
+modem_b -> /dev/block/sde36
+  partition: 36
+  start: 2859472
+  size: 716800
+  dev: 259:20
+  ro: 1
+  alignment_offset: 0
+
+===== PARTUUID / DISK LINKS =====
+--- /dev/block/by-partuuid ---
+ls: /dev/block/by-partuuid: No such file or directory
+--- /dev/disk/by-partuuid ---
+ls: /dev/disk/by-partuuid: No such file or directory
+--- /dev/block/by-name ---
+total 0
+drwxr-xr-x 2 root root 2300 1970-10-16 16:33 .
+drwxr-xr-x 6 root root 4480 2026-08-20 22:31 ..
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 ALIGN_TO_128K_1 -> /dev/block/sdd1
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 ALIGN_TO_128K_2 -> /dev/block/sdf1
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 abl_a -> /dev/block/sde9
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 abl_b -> /dev/block/sde38
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 aop_a -> /dev/block/sde3
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 aop_b -> /dev/block/sde32
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 aop_config_a -> /dev/block/sde4
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 aop_config_b -> /dev/block/sde33
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 apdp -> /dev/block/sdb5
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 apdpb -> /dev/block/sdc5
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 bluetooth_a -> /dev/block/sde8
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 bluetooth_b -> /dev/block/sde37
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 boot_a -> /dev/block/sde12
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 boot_b -> /dev/block/sde41
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 cdt -> /dev/block/sdd2
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 connsec -> /dev/block/sde68
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 cpucp_a -> /dev/block/sde21
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 cpucp_b -> /dev/block/sde50
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 cpucp_dtb_a -> /dev/block/sde29
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 cpucp_dtb_b -> /dev/block/sde57
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 ddr -> /dev/block/sdd3
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 devcfg_a -> /dev/block/sde13
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 devcfg_b -> /dev/block/sde42
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 devinfo -> /dev/block/sde59
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 dpm -> /dev/block/sde73
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 dsp_a -> /dev/block/sde10
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 dsp_b -> /dev/block/sde39
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 dtbo_a -> /dev/block/sde16
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 dtbo_b -> /dev/block/sde45
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 featenabler_a -> /dev/block/sde22
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 featenabler_b -> /dev/block/sde51
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 frp -> /dev/block/sda5
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 fsc -> /dev/block/sdf7
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 fsg -> /dev/block/sdf6
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 hyp_a -> /dev/block/sde6
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 hyp_b -> /dev/block/sde35
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 imagefv_a -> /dev/block/sde18
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 imagefv_b -> /dev/block/sde47
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 init_boot_a -> /dev/block/sde28
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 init_boot_b -> /dev/block/sde56
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 keymaster_a -> /dev/block/sde11
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 keymaster_b -> /dev/block/sde40
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 keystore -> /dev/block/sda4
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 logdump -> /dev/block/sde62
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 logfs -> /dev/block/sde61
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 mdcompress -> /dev/block/sde67
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 metadata -> /dev/block/sda9
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 misc -> /dev/block/sda3
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 modem_a -> /dev/block/sde7
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 modem_b -> /dev/block/sde36
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 modemst1 -> /dev/block/sdf2
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 modemst2 -> /dev/block/sdf3
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 multiimgoem_a -> /dev/block/sdb4
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 multiimgoem_b -> /dev/block/sdc4
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 multiimgqti_a -> /dev/block/sdb3
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 multiimgqti_b -> /dev/block/sdc3
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 odm -> /dev/block/sdf4
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 persist -> /dev/block/sda2
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 pvmfw_a -> /dev/block/sde30
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 pvmfw_b -> /dev/block/sde58
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 qmcs -> /dev/block/sde24
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 qupfw_a -> /dev/block/sde14
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 qupfw_b -> /dev/block/sde43
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 qweslicstore_a -> /dev/block/sde25
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 qweslicstore_b -> /dev/block/sde53
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 rawdump -> /dev/block/sda10
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 recovery_a -> /dev/block/sde26
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 recovery_b -> /dev/block/sde54
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 reserve1 -> /dev/block/sda11
+lrwxrwxrwx 1 root root   14 1970-10-16 16:33 sda -> /dev/block/sda
+lrwxrwxrwx 1 root root   14 1970-10-16 16:33 sdb -> /dev/block/sdb
+lrwxrwxrwx 1 root root   14 1970-10-16 16:33 sdc -> /dev/block/sdc
+lrwxrwxrwx 1 root root   14 1970-10-16 16:33 sdd -> /dev/block/sdd
+lrwxrwxrwx 1 root root   14 1970-10-16 16:33 sde -> /dev/block/sde
+lrwxrwxrwx 1 root root   14 1970-10-16 16:33 sdf -> /dev/block/sdf
+lrwxrwxrwx 1 root root   14 1970-10-16 16:33 sdg -> /dev/block/sdg
+lrwxrwxrwx 1 root root   14 1970-10-16 16:33 sdh -> /dev/block/sdh
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 secdata -> /dev/block/sde65
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 shrm_a -> /dev/block/sde19
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 shrm_b -> /dev/block/sde48
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 splash -> /dev/block/sde1
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 spunvm -> /dev/block/sde70
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 ssd -> /dev/block/sda1
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 ssign -> /dev/block/sdf5
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 storsec -> /dev/block/sde63
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 super -> /dev/block/sda6
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 toolsfv -> /dev/block/sde60
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 tz_a -> /dev/block/sde5
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 tz_b -> /dev/block/sde34
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 tzsc -> /dev/block/sde69
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 uefi_a -> /dev/block/sde2
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 uefi_b -> /dev/block/sde31
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 uefisecapp_a -> /dev/block/sde17
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 uefisecapp_b -> /dev/block/sde46
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 uefivarstore -> /dev/block/sde64
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 userdata -> /dev/block/sda12
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 vbmeta_a -> /dev/block/sde15
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 vbmeta_b -> /dev/block/sde44
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 vbmeta_system_a -> /dev/block/sda7
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 vbmeta_system_b -> /dev/block/sda8
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 vendor_boot_a -> /dev/block/sde23
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 vendor_boot_b -> /dev/block/sde52
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 vm-bootsys_a -> /dev/block/sde20
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 vm-bootsys_b -> /dev/block/sde49
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 vm-persist -> /dev/block/sde66
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 xbl_a -> /dev/block/sdb1
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 xbl_b -> /dev/block/sdc1
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 xbl_config_a -> /dev/block/sdb2
+lrwxrwxrwx 1 root root   15 1970-10-16 16:33 xbl_config_b -> /dev/block/sdc2
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 xbl_ramdump_a -> /dev/block/sde27
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 xbl_ramdump_b -> /dev/block/sde55
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 xbl_sc_logs -> /dev/block/sde72
+lrwxrwxrwx 1 root root   16 1970-10-16 16:33 xbl_sc_test_mode -> /dev/block/sde71
+
+===== MICROSD =====
+brw------- 1 root root 179,   0 1970-10-16 16:33 /dev/block/mmcblk1
+brw------- 1 root root 179,   1 1970-10-16 16:33 /dev/block/mmcblk1p1
+/sys/devices/platform/soc/8804000.sdhci/mmc_host/mmc1/mmc1:0001
+/sys/bus/mmc/drivers/mmcblk
+
+===== SAFETY =====
+READ-ONLY SYSFS PARTITION METADATA AUDIT ONLY
+No raw block reads, dd, flash, erase, format, repartition, mount, slot change, or AVB change were performed.
