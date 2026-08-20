@@ -1,0 +1,93 @@
+/dts-v1/;
+
+/*
+ * Retroid Pocket G2 - SDHCI Linux DT analysis draft
+ *
+ * PURPOSE:
+ *   Static-analysis document / DTS skeleton only.
+ *   NOT a bootable DTB and MUST NOT be flashed to the device.
+ *
+ * SOURCE:
+ *   Values marked CONFIRMED come from the G2 Android Device Tree collected
+ *   through ADB and stored under dumps/g2/.
+ *   Values marked REFERENCE are patterns seen in public Qualcomm/Pineapple
+ *   Linux DTS material.
+ *   Values marked UNKNOWN are intentionally not guessed.
+ */
+
+/*
+ * CONFIRMED G2 root identity:
+ *   model: Qualcomm Technologies, Inc. Cliffs MTP
+ *   compatible: qcom,cliffs-mtp; qcom,cliffs; qcom,cliffsp-mtp;
+ *               qcom,cliffsp; qcom,mtp
+ *
+ * This draft deliberately does not invent a board-level compatible string.
+ */
+
+/*
+ * CONFIRMED G2 SD controller:
+ *   node:       /soc/sdhci@8804000
+ *   compatible: qcom,sdhci-msm-v5
+ *   reg:        0x08804000, size 0x1000
+ *   bus-width: 4
+ *   status:     ok
+ *
+ * CONFIRMED G2 SD pin assignments:
+ *   CLK  gpio62
+ *   CMD  gpio51
+ *   DATA gpio38 gpio39 gpio48 gpio49
+ *   CD   gpio31
+ *
+ * CONFIRMED G2 pinctrl states:
+ *   sdc2_on
+ *   sdc2_off
+ *
+ * CONFIRMED G2 supplies:
+ *   vdd     -> rpmh-regulator-ldob13 / regulator-pmxr2230-l13
+ *   vdd-io  -> rpmh-regulator-ldob23 / regulator-pmxr2230-l23
+ *
+ * CONFIRMED G2 additional SDHCI properties include Qualcomm DLL settings,
+ * IOMMU/DMA information, interconnects, clocks/resets, OPP information and
+ * restore-after-CX-collapse related data. Exact Linux-compatible syntax must
+ * be derived from a matching Cliffs/Pineapple Linux source before use.
+ */
+
+/*
+ * ANALYSIS SKELETON ONLY:
+ *
+ * &sdhc_2 {
+ *     compatible = "qcom,sdhci-msm-v5";       // CONFIRMED
+ *     reg = <0x0 0x08804000 0x0 0x1000>;        // CONFIRMED, Linux syntax TBD
+ *     bus-width = <4>;                          // CONFIRMED
+ *     status = "okay";                          // CONFIRMED Android DT says ok
+ *
+ *     // pinctrl-names = "default", "sleep";   // CONFIRMED concept
+ *     // pinctrl-0 = <&sdc2_on>;                // CONFIRMED concept
+ *     // pinctrl-1 = <&sdc2_off>;               // CONFIRMED concept
+ *
+ *     // cd-gpios = <&tlmm 31 GPIO_ACTIVE_LOW>; // GPIO polarity/syntax must be
+ *                                              // verified from source DT.
+ *
+ *     // vdd-supply = <&...>;                   // CONFIRMED regulator identity;
+ *     // vdd-io-supply = <&...>;                // Linux phandle must be mapped.
+ *
+ *     // clocks / clock-names: UNKNOWN until
+ *     // matching Cliffs/Pineapple Linux DTS is identified.
+ *     // interrupts: UNKNOWN in this draft.
+ *     // iommus: UNKNOWN Linux-side phandle mapping.
+ *     // interconnects: UNKNOWN Linux-side phandle mapping.
+ *     // OPP table: UNKNOWN Linux-side implementation.
+ *     // Qualcomm DLL properties: CONFIRMED to exist on G2,
+ *     // exact Linux binding/version still needs verification.
+ * };
+ */
+
+/*
+ * SAFETY GATE
+ *
+ * This file is intentionally incomplete. Do not compile it into a DTB for
+ * the G2 until every UNKNOWN item has been resolved against a matching Linux
+ * kernel source and the resulting DTS passes dtc/binding validation.
+ *
+ * No Android boot/UEFI/ABL partition is modified by creating this file.
+ */
