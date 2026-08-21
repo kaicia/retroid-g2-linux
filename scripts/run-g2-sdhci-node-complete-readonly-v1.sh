@@ -22,10 +22,18 @@ text compatible
 for f in reg interrupts interrupt-names clock-names clocks reset-names resets interconnect-names interconnects bus-width max-frequency non-removable cap-mmc-hs200 cap-mmc-hs400 qcom,dll-hsr-list qcom,dll-config qcom,ice qcom,ice-instance qcom,core_3_0 qcom,ddr-config operating-points-v2 vmmc-supply vqmmc-supply vdd-supply vdd-io-supply iommus pinctrl-0 pinctrl-1; do prop "$f"; done
 
 echo '===== NODE DIRECTORY ====='; ls -la "$NODE" 2>&1
-
 echo '===== PARENT / RELATED NODES ====='; PARENT=$(dirname "$NODE"); echo "PARENT=$PARENT"; ls -la "$PARENT" 2>&1 | head -200
-for d in "$BASE/soc/gcc@100000" "$BASE/soc/clock-controller@100000" "$BASE/soc/interconnect@16e0000" "$BASE/soc/interconnect@1" "$BASE/soc/interconnect@24100000" "$BASE/soc/interconnect@1600000"; do if [ -d "$d" ]; then echo "===== RELATED $d ====="; for f in compatible reg # clock-names
-; do [ -f "$d/$f" ] && { echo "--- $f ---"; od -An -tx1 "$d/$f"; }; done; fi; done
+for d in "$BASE/soc/gcc@100000" "$BASE/soc/clock-controller@100000" "$BASE/soc/interconnect@16e0000" "$BASE/soc/interconnect@1" "$BASE/soc/interconnect@24100000" "$BASE/soc/interconnect@1600000"; do
+    if [ -d "$d" ]; then
+        echo "===== RELATED $d ====="
+        for f in compatible reg; do
+            if [ -f "$d/$f" ]; then
+                echo "--- $f ---"
+                od -An -tx1 "$d/$f"
+            fi
+        done
+    fi
+done
 
 echo '===== SDHC2 OPP TABLE RAW ====='; OPP=$(find "$BASE" -type d -name 'sdhc2-opp-table' 2>/dev/null | head -1); echo "OPP=$OPP"; if [ -n "$OPP" ] && [ -d "$OPP" ]; then find "$OPP" -maxdepth 2 -type f | sort | while read f; do echo "--- $f ---"; od -An -tx1 "$f" 2>&1; done; fi
 
