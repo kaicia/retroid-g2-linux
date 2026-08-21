@@ -1,0 +1,380 @@
+===== IDENTITY =====
+Retroid Pocket G2
+pineapple
+qti/pineapple/pineapple:15/AQ3A.250226.002/eng.RPG2.20260123.180002:user/dev-keys
+===== CARD DETECT =====
+--- /sys/firmware/devicetree/base/soc/sdhci@8804000/cd-gpios ---
+0000016c0000001f00000001
+--- /sys/firmware/devicetree/base/soc/sdhci@8804000/cd-debounce-delay-ms ---
+000005dc
+===== CD GPIO CONTROLLER PHANDLE 0000016c =====
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000
+===== NODE /sys/firmware/devicetree/base/soc/pinctrl@f000000 =====
+total 0
+-r--r--r--   1 root root  4 2026-08-22 00:59 #gpio-cells
+-r--r--r--   1 root root  4 2026-08-22 00:59 #interrupt-cells
+drwxr-xr-x  96 root root  0 2026-08-22 00:59 .
+drwxr-xr-x 509 root root  0 2026-08-22 00:59 ..
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 bt_en_sleep
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_active_rst0
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_active_rst1
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_active_rst2
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_active_rst3
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_active_rst4
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_mclk0_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_mclk0_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_mclk1_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_mclk1_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_mclk2_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_mclk2_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_mclk3_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_mclk3_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_mclk4_active
+drwxr-xr-x   4 root root  0 2026-08-22 01:00 cam_sensor_mclk4_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_mclk5_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_mclk5_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_ponv_front_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_ponv_front_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_suspend_rst0
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_suspend_rst1
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_suspend_rst2
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_suspend_rst3
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cam_sensor_suspend_rst4
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_scl0_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_scl0_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_scl1_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_scl1_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_scl2_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_scl2_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_scl3_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_scl3_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_sda0_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_sda0_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_sda1_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_sda1_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_sda2_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_sda2_suspend
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_sda3_active
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 cci_i2c_sda3_suspend
+-r--r--r--   1 root root 20 2026-08-22 00:59 compatible
+drwxr-xr-x   3 root root  0 2026-08-22 00:59 fan_det_default
+drwxr-xr-x   3 root root  0 2026-08-22 01:00 fan_mcu_default
+-r--r--r--   1 root root  0 2026-08-22 00:59 gpio-controller
+drwxr-xr-x   3 root root  0 2026-08-22 00:59 hwver_gpio_default
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 i2s1_sck
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 i2s1_sd0
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 i2s1_sd1
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 i2s1_ws
+-r--r--r--   1 root root  0 2026-08-22 01:00 interrupt-controller
+-r--r--r--   1 root root 12 2026-08-22 00:59 interrupts
+-r--r--r--   1 root root  8 2026-08-22 01:00 name
+drwxr-xr-x   6 root root  0 2026-08-22 00:59 nfc
+drwxr-xr-x   6 root root  0 2026-08-22 00:59 pcie0
+-r--r--r--   1 root root  4 2026-08-22 00:59 phandle
+drwxr-xr-x   6 root root  0 2026-08-22 00:59 pmx_sde
+drwxr-xr-x   6 root root  0 2026-08-22 00:59 pmx_sde_te
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 pmx_ts_active
+drwxr-xr-x   3 root root  0 2026-08-22 00:59 pmx_ts_int_suspend
+drwxr-xr-x   3 root root  0 2026-08-22 00:59 pmx_ts_release
+drwxr-xr-x   3 root root  0 2026-08-22 00:59 pmx_ts_reset_suspend
+-r--r--r--   1 root root 20 2026-08-22 00:59 qcom,gpios-reserved
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se0_i2c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se0_spi_pins
+drwxr-xr-x  10 root root  0 2026-08-22 00:59 qupv3_se10_4uart_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se11_i2c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se11_spi_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se12_i2c_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se13_i2c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se13_spi_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se14_i2c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se14_spi_pins
+drwxr-xr-x   5 root root  0 2026-08-22 01:00 qupv3_se15_i2c_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se1_i2c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se1_i3c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 01:00 qupv3_se1_spi_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se2_2uart_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se2_i2c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se2_spi_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se3_i2c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se3_spi_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se4_i2c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se4_i3c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se4_spi_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se5_2uart_pins
+drwxr-xr-x   5 root root  0 2026-08-22 01:00 qupv3_se6_i2c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se6_i3c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se6_spi_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se7_i2c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se7_spi_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se8_i2c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se8_i3c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se8_spi_pins
+drwxr-xr-x   5 root root  0 2026-08-22 00:59 qupv3_se9_i2c_pins
+drwxr-xr-x   7 root root  0 2026-08-22 00:59 qupv3_se9_i3c_pins
+-r--r--r--   1 root root  8 2026-08-22 00:59 reg
+drwxr-xr-x   6 root root  0 2026-08-22 00:59 sdc2_off
+drwxr-xr-x   6 root root  0 2026-08-22 00:59 sdc2_on
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 spkr_2_sd_n
+drwxr-xr-x   4 root root  0 2026-08-22 00:59 usb_phy_ps
+-r--r--r--   1 root root  4 2026-08-22 00:59 wakeup-parent
+drwxr-xr-x   4 root root  0 2026-08-22 01:00 wcd_reset
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/#gpio-cells ---
+00000002
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/#interrupt-cells ---
+00000002
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/compatible ---
+71636f6d2c636c696666732d70696e6374726c00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/gpio-controller ---
+
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/interrupt-controller ---
+
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/interrupts ---
+00000000000000d000000004
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/name ---
+70696e6374726c00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/phandle ---
+0000016c
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/qcom,gpios-reserved ---
+00000038000000390000003a0000003b0000003c
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/reg ---
+0f00000001000000
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/wakeup-parent ---
+00000157
+===== INTERCONNECT PHANDLE 000001a2 =====
+NODE=/sys/firmware/devicetree/base/soc/interconnect@16E0000
+===== NODE /sys/firmware/devicetree/base/soc/interconnect@16E0000 =====
+total 0
+-r--r--r--   1 root root  4 2026-08-22 00:59 #interconnect-cells
+drwxr-xr-x   2 root root  0 2026-08-22 00:59 .
+drwxr-xr-x 509 root root  0 2026-08-22 00:59 ..
+-r--r--r--   1 root root 16 2026-08-22 00:59 clocks
+-r--r--r--   1 root root 23 2026-08-22 00:59 compatible
+-r--r--r--   1 root root 13 2026-08-22 00:59 name
+-r--r--r--   1 root root  4 2026-08-22 00:59 phandle
+-r--r--r--   1 root root  5 2026-08-22 00:59 qcom,bcm-voter-names
+-r--r--r--   1 root root  4 2026-08-22 00:59 qcom,bcm-voters
+-r--r--r--   1 root root  8 2026-08-22 00:59 reg
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/clocks ---
+0000016f000000070000016f00000008
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/compatible ---
+71636f6d2c636c696666732d6167677265315f6e6f6300
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/name ---
+696e746572636f6e6e65637400
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/phandle ---
+000001a2
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/qcom,bcm-voter-names ---
+686c6f7300
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/qcom,bcm-voters ---
+000001ab
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/reg ---
+016e000000019180
+===== INTERCONNECT PHANDLE 00000189 =====
+NODE=/sys/firmware/devicetree/base/soc/interconnect@1
+===== NODE /sys/firmware/devicetree/base/soc/interconnect@1 =====
+total 0
+-r--r--r--   1 root root  4 2026-08-22 00:59 #interconnect-cells
+drwxr-xr-x   2 root root  0 2026-08-22 00:59 .
+drwxr-xr-x 509 root root  0 2026-08-22 00:59 ..
+-r--r--r--   1 root root 20 2026-08-22 00:59 compatible
+-r--r--r--   1 root root 13 2026-08-22 00:59 name
+-r--r--r--   1 root root  4 2026-08-22 00:59 phandle
+-r--r--r--   1 root root 54 2026-08-22 00:59 qcom,bcm-voter-names
+-r--r--r--   1 root root 24 2026-08-22 00:59 qcom,bcm-voters
+--- /sys/firmware/devicetree/base/soc/interconnect@1/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@1/compatible ---
+71636f6d2c636c696666732d6d635f7669727400
+--- /sys/firmware/devicetree/base/soc/interconnect@1/name ---
+696e746572636f6e6e65637400
+--- /sys/firmware/devicetree/base/soc/interconnect@1/phandle ---
+00000189
+--- /sys/firmware/devicetree/base/soc/interconnect@1/qcom,bcm-voter-names ---
+686c6f7300646973700063616d5f6966655f300063616d5f6966655f310063616d5f6966655f3200706369655f63726d5f68775f3000
+--- /sys/firmware/devicetree/base/soc/interconnect@1/qcom,bcm-voters ---
+000001ab000001ad000001ae000001af000001b0000001ac
+===== INTERCONNECT PHANDLE 000001a3 =====
+NODE=/sys/firmware/devicetree/base/soc/interconnect@24100000
+===== NODE /sys/firmware/devicetree/base/soc/interconnect@24100000 =====
+total 0
+-r--r--r--   1 root root  4 2026-08-22 00:59 #interconnect-cells
+drwxr-xr-x   2 root root  0 2026-08-22 00:59 .
+drwxr-xr-x 509 root root  0 2026-08-22 00:59 ..
+-r--r--r--   1 root root 20 2026-08-22 00:59 compatible
+-r--r--r--   1 root root 13 2026-08-22 00:59 name
+-r--r--r--   1 root root  4 2026-08-22 00:59 phandle
+-r--r--r--   1 root root 54 2026-08-22 00:59 qcom,bcm-voter-names
+-r--r--r--   1 root root 24 2026-08-22 00:59 qcom,bcm-voters
+-r--r--r--   1 root root  8 2026-08-22 00:59 reg
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000/compatible ---
+71636f6d2c636c696666732d67656d5f6e6f6300
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000/name ---
+696e746572636f6e6e65637400
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000/phandle ---
+000001a3
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000/qcom,bcm-voter-names ---
+686c6f7300646973700063616d5f6966655f300063616d5f6966655f310063616d5f6966655f3200706369655f63726d5f68775f3000
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000/qcom,bcm-voters ---
+000001ab000001ad000001ae000001af000001b0000001ac
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000/reg ---
+24100000000c3080
+===== INTERCONNECT PHANDLE 000001a4 =====
+NODE=/sys/firmware/devicetree/base/soc/interconnect@1600000
+===== NODE /sys/firmware/devicetree/base/soc/interconnect@1600000 =====
+total 0
+-r--r--r--   1 root root  4 2026-08-22 00:59 #interconnect-cells
+drwxr-xr-x   2 root root  0 2026-08-22 00:59 .
+drwxr-xr-x 509 root root  0 2026-08-22 00:59 ..
+-r--r--r--   1 root root 21 2026-08-22 00:59 compatible
+-r--r--r--   1 root root 13 2026-08-22 00:59 name
+-r--r--r--   1 root root  4 2026-08-22 00:59 phandle
+-r--r--r--   1 root root  5 2026-08-22 00:59 qcom,bcm-voter-names
+-r--r--r--   1 root root  4 2026-08-22 00:59 qcom,bcm-voters
+-r--r--r--   1 root root  8 2026-08-22 00:59 reg
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000/compatible ---
+71636f6d2c636c696666732d636e6f635f63666700
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000/name ---
+696e746572636f6e6e65637400
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000/phandle ---
+000001a4
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000/qcom,bcm-voter-names ---
+686c6f7300
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000/qcom,bcm-voters ---
+000001ab
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000/reg ---
+0160000000006900
+===== INTERCONNECT PROVIDER CANDIDATES =====
+NODE=/sys/firmware/devicetree/base/soc/interconnect@16C0000
+--- /sys/firmware/devicetree/base/soc/interconnect@16C0000/compatible ---
+71636f6d2c636c696666732d706369655f616e6f6300
+--- /sys/firmware/devicetree/base/soc/interconnect@16C0000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@16C0000/reg ---
+016c000000012400
+NODE=/sys/firmware/devicetree/base/soc/interconnect@7400000
+--- /sys/firmware/devicetree/base/soc/interconnect@7400000/compatible ---
+71636f6d2c636c696666732d6c706173735f6c7069616f6e5f6e6f6300
+--- /sys/firmware/devicetree/base/soc/interconnect@7400000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@7400000/reg ---
+0740000000019080
+NODE=/sys/firmware/devicetree/base/soc/interconnect@1600000
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000/compatible ---
+71636f6d2c636c696666732d636e6f635f63666700
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000/reg ---
+0160000000006900
+NODE=/sys/firmware/devicetree/base/soc/interconnect@24100000
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000/compatible ---
+71636f6d2c636c696666732d67656d5f6e6f6300
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000/reg ---
+24100000000c3080
+NODE=/sys/firmware/devicetree/base/soc/interconnect@1680000
+--- /sys/firmware/devicetree/base/soc/interconnect@1680000/compatible ---
+71636f6d2c636c696666732d73797374656d5f6e6f6300
+--- /sys/firmware/devicetree/base/soc/interconnect@1680000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@1680000/reg ---
+0168000000040000
+NODE=/sys/firmware/devicetree/base/soc/interconnect@1500000
+--- /sys/firmware/devicetree/base/soc/interconnect@1500000/compatible ---
+71636f6d2c636c696666732d636e6f635f6d61696e00
+--- /sys/firmware/devicetree/base/soc/interconnect@1500000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@1500000/reg ---
+0150000000014400
+NODE=/sys/firmware/devicetree/base/soc/interconnect@0
+--- /sys/firmware/devicetree/base/soc/interconnect@0/compatible ---
+71636f6d2c636c696666732d636c6b5f7669727400
+--- /sys/firmware/devicetree/base/soc/interconnect@0/#interconnect-cells ---
+00000001
+NODE=/sys/firmware/devicetree/base/soc/interconnect@1400000
+--- /sys/firmware/devicetree/base/soc/interconnect@1400000/compatible ---
+71636f6d2c636c696666732d6d6d73735f6e6f6300
+--- /sys/firmware/devicetree/base/soc/interconnect@1400000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@1400000/reg ---
+01400000000dc000
+NODE=/sys/firmware/devicetree/base/soc/interconnect@16E0000
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/compatible ---
+71636f6d2c636c696666732d6167677265315f6e6f6300
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/reg ---
+016e000000019180
+NODE=/sys/firmware/devicetree/base/soc/interconnect@7E40000
+--- /sys/firmware/devicetree/base/soc/interconnect@7E40000/compatible ---
+71636f6d2c636c696666732d6c706173735f61675f6e6f6300
+--- /sys/firmware/devicetree/base/soc/interconnect@7E40000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@7E40000/reg ---
+07e400000000e080
+NODE=/sys/firmware/devicetree/base/soc/interconnect@320C0000
+--- /sys/firmware/devicetree/base/soc/interconnect@320C0000/compatible ---
+71636f6d2c636c696666732d6e73705f6e6f6300
+--- /sys/firmware/devicetree/base/soc/interconnect@320C0000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@320C0000/reg ---
+320c00000000e080
+NODE=/sys/firmware/devicetree/base/soc/interconnect@1
+--- /sys/firmware/devicetree/base/soc/interconnect@1/compatible ---
+71636f6d2c636c696666732d6d635f7669727400
+--- /sys/firmware/devicetree/base/soc/interconnect@1/#interconnect-cells ---
+00000001
+NODE=/sys/firmware/devicetree/base/soc/interconnect@7430000
+--- /sys/firmware/devicetree/base/soc/interconnect@7430000/compatible ---
+71636f6d2c636c696666732d6c706173735f6c706963785f6e6f6300
+--- /sys/firmware/devicetree/base/soc/interconnect@7430000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@7430000/reg ---
+074300000003a200
+NODE=/sys/firmware/devicetree/base/soc/interconnect@1700000
+--- /sys/firmware/devicetree/base/soc/interconnect@1700000/compatible ---
+71636f6d2c636c696666732d6167677265325f6e6f6300
+--- /sys/firmware/devicetree/base/soc/interconnect@1700000/#interconnect-cells ---
+00000001
+--- /sys/firmware/devicetree/base/soc/interconnect@1700000/reg ---
+017000000001e500
+===== GPIO CONTROLLER CANDIDATES =====
+NODE=/sys/firmware/devicetree/base/soc/tlmm-vm-test
+--- /sys/firmware/devicetree/base/soc/tlmm-vm-test/compatible ---
+71636f6d2c746c6d6d2d766d2d7465737400
+NODE=/sys/firmware/devicetree/base/soc/display_gpio_regulator@0
+--- /sys/firmware/devicetree/base/soc/display_gpio_regulator@0/compatible ---
+7174692d726567756c61746f722d666978656400
+NODE=/sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pm7550ba@7/pinctrl@8800/sys_therm_6_gpio6
+NODE=/sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pm7550ba@7/pinctrl@8800/sys_therm_6_gpio6/sys_therm_6_gpio6_default
+NODE=/sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pmxr2230@1/pinctrl@8800/sys_therm_2_gpio7
+NODE=/sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pmxr2230@1/pinctrl@8800/sys_therm_2_gpio7/sys_therm_2_gpio7_default
+NODE=/sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pmxr2230@1/pinctrl@8800/sys_therm_8_gpio10
+NODE=/sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,pmxr2230@1/pinctrl@8800/sys_therm_8_gpio10/sys_therm_8_gpio10_default
+NODE=/sys/firmware/devicetree/base/soc/gpio5_pwm
+--- /sys/firmware/devicetree/base/soc/gpio5_pwm/compatible ---
+6770696f352d70776d00
+NODE=/sys/firmware/devicetree/base/soc/gpio_key
+--- /sys/firmware/devicetree/base/soc/gpio_key/compatible ---
+6770696f2d6b65797300
+NODE=/sys/firmware/devicetree/base/soc/gpio_key/vol_up
+NODE=/sys/firmware/devicetree/base/soc/tlmm-vm-mem-access
+--- /sys/firmware/devicetree/base/soc/tlmm-vm-mem-access/compatible ---
+71636f6d2c746c6d6d2d766d2d6d656d2d61636365737300
+NODE=/sys/firmware/devicetree/base/soc/gpios_control
+--- /sys/firmware/devicetree/base/soc/gpios_control/compatible ---
+6770696f732d636f6e74726f6c00
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000/usb_phy_ps/usb3phy_portselect_gpio
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000/usb_phy_ps/usb3phy_portselect_gpio/mux
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000/usb_phy_ps/usb3phy_portselect_gpio/config
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000/hwver_gpio_default
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000/hwver_gpio_default/hwver_gpio_default
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000/hwver_gpio_default/hwver_gpio_default/mux
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000/hwver_gpio_default/hwver_gpio_default/config
+===== SAFETY =====
+READ-ONLY Device Tree audit only. No block-device, flash, erase, format, repartition, slot, AVB or firmware operation.
