@@ -1,0 +1,53 @@
+===== G2 IDENTITY =====
+Retroid Pocket G2
+pineapple
+===== PHANDLE 000001a2 =====
+NODE=/sys/firmware/devicetree/base/soc/interconnect@16E0000
+===== NODE /sys/firmware/devicetree/base/soc/interconnect@16E0000 =====
+compatible=qcom,cliffs-aggre1_noc 
+name=interconnect 
+reg=016e000000019180
+#interconnect-cells=00000001
+phandle=000001a2
+-- DIRECT CHILDREN --
+===== PHANDLE 00000189 =====
+NODE=/sys/firmware/devicetree/base/soc/interconnect@1
+===== NODE /sys/firmware/devicetree/base/soc/interconnect@1 =====
+compatible=qcom,cliffs-mc_virt 
+name=interconnect 
+#interconnect-cells=00000001
+phandle=00000189
+-- DIRECT CHILDREN --
+===== PHANDLE 000001a3 =====
+NODE=/sys/firmware/devicetree/base/soc/interconnect@24100000
+===== NODE /sys/firmware/devicetree/base/soc/interconnect@24100000 =====
+compatible=qcom,cliffs-gem_noc 
+name=interconnect 
+reg=24100000000c3080
+#interconnect-cells=00000001
+phandle=000001a3
+-- DIRECT CHILDREN --
+===== PHANDLE 000001a4 =====
+NODE=/sys/firmware/devicetree/base/soc/interconnect@1600000
+===== NODE /sys/firmware/devicetree/base/soc/interconnect@1600000 =====
+compatible=qcom,cliffs-cnoc_cfg 
+name=interconnect 
+reg=0160000000006900
+#interconnect-cells=00000001
+phandle=000001a4
+-- DIRECT CHILDREN --
+===== GPIO CONTROLLER =====
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000
+compatible=qcom,cliffs-pinctrl 
+name=pinctrl 
+reg=0f00000001000000
+#gpio-cells=00000002
+gpio-controller=
+phandle=0000016c
+===== SDHCI INTERCONNECT RAW =====
+interconnect-names=
+736468632d646472006370752d7364686300
+interconnects=
+000001a20000002f0000018900000200000001a300000002000001a40000021e
+===== SAFETY =====
+READ-ONLY Device Tree audit only.
