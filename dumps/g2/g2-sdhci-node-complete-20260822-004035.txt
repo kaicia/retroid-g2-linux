@@ -1,0 +1,458 @@
+===== IDENTITY =====
+Retroid Pocket G2
+pineapple
+qti/pineapple/pineapple:15/AQ3A.250226.002/eng.RPG2.20260123.180002:user/dev-keys
+_b
+===== compatible (text) =====
+qcom,sdhci-msm-v5
+===== reg =====
+ 08 80 40 00 00 00 10 00
+
+===== interrupts =====
+ 00 00 00 00 00 00 00 cf 00 00 00 04 00 00 00 00
+ 00 00 00 df 00 00 00 04
+
+===== interrupt-names =====
+ 68 63 5f 69 72 71 00 70 77 72 5f 69 72 71 00
+
+===== clock-names =====
+ 69 66 61 63 65 00 63 6f 72 65 00
+
+===== clocks =====
+ 00 00 01 6f 00 00 00 6c 00 00 01 6f 00 00 00 6d
+
+===== reset-names =====
+ 63 6f 72 65 5f 72 65 73 65 74 00
+
+===== resets =====
+ 00 00 01 6f 00 00 00 11
+
+===== interconnect-names =====
+ 73 64 68 63 2d 64 64 72 00 63 70 75 2d 73 64 68
+ 63 00
+
+===== interconnects =====
+ 00 00 01 a2 00 00 00 2f 00 00 01 89 00 00 02 00
+ 00 00 01 a3 00 00 00 02 00 00 01 a4 00 00 02 1e
+
+===== bus-width =====
+ 00 00 00 04
+
+===== max-frequency =====
+MISSING
+===== non-removable =====
+MISSING
+===== cap-mmc-hs200 =====
+MISSING
+===== cap-mmc-hs400 =====
+MISSING
+===== qcom,dll-hsr-list =====
+ 00 07 44 2c 00 00 00 00 00 00 00 10 09 01 06 c0
+ 80 04 08 68
+
+===== qcom,dll-config =====
+MISSING
+===== qcom,ice =====
+MISSING
+===== qcom,ice-instance =====
+MISSING
+===== qcom,core_3_0 =====
+MISSING
+===== qcom,ddr-config =====
+MISSING
+===== operating-points-v2 =====
+ 00 00 01 a5
+
+===== vmmc-supply =====
+MISSING
+===== vqmmc-supply =====
+MISSING
+===== vdd-supply =====
+ 00 00 03 52
+
+===== vdd-io-supply =====
+ 00 00 03 59
+
+===== iommus =====
+ 00 00 01 2a 00 00 01 40 00 00 00 00
+
+===== pinctrl-0 =====
+ 00 00 03 ac
+
+===== pinctrl-1 =====
+ 00 00 03 ad
+
+===== NODE DIRECTORY =====
+total 0
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 .
+drwxr-xr-x 509 root root  0 1970-10-17 18:07 ..
+-r--r--r--   1 root root  4 2026-08-22 00:40 bus-width
+-r--r--r--   1 root root  4 2026-08-22 00:40 cd-debounce-delay-ms
+-r--r--r--   1 root root 12 2026-08-22 00:40 cd-gpios
+-r--r--r--   1 root root 11 2026-08-22 00:40 clock-names
+-r--r--r--   1 root root 16 2026-08-22 00:40 clocks
+-r--r--r--   1 root root 18 2026-08-22 00:40 compatible
+-r--r--r--   1 root root  0 2026-08-22 00:40 dma-coherent
+-r--r--r--   1 root root 18 2026-08-22 00:40 interconnect-names
+-r--r--r--   1 root root 32 2026-08-22 00:40 interconnects
+-r--r--r--   1 root root 15 2026-08-22 00:40 interrupt-names
+-r--r--r--   1 root root 24 2026-08-22 00:40 interrupts
+-r--r--r--   1 root root 12 2026-08-22 00:40 iommus
+-r--r--r--   1 root root  6 2026-08-22 00:40 name
+-r--r--r--   1 root root  0 2026-08-22 00:40 no-mmc
+-r--r--r--   1 root root  0 2026-08-22 00:40 no-sdio
+-r--r--r--   1 root root  4 2026-08-22 00:40 operating-points-v2
+-r--r--r--   1 root root  4 2026-08-22 00:40 phandle
+-r--r--r--   1 root root  4 2026-08-22 00:40 pinctrl-0
+-r--r--r--   1 root root  4 2026-08-22 00:40 pinctrl-1
+-r--r--r--   1 root root 14 2026-08-22 00:40 pinctrl-names
+-r--r--r--   1 root root 20 2026-08-22 00:40 qcom,dll-hsr-list
+-r--r--r--   1 root root  8 2026-08-22 00:40 qcom,iommu-dma
+-r--r--r--   1 root root  8 2026-08-22 00:40 qcom,iommu-dma-addr-pool
+-r--r--r--   1 root root  8 2026-08-22 00:40 qcom,iommu-geometry
+-r--r--r--   1 root root  0 2026-08-22 00:40 qcom,restore-after-cx-collapse
+-r--r--r--   1 root root  8 2026-08-22 00:40 qcom,vdd-current-level
+-r--r--r--   1 root root  8 2026-08-22 00:40 qcom,vdd-io-current-level
+-r--r--r--   1 root root  8 2026-08-22 00:40 qcom,vdd-io-voltage-level
+-r--r--r--   1 root root  8 2026-08-22 00:40 qcom,vdd-voltage-level
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qos0
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qos1
+-r--r--r--   1 root root  8 2026-08-22 00:40 reg
+-r--r--r--   1 root root  3 2026-08-22 00:40 reg-names
+-r--r--r--   1 root root 11 2026-08-22 00:40 reset-names
+-r--r--r--   1 root root  8 2026-08-22 00:40 resets
+-r--r--r--   1 root root  3 2026-08-22 00:40 status
+-r--r--r--   1 root root  4 2026-08-22 00:40 vdd-io-supply
+-r--r--r--   1 root root  4 2026-08-22 00:40 vdd-supply
+===== PARENT / RELATED NODES =====
+PARENT=/sys/firmware/devicetree/base/soc
+total 0
+-r--r--r--   1 root root  4 2026-08-22 00:40 #address-cells
+-r--r--r--   1 root root  4 2026-08-22 00:40 #size-cells
+drwxr-xr-x 509 root root  0 1970-10-17 18:07 .
+drwxr-xr-x  15 root root  0 1970-10-17 18:07 ..
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 adsp-sleepmon
+drwxr-xr-x  10 root root  0 2026-08-22 00:40 apps-smmu@15000000
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 audio_etm0
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 bamdma@6C04000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 bcm_voter@0
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 bt_wcn6750
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 cache-controller@25000000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 clock-controller@0
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 clock-controller@100000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 clock-controller@1f40000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 clock-controller@3d90000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 clock-controller@aaf0000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 clock-controller@ade0000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 clock-controller@af00000
+drwxr-xr-x   9 root root  0 2026-08-22 00:40 clocks
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cluster-device
+-r--r--r--   1 root root 11 2026-08-22 00:40 compatible
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cpu-pmu
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cpuss-sleep-stats@17800054
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 crm@1d01000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 crm@add7000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 csr@10001000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 csr@10b11000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10010000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10802000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@1080b000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10813000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10831000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10845000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10901000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10961000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10962000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10982000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10b00000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10b21000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10b31000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10b41000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10b42000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10b4b000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10b51000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10c0a000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10c15000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10c2a000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10c61000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10cc2000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10cc3000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10cd1000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10d02000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10d08000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10d11000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10d21000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@10d31000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@1382b000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@1382e000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@13863000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@138e0000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@138f0000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 cti@13900000
+drwxr-xr-x   5 root root  0 2026-08-22 00:40 dcc_v2@100ff000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 ddr-freq-table
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 ddrqos-freq-table
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 disp_rdump_region@d5100000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 display_gpio_regulator@0
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 dload_mode
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 dma_dev
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 dmesg-dump
+drwxr-xr-x   5 root root  0 2026-08-22 00:40 dsi_panel_pwr_supply_amoled
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 dsi_panel_pwr_supply_lcd
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 dsi_panel_pwr_supply_sim
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 dsi_pll_codes
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 dummy_replicator
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 dummy_sink
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 ete0
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 ete1
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 ete2
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 ete3
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 ete4
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 ete5
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 ete6
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 ete7
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10041000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10042000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10045000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10804000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@1080c000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@1080f000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10832000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10846000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10902000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10963000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10983000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10984000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@109a3000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@109b4000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@109c4000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10ac4000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10b04000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10b33000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10b44000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10b50000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10c0c000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10c14000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10c2d000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10c3b000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10cc5000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10d03000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10d0a000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10d22000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@10d32000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel@13810000
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 funnel_ete
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 gh-secure-vm-loader@0
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 gh-secure-vm-loader@1
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 gh-secure-vm-loader@2
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 gic-interrupt-router
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 gladiator
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 google,debug-kinfo
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 gpio5_pwm
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 gpio_key
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 gpios_control
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 hsphy@88e3000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 hwlock
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 hwversion
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@0
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@1
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@1400000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@1500000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@1600000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@1680000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@16C0000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@16E0000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@1700000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@24100000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@320C0000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@7400000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@7430000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interconnect@7E40000
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 interrupt-controller@17100000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 interrupt-controller@b220000
+-r--r--r--   1 root root  4 2026-08-22 00:40 interrupt-parent
+drwxr-xr-x   9 root root  0 2026-08-22 00:40 iommu_test_device
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 ipcc-self-ping-adsp
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 ipcc-self-ping-apss
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 ipcc-self-ping-cdsp
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 ipcc-self-ping-slpi
+drwxr-xr-x   6 root root  0 2026-08-22 00:40 ipclite
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 kgsl-smmu@3da0000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 limits-stat
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 llcc-freq-table
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 llcc-pmu@24095000
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 lpass_stm
+drwxr-xr-x  84 root root  0 2026-08-22 00:40 mem_dump
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 mini_dump_mode
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 mmio-sram@17D09400
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 modem2_etm0
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 modem_diag
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 modem_etm0
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 msm_cdc_pinctrl@32
+-r--r--r--   1 root root  4 2026-08-22 00:40 name
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 oem_vm_swiotlb
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 oem_vm_vblk0_ring
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 oem_vm_virt_be0@13
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 pdc@b350000
+-r--r--r--   1 root root  4 2026-08-22 00:40 phandle
+drwxr-xr-x  96 root root  0 2026-08-22 00:40 pinctrl@f000000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 pmic-pon-log
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 power-controller@c300000
+drwxr-xr-x  11 root root  0 2026-08-22 00:40 psci
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 pwm-fan
+drwxr-xr-x   4 root root  0 2026-08-22 00:40 qcedev@1de0000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,audio-pkt-core-platform
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,bps@ac2c000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,bwmon-ddr@24091000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,bwmon-llcc@240B7300
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,c1dcvs
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,cam-cdm-intf
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 qcom,cam-cpas@ac13000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,cam-cre
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,cam-i3c-id-table
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,cam-icp
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,cam-isp
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,cam-jpeg
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,cam-req-mgr
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,cam-sync
+drwxr-xr-x   8 root root  0 2026-08-22 00:40 qcom,cam_smmu
+drwxr-xr-x   6 root root  0 2026-08-22 00:40 qcom,cci0@ac15000
+drwxr-xr-x   6 root root  0 2026-08-22 00:40 qcom,cci1@ac16000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,chd
+drwxr-xr-x  10 root root  0 2026-08-22 00:40 qcom,cpu-hotplug
+drwxr-xr-x  20 root root  0 2026-08-22 00:40 qcom,cpu-pause
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,cpu-vendor-hooks
+drwxr-xr-x   3 root root  0 2026-08-22 00:40 qcom,cpu-voltage-cdev
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,cpucp@17400000
+drwxr-xr-x   2 root root  0 2026-08-22 00:40 qcom,cpucp_log@d8140000
+drwxr-xr-x   5 root root  0 2026-08-22 00:40 qcom,cpufreq-cdev
+===== RELATED /sys/firmware/devicetree/base/soc/clock-controller@100000 =====
+--- compatible ---
+ 71 63 6f 6d 2c 63 6c 69 66 66 73 2d 67 63 63 00
+ 73 79 73 63 6f 6e 00
+--- reg ---
+ 00 10 00 00 00 1f 42 00
+===== RELATED /sys/firmware/devicetree/base/soc/interconnect@1 =====
+--- compatible ---
+ 71 63 6f 6d 2c 63 6c 69 66 66 73 2d 6d 63 5f 76
+ 69 72 74 00
+===== RELATED /sys/firmware/devicetree/base/soc/interconnect@24100000 =====
+--- compatible ---
+ 71 63 6f 6d 2c 63 6c 69 66 66 73 2d 67 65 6d 5f
+ 6e 6f 63 00
+--- reg ---
+ 24 10 00 00 00 0c 30 80
+===== RELATED /sys/firmware/devicetree/base/soc/interconnect@1600000 =====
+--- compatible ---
+ 71 63 6f 6d 2c 63 6c 69 66 66 73 2d 63 6e 6f 63
+ 5f 63 66 67 00
+--- reg ---
+ 01 60 00 00 00 00 69 00
+===== SDHC2 OPP TABLE RAW =====
+OPP=/sys/firmware/devicetree/base/soc/sdhc2-opp-table
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/compatible ---
+ 6f 70 65 72 61 74 69 6e 67 2d 70 6f 69 6e 74 73
+ 2d 76 32 00
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/name ---
+ 73 64 68 63 32 2d 6f 70 70 2d 74 61 62 6c 65 00
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-100000000/name ---
+ 6f 70 70 2d 31 30 30 30 30 30 30 30 30 00
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-100000000/opp-avg-kBps ---
+ 00 00 c3 50 00 00 00 00
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-100000000/opp-hz ---
+ 00 00 00 00 05 f5 e1 00
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-100000000/opp-peak-kBps ---
+ 00 02 71 00 00 01 86 a0
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-202000000/name ---
+ 6f 70 70 2d 32 30 32 30 30 30 30 30 30 00
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-202000000/opp-avg-kBps ---
+ 00 01 96 40 00 00 00 00
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-202000000/opp-hz ---
+ 00 00 00 00 0c 0a 46 80
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-202000000/opp-peak-kBps ---
+ 00 03 0d 40 00 01 d4 c0
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/phandle ---
+ 00 00 01 a5
+===== PINCTRL RAW =====
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/bias-disable ---
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/drive-strength ---
+ 00 00 00 10
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/function ---
+ 73 64 63 32 5f 63 6c 6b 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/name ---
+ 63 6c 6b 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/pins ---
+ 67 70 69 6f 36 32 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/bias-pull-up ---
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/drive-strength ---
+ 00 00 00 0a
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/function ---
+ 73 64 63 32 5f 63 6d 64 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/name ---
+ 63 6d 64 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/pins ---
+ 67 70 69 6f 35 31 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/bias-pull-up ---
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/drive-strength ---
+ 00 00 00 0a
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/function ---
+ 73 64 63 32 5f 64 61 74 61 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/name ---
+ 64 61 74 61 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/pins ---
+ 67 70 69 6f 33 38 00 67 70 69 6f 33 39 00 67 70
+ 69 6f 34 38 00 67 70 69 6f 34 39 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/name ---
+ 73 64 63 32 5f 6f 6e 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/phandle ---
+ 00 00 03 ac
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/sd-cd/bias-pull-up ---
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/sd-cd/drive-strength ---
+ 00 00 00 02
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/sd-cd/name ---
+ 73 64 2d 63 64 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/sd-cd/pins ---
+ 67 70 69 6f 33 31 00
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/bias-disable ---
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/drive-strength ---
+ 00 00 00 02
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/function ---
+ 67 70 69 6f 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/name ---
+ 63 6c 6b 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/pins ---
+ 67 70 69 6f 36 32 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/bias-pull-up ---
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/drive-strength ---
+ 00 00 00 02
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/function ---
+ 67 70 69 6f 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/name ---
+ 63 6d 64 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/pins ---
+ 67 70 69 6f 35 31 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/bias-pull-up ---
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/drive-strength ---
+ 00 00 00 02
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/function ---
+ 67 70 69 6f 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/name ---
+ 64 61 74 61 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/pins ---
+ 67 70 69 6f 33 38 00 67 70 69 6f 33 39 00 67 70
+ 69 6f 34 38 00 67 70 69 6f 34 39 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/name ---
+ 73 64 63 32 5f 6f 66 66 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/phandle ---
+ 00 00 03 ad
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/sd-cd/bias-pull-up ---
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/sd-cd/drive-strength ---
+ 00 00 00 02
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/sd-cd/name ---
+ 73 64 2d 63 64 00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/sd-cd/pins ---
+ 67 70 69 6f 33 31 00
+===== SAFETY =====
+READ-ONLY Device Tree/sysfs audit only. No block-device contents, flash, erase, format, repartition, slot, AVB or firmware operation.
