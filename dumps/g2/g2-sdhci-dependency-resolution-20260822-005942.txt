@@ -1,0 +1,422 @@
+===== IDENTITY =====
+Retroid Pocket G2
+pineapple
+qti/pineapple/pineapple:15/AQ3A.250226.002/eng.RPG2.20260123.180002:user/dev-keys
+===== /sys/firmware/devicetree/base/soc/sdhci@8804000/cd-gpios =====
+0000016c0000001f00000001
+===== /sys/firmware/devicetree/base/soc/sdhci@8804000/cd-debounce-delay-ms =====
+000005dc
+===== /sys/firmware/devicetree/base/soc/sdhci@8804000/pinctrl-names =====
+64656661756c7400736c65657000
+===== /sys/firmware/devicetree/base/soc/sdhci@8804000/interconnect-names =====
+736468632d646472006370752d7364686300
+===== /sys/firmware/devicetree/base/soc/sdhci@8804000/interconnects =====
+000001a20000002f0000018900000200000001a300000002000001a40000021e
+===== /sys/firmware/devicetree/base/soc/sdhci@8804000/operating-points-v2 =====
+000001a5
+===== /sys/firmware/devicetree/base/soc/sdhci@8804000/vdd-supply =====
+00000352
+===== /sys/firmware/devicetree/base/soc/sdhci@8804000/vdd-io-supply =====
+00000359
+===== /sys/firmware/devicetree/base/soc/sdhci@8804000/iommus =====
+0000012a0000014000000000
+===== qos0 DIRECTORY =====
+total 0
+drwxr-xr-x 2 root root 0 2026-08-22 00:59 .
+drwxr-xr-x 4 root root 0 2026-08-22 00:59 ..
+-r--r--r-- 1 root root 4 2026-08-22 00:59 mask
+-r--r--r-- 1 root root 5 2026-08-22 00:59 name
+-r--r--r-- 1 root root 4 2026-08-22 00:59 vote
+--- /sys/firmware/devicetree/base/soc/sdhci@8804000/qos0/mask ---
+000000f8
+--- /sys/firmware/devicetree/base/soc/sdhci@8804000/qos0/name ---
+716f733000
+--- /sys/firmware/devicetree/base/soc/sdhci@8804000/qos0/vote ---
+0000002c
+===== qos1 DIRECTORY =====
+total 0
+drwxr-xr-x 2 root root 0 2026-08-22 00:59 .
+drwxr-xr-x 4 root root 0 2026-08-22 00:59 ..
+-r--r--r-- 1 root root 4 2026-08-22 00:59 mask
+-r--r--r-- 1 root root 5 2026-08-22 00:59 name
+-r--r--r-- 1 root root 4 2026-08-22 00:59 vote
+--- /sys/firmware/devicetree/base/soc/sdhci@8804000/qos1/mask ---
+00000007
+--- /sys/firmware/devicetree/base/soc/sdhci@8804000/qos1/name ---
+716f733100
+--- /sys/firmware/devicetree/base/soc/sdhci@8804000/qos1/vote ---
+0000002c
+===== RESOLVE PHANDLE (0000016f) =====
+/sys/firmware/devicetree/base/soc/clock-controller@100000
+===== RESOLVE PHANDLE (00000352) =====
+/sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob13/regulator-pmxr2230-l13
+===== RESOLVE PHANDLE (00000359) =====
+/sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/rpmh-regulator-ldob23/regulator-pmxr2230-l23
+===== RESOLVE PHANDLE (0000012a) =====
+/sys/firmware/devicetree/base/soc/apps-smmu@15000000
+===== RESOLVE PHANDLE (000001a2) =====
+/sys/firmware/devicetree/base/soc/interconnect@16E0000
+===== RESOLVE PHANDLE (00000189) =====
+/sys/firmware/devicetree/base/soc/interconnect@1
+===== RESOLVE PHANDLE (000001a3) =====
+/sys/firmware/devicetree/base/soc/interconnect@24100000
+===== RESOLVE PHANDLE (000001a4) =====
+/sys/firmware/devicetree/base/soc/interconnect@1600000
+===== RESOLVE PHANDLE (000001a5) =====
+/sys/firmware/devicetree/base/soc/sdhc2-opp-table
+===== RESOLVE PHANDLE (000003ac) =====
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on
+===== RESOLVE PHANDLE (000003ad) =====
+/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off
+===== SDHC2 OPP =====
+OPP=/sys/firmware/devicetree/base/soc/sdhc2-opp-table
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/compatible ---
+6f7065726174696e672d706f696e74732d763200
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/name ---
+73646863322d6f70702d7461626c6500
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-100000000/name ---
+6f70702d31303030303030303000
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-100000000/opp-avg-kBps ---
+0000c35000000000
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-100000000/opp-hz ---
+0000000005f5e100
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-100000000/opp-peak-kBps ---
+00027100000186a0
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-202000000/name ---
+6f70702d32303230303030303000
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-202000000/opp-avg-kBps ---
+0001964000000000
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-202000000/opp-hz ---
+000000000c0a4680
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/opp-202000000/opp-peak-kBps ---
+00030d400001d4c0
+--- /sys/firmware/devicetree/base/soc/sdhc2-opp-table/phandle ---
+000001a5
+===== SDHC2 PINCTRL =====
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/bias-disable ---
+
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/drive-strength ---
+00000010
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/function ---
+736463325f636c6b00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/name ---
+636c6b00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/clk/pins ---
+6770696f363200
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/bias-pull-up ---
+
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/drive-strength ---
+0000000a
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/function ---
+736463325f636d6400
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/name ---
+636d6400
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/cmd/pins ---
+6770696f353100
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/bias-pull-up ---
+
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/drive-strength ---
+0000000a
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/function ---
+736463325f6461746100
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/name ---
+6461746100
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/data/pins ---
+6770696f3338006770696f3339006770696f3438006770696f343900
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/name ---
+736463325f6f6e00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/phandle ---
+000003ac
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/sd-cd/bias-pull-up ---
+
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/sd-cd/drive-strength ---
+00000002
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/sd-cd/name ---
+73642d636400
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_on/sd-cd/pins ---
+6770696f333100
+NODE=/sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/bias-disable ---
+
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/drive-strength ---
+00000002
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/function ---
+6770696f00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/name ---
+636c6b00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/clk/pins ---
+6770696f363200
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/bias-pull-up ---
+
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/drive-strength ---
+00000002
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/function ---
+6770696f00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/name ---
+636d6400
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/cmd/pins ---
+6770696f353100
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/bias-pull-up ---
+
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/drive-strength ---
+00000002
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/function ---
+6770696f00
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/name ---
+6461746100
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/data/pins ---
+6770696f3338006770696f3339006770696f3438006770696f343900
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/name ---
+736463325f6f666600
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/phandle ---
+000003ad
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/sd-cd/bias-pull-up ---
+
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/sd-cd/drive-strength ---
+00000002
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/sd-cd/name ---
+73642d636400
+--- /sys/firmware/devicetree/base/soc/pinctrl@f000000/sdc2_off/sd-cd/pins ---
+6770696f333100
+===== ALL SDHCI BUS BANDWIDTH CANDIDATES =====
+--- /sys/firmware/devicetree/base/soc/interconnect@16C0000/qcom,bcm-voters ---
+000001ab000001ac
+--- /sys/firmware/devicetree/base/soc/interconnect@16C0000/qcom,bcm-voter-names ---
+686c6f7300706369655f63726d5f68775f3000
+--- /sys/firmware/devicetree/base/soc/interconnect@7400000/qcom,bcm-voters ---
+000001ab
+--- /sys/firmware/devicetree/base/soc/interconnect@7400000/qcom,bcm-voter-names ---
+686c6f7300
+--- /sys/firmware/devicetree/base/soc/qcom,ife2@ac80000/ubwc-static-cfg ---
+0000102600001036
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000/qcom,bcm-voters ---
+000001ab
+--- /sys/firmware/devicetree/base/soc/interconnect@1600000/qcom,bcm-voter-names ---
+686c6f7300
+--- /sys/firmware/devicetree/base/soc/qcom,pmic_glink_log/qcom,pmic_glink_debug/i2c@101/qcom,bus-type ---
+69326300
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000/qcom,bcm-voters ---
+000001ab000001ad000001ae000001af000001b0000001ac
+--- /sys/firmware/devicetree/base/soc/interconnect@24100000/qcom,bcm-voter-names ---
+686c6f7300646973700063616d5f6966655f300063616d5f6966655f310063616d5f6966655f3200706369655f63726d5f68775f3000
+--- /sys/firmware/devicetree/base/soc/interconnect@1680000/qcom,bcm-voters ---
+000001ab
+--- /sys/firmware/devicetree/base/soc/interconnect@1680000/qcom,bcm-voter-names ---
+686c6f7300
+--- /sys/firmware/devicetree/base/soc/qcom,spmi@c42d000/qcom,bus-id ---
+00000000
+--- /sys/firmware/devicetree/base/soc/interconnect@1500000/qcom,bcm-voters ---
+000001ab
+--- /sys/firmware/devicetree/base/soc/interconnect@1500000/qcom,bcm-voter-names ---
+686c6f7300
+--- /sys/firmware/devicetree/base/soc/ufshc@1d84000/qcom,ufs-bus-bw,name ---
+75667368635f6d656d00
+--- /sys/firmware/devicetree/base/soc/ufshc@1d84000/qcom,bus-vector-names ---
+4d494e0050574d5f47315f4c310050574d5f47325f4c310050574d5f47335f4c310050574d5f47345f4c310050574d5f47355f4c310050574d5f47315f4c320050574d5f47325f4c320050574d5f47335f4c320050574d5f47345f4c320050574d5f47355f4c320048535f52415f47315f4c310048535f52415f47325f4c310048535f52415f47335f4c310048535f52415f47345f4c310048535f52415f47315f4c320048535f52415f47325f4c320048535f52415f47335f4c320048535f52415f47345f4c320048535f52425f47315f4c310048535f52425f47325f4c310048535f52425f47335f4c310048535f52425f47345f4c310048535f52425f47315f4c320048535f52425f47325f4c320048535f52425f47335f4c320048535f52425f47345f4c320048535f52415f47355f4c320048535f52425f47355f4c32004d415800
+--- /sys/firmware/devicetree/base/soc/ufshc@1d84000/qcom,ufs-bus-bw,num-paths ---
+00000002
+--- /sys/firmware/devicetree/base/soc/ufshc@1d84000/qcom,ufs-bus-bw,num-cases ---
+0000001e
+--- /sys/firmware/devicetree/base/soc/ufshc@1d84000/qcom,ufs-bus-bw,vectors-KBps ---
+000000000000000000000000000000000000039a00000000000003e8000000000000073400000000000003e80000000000000e6800000000000003e80000000000001cd000000000000003e800000000000039a000000000000003e8000000000000073400000000000003e80000000000000e6800000000000003e80000000000001cd000000000000003e800000000000039a000000000000003e8000000000000734000000000000003e8000000000001f33400000000000003e8000000000003e66700000000000003e8000000000016c666000000000001900000000000002c7b800000000000032000000000000003e66700000000000003e8000000000007cccd00000000000003e8000000000016c666000000000003200000000000002c7b80000000000006400000000000000247ae00000000000003e80000000000048ccd00000000000003e8000000000016c666000000000001900000000000002c7b8000000000000320000000000000048ccd00000000000003e8000000000009199a00000000000003e8000000000016c666000000000003200000064000002c7b800000000000064000000640000059100000000000000c800000000000*0074a00000000000000c800000000000
+--- /sys/firmware/devicetree/base/soc/qcom,spmi@c432000/qcom,bus-id ---
+00000001
+--- /sys/firmware/devicetree/base/soc/qcom,pcie@1c00000/qcom,bw-scale ---
+00000040000000400124f80000000040000000400124f800000000400000004005f5e100
+--- /sys/firmware/devicetree/base/soc/qcom,pcie@1c00000/qcom,num-parf-testbus-sel ---
+000000b9
+--- /sys/firmware/devicetree/base/soc/qcom,dcvs/ddrqos/qcom,bus-width ---
+00000001
+--- /sys/firmware/devicetree/base/soc/qcom,dcvs/ddr/qcom,bus-width ---
+00000004
+--- /sys/firmware/devicetree/base/soc/qcom,dcvs/llcc/qcom,bus-width ---
+00000010
+--- /sys/firmware/devicetree/base/soc/qcom,dcvs/l3/qcom,bus-width ---
+00000020
+--- /sys/firmware/devicetree/base/soc/qcom,mdss_mdp@ae00000/qcom,sde-max-per-pipe-bw-kbps ---
+004dd1e0004dd1e0004dd1e0004dd1e0004dd1e0004dd1e0004dd1e0
+--- /sys/firmware/devicetree/base/soc/qcom,mdss_mdp@ae00000/qcom,sde-ubwc-swizzle ---
+00000006
+--- /sys/firmware/devicetree/base/soc/qcom,mdss_mdp@ae00000/qcom,sde-ubwc-bw-calc-version ---
+00000001
+--- /sys/firmware/devicetree/base/soc/qcom,mdss_mdp@ae00000/qcom,sde-ib-bw-vote ---
+002625a000000000000c3500
+--- /sys/firmware/devicetree/base/soc/qcom,mdss_mdp@ae00000/qcom,sde-ubwc-version ---
+40030001
+--- /sys/firmware/devicetree/base/soc/qcom,mdss_mdp@ae00000/qcom,sde-max-bw-low-kbps ---
+016caf60
+--- /sys/firmware/devicetree/base/soc/qcom,mdss_mdp@ae00000/qcom,sde-reg-bus,vectors-KBps ---
+000000000000000000000000000036b000000000000222e0000000000004baf0
+--- /sys/firmware/devicetree/base/soc/qcom,mdss_mdp@ae00000/qcom,sde-ubwc-static ---
+00000001
+--- /sys/firmware/devicetree/base/soc/qcom,mdss_mdp@ae00000/qcom,sde-max-bw-high-kbps ---
+01945ba0
+--- /sys/firmware/devicetree/base/soc/interconnect@0/qcom,bcm-voters ---
+000001ab000001ac
+--- /sys/firmware/devicetree/base/soc/interconnect@0/qcom,bcm-voter-names ---
+686c6f7300706369655f63726d5f68775f3000
+--- /sys/firmware/devicetree/base/soc/interconnect@1400000/qcom,bcm-voters ---
+000001ab000001ad000001ae000001af000001b0
+--- /sys/firmware/devicetree/base/soc/interconnect@1400000/qcom,bcm-voter-names ---
+686c6f7300646973700063616d5f6966655f300063616d5f6966655f310063616d5f6966655f3200
+--- /sys/firmware/devicetree/base/soc/qcom,icp@ac00000/ubwc-ipe-write-cfg ---
+000161ef0001620f
+--- /sys/firmware/devicetree/base/soc/qcom,icp@ac00000/ubwc-bps-write-cfg ---
+000161ef0001620f
+--- /sys/firmware/devicetree/base/soc/qcom,icp@ac00000/ubwc-ipe-fetch-cfg ---
+0000707b00007083
+--- /sys/firmware/devicetree/base/soc/qcom,icp@ac00000/ubwc-bps-fetch-cfg ---
+0000707b00007083
+--- /sys/firmware/devicetree/base/soc/qcom,ddr-cdev/qcom,bus-width ---
+00000004
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/qcom,bcm-voters ---
+000001ab
+--- /sys/firmware/devicetree/base/soc/interconnect@16E0000/qcom,bcm-voter-names ---
+686c6f7300
+--- /sys/firmware/devicetree/base/soc/qcom,cam-cpas@ac13000/camnoc-bus-width ---
+00000020
+--- /sys/firmware/devicetree/base/soc/qcom,cam-cpas@ac13000/rpmh-bcm-info ---
+0000000d00000004000008000000000000000004
+--- /sys/firmware/devicetree/base/soc/qcom,cam-cpas@ac13000/cam-ahb-bw-KBps ---
+00000000000000000000000000012c000000000000012c0000000000000249f000000000000249f000000000000493e000000000000493e000000000000493e0
+--- /sys/firmware/devicetree/base/soc/qcom,cam-cpas@ac13000/rt-wr-bw-ratio-scale-factor ---
+00000001
+--- /sys/firmware/devicetree/base/soc/qcom,cam-cpas@ac13000/camera-bus-nodes/level2-nodes/level2-icp-rd/bus-width-factor ---
+00000004
+--- /sys/firmware/devicetree/base/soc/qcom,cam-cpas@ac13000/camera-bus-nodes/level3-nodes/level3-rt-rd-wr-sum/ib-bw-voting-needed ---
+
+--- /sys/firmware/devicetree/base/soc/qcom,cam-cpas@ac13000/camnoc-axi-clk-bw-margin-perc ---
+00000014
+--- /sys/firmware/devicetree/base/soc/qcom,cam-cpas@ac13000/camnoc-axi-min-ib-bw ---
+b2d05e00
+--- /sys/firmware/devicetree/base/soc/qcom,dp_display@ae154000/qcom,widebus-enable ---
+
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@1/qcom,bus-min ---
+00000009
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@1/qcom,bus-freq ---
+00000009
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@1/qcom,bus-max ---
+00000009
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@8/qcom,bus-min ---
+00000001
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@8/qcom,bus-freq ---
+00000001
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@8/qcom,bus-max ---
+00000003
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@6/qcom,bus-min ---
+00000002
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@6/qcom,bus-freq ---
+00000004
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@6/qcom,bus-max ---
+00000007
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@4/qcom,bus-min ---
+00000006
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@4/qcom,bus-freq ---
+00000007
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@4/qcom,bus-max ---
+00000008
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@2/qcom,bus-min ---
+00000007
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@2/qcom,bus-freq ---
+00000008
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@2/qcom,bus-max ---
+00000009
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@0/qcom,bus-min ---
+00000009
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@0/qcom,bus-freq ---
+00000009
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@0/qcom,bus-max ---
+00000009
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@7/qcom,bus-min ---
+00000001
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@7/qcom,bus-freq ---
+00000003
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@7/qcom,bus-max ---
+00000003
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@5/qcom,bus-min ---
+00000005
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@5/qcom,bus-freq ---
+00000007
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@5/qcom,bus-max ---
+00000008
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@3/qcom,bus-min ---
+00000006
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@3/qcom,bus-freq ---
+00000007
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,gpu-pwrlevels/qcom,gpu-pwrlevel@3/qcom,bus-max ---
+00000008
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,ubwc-mode ---
+00000004
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,bus-table-cnoc ---
+0000000000000064
+--- /sys/firmware/devicetree/base/soc/qcom,kgsl-3d0@3d00000/qcom,bus-table-ddr ---
+0000000000209a8e002dc6c0005caf6a0065ce03007cb16300a3140c00bdf5c200dbb3e500fbc520
+--- /sys/firmware/devicetree/base/soc/interconnect@7E40000/qcom,bcm-voters ---
+000001ab
+--- /sys/firmware/devicetree/base/soc/interconnect@7E40000/qcom,bcm-voter-names ---
+686c6f7300
+--- /sys/firmware/devicetree/base/soc/qcom,sde_rscc@af20000/qcom,msm-bus,active-only ---
+
+--- /sys/firmware/devicetree/base/soc/interconnect@320C0000/qcom,bcm-voters ---
+000001ab
+--- /sys/firmware/devicetree/base/soc/interconnect@320C0000/qcom,bcm-voter-names ---
+686c6f7300
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/lpi_pinctrl@6E80000/rx_swr_data1_active/config/bias-bus-hold ---
+
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/lpi_pinctrl@6E80000/tx_swr_data0_sleep/config/bias-bus-hold ---
+
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/lpi_pinctrl@6E80000/rx_swr_data_active/config/bias-bus-hold ---
+
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/lpi_pinctrl@6E80000/wsa_swr_data_pin/wsa_swr_data_active/config/bias-bus-hold ---
+
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/lpi_pinctrl@6E80000/tx_swr_data0_active/config/bias-bus-hold ---
+
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/lpi_pinctrl@6E80000/tx_swr_data1_active/config/bias-bus-hold ---
+
+--- /sys/firmware/devicetree/base/soc/spf_core_platform/lpi_pinctrl@6E80000/tx_swr_data2_active/config/bias-bus-hold ---
+
+--- /sys/firmware/devicetree/base/soc/qcom,ife0@ac62000/ubwc-static-cfg ---
+0000102600001036
+--- /sys/firmware/devicetree/base/soc/interconnect@1/qcom,bcm-voters ---
+000001ab000001ad000001ae000001af000001b0000001ac
+--- /sys/firmware/devicetree/base/soc/interconnect@1/qcom,bcm-voter-names ---
+686c6f7300646973700063616d5f6966655f300063616d5f6966655f310063616d5f6966655f3200706369655f63726d5f68775f3000
+--- /sys/firmware/devicetree/base/soc/interconnect@7430000/qcom,bcm-voters ---
+000001ab
+--- /sys/firmware/devicetree/base/soc/interconnect@7430000/qcom,bcm-voter-names ---
+686c6f7300
+--- /sys/firmware/devicetree/base/soc/sdhci@8804000/bus-width ---
+00000004
+--- /sys/firmware/devicetree/base/soc/qcom,ife1@ac71000/ubwc-static-cfg ---
+0000102600001036
+--- /sys/firmware/devicetree/base/soc/interconnect@1700000/qcom,bcm-voters ---
+000001ab
+--- /sys/firmware/devicetree/base/soc/interconnect@1700000/qcom,bcm-voter-names ---
+686c6f7300
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/qcom,dcvs-fp/qcom,llcc-bcm-name ---
+53483500
+--- /sys/firmware/devicetree/base/soc/rsc@17a00000/drv@2/qcom,dcvs-fp/qcom,ddr-bcm-name ---
+4d433400
+--- /sys/firmware/devicetree/base/__symbols__/spmi0_bus ---
+2f736f632f71636f6d2c73706d69406334326430303000
+--- /sys/firmware/devicetree/base/__symbols__/cam_bcm_voter2 ---
+2f736f632f72736340616464343030302f64727640322f62636d5f766f74657200
+--- /sys/firmware/devicetree/base/__symbols__/cam_bcm_voter0 ---
+2f736f632f72736340616464343030302f64727640302f62636d5f766f74657200
+--- /sys/firmware/devicetree/base/__symbols__/spmi1_bus ---
+2f736f632f71636f6d2c73706d69406334333230303000
+--- /sys/firmware/devicetree/base/__symbols__/spmi_bus ---
+2f736f632f71636f6d2c73706d69406334326430303000
+--- /sys/firmware/devicetree/base/__symbols__/pcie_crm_hw_0_bcm_voter ---
+2f736f632f62636d5f766f746572403000
+--- /sys/firmware/devicetree/base/__symbols__/disp_bcm_voter ---
+2f736f632f72736340616632303030302f64727640302f62636d5f766f74657200
+--- /sys/firmware/devicetree/base/__symbols__/spmi0_debug_bus ---
+2f736f632f71636f6d2c73706d692d646562756740313062313430303000
+--- /sys/firmware/devicetree/base/__symbols__/cam_bcm_voter1 ---
+2f736f632f72736340616464343030302f64727640312f62636d5f766f74657200
+--- /sys/firmware/devicetree/base/__symbols__/apps_bcm_voter ---
+2f736f632f7273634031376130303030302f64727640322f62636d5f766f74657200
+===== SAFETY =====
+READ-ONLY Device Tree audit. No block-device, flash, erase, format, repartition, slot, AVB or firmware operation.
