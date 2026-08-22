@@ -1,0 +1,89 @@
+/dts-v1/;
+
+/*
+ * Retroid Pocket G2 SDHCI WIP / NON-BOOT skeleton
+ *
+ * Purpose: record the hardware-derived SDHCI node without claiming that
+ * the current Linux tree has all G2 Cliffs providers implemented.
+ * DO NOT boot this file yet.
+ */
+
+/*
+ * Hardware-derived facts from the physical G2 Android DT:
+ *   SDHCI: 0x08804000, qcom,sdhci-msm-v5, 4-bit
+ *   IRQs: 207, 223
+ *   clocks: iface, core
+ *   reset: core_reset
+ *   interconnect names: sdhc-ddr, cpu-sdhc
+ *   OPP: 100 MHz, 202 MHz
+ *   CD: Cliffs pinctrl GPIO 31, active-high flag as encoded by Android DT
+ *   VDD: PMXR2230 LDO13
+ *   VDD-IO: PMXR2230 LDO23
+ *   SMMU: apps-smmu@15000000
+ *   pinctrl: sdc2_on / sdc2_off
+ *
+ * The exact Linux labels/IDs for GCC, Cliffs interconnect providers,
+ * PMXR2230 regulators and SMMU are intentionally NOT invented here.
+ */
+
+/*
+ * PSEUDONODE ONLY. This is not intended to compile or boot yet.
+ * Replace the placeholders after the selected Linux kernel tree exposes
+ * matching providers and bindings.
+ */
+
+&soc {
+	sdhc2_g2_wip: sdhci@8804000 {
+		/* BLOCKED: select exact Linux compatible/downstream driver first. */
+		compatible = "qcom,sdhci-msm-v5";
+		reg = <0x0 0x08804000 0x0 0x1000>;
+		reg-names = "hc_mem";
+
+		interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH>;
+		interrupt-names = "hc_irq", "pwr_irq";
+
+		bus-width = <4>;
+
+		/* BLOCKED: G2 Cliffs GCC labels not yet mapped to Linux bindings. */
+		/* clocks = <&gcc ...>, <&gcc ...>; */
+		clock-names = "iface", "core";
+		/* resets = <&gcc ...>; */
+		reset-names = "core_reset";
+
+		qcom,restore-after-cx-collapse;
+
+		/* Hardware-derived G2 DLL HSR; Linux binding still requires verification. */
+		qcom,dll-hsr-list = <0x0007442c 0x00000000 0x00000010
+					     0x090106c0 0x80040868>;
+
+		/* BLOCKED: Cliffs interconnect provider labels/IDs. */
+		/*
+		 * G2 raw tuples:
+		 *   0x1a2 0x2f
+		 *   0x189 0x200
+		 *   0x1a3 0x2
+		 *   0x1a4 0x21e
+		 */
+		interconnect-names = "sdhc-ddr", "cpu-sdhc";
+		/* interconnects = <...>, <...>; */
+
+		/* BLOCKED: Linux PMXR2230 regulator labels. */
+		/* vdd-supply = <&...>; */
+		/* vdd-io-supply = <&...>; */
+
+		/* BLOCKED: exact Linux SMMU cells/stream IDs. */
+		/* iommus = <&apps_smmu ...>; */
+
+		/* Hardware-derived state names; Linux pinctrl labels still TBD. */
+		pinctrl-names = "default", "sleep";
+		/* pinctrl-0 = <&sdc2_on>; */
+		/* pinctrl-1 = <&sdc2_off>; */
+
+		/* BLOCKED: map Cliffs pinctrl provider label. */
+		/* cd-gpios = <&cliffs_pinctrl 31 GPIO_ACTIVE_...>; */
+
+		/* Hardware-derived OPP table structure; provider syntax TBD. */
+		/* operating-points-v2 = <&sdhc2_opp_table>; */
+	};
+};
