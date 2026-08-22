@@ -26,6 +26,28 @@ These relationships match the corresponding G2 hardware facts already recovered 
 
 The pocknix/ROCKNIX downstream SDHCI node for RP6/Odin2 uses the same SDHCI base (`0x08804000`), IRQs 207/223, SDCC2 clocks, SDCC2 reset, OPP rates 100/202 MHz, DLL-HSR support, two interconnect paths, SMMU, regulators, pinctrl and card detect. However, its provider IDs and PMIC/GPIO mappings are SM8550-specific and must not be copied to G2.
 
+## Newly verified Cliffs provider IDs
+
+The public Cliffs GCC binding `qcom,gcc-cliffs.h` gives the following identifiers:
+
+- `GCC_SDCC2_AHB_CLK = 108`
+- `GCC_SDCC2_APPS_CLK = 109`
+- `GCC_SDCC2_APPS_CLK_SRC = 110`
+- `GCC_SDCC2_BCR = 17`
+
+The public Cliffs interconnect binding `qcom,cliffs.h` gives:
+
+- `MASTER_SDCC_2 = 47`
+- `SLAVE_SDCC_2 = 542`
+- `SLAVE_EBI1 = 512`
+- `MASTER_APPSS_PROC = 2`
+
+The Cliffs interconnect driver defines the SDCC2 master as `xm_sdc2`, ID `MASTER_SDCC_2`, with one link into the Cliffs NoC. The Cliffs CNOC configuration master also contains `SLAVE_SDCC_2` among its links. These are source-verified Cliffs IDs, not SM8550/pocknix values.
+
+## Important qualification
+
+These IDs are now **verified as Cliffs platform binding values**, but they are not yet marked as final G2 DTS values. The target Linux kernel tree for the SteamOS/Armada-style port must contain compatible Cliffs GCC/interconnect providers before these identifiers can be used in the first compilable G2 DTS. The G2 hardware phandles must also be reconciled against that target tree.
+
 ## Current mapping status
 
 | Dependency | Status |
@@ -33,9 +55,11 @@ The pocknix/ROCKNIX downstream SDHCI node for RP6/Odin2 uses the same SDHCI base
 | SDHCI base/IRQ/bus width | CONFIRMED from G2 |
 | Cliffs platform identity | CONFIRMED from public Cliffs DTS |
 | Cliffs GCC binding family | CONFIRMED (`gcc-cliffs.h`) |
-| Exact SDCC2 GCC numeric IDs | NOT YET VERIFIED |
+| Cliffs SDCC2 clock IDs | SOURCE-VERIFIED: AHB 108, APPS 109 |
+| Cliffs SDCC2 reset ID | SOURCE-VERIFIED: BCR 17 |
 | Cliffs interconnect binding family | CONFIRMED (`qcom,cliffs.h`) |
-| Exact G2 interconnect numeric IDs | NOT YET VERIFIED |
+| Cliffs SDCC2 master/slave IDs | SOURCE-VERIFIED: MASTER_SDCC_2 47, SLAVE_SDCC_2 542 |
+| G2 interconnect path phandle mapping | NOT YET FINAL against target Linux tree |
 | PMXR2230 LDO13/LDO23 relationship | CONFIRMED from G2 + Cliffs board DTS naming relationship |
 | Exact Linux PMXR2230 regulator IDs | NOT YET VERIFIED |
 | SDC2 pinctrl state names | CONFIRMED; exact Linux definitions still pending |
@@ -45,8 +69,8 @@ The pocknix/ROCKNIX downstream SDHCI node for RP6/Odin2 uses the same SDHCI base
 
 ## Decision
 
-Do not create the first compilable G2 DTS yet. The project rule requires exact provider IDs and the exact target kernel tree before a bootable DTS is drafted.
+Do not create the first compilable G2 DTS yet. The project rule requires the exact target kernel tree and compatible provider implementations before a bootable DTS is drafted.
 
 ## Next source task
 
-Obtain the actual Cliffs GCC/interconnect binding definitions and the matching Linux driver/DTS implementation from the selected kernel lineage. If the pocknix repository does not contain Cliffs provider sources, use the public Cliffs source only as a source location/reference and do not infer numeric IDs from SM8550/Kalama.
+Select the concrete Linux kernel lineage that will serve as the G2 SteamOS/Armada-style base, then verify that it contains compatible Cliffs GCC/interconnect/pinctrl/PMIC/SMMU support. After that, reconcile the source-verified Cliffs IDs with the G2 Android DT phandles and complete the remaining regulator, pinctrl, and SMMU mappings.
