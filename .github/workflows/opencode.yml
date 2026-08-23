@@ -31,11 +31,24 @@ jobs:
           git status --short
           git config --get remote.origin.url
 
+      - name: Select DeepSeek model
+        id: model
+        shell: bash
+        run: |
+          COMMENT='${{ github.event.comment.body }}'
+          if [[ "$COMMENT" == *"[pro]"* || "$COMMENT" == *"/oc-pro"* || "$COMMENT" == *"/opencode-pro"* ]]; then
+            echo "model=deepseek/deepseek-v4-pro" >> "$GITHUB_OUTPUT"
+            echo "tier=pro" >> "$GITHUB_OUTPUT"
+          else
+            echo "model=deepseek/deepseek-v4-flash" >> "$GITHUB_OUTPUT"
+            echo "tier=flash" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run OpenCode with official DeepSeek API
         uses: anomalyco/opencode/github@latest
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          model: deepseek/deepseek-v4-pro
+          model: ${{ steps.model.outputs.model }}
           use_github_token: true
