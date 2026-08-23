@@ -31,11 +31,11 @@ jobs:
           git status --short
           git config --get remote.origin.url
 
-      - name: Run OpenCode with OpenRouter free tool-capable coding model
+      - name: Run OpenCode with official DeepSeek API
         uses: anomalyco/opencode/github@latest
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          model: openrouter/cohere/north-mini-code:free
+          model: deepseek/deepseek-v4-pro
           use_github_token: true
