@@ -37,5 +37,91 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          model: deepseek/deepseek-v4-flash
+          model: ${{ contains(github.event.comment.body, '[pro]') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/oc-pro') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/opencode-pro') && 'deepseek/deepseek-v4-pro' || 'deepseek/deepseek-v4-flash' }}
           use_github_token: true
+
+      - name: Create PR fallback when OpenCode left an orphaned branch
+        if: ${{ github.event_name == 'issue_comment' && !github.event.issue.pull_request }}
+        uses: actions/github-script@v7
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issueNumber = Number(process.env.ISSUE_NUMBER);
+            const base = context.payload.repository.default_branch;
+            const prefix = `opencode/issue${issueNumber}-`;
+
+            const branches = await github.paginate(github.rest.repos.listBranches, {
+              owner,
+              repo,
+              per_page: 100,
+            });
+            const candidates = branches
+              .map(b => b.name)
+              .filter(name => name.startsWith(prefix));
+
+            if (candidates.length === 0) {
+              core.info(`No OpenCode branch found for issue #${issueNumber}; nothing to recover.`);
+              return;
+            }
+
+            const openPrs = await github.paginate(github.rest.pulls.list, {
+              owner,
+              repo,
+              state: 'open',
+              base,
+              per_page: 100,
+            });
+
+            const existing = openPrs.find(pr => candidates.includes(pr.head.ref));
+            if (existing) {
+              core.info(`Open PR already exists for ${existing.head.ref}: #${existing.number}`);
+              return;
+            }
+
+            // Prefer the newest orphaned OpenCode branch.
+            const dated = [];
+            for (const branch of candidates) {
+              try {
+                const commit = await github.rest.repos.getCommit({ owner, repo, ref: branch });
+                const date = commit.data.commit?.committer?.date || commit.data.commit?.author?.date || '';
+                dated.push({ branch, date });
+              } catch (error) {
+                core.warning(`Could not inspect ${branch}: ${error.message}`);
+              }
+            }
+            dated.sort((a, b) => b.date.localeCompare(a.date));
+            const head = (dated[0] && dated[0].branch) || candidates[candidates.length - 1];
+
+            const issue = await github.rest.issues.get({ owner, repo, issue_number: issueNumber });
+            const title = `feat: automated OpenCode result for #${issueNumber}`;
+            const body = [
+              'Automated fallback PR created because the OpenCode/DeepSeek run produced a dedicated branch and committed changes but did not leave an open PR.',
+              '',
+              `Source branch: \`${head}\``,
+              `Source issue: #${issueNumber}`,
+              '',
+              'The normal OpenCode PR path remains enabled. This fallback exists so a completed coding run cannot become stranded without a reviewable PR.',
+            ].join('\n');
+
+            const pr = await github.rest.pulls.create({
+              owner,
+              repo,
+              title: issue.data.title ? `${title}` : title,
+              head,
+              base,
+              body,
+              draft: true,
+            });
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: issueNumber,
+              body: `PR fallback created automatically: #${pr.data.number} from \`${head}\`. The OpenCode run had already produced the branch/commit; the fallback only restored the missing review gate.`,
+            });
+
+            core.info(`Created fallback PR #${pr.data.number} from ${head}.`);
