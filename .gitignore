@@ -1,0 +1,5 @@
+# Build outputs - never commit generated images or mount points
+build/
+*.img
+*.dtb
+*.pp.dts
