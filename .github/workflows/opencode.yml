@@ -1,14 +1,29 @@
 name: opencode
 
 on:
+  # Existing /oc and /opencode trigger path — retained unchanged.
   issue_comment:
     types: [created]
   pull_request_review_comment:
     types: [created]
 
+  # New explicit dispatch path for the ChatGPT → GitHub → OpenCode loop.
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: 'Exact task for OpenCode / DeepSeek'
+        required: true
+        type: string
+      model:
+        description: 'DeepSeek model'
+        required: true
+        default: 'deepseek/deepseek-v4-flash'
+        type: string
+
 jobs:
   opencode:
     if: |
+      github.event_name == 'workflow_dispatch' ||
       contains(github.event.comment.body, '/oc') ||
       contains(github.event.comment.body, '/opencode')
     runs-on: ubuntu-latest
@@ -37,7 +52,8 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          model: ${{ contains(github.event.comment.body, '[pro]') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/oc-pro') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/opencode-pro') && 'deepseek/deepseek-v4-pro' || 'deepseek/deepseek-v4-flash' }}
+          model: ${{ github.event_name == 'workflow_dispatch' && inputs.model || (contains(github.event.comment.body, '[pro]') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/oc-pro') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/opencode-pro') && 'deepseek/deepseek-v4-pro' || 'deepseek/deepseek-v4-flash') }}
+          prompt: ${{ github.event_name == 'workflow_dispatch' && inputs.prompt || '' }}
           use_github_token: true
 
       # OpenCode is expected to create the PR itself. This is only a safety
