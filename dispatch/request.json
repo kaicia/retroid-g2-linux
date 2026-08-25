@@ -1,0 +1,6 @@
+{
+  "request_id": "B-TEST-20260825-01",
+  "ref": "main",
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt": "AUTOMATION B-PATH TEST ONLY. Do not modify kernel, DTS, boot artifacts, or G2 project code. Verify that the workflow_dispatch path is reachable and that OpenCode can start and exit cleanly. Report only the test status; do not create a PR unless the workflow itself requires one."
+}
