@@ -1,0 +1,113 @@
+name: workflow-dispatch bridge
+
+on:
+  push:
+    paths:
+      - 'dispatch/request.json'
+
+jobs:
+  dispatch-opencode:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Validate dispatch request
+        id: request
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s dispatch/request.json
+          jq -e '(.prompt | type == "string" and length > 0) and ((.model // "deepseek/deepseek-v4-flash") | type == "string") and ((.ref // "main") | type == "string")' dispatch/request.json >/dev/null
+          echo "request_id=$(jq -r '.request_id // empty' dispatch/request.json)" >> "$GITHUB_OUTPUT"
+          echo "ref=$(jq -r '.ref // \"main\"' dispatch/request.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch OpenCode workflow
+        id: dispatch
+        env:
+          DISPATCH_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}
+          REPO: ${{ github.repository }}
+          REF: ${{ steps.request.outputs.ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$DISPATCH_TOKEN"
+          payload=$(jq -c '{ref: (.ref // "main"), inputs: {prompt: .prompt, model: (.model // "deepseek/deepseek-v4-flash")}}' dispatch/request.json)
+          http_code=$(curl -sS -o /tmp/dispatch-response.json -w '%{http_code}' \
+            -X POST \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            -H "Authorization: Bearer $DISPATCH_TOKEN" \
+            "https://api.github.com/repos/$REPO/actions/workflows/opencode.yml/dispatches" \
+            -d "$payload")
+          test "$http_code" = "204"
+          echo "Dispatch accepted by GitHub (HTTP 204)."
+
+      - name: Wait for dispatched OpenCode Run ID
+        id: run
+        env:
+          DISPATCH_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}
+          REPO: ${{ github.repository }}
+          STARTED_AT: ${{ github.event.head_commit.timestamp }}
+          REF: ${{ steps.request.outputs.ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 30); do
+            runs=$(curl -fsS \
+              -H 'Accept: application/vnd.github+json' \
+              -H 'X-GitHub-Api-Version: 2022-11-28' \
+              -H "Authorization: Bearer $DISPATCH_TOKEN" \
+              "https://api.github.com/repos/$REPO/actions/workflows/opencode.yml/runs?event=workflow_dispatch&branch=$REF&per_page=20")
+
+            run_id=$(printf '%s' "$runs" | jq -r --arg started "$STARTED_AT" '
+              .workflow_runs
+              | map(select(.created_at >= $started))
+              | sort_by(.created_at)
+              | last
+              | .id // empty
+            ')
+
+            if test -n "$run_id"; then
+              run_url=$(printf '%s' "$runs" | jq -r --arg id "$run_id" '.workflow_runs[] | select(.id == ($id | tonumber)) | .html_url')
+              run_created=$(printf '%s' "$runs" | jq -r --arg id "$run_id" '.workflow_runs[] | select(.id == ($id | tonumber)) | .created_at')
+              echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
+              echo "run_url=$run_url" >> "$GITHUB_OUTPUT"
+              echo "run_created=$run_created" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo 'Dispatched workflow accepted, but Run ID was not observed within 60 seconds.' >&2
+          exit 1
+
+      - name: Publish dispatch result
+        env:
+          REQUEST_ID: ${{ steps.request.outputs.request_id }}
+          RUN_ID: ${{ steps.run.outputs.run_id }}
+          RUN_URL: ${{ steps.run.outputs.run_url }}
+          RUN_CREATED: ${{ steps.run.outputs.run_created }}
+          BRIDGE_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dispatch
+          jq -n \
+            --arg request_id "$REQUEST_ID" \
+            --arg run_id "$RUN_ID" \
+            --arg run_url "$RUN_URL" \
+            --arg run_created "$RUN_CREATED" \
+            --arg bridge_sha "$BRIDGE_SHA" \
+            '{request_id:$request_id, status:"dispatched", run_id:($run_id|tonumber), run_url:$run_url, run_created:$run_created, bridge_commit:$bridge_sha}' \
+            > dispatch/response.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add dispatch/response.json
+          git commit -m 'chore: record workflow dispatch result' || exit 0
+          git push
