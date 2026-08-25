@@ -10,6 +10,10 @@ on:
   # New explicit dispatch path for the ChatGPT → GitHub → OpenCode loop.
   workflow_dispatch:
     inputs:
+      task_id:
+        description: 'Unique G2 task identifier'
+        required: true
+        type: string
       prompt:
         description: 'Exact task for OpenCode / DeepSeek'
         required: true
@@ -46,15 +50,38 @@ jobs:
           git status --short
           git config --get remote.origin.url
 
+      - name: Set development task identity
+        env:
+          TASK_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.task_id || format('COMMENT-{0}', github.run_id) }}
+        run: |
+          set -euo pipefail
+          echo "G2_TASK_ID=$TASK_ID" >> "$GITHUB_ENV"
+          echo "G2_TASK_ID=$TASK_ID"
+
       - name: Run OpenCode with official DeepSeek API
         uses: anomalyco/opencode/github@latest
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          G2_TASK_ID: ${{ env.G2_TASK_ID }}
         with:
           model: ${{ github.event_name == 'workflow_dispatch' && inputs.model || (contains(github.event.comment.body, '[pro]') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/oc-pro') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/opencode-pro') && 'deepseek/deepseek-v4-pro' || 'deepseek/deepseek-v4-flash') }}
-          prompt: ${{ github.event_name == 'workflow_dispatch' && inputs.prompt || '' }}
+          prompt: ${{ github.event_name == 'workflow_dispatch' && format('[G2_TASK_ID={0}] {1}', inputs.task_id, inputs.prompt) || '' }}
           use_github_token: true
+
+      - name: Publish task identity
+        env:
+          TASK_ID: ${{ env.G2_TASK_ID }}
+        run: |
+          set -euo pipefail
+          {
+            echo '### G2 development task'
+            echo
+            echo "- Task ID: \`$TASK_ID\`"
+            echo "- Actions Run ID: \`${GITHUB_RUN_ID}\`"
+            echo "- Workflow: \`${GITHUB_WORKFLOW}\`"
+            echo "- SHA: \`${GITHUB_SHA}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       # OpenCode is expected to create the PR itself. This is only a safety
       # net for a completed OpenCode run that left an issue branch orphaned.
