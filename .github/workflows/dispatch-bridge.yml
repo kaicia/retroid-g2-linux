@@ -24,10 +24,10 @@ jobs:
         run: |
           set -euo pipefail
           test -s dispatch/request.json
-          jq -e '(.prompt | type == "string" and length > 0) and ((.model // "deepseek/deepseek-v4-flash") | type == "string") and ((.ref // "main") | type == "string")' dispatch/request.json >/dev/null
-          echo "request_id=$(jq -r '.request_id // empty' dispatch/request.json)" >> "$GITHUB_OUTPUT"
-          echo "task_id=$(jq -r '.task_id // (.request_id // empty)' dispatch/request.json)" >> "$GITHUB_OUTPUT"
-          echo "ref=$(jq -r '.ref // \"main\"' dispatch/request.json)" >> "$GITHUB_OUTPUT"
+          jq -e '(.task_id | type == "string" and length > 0) and (.request_id | type == "string" and length > 0) and (.prompt | type == "string" and length > 0) and ((.model // "deepseek/deepseek-v4-flash") | type == "string") and ((.ref // "main") | type == "string")' dispatch/request.json >/dev/null
+          echo "task_id=$(jq -r '.task_id' dispatch/request.json)" >> "$GITHUB_OUTPUT"
+          echo "request_id=$(jq -r '.request_id' dispatch/request.json)" >> "$GITHUB_OUTPUT"
+          echo "ref=$(jq -r '.ref // "main"' dispatch/request.json)" >> "$GITHUB_OUTPUT"
 
       - name: Dispatch OpenCode workflow
         id: dispatch
@@ -38,7 +38,7 @@ jobs:
         run: |
           set -euo pipefail
           test -n "$DISPATCH_TOKEN"
-          payload=$(jq -c '{ref: (.ref // "main"), inputs: {task_id: (.task_id // .request_id), prompt: .prompt, model: (.model // "deepseek/deepseek-v4-flash")}}' dispatch/request.json)
+          payload=$(jq -c '{ref: (.ref // "main"), inputs: {task_id: .task_id, prompt: .prompt, model: (.model // "deepseek/deepseek-v4-flash")}}' dispatch/request.json)
           echo "dispatch_started=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
           http_code=$(curl -sS -o /tmp/dispatch-response.json -w '%{http_code}' \
             -X POST \
@@ -89,8 +89,8 @@ jobs:
 
       - name: Publish dispatch result
         env:
-          REQUEST_ID: ${{ steps.request.outputs.request_id }}
           TASK_ID: ${{ steps.request.outputs.task_id }}
+          REQUEST_ID: ${{ steps.request.outputs.request_id }}
           RUN_ID: ${{ steps.run.outputs.run_id }}
           RUN_URL: ${{ steps.run.outputs.run_url }}
           RUN_CREATED: ${{ steps.run.outputs.run_created }}
@@ -100,13 +100,13 @@ jobs:
           set -euo pipefail
           mkdir -p dispatch
           jq -n \
-            --arg request_id "$REQUEST_ID" \
             --arg task_id "$TASK_ID" \
+            --arg request_id "$REQUEST_ID" \
             --arg run_id "$RUN_ID" \
             --arg run_url "$RUN_URL" \
             --arg run_created "$RUN_CREATED" \
             --arg bridge_sha "$BRIDGE_SHA" \
-            '{request_id:$request_id, task_id:$task_id, status:"dispatched", run_id:($run_id|tonumber), run_url:$run_url, run_created:$run_created, bridge_commit:$bridge_sha}' \
+            '{task_id:$task_id, request_id:$request_id, status:"dispatched", run_id:($run_id|tonumber), run_url:$run_url, run_created:$run_created, bridge_commit:$bridge_sha}' \
             > dispatch/response.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
