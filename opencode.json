@@ -9,5 +9,9 @@
         }
       }
     }
+  },
+  "permission": {
+    "external_directory": "deny",
+    "question": "deny"
   }
 }
