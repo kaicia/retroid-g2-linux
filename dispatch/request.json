@@ -1,7 +1,7 @@
 {
-  "task_id": "B-TRACE-PIN-A1",
-  "request_id": "B-TRACE-PIN-A1-20260827-01",
+  "task_id": "B-TRACE-BRIDGE-1",
+  "request_id": "B-TRACE-BRIDGE-1-20260827-01",
   "ref": "main",
   "model": "deepseek/deepseek-v4-flash",
-  "prompt": "Trace verification A1. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Read README.md directly, then report exactly its first non-empty line and exit. This test verifies the pinned workflow revision and live trace capture."
+  "prompt": "Bridge verification only. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Read README.md and report its first non-empty line, then exit. This verifies that the bridge dispatches the exact current workflow revision and returns an OpenCode Run ID."
 }
