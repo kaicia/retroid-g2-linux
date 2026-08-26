@@ -1,7 +1,7 @@
 {
-  "task_id": "G2-C-0001",
-  "request_id": "G2-C-0001-R5",
+  "task_id": "B-TRACE-TEST-A",
+  "request_id": "B-TRACE-TEST-A-20260827-01",
   "ref": "main",
   "model": "deepseek/deepseek-v4-flash",
-  "prompt": "Implement only the next evidence-backed G2 kernel step: the minimum Cliffs GCC clock/reset provider required by the current G2 DTS, corresponding to patch step 0003. Use main as workflow ref. For development context, inspect PR #9 head opencode/issue4-20260824053526 and the existing G2 SD candidate, then verify Cliffs GCC source lineage before changing code. Do not guess hardware values. Keep scope only to GCC clock/reset; do not implement interconnect, pinctrl, PMXR2230, downstream SDHCI, or boot-chain changes. Build Linux 7.1.5 Image+DTBs and run non-destructive validation. Do not access a physical G2 and do not flash or write any block device or Android/UFS/boot storage. Create a dedicated branch, commit the change, and create a PR against main. Report changed files, source evidence, validation, branch, commit SHA, PR URL, blockers, and whether the artifact is ready for first physical G2 microSD testing." 
+  "prompt": "Smoke test A only. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Read README.md and report its first non-empty line, then exit. This test is only to verify that the workflow can launch OpenCode with DeepSeek and publish a live trace."
 }
