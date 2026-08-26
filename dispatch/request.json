@@ -1,7 +1,7 @@
 {
-  "task_id": "B-TRACE-SEARCH-A3",
-  "request_id": "B-TRACE-SEARCH-A3-20260827-01",
+  "task_id": "B-TRACE-PERM-A4",
+  "request_id": "B-TRACE-PERM-A4-20260827-01",
   "ref": "main",
   "model": "deepseek/deepseek-v4-flash",
-  "prompt": "Trace verification A3. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Use the repository search/file search capability, not the shell, to locate occurrences of 'Cliffs GCC' in repository files. Report the filenames and matching lines found, then exit. The live trace must record the search/tool activity."
+  "prompt": "Trace verification A4. Do not modify repository files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Intentionally attempt one read of external path /etc/hostname using the shell tool, then stop immediately. The configured non-interactive permission policy must deny or safely reject the external-directory access without waiting for user approval. Report the result and exit. The live trace must record the permission/tool event and the run must finish normally rather than hanging."
 }
