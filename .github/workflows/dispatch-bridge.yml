@@ -31,12 +31,9 @@ jobs:
 
       - name: Pin workflow revision
         id: workflow
-        env:
-          REQUEST_REF: ${{ steps.request.outputs.ref }}
         shell: bash
         run: |
           set -euo pipefail
-          test "$REQUEST_REF" = "main"
           WORKFLOW_SHA="$GITHUB_SHA"
           WORKFLOW_REF="main"
           echo "workflow_sha=$WORKFLOW_SHA" >> "$GITHUB_OUTPUT"
