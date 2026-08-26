@@ -1,12 +1,16 @@
 {
   "task_id":"B-TRACE-TEST-A2",
   "request_id":"B-TRACE-TEST-A2-20260827-01",
-  "state":"running",
-  "phase":"opencode_running",
+  "state":"failed",
+  "phase":"opencode_failed",
   "run_id":33016314153,
-  "updated_at":"2026-08-26T21:38:50Z",
-  "elapsed_seconds":2,
-  "last_activity":"OpenCode/DeepSeek is running",
-  "last_output":[]
-[]
+  "updated_at":"2026-08-26T21:39:11Z",
+  "elapsed_seconds":23,
+  "last_activity":"OpenCode/DeepSeek exited with code 1",
+  "last_output":[
+  "::debug::ID token url is https://run-actions-3-azure-eastus.actions.githubusercontent.com/3//idtoken/70075e22-abc2-4eae-992e-dfb39e865626/e1a4e3f7-1973-5cdb-ad59-6c646dc1296a?api-version=2.0&audience=opencode-github-action",
+  "::add-mask::eyJhbGciOiJSUzI1NiIsImtpZCI6IjM4ODI2YjE3LTZhMzAtNWY5Yi1iMTY5LThiZWI4MjAyZjcyMyIsInR5cCI6IkpXVCIsIng1dCI6InlrTmFZNHFNX3RhNGsyVGdaT0NFWUxrY1lsQSJ9.eyJhY3RvciI6ImthaWNpYSIsImFjdG9yX2lkIjoiMzU2ODQ3NzMiLCJhdWQiOiJvcGVuY29kZS1naXRodWItYWN0aW9uIiwiYmFzZV9yZWYiOiIiLCJjaGVja19ydW5faWQiOiI5ODMzNTMzOTEyNyIsImV2ZW50X25hbWUiOiJ3b3JrZmxvd19kaXNwYXRjaCIsImV4cCI6MTc4Nzc4MDYzMiwiaGVhZF9yZWYiOiIiLCJpYXQiOjE3ODc3ODAzMzIsImlzcyI6Imh0dHBzOi8vdG9rZW4uYWN0aW9ucy5naXRodWJ1c2VyY29udGVudC5jb20iLCJqb2Jfd29ya2Zsb3dfcmVmIjoia2FpY2lhL3JldHJvaWQtZzItbGludXgvLmdpdGh1Yi93b3JrZmxvd3Mvb3BlbmNvZGUueW1sQHJlZnMvaGVhZHMvbWFpbiIsImpvYl93b3JrZmxvd19zaGEiOiI4MmYyYzEwNmU2MzU4MmQzMWRiMjEyNWJkMTA0NWEwN2FjN2YxOWRhIiwianRpIjoiZWU4OTEwNjUtYTZkYy00NjljLTk4YTMtYzUxNTY3MDk1ZjMyIiwibmJmIjoxNzg3NzgwMDMyLCJyZWYiOiJyZWZzL2hlYWRzL21haW4iLCJyZWZfcHJvdGVjdGVkIjoiZmFsc2UiLCJyZWZfdHlwZSI6ImJyYW5jaCIsInJlcG9zaXRvcnkiOiJrYWljaWEvcmV0cm9pZC1nMi1saW51eCIsInJlcG9zaXRvcnlfaWQiOiIxMzM2NTI0MjkxIiwicmVwb3NpdG9yeV9vd25lciI6ImthaWNpYSIsInJlcG9zaXRvcnlfb3duZXJfaWQiOiIzNTY4NDc3MyIsInJlcG9zaXRvcnlfdmlzaWJpbGl0eSI6InB1YmxpYyIsInJ1bl9hdHRlbXB0IjoiMSIsInJ1bl9pZCI6IjMzMDE2MzE0MTUzIiwicnVuX251bWJlciI6IjQyIiwicnVubmVyX2Vudmlyb25tZW50IjoiZ2l0aHViLWhvc3RlZCIsInNoYSI6IjgyZjJjMTA2ZTYzNTgyZDMxZGIyMTI1YmQxMDQ1YTA3YWM3ZjE5ZGEiLCJzdWIiOiJyZXBvOmthaWNpYUAzNTY4NDc3My9yZXRyb2lkLWcyLWxpbnV4QDEzMzY1MjQyOTE6cmVmOnJlZnMvaGVhZHMvbWFpbiIsIndvcmtmbG93Ijoib3BlbmNvZGUiLCJ3b3JrZmxvd19yZWYiOiJrYWljaWEvcmV0cm9pZC1nMi1saW51eC8uZ2l0aHViL3dvcmtmbG93cy9vcGVuY29kZS55bWxAcmVmcy9oZWFkcy9tYWluIiwid29ya2Zsb3dfc2hhIjoiODJmMmMxMDZlNjM1ODJkMzFkYjIxMjViZDEwNDVhMDdhYzdmMTlkYSJ9.2qTGMrfi8GDn87kX1txuTGOo7Z5n3tK8ovLtthHB2SVpQLNb4FzdBluYwJEcUWg1zdety65yB0choooYjsnewQwnfr_fi1q_NLWydfbmr30X9wynI5O9VnRiJtv8kBz-qqFgyEi7_lha-YdK5slCoCeGPpr-8XDy0NSalA09-PM_-bv6NaohaU1rOmCNtv--A-OlfV4FmmZseQyXY5JTU3FvIoVLmLSllHEoqb38qhXp5ZZFxegXW5c1rujEEt24Fn6ej6Q_dMvTU7NxtV0KDll0rkvPogZ-JQY4n2sWraAxdiMbPq8PpOVbeQsjA6Ee-OTS1a28JanoDq1Xim3X1g",
+  "App token exchange failed: 502 Bad Gateway - {\"error\":\"Failed to exchange GitHub App token for kaicia/retroid-g2-linux\"}",
+  "::error::App token exchange failed: 502 Bad Gateway - {\"error\":\"Failed to exchange GitHub App token for kaicia/retroid-g2-linux\"}"
+]
 }
