@@ -1,7 +1,7 @@
 {
-  "task_id": "B-TRACE-FIX-1",
-  "request_id": "B-TRACE-FIX-1-20260827-01",
+  "task_id": "B-TRACE-SHELL-A2",
+  "request_id": "B-TRACE-SHELL-A2-20260827-01",
   "ref": "main",
   "model": "deepseek/deepseek-v4-flash",
-  "prompt": "Verification after live-trace serialization fix. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Read README.md directly, then report exactly its first non-empty line and exit. Confirm the live trace reaches the actual OpenCode/DeepSeek process and records file-read activity."
+  "prompt": "Trace verification A2. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Use the shell tool exactly twice: first run 'pwd', then run 'git status --short'. Report the outputs and exit. The live trace must record both shell/tool activities." 
 }
