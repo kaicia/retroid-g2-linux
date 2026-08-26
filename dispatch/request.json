@@ -1,7 +1,7 @@
 {
-  "task_id": "B-TRACE-SHELL-A2",
-  "request_id": "B-TRACE-SHELL-A2-20260827-01",
+  "task_id": "B-TRACE-SEARCH-A3",
+  "request_id": "B-TRACE-SEARCH-A3-20260827-01",
   "ref": "main",
   "model": "deepseek/deepseek-v4-flash",
-  "prompt": "Trace verification A2. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Use the shell tool exactly twice: first run 'pwd', then run 'git status --short'. Report the outputs and exit. The live trace must record both shell/tool activities." 
+  "prompt": "Trace verification A3. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Use the repository search/file search capability, not the shell, to locate occurrences of 'Cliffs GCC' in repository files. Report the filenames and matching lines found, then exit. The live trace must record the search/tool activity."
 }
