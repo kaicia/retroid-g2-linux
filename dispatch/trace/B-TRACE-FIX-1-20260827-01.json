@@ -1,13 +1,13 @@
 {
   "task_id": "B-TRACE-FIX-1",
   "request_id": "B-TRACE-FIX-1-20260827-01",
-  "state": "starting",
-  "phase": "preparing",
+  "state": "running",
+  "phase": "opencode_running",
   "run_id": 33020090616,
   "workflow_sha": "cae07fe4a6a000e18cba38d220717b3f626b418f",
-  "updated_at": "2026-08-26T22:33:57Z",
-  "elapsed_seconds": 0,
-  "last_activity": "Preparing OpenCode/DeepSeek live trace",
+  "updated_at": "2026-08-26T22:34:12Z",
+  "elapsed_seconds": 14,
+  "last_activity": "OpenCode/DeepSeek is running",
   "last_output": [],
   "tool_trace": []
 }
