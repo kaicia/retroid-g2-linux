@@ -1,11 +1,11 @@
 {
-  "task_id": "B-TRACE-VERIFY-2",
-  "request_id": "B-TRACE-VERIFY-2-20260827-01",
+  "task_id": "B-TRACE-VERIFY-2B",
+  "request_id": "B-TRACE-VERIFY-2B-20260827-01",
   "status": "dispatched",
-  "run_id": 33017412691,
-  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/33017412691",
-  "run_created": "2026-08-26T21:53:53Z",
-  "bridge_commit": "78f5a2a815d1edf155e786525a683c9c68fdc767",
+  "run_id": 33017522266,
+  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/33017522266",
+  "run_created": "2026-08-26T21:55:33Z",
+  "bridge_commit": "041a7e0579aa1a80ac66d157c6256608875b9187",
   "status_ref": "automation/status",
-  "status_path": "dispatch/status/B-TRACE-VERIFY-2-20260827-01.json"
+  "status_path": "dispatch/status/B-TRACE-VERIFY-2B-20260827-01.json"
 }
