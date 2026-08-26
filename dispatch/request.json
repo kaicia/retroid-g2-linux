@@ -1,7 +1,7 @@
 {
-  "task_id": "B-TRACE-TEST-A3",
-  "request_id": "B-TRACE-TEST-A3-20260827-01",
+  "task_id": "B-TRACE-TEST-1",
+  "request_id": "B-TRACE-TEST-1-20260827-01",
   "ref": "main",
   "model": "deepseek/deepseek-v4-flash",
-  "prompt": "Smoke test 1 only. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Read README.md and report its first non-empty line, then exit. This test validates launch, live trace initialization, and completion correlation."
+  "prompt": "Smoke test 1 only. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Read README.md, report its first non-empty line, then exit. This validates OpenCode launch plus live-trace initialization and final status recording."
 }
