@@ -9,8 +9,10 @@
 #   3. dtc warnings recorded (structural warnings are expected; errors are not)
 #   4. DTB contains the expected G2 SDHCI node (/soc/sdhci@8804000) with
 #      source-verified clocks/reset/iommus/interconnects/cd-gpios
-#   5. checksums recorded for reproducibility
-#   6. optional: full kernel dtbs_check (DT schema) when the build tree and
+#   5. GCC provider (patch 0003) build check: DTB gcc node + bi_tcxo input,
+#      CONFIG_SM_GCC_CLIFFS=y, and 'gcc-cliffs' driver linked into the Image
+#   6. checksums recorded for reproducibility
+#   7. optional: full kernel dtbs_check (DT schema) when the build tree and
 #      dt-schema tooling are present
 #
 # Usage:
@@ -91,11 +93,34 @@ check_node '0x140' 'apps-smmu stream 0x140 in iommus'
 check_node '0x1f' 'cd-gpios tlmm GPIO31 (0x1f)'
 echo
 
-echo "[5/6] checksums"
+echo "[5/7] GCC provider (patch 0003) build check"
+check_dtb() {
+    "$DTC" -I dtb -O dts "$DTB" | grep -q "$1" && echo "  PASS: $2" || { echo "  FAIL: $2"; FAIL=1; }
+}
+check_dtb 'qcom,cliffs-gcc' 'compatible qcom,cliffs-gcc present'
+check_dtb 'bi-tcxo-clk' 'GCC bi_tcxo fixed-clock node present'
+check_dtb '0x124f800' 'bi_tcxo 19.2 MHz (0x124f800) in clock-frequency'
+if [ -f "$KBUILD/.config" ]; then
+    if grep -q "^CONFIG_SM_GCC_CLIFFS=y" "$KBUILD/.config"; then
+        echo "  PASS: CONFIG_SM_GCC_CLIFFS=y in kernel config"
+    else
+        echo "  FAIL: CONFIG_SM_GCC_CLIFFS not set in kernel config"; FAIL=1
+    fi
+fi
+if [ -f "$IMAGE" ]; then
+    if strings -a "$IMAGE" 2>/dev/null | grep -q "gcc-cliffs"; then
+        echo "  PASS: 'gcc-cliffs' driver present in built Image"
+    else
+        echo "  FAIL: 'gcc-cliffs' driver not found in built Image"; FAIL=1
+    fi
+fi
+echo
+
+echo "[6/7] checksums"
 sha256sum "$DTB" "$IMAGE" 2>/dev/null
 echo
 
-echo "[6/6] DT schema check (if available)"
+echo "[7/7] DT schema check (if available)"
 if [ -f "$KBUILD/Makefile" ]; then
     if python3 -c "import dtschema" 2>/dev/null; then
         make -C "$ROOT/kernel/.." ARCH=arm64 O="$KBUILD" dtbs_check \

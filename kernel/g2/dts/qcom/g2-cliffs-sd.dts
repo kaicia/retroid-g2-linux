@@ -21,10 +21,12 @@
  *  - No value is guessed. Values not yet source-verified are left as
  *    explicit UNRESOLVED/TODO entries and are commented out so this file
  *    still compiles as a useful target.
- *  - The dt-bindings constants below are defined locally because Linux
- *    7.1.5 does NOT ship qcom,gcc-cliffs.h / qcom,cliffs.h headers. The
- *    numeric values are source-verified against the Cliffs bindings above;
- *    they are not inferred from SM8550/SM8650.
+ *  - The dt-bindings constants below are defined locally (macro #defines)
+ *    so this file also compiles without kernel-side headers. As of patch
+ *    0003 (kernel/g2/patches/0003-cliffs-gcc.patch) Linux 7.1.5 now ships
+ *    the qcom,gcc-cliffs.h binding and the qcom,cliffs-gcc driver; the
+ *    numeric values below are source-verified against the Cliffs bindings
+ *    and are not inferred from SM8550/SM8650.
  *
  * SAFETY GATE
  *  - This DTS/DTSI produces a compile-verified DTB only. Compiling it does
@@ -70,6 +72,29 @@
 		ranges;
 	};
 
+	clocks {
+		/*
+		 * GCC "bi_tcxo" input clock (19.2 MHz).
+		 * Source evidence:
+		 *  - Vendor Cliffs gcc node (LineageOS devicetrees commit
+		 *    4e146886d41b4de80f17ae1f5e19ed0839012136,
+		 *    qcom/cliffs.dtsi) declares gcc clock-names including
+		 *    "bi_tcxo" (wired to rpmhcc RPMH_CXO_CLK on the vendor
+		 *    tree; a board fixed-clock is used here since the minimal
+		 *    G2 target has no RPMh clock provider yet).
+		 *  - The Cliffs gcc-cliffs.c SDCC2 RCG frequency table
+		 *    (OnePlusOSS commit e39bf703...) entry F(400000,
+		 *    P_BI_TCXO, 12, 1, 4) requires bi_tcxo = 19.2 MHz:
+		 *    19200000 / 12 * 1/4 = 400000. 19.2 MHz is therefore
+		 *    source-supported, not guessed.
+		 */
+		bi_tcxo: bi-tcxo-clk {
+			compatible = "fixed-clock";
+			#clock-cells = <0>;
+			clock-frequency = <19200000>;
+		};
+	};
+
 	soc: soc {
 		#address-cells = <1>;
 		#size-cells = <1>;
@@ -82,6 +107,8 @@
 			reg-name = "cc_base";
 			#clock-cells = <1>;
 			#reset-cells = <1>;
+			clocks = <&bi_tcxo>;
+			clock-names = "bi_tcxo";
 		};
 
 		tlmm: pinctrl@f000000 {
