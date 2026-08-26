@@ -1,7 +1,7 @@
 {
-  "task_id": "B-TRACE-BRIDGE-A1",
-  "request_id": "B-TRACE-BRIDGE-A1-20260827-02",
+  "task_id": "B-TRACE-FIX-1",
+  "request_id": "B-TRACE-FIX-1-20260827-01",
   "ref": "main",
   "model": "deepseek/deepseek-v4-flash",
-  "prompt": "Verification A1 only. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Read README.md directly, then report exactly its first non-empty line and exit. Verify the exact workflow revision is used and the live trace records the operation."
+  "prompt": "Verification after live-trace serialization fix. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Read README.md directly, then report exactly its first non-empty line and exit. Confirm the live trace reaches the actual OpenCode/DeepSeek process and records file-read activity."
 }
