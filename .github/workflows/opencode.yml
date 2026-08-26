@@ -76,6 +76,7 @@ jobs:
           set -euo pipefail
           TRACE_BRANCH='automation/status'
           TRACE_REPO='/tmp/g2-trace-repo'
+          TRACE_REPO_FILE='/tmp/g2-trace-repo.path'
           TRACE_PATH="dispatch/trace/${REQUEST_ID}.json"
           rm -rf "$TRACE_REPO"
           git clone --quiet --depth 1 --branch "$TRACE_BRANCH" "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" "$TRACE_REPO"
@@ -99,7 +100,7 @@ jobs:
           git -C "$TRACE_REPO" add "$TRACE_PATH"
           git -C "$TRACE_REPO" commit -m "chore: start ${REQUEST_ID} live trace" >/dev/null
           git -C "$TRACE_REPO" push --quiet origin "$TRACE_BRANCH"
-          printf '%s\n' "$TRACE_REPO" > /tmp/g2-trace-repo
+          printf '%s\n' "$TRACE_REPO" > "$TRACE_REPO_FILE"
           printf '%s\n' "$TRACE_PATH" > /tmp/g2-trace-path
 
       - name: Run OpenCode with DeepSeek and stream trace
@@ -113,7 +114,7 @@ jobs:
         run: |
           set -euo pipefail
           LOG='/tmp/opencode-live.log'
-          TRACE_REPO="$(cat /tmp/g2-trace-repo)"
+          TRACE_REPO="$(cat /tmp/g2-trace-repo.path)"
           TRACE_PATH="$(cat /tmp/g2-trace-path)"
           TRACE_BRANCH='automation/status'
           START_EPOCH=$(date +%s)
@@ -242,14 +243,16 @@ jobs:
           TRACE_PATH="dispatch/trace/${REQUEST_ID}.json"
           rm -rf "$TRACE_REPO"
           git clone --quiet --depth 1 --branch "$TRACE_BRANCH" "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" "$TRACE_REPO"
-          prs=$(gh api -H 'Accept: application/vnd.github+json' "/repos/${REPO}/pulls?state=all&per_page=100")
-          pr=$(printf '%s' "$prs" | jq -c --arg task "$TASK_ID" '[.[] | select(((.title // "") | contains($task)) or ((.body // "") | contains($task)) or ((.head.ref // "") | contains($task)))] | sort_by(.created_at) | last // empty')
-          if test -n "$pr" && test -f "$TRACE_REPO/$TRACE_PATH"; then
-            jq --arg n "$(printf '%s' "$pr" | jq -r '.number')" --arg u "$(printf '%s' "$pr" | jq -r '.html_url')" --arg s "$(printf '%s' "$pr" | jq -r '.state')" --arg h "$(printf '%s' "$pr" | jq -r '.head.sha')" '. + {pr_number:($n|tonumber),pr_url:$u,pr_state:$s,pr_head_sha:$h}' "$TRACE_REPO/$TRACE_PATH" > "$TRACE_REPO/$TRACE_PATH.tmp"
-            mv "$TRACE_REPO/$TRACE_PATH.tmp" "$TRACE_REPO/$TRACE_PATH"
-            git -C "$TRACE_REPO" config user.name 'github-actions[bot]'
-            git -C "$TRACE_REPO" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git -C "$TRACE_REPO" add "$TRACE_PATH"
-            git -C "$TRACE_REPO" commit -m "chore: correlate ${REQUEST_ID} with PR" >/dev/null 2>&1 || true
-            git -C "$TRACE_REPO" push --quiet origin "$TRACE_BRANCH" || true
+          if test -f "$TRACE_REPO/$TRACE_PATH"; then
+            prs=$(gh api -H 'Accept: application/vnd.github+json' "/repos/${REPO}/pulls?state=all&per_page=100")
+            pr=$(printf '%s' "$prs" | jq -c --arg task "$TASK_ID" '[.[] | select(((.title // "") | contains($task)) or ((.body // "") | contains($task)) or ((.head.ref // "") | contains($task)))] | sort_by(.created_at) | last // empty')
+            if test -n "$pr"; then
+              jq --arg n "$(printf '%s' "$pr" | jq -r '.number')" --arg u "$(printf '%s' "$pr" | jq -r '.html_url')" --arg s "$(printf '%s' "$pr" | jq -r '.state')" --arg h "$(printf '%s' "$pr" | jq -r '.head.sha')" '. + {pr_number:($n|tonumber),pr_url:$u,pr_state:$s,pr_head_sha:$h}' "$TRACE_REPO/$TRACE_PATH" > "$TRACE_REPO/$TRACE_PATH.tmp"
+              mv "$TRACE_REPO/$TRACE_PATH.tmp" "$TRACE_REPO/$TRACE_PATH"
+              git -C "$TRACE_REPO" config user.name 'github-actions[bot]'
+              git -C "$TRACE_REPO" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+              git -C "$TRACE_REPO" add "$TRACE_PATH"
+              git -C "$TRACE_REPO" commit -m "chore: correlate ${REQUEST_ID} with PR" >/dev/null 2>&1 || true
+              git -C "$TRACE_REPO" push --quiet origin "$TRACE_BRANCH" || true
+            fi
           fi
