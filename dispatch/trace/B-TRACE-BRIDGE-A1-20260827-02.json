@@ -1,0 +1,12 @@
+{
+  "task_id": "B-TRACE-BRIDGE-A1",
+  "request_id": "B-TRACE-BRIDGE-A1-20260827-02",
+  "state": "starting",
+  "phase": "preparing",
+  "run_id": 33019682264,
+  "workflow_sha": "015c18791c7c1a491f43aba837c0679d1c77e7c3",
+  "updated_at": "2026-08-26T22:26:31Z",
+  "elapsed_seconds": 0,
+  "last_activity": "Preparing OpenCode/DeepSeek live trace",
+  "last_output": []
+}
