@@ -1,0 +1,12 @@
+{
+  "task_id": "B-TRACE-PIN-A1",
+  "request_id": "B-TRACE-PIN-A1-20260827-01",
+  "state": "starting",
+  "phase": "preparing",
+  "run_id": 33019441412,
+  "workflow_sha": "996451992682a471295c325982e9b43fa266fcbe",
+  "updated_at": "2026-08-26T22:22:27Z",
+  "elapsed_seconds": 0,
+  "last_activity": "Preparing OpenCode/DeepSeek live trace",
+  "last_output": []
+}
