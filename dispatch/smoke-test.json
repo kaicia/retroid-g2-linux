@@ -1,0 +1,7 @@
+{
+  "test_id": "B-PERMISSION-SMOKE-20260826-01",
+  "task_id": "B-PERMISSION-SMOKE",
+  "ref": "main",
+  "model": "deepseek/deepseek-v4-flash",
+  "prompt": "Automated smoke test only. Do not modify repository files. Verify headless OpenCode can run without interactive permission prompts. Inspect the repository status and report a brief result. Do not access /etc or any external directory, do not install packages, and do not create a commit or PR."
+}
