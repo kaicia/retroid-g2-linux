@@ -1,7 +1,7 @@
 {
-  "task_id": "B-TRACE-TEST-1",
-  "request_id": "B-TRACE-TEST-1-20260827-01",
+  "task_id": "B-TRACE-TEST-2",
+  "request_id": "B-TRACE-TEST-2-20260827-01",
   "ref": "main",
   "model": "deepseek/deepseek-v4-flash",
-  "prompt": "Smoke test 1 only. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Read README.md, report its first non-empty line, then exit. This validates OpenCode launch plus live-trace initialization and final status recording."
+  "prompt": "Smoke test 2 only. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Search the repository for the exact string `GCC_SDCC2_APPS_CLK`, report the first matching file path and line, then exit. This validates live trace capture during repository search/tool activity."
 }
