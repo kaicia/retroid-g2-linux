@@ -133,3 +133,33 @@ All G2 investigations completed so far are read-only Device Tree inspection. No 
 ## Next concrete task
 
 Inspect the exact pocknix/ROCKNIX kernel source and patchset used by the intended build, then resolve the G2 Cliffs GCC, interconnect, PMXR2230 regulator, SMMU and pinctrl references against actual Linux code. Update the WIP DTS only with values that are source-supported. Then perform static DTS/schema validation before any boot experiment.
+---
+
+## Update 2026-08-24 — Phase B first microSD boot-test candidate (build-validated)
+
+See `docs/g2-phase-b-sd-boot-candidate-20260824.md` for the full report.
+
+Delivered in this phase (all build-validated, all SD-only):
+
+- Real kernel build integration: Linux 7.1.5 (pocknix/Armada pin) + the G2
+  Cliffs SD-only DTS integrated into `arch/arm64/boot/dts/qcom/` as a real
+  kernel DT build target. Kernel Image (52,488,704 B) and G2 DTB (3,891 B)
+  built by the kernel's own Kbuild.
+- Minimal busybox rootfs (static aarch64, ~2.2 MiB) for the first boot test.
+- MicroSD image (`build/g2/g2-cliffs-sd.img`, GPT `G2-BOOT` + `G2-ROOTFS`)
+  with kernel, DTB, extlinux.conf and rootfs.
+- Reproducible recipe committed as scripts:
+  `scripts/build-g2-kernel.sh`, `scripts/build-g2-rootfs.sh`,
+  `scripts/prepare-g2-sd-image.sh`, `scripts/validate-g2-sd-artifacts.sh`,
+  plus `kernel/g2/kernel.conf`, `kernel/g2/dts/qcom/g2-cliffs-sd.dts`,
+  `kernel/g2/config/linux.aarch64.conf`, `config/g2-sd/extlinux.conf`.
+- Validation: FDT magic PASS, DTB round-trip PASS, all source-verified G2
+  SDHCI values spot-checked PASS, checksums recorded. `dtbs_check` not run
+  (dtschema not installed) — documented limitation.
+
+Critical finding: mainline Linux 7.1.5 has ZERO `cliffs` references. The G2
+DTB compiles but the `qcom,cliffs-*` GCC/interconnect/pinctrl and PMXR2230
+providers it references do not yet exist as drivers in this kernel. The next
+concrete step is to port the minimum Cliffs provider set from the verified
+vendor source (LineageOS/OnePlusOSS cliffs commits) as patches under
+`kernel/g2/patches/`, and to establish the exact G2 early-boot path.

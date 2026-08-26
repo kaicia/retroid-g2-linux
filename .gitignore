@@ -1,0 +1,6 @@
+# Build outputs - never commit generated kernels, DTBs, rootfs or images.
+build/
+*.img
+*.dtb
+*.pp.dts
+kernel/g2/linux-*/
