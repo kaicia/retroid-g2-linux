@@ -1,9 +1,9 @@
 {
-  "task_id": "B-PERMISSION-SMOKE",
-  "request_id": "B-PERMISSION-SMOKE-20260826-01",
+  "task_id": "G2-C-0001",
+  "request_id": "G2-C-0001-R5",
   "status": "dispatched",
-  "run_id": 32941185553,
-  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/32941185553",
-  "run_created": "2026-08-26T07:06:50Z",
-  "bridge_commit": "f0892918e97742eb9caf561231366647bdcbe26b"
+  "run_id": 32960212210,
+  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/32960212210",
+  "run_created": "2026-08-26T10:49:46Z",
+  "bridge_commit": "7a978ec3f06e0d71ac74bd0ede2fc834726981c8"
 }
