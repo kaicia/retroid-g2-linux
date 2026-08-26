@@ -1,13 +1,13 @@
 {
   "task_id": "B-TRACE-PERM-A4",
   "request_id": "B-TRACE-PERM-A4-20260827-01",
-  "state": "starting",
-  "phase": "preparing",
+  "state": "running",
+  "phase": "opencode_running",
   "run_id": 33022273450,
   "workflow_sha": "0c7179fb2551a45edcb3120073ba3d6f51fedf06",
-  "updated_at": "2026-08-26T23:10:33Z",
-  "elapsed_seconds": 0,
-  "last_activity": "Preparing OpenCode/DeepSeek live trace",
+  "updated_at": "2026-08-26T23:10:43Z",
+  "elapsed_seconds": 9,
+  "last_activity": "OpenCode/DeepSeek is running",
   "last_output": [],
   "tool_trace": []
 }
