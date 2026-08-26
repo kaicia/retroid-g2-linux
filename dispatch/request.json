@@ -1,7 +1,7 @@
 {
-  "task_id": "B-TRACE-TEST-2",
-  "request_id": "B-TRACE-TEST-2-20260827-01",
+  "task_id": "B-TRACE-TEST-3",
+  "request_id": "B-TRACE-TEST-3-20260827-01",
   "ref": "main",
   "model": "deepseek/deepseek-v4-flash",
-  "prompt": "Smoke test 2 only. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Search the repository for the exact string `GCC_SDCC2_APPS_CLK`, report the first matching file path and line, then exit. This validates live trace capture during repository search/tool activity."
+  "prompt": "Smoke test 3 only. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Run `git status --short` and `git diff --check`, report both outputs briefly, then exit. This validates live trace capture during shell/check activity and final completion correlation."
 }
