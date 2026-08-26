@@ -29,16 +29,36 @@ jobs:
           echo "request_id=$(jq -r '.request_id' dispatch/request.json)" >> "$GITHUB_OUTPUT"
           echo "ref=$(jq -r '.ref // \"main\"' dispatch/request.json)" >> "$GITHUB_OUTPUT"
 
+      - name: Resolve exact workflow revision
+        id: workflow
+        env:
+          DISPATCH_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}
+          REPO: ${{ github.repository }}
+          REF: ${{ steps.request.outputs.ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          sha=$(curl -fsS \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            -H "Authorization: Bearer $DISPATCH_TOKEN" \
+            "https://api.github.com/repos/$REPO/git/ref/heads/$REF" \
+            | jq -r '.object.sha')
+          test -n "$sha"
+          echo "workflow_sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "Resolved workflow revision $sha for ref $REF"
+
       - name: Dispatch OpenCode workflow
         id: dispatch
         env:
           DISPATCH_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}
           REPO: ${{ github.repository }}
+          WORKFLOW_SHA: ${{ steps.workflow.outputs.workflow_sha }}
         shell: bash
         run: |
           set -euo pipefail
           test -n "$DISPATCH_TOKEN"
-          payload=$(jq -c '{ref: (.ref // "main"), inputs: {task_id: .task_id, request_id: .request_id, prompt: .prompt, model: (.model // "deepseek/deepseek-v4-flash")}}' dispatch/request.json)
+          payload=$(jq -c --arg sha "$WORKFLOW_SHA" '{ref: (.ref // "main"), inputs: {task_id: .task_id, request_id: .request_id, workflow_sha: $sha, prompt: .prompt, model: (.model // "deepseek/deepseek-v4-flash")}}' dispatch/request.json)
           echo "dispatch_started=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
           http_code=$(curl -sS -o /tmp/dispatch-response.json -w '%{http_code}' \
             -X POST \
@@ -94,6 +114,7 @@ jobs:
           RUN_ID: ${{ steps.run.outputs.run_id }}
           RUN_URL: ${{ steps.run.outputs.run_url }}
           RUN_CREATED: ${{ steps.run.outputs.run_created }}
+          WORKFLOW_SHA: ${{ steps.workflow.outputs.workflow_sha }}
           BRIDGE_SHA: ${{ github.sha }}
         shell: bash
         run: |
@@ -105,8 +126,9 @@ jobs:
             --arg run_id "$RUN_ID" \
             --arg run_url "$RUN_URL" \
             --arg run_created "$RUN_CREATED" \
+            --arg workflow_sha "$WORKFLOW_SHA" \
             --arg bridge_sha "$BRIDGE_SHA" \
-            '{task_id:$task_id, request_id:$request_id, status:"dispatched", run_id:($run_id|tonumber), run_url:$run_url, run_created:$run_created, bridge_commit:$bridge_sha, status_ref:"automation/status", status_path:("dispatch/status/" + $request_id + ".json")}' \
+            '{task_id:$task_id, request_id:$request_id, status:"dispatched", run_id:($run_id|tonumber), run_url:$run_url, run_created:$run_created, workflow_sha:$workflow_sha, bridge_commit:$bridge_sha, status_ref:"automation/status", status_path:("dispatch/status/" + $request_id + ".json"), trace_path:("dispatch/trace/" + $request_id + ".json")}' \
             > dispatch/response.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
