@@ -174,6 +174,12 @@ jobs:
       pull-requests: read
 
     steps:
+      - name: Checkout status branch repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
       - name: Monitor OpenCode and publish live status
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -226,7 +232,9 @@ jobs:
               --arg updated_at "$now" \
               '{task_id:$task_id,request_id:$request_id,state:$state,phase:$phase,job_status:$job_status,job_conclusion:$job_conclusion,current_step:$current_step,pr_number:(if $pr_number=="" then null else ($pr_number|tonumber) end),pr_url:(if $pr_url=="" then null else $pr_url end),pr_state:(if $pr_state=="" then null else $pr_state end),head_sha:(if $head_sha=="" then null else $head_sha end),run_id:($run_id|tonumber),run_url:$run_url,started_at:$started_at,finished_at:(if $finished_at=="" then null else $finished_at end),elapsed_seconds:($elapsed|tonumber),updated_at:$updated_at}' > "$STATUS_FILE"
 
-            git fetch origin "$STATUS_BRANCH:$STATUS_BRANCH" 2>/dev/null || true
+            if ! git show-ref --verify --quiet "refs/remotes/origin/$STATUS_BRANCH"; then
+              git fetch origin "$STATUS_BRANCH:$STATUS_BRANCH" 2>/dev/null || true
+            fi
             if git show-ref --verify --quiet "refs/remotes/origin/$STATUS_BRANCH"; then
               git checkout -B "$STATUS_BRANCH" "origin/$STATUS_BRANCH"
               git rm -rf . >/dev/null 2>&1 || true
@@ -262,7 +270,7 @@ jobs:
 
             prs=$(gh api -H 'Accept: application/vnd.github+json' "/repos/${REPO}/pulls?state=all&per_page=100")
             pr=$(printf '%s' "$prs" | jq -c --arg task "$TASK_ID" '
-              map(select((.title // "") | contains($task) or ((.body // "") | contains($task)) or ((.head.ref // "") | contains($task | ascii_downcase))))
+              map(select(((.title // "") | contains($task)) or ((.body // "") | contains($task)) or ((.head.ref // "") | contains($task))))
               | sort_by(.created_at)
               | last // empty
             ')
