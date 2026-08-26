@@ -7,11 +7,15 @@ on:
   pull_request_review_comment:
     types: [created]
 
-  # New explicit dispatch path for the ChatGPT → GitHub → OpenCode loop.
+  # Explicit dispatch path for the ChatGPT → GitHub → OpenCode loop.
   workflow_dispatch:
     inputs:
       task_id:
         description: 'Unique G2 task identifier'
+        required: true
+        type: string
+      request_id:
+        description: 'Unique execution request identifier'
         required: true
         type: string
       prompt:
@@ -53,38 +57,48 @@ jobs:
       - name: Set development task identity
         env:
           TASK_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.task_id || format('COMMENT-{0}', github.run_id) }}
+          REQUEST_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.request_id || format('COMMENT-{0}', github.run_id) }}
         run: |
           set -euo pipefail
           echo "G2_TASK_ID=$TASK_ID" >> "$GITHUB_ENV"
+          echo "G2_REQUEST_ID=$REQUEST_ID" >> "$GITHUB_ENV"
           echo "G2_TASK_ID=$TASK_ID"
+          echo "G2_REQUEST_ID=$REQUEST_ID"
 
       - name: Run OpenCode with official DeepSeek API
+        id: opencode_run
         uses: anomalyco/opencode/github@latest
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           G2_TASK_ID: ${{ env.G2_TASK_ID }}
+          G2_REQUEST_ID: ${{ env.G2_REQUEST_ID }}
         with:
           model: ${{ github.event_name == 'workflow_dispatch' && inputs.model || (contains(github.event.comment.body, '[pro]') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/oc-pro') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/opencode-pro') && 'deepseek/deepseek-v4-pro' || 'deepseek/deepseek-v4-flash') }}
-          prompt: ${{ github.event_name == 'workflow_dispatch' && format('[G2_TASK_ID={0}] {1}', inputs.task_id, inputs.prompt) || '' }}
+          prompt: ${{ github.event_name == 'workflow_dispatch' && format('[G2_TASK_ID={0}][G2_REQUEST_ID={1}] {2}', inputs.task_id, inputs.request_id, inputs.prompt) || '' }}
           use_github_token: true
 
       - name: Publish task identity
+        if: ${{ always() }}
         env:
           TASK_ID: ${{ env.G2_TASK_ID }}
+          REQUEST_ID: ${{ env.G2_REQUEST_ID }}
         run: |
           set -euo pipefail
           {
             echo '### G2 development task'
             echo
             echo "- Task ID: \`$TASK_ID\`"
+            echo "- Request ID: \`$REQUEST_ID\`"
             echo "- Actions Run ID: \`${GITHUB_RUN_ID}\`"
             echo "- Workflow: \`${GITHUB_WORKFLOW}\`"
             echo "- SHA: \`${GITHUB_SHA}\`"
+            echo "- OpenCode step conclusion: \`${{ steps.opencode_run.conclusion || 'unknown' }}\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # OpenCode is expected to create the PR itself. This is only a safety
-      # net for a completed OpenCode run that left an issue branch orphaned.
+      # Legacy /oc recovery path retained unchanged. The explicit
+      # workflow_dispatch path uses the monitor job below instead of this
+      # issue-specific fallback.
       - name: Create PR fallback when OpenCode left an orphaned branch
         if: ${{ github.event_name == 'issue_comment' && !github.event.issue.pull_request }}
         uses: actions/github-script@v7
@@ -118,8 +132,6 @@ jobs:
               return;
             }
 
-            // Do not blindly create a PR from an untouched branch. Compare each
-            // candidate with the base and only recover a branch with real changes.
             for (const head of candidates) {
               const comparison = await github.rest.repos.compareCommits({
                 owner, repo, base, head,
@@ -151,3 +163,152 @@ jobs:
             }
 
             core.info(`No changed OpenCode branch found for issue #${issueNumber}; no fallback PR created.`);
+
+  status-monitor:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    permissions:
+      actions: read
+      contents: write
+      pull-requests: read
+
+    steps:
+      - name: Monitor OpenCode and publish live status
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          TASK_ID: ${{ inputs.task_id }}
+          REQUEST_ID: ${{ inputs.request_id }}
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          STATUS_BRANCH='automation/status'
+          STATUS_PATH="dispatch/status/${REQUEST_ID}.json"
+          STATUS_FILE="/tmp/g2-status.json"
+
+          publish_status() {
+            local state="$1"
+            local phase="$2"
+            local job_status="$3"
+            local job_conclusion="$4"
+            local current_step="$5"
+            local pr_number="$6"
+            local pr_url="$7"
+            local pr_state="$8"
+            local head_sha="$9"
+            local started_at="${10}"
+            local finished_at="${11}"
+            local elapsed="${12}"
+            local now
+            now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+            jq -n \
+              --arg task_id "$TASK_ID" \
+              --arg request_id "$REQUEST_ID" \
+              --arg state "$state" \
+              --arg phase "$phase" \
+              --arg job_status "$job_status" \
+              --arg job_conclusion "$job_conclusion" \
+              --arg current_step "$current_step" \
+              --arg pr_number "$pr_number" \
+              --arg pr_url "$pr_url" \
+              --arg pr_state "$pr_state" \
+              --arg head_sha "$head_sha" \
+              --arg run_id "$RUN_ID" \
+              --arg run_url "$RUN_URL" \
+              --arg started_at "$started_at" \
+              --arg finished_at "$finished_at" \
+              --arg elapsed "$elapsed" \
+              --arg updated_at "$now" \
+              '{task_id:$task_id,request_id:$request_id,state:$state,phase:$phase,job_status:$job_status,job_conclusion:$job_conclusion,current_step:$current_step,pr_number:(if $pr_number=="" then null else ($pr_number|tonumber) end),pr_url:(if $pr_url=="" then null else $pr_url end),pr_state:(if $pr_state=="" then null else $pr_state end),head_sha:(if $head_sha=="" then null else $head_sha end),run_id:($run_id|tonumber),run_url:$run_url,started_at:$started_at,finished_at:(if $finished_at=="" then null else $finished_at end),elapsed_seconds:($elapsed|tonumber),updated_at:$updated_at}' > "$STATUS_FILE"
+
+            git fetch origin "$STATUS_BRANCH:$STATUS_BRANCH" 2>/dev/null || true
+            if git show-ref --verify --quiet "refs/remotes/origin/$STATUS_BRANCH"; then
+              git checkout -B "$STATUS_BRANCH" "origin/$STATUS_BRANCH"
+              git rm -rf . >/dev/null 2>&1 || true
+            else
+              git checkout --orphan "$STATUS_BRANCH"
+              git rm -rf . >/dev/null 2>&1 || true
+            fi
+
+            mkdir -p "$(dirname "$STATUS_PATH")"
+            cp "$STATUS_FILE" "$STATUS_PATH"
+            git add "$STATUS_PATH"
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m "chore: update ${REQUEST_ID} status" >/dev/null 2>&1 || true
+            git push --force origin "$STATUS_BRANCH" >/dev/null
+          }
+
+          for attempt in $(seq 1 720); do
+            jobs=$(gh api -H 'Accept: application/vnd.github+json' "/repos/${REPO}/actions/runs/${RUN_ID}/jobs?per_page=100")
+            job=$(printf '%s' "$jobs" | jq -c '.jobs[] | select(.name=="opencode")' | head -n1 || true)
+
+            if test -z "$job"; then
+              publish_status 'queued' 'waiting_for_opencode_job' 'queued' '' '' '' '' '' '' '' '' '0'
+              sleep 30
+              continue
+            fi
+
+            job_status=$(printf '%s' "$job" | jq -r '.status')
+            job_conclusion=$(printf '%s' "$job" | jq -r '.conclusion // ""')
+            started_at=$(printf '%s' "$job" | jq -r '.started_at // ""')
+            finished_at=$(printf '%s' "$job" | jq -r '.completed_at // ""')
+            current_step=$(printf '%s' "$job" | jq -r '[.steps[]? | select(.status=="in_progress") | .name] | first // ""')
+
+            prs=$(gh api -H 'Accept: application/vnd.github+json' "/repos/${REPO}/pulls?state=all&per_page=100")
+            pr=$(printf '%s' "$prs" | jq -c --arg task "$TASK_ID" '
+              map(select((.title // "") | contains($task) or ((.body // "") | contains($task)) or ((.head.ref // "") | contains($task | ascii_downcase))))
+              | sort_by(.created_at)
+              | last // empty
+            ')
+            pr_number=''
+            pr_url=''
+            pr_state=''
+            head_sha=''
+            if test -n "$pr"; then
+              pr_number=$(printf '%s' "$pr" | jq -r '.number')
+              pr_url=$(printf '%s' "$pr" | jq -r '.html_url')
+              pr_state=$(printf '%s' "$pr" | jq -r '.state')
+              head_sha=$(printf '%s' "$pr" | jq -r '.head.sha')
+            fi
+
+            now_epoch=$(date -u +%s)
+            if test -n "$started_at"; then
+              started_epoch=$(date -u -d "$started_at" +%s)
+              elapsed=$((now_epoch-started_epoch))
+            else
+              elapsed=0
+            fi
+
+            if test "$job_status" = 'completed'; then
+              if test "$job_conclusion" = 'success' && test -n "$pr_number"; then
+                state='completed'
+                phase='pr_created'
+              elif test "$job_conclusion" = 'success'; then
+                state='completed_no_pr'
+                phase='opencode_completed_pr_missing'
+              elif test "$job_conclusion" = 'cancelled'; then
+                state='cancelled'
+                phase='workflow_cancelled'
+              else
+                state='failed'
+                phase='opencode_failed'
+              fi
+              finished_at=${finished_at:-$(date -u +%Y-%m-%dT%H:%M:%SZ)}
+              publish_status "$state" "$phase" "$job_status" "$job_conclusion" "$current_step" "$pr_number" "$pr_url" "$pr_state" "$head_sha" "$started_at" "$finished_at" "$elapsed"
+              break
+            fi
+
+            state='running'
+            phase='opencode_running'
+            if test -n "$pr_number"; then
+              phase='pr_detected_while_running'
+            fi
+            publish_status "$state" "$phase" "$job_status" "$job_conclusion" "$current_step" "$pr_number" "$pr_url" "$pr_state" "$head_sha" "$started_at" '' "$elapsed"
+            sleep 30
+          done
