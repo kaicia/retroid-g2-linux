@@ -1,13 +1,10 @@
 name: opencode
 
 on:
-  # Existing /oc and /opencode trigger path — retained unchanged.
   issue_comment:
     types: [created]
   pull_request_review_comment:
     types: [created]
-
-  # Explicit dispatch path for the ChatGPT → GitHub → OpenCode loop.
   workflow_dispatch:
     inputs:
       task_id:
@@ -35,6 +32,7 @@ jobs:
       contains(github.event.comment.body, '/oc') ||
       contains(github.event.comment.body, '/opencode')
     runs-on: ubuntu-latest
+    timeout-minutes: 360
     permissions:
       id-token: write
       contents: write
@@ -50,6 +48,7 @@ jobs:
 
       - name: Verify Git remote and credentials
         run: |
+          set -euo pipefail
           git remote -v
           git status --short
           git config --get remote.origin.url
@@ -65,8 +64,143 @@ jobs:
           echo "G2_TASK_ID=$TASK_ID"
           echo "G2_REQUEST_ID=$REQUEST_ID"
 
-      - name: Run OpenCode with official DeepSeek API
-        id: opencode_run
+      - name: Prepare live trace repository
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          TASK_ID: ${{ env.G2_TASK_ID }}
+          REQUEST_ID: ${{ env.G2_REQUEST_ID }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TRACE_BRANCH='automation/status'
+          TRACE_REPO='/tmp/g2-trace-repo'
+          TRACE_PATH="dispatch/trace/${REQUEST_ID}.json"
+          rm -rf "$TRACE_REPO"
+          git clone --quiet --depth 1 --branch "$TRACE_BRANCH" "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" "$TRACE_REPO"
+          mkdir -p "$TRACE_REPO/dispatch/trace"
+          cat > "$TRACE_REPO/$TRACE_PATH" <<EOF
+          {
+            "task_id":"${TASK_ID}",
+            "request_id":"${REQUEST_ID}",
+            "state":"starting",
+            "phase":"preparing",
+            "run_id":${GITHUB_RUN_ID},
+            "updated_at":"$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "elapsed_seconds":0,
+            "last_activity":"Preparing OpenCode/DeepSeek live trace",
+            "last_output":[]
+          }
+          EOF
+          sed -i 's/^          //' "$TRACE_REPO/$TRACE_PATH"
+          git -C "$TRACE_REPO" config user.name 'github-actions[bot]'
+          git -C "$TRACE_REPO" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C "$TRACE_REPO" add "$TRACE_PATH"
+          git -C "$TRACE_REPO" commit -m "chore: start ${REQUEST_ID} live trace" >/dev/null
+          git -C "$TRACE_REPO" push --quiet origin "$TRACE_BRANCH"
+          printf '%s\n' "$TRACE_REPO" > /tmp/g2-trace-repo
+          printf '%s\n' "$TRACE_PATH" > /tmp/g2-trace-path
+
+      - name: Run OpenCode with DeepSeek and stream trace
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          G2_TASK_ID: ${{ env.G2_TASK_ID }}
+          G2_REQUEST_ID: ${{ env.G2_REQUEST_ID }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          LOG='/tmp/opencode-live.log'
+          TRACE_REPO="$(cat /tmp/g2-trace-repo)"
+          TRACE_PATH="$(cat /tmp/g2-trace-path)"
+          TRACE_BRANCH='automation/status'
+          START_EPOCH=$(date +%s)
+          export MODEL='${{ inputs.model }}'
+          export PROMPT="${{ format('[G2_TASK_ID={0}][G2_REQUEST_ID={1}] {2}', inputs.task_id, inputs.request_id, inputs.prompt) }}"
+
+          curl -fsSL https://opencode.ai/install | bash
+          export PATH="$HOME/.opencode/bin:$PATH"
+          echo "OpenCode version: $(opencode --version || true)"
+
+          opencode --log-level DEBUG github run >"$LOG" 2>&1 &
+          OC_PID=$!
+
+          publish_trace() {
+            local activity="$1"
+            local phase='opencode_running'
+            local now elapsed output_json
+            now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+            elapsed=$(($(date +%s)-START_EPOCH))
+            case "$activity" in
+              *[Bb]uild*|*compile*|*make*|*dtb*) phase='building' ;;
+              *[Vv]alidat*|*test*|*check*) phase='validating' ;;
+              *[Cc]ommit*|*branch*) phase='committing' ;;
+              *[Pp]ull*request*|*PR*) phase='creating_pr' ;;
+              *[Ee]dit*|*patch*|*write*) phase='implementing' ;;
+              *[Ss]earch*|*read*|*grep*|*source*) phase='researching' ;;
+            esac
+            output_json=$(tail -n 10 "$LOG" 2>/dev/null | sed 's/[[:cntrl:]]//g' | grep -viE 'api[_-]?key|authorization|bearer|token=' | jq -R -s 'split("\n") | map(select(length>0))' || echo '[]')
+            cat > "$TRACE_REPO/$TRACE_PATH" <<EOF
+          {
+            "task_id":"${G2_TASK_ID}",
+            "request_id":"${G2_REQUEST_ID}",
+            "state":"running",
+            "phase":"${phase}",
+            "run_id":${GITHUB_RUN_ID},
+            "updated_at":"${now}",
+            "elapsed_seconds":${elapsed},
+            "last_activity":$(jq -Rn --arg s "$activity" '$s'),
+            "last_output":${output_json}
+          }
+          EOF
+            sed -i 's/^          //' "$TRACE_REPO/$TRACE_PATH"
+            git -C "$TRACE_REPO" pull --rebase --quiet origin "$TRACE_BRANCH" || true
+            git -C "$TRACE_REPO" add "$TRACE_PATH"
+            git -C "$TRACE_REPO" commit -m "chore: update ${G2_REQUEST_ID} live trace" >/dev/null 2>&1 || true
+            git -C "$TRACE_REPO" push --quiet origin "$TRACE_BRANCH" || true
+            echo "[$now] [$phase] $activity"
+          }
+
+          while kill -0 "$OC_PID" 2>/dev/null; do
+            activity=$(tail -n 1 "$LOG" 2>/dev/null | tr '\n' ' ' | cut -c1-240 || true)
+            publish_trace "${activity:-OpenCode/DeepSeek is running}"
+            sleep 20
+          done
+
+          set +e
+          wait "$OC_PID"
+          OC_RC=$?
+          set -e
+          now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          elapsed=$(($(date +%s)-START_EPOCH))
+          final_state='completed'
+          final_phase='opencode_completed'
+          test "$OC_RC" -eq 0 || { final_state='failed'; final_phase='opencode_failed'; }
+          final_json=$(tail -n 20 "$LOG" 2>/dev/null | sed 's/[[:cntrl:]]//g' | grep -viE 'api[_-]?key|authorization|bearer|token=' | jq -R -s 'split("\n") | map(select(length>0))' || echo '[]')
+          cat > "$TRACE_REPO/$TRACE_PATH" <<EOF
+          {
+            "task_id":"${G2_TASK_ID}",
+            "request_id":"${G2_REQUEST_ID}",
+            "state":"${final_state}",
+            "phase":"${final_phase}",
+            "run_id":${GITHUB_RUN_ID},
+            "updated_at":"${now}",
+            "elapsed_seconds":${elapsed},
+            "last_activity":"OpenCode/DeepSeek exited with code ${OC_RC}",
+            "last_output":${final_json}
+          }
+          EOF
+          sed -i 's/^          //' "$TRACE_REPO/$TRACE_PATH"
+          git -C "$TRACE_REPO" pull --rebase --quiet origin "$TRACE_BRANCH" || true
+          git -C "$TRACE_REPO" add "$TRACE_PATH"
+          git -C "$TRACE_REPO" commit -m "chore: finalize ${G2_REQUEST_ID} live trace" >/dev/null 2>&1 || true
+          git -C "$TRACE_REPO" push --quiet origin "$TRACE_BRANCH" || true
+          exit "$OC_RC"
+
+      - name: Run official OpenCode action for legacy triggers
+        if: ${{ github.event_name != 'workflow_dispatch' }}
         uses: anomalyco/opencode/github@latest
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -74,8 +208,8 @@ jobs:
           G2_TASK_ID: ${{ env.G2_TASK_ID }}
           G2_REQUEST_ID: ${{ env.G2_REQUEST_ID }}
         with:
-          model: ${{ github.event_name == 'workflow_dispatch' && inputs.model || (contains(github.event.comment.body, '[pro]') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/oc-pro') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/opencode-pro') && 'deepseek/deepseek-v4-pro' || 'deepseek/deepseek-v4-flash') }}
-          prompt: ${{ github.event_name == 'workflow_dispatch' && format('[G2_TASK_ID={0}][G2_REQUEST_ID={1}] {2}', inputs.task_id, inputs.request_id, inputs.prompt) || '' }}
+          model: ${{ contains(github.event.comment.body, '[pro]') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/oc-pro') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/opencode-pro') && 'deepseek/deepseek-v4-pro' || 'deepseek/deepseek-v4-flash' }}
+          prompt: ''
           use_github_token: true
 
       - name: Publish task identity
@@ -84,239 +218,38 @@ jobs:
           TASK_ID: ${{ env.G2_TASK_ID }}
           REQUEST_ID: ${{ env.G2_REQUEST_ID }}
         run: |
-          set -euo pipefail
           {
             echo '### G2 development task'
             echo
             echo "- Task ID: \`$TASK_ID\`"
             echo "- Request ID: \`$REQUEST_ID\`"
             echo "- Actions Run ID: \`${GITHUB_RUN_ID}\`"
-            echo "- Workflow: \`${GITHUB_WORKFLOW}\`"
-            echo "- SHA: \`${GITHUB_SHA}\`"
-            echo "- OpenCode step conclusion: \`${{ steps.opencode_run.conclusion || 'unknown' }}\`"
+            echo "- Live trace: \`automation/status:dispatch/trace/${REQUEST_ID}.json\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # Legacy /oc recovery path retained unchanged. The explicit
-      # workflow_dispatch path uses the monitor job below instead of this
-      # issue-specific fallback.
-      - name: Create PR fallback when OpenCode left an orphaned branch
-        if: ${{ github.event_name == 'issue_comment' && !github.event.issue.pull_request }}
-        uses: actions/github-script@v7
-        env:
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
-            const issueNumber = Number(process.env.ISSUE_NUMBER);
-            const base = context.payload.repository.default_branch;
-            const prefix = `opencode/issue${issueNumber}-`;
-
-            const branches = await github.paginate(github.rest.repos.listBranches, {
-              owner, repo, per_page: 100,
-            });
-            const candidates = branches.map(b => b.name).filter(name => name.startsWith(prefix));
-
-            if (candidates.length === 0) {
-              core.info(`No OpenCode branch found for issue #${issueNumber}; nothing to recover.`);
-              return;
-            }
-
-            const openPrs = await github.paginate(github.rest.pulls.list, {
-              owner, repo, state: 'open', base, per_page: 100,
-            });
-            const existing = openPrs.find(pr => candidates.includes(pr.head.ref));
-            if (existing) {
-              core.info(`Open PR #${existing.number} already exists for ${existing.head.ref}.`);
-              return;
-            }
-
-            for (const head of candidates) {
-              const comparison = await github.rest.repos.compareCommits({
-                owner, repo, base, head,
-              });
-              if (comparison.data.ahead_by <= 0 || comparison.data.files?.length === 0) {
-                continue;
-              }
-
-              const title = `OpenCode issue #${issueNumber}: ${head.replace(prefix, '').slice(0, 80)}`;
-              const body = [
-                '## OpenCode PR recovery',
-                '',
-                'OpenCode completed work on this issue branch but did not create the expected PR.',
-                'This PR was created automatically as a safety fallback so the development loop does not stall.',
-                '',
-                `- Issue: #${issueNumber}`,
-                `- Head: \`${head}\``,
-                `- Base: \`${base}\``,
-                `- Commits ahead: ${comparison.data.ahead_by}`,
-                '',
-                'The normal OpenCode PR path remains the primary path; this is recovery only.',
-              ].join('\n');
-
-              const pr = await github.rest.pulls.create({
-                owner, repo, head, base, title, body,
-              });
-              core.notice(`Recovered orphaned OpenCode branch ${head} as PR #${pr.data.number}.`);
-              return;
-            }
-
-            core.info(`No changed OpenCode branch found for issue #${issueNumber}; no fallback PR created.`);
-
-  status-monitor:
-    if: ${{ github.event_name == 'workflow_dispatch' }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 360
-    permissions:
-      actions: read
-      contents: write
-      pull-requests: read
-
-    steps:
-      - name: Checkout status branch repository
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-          persist-credentials: true
-
-      - name: Monitor OpenCode and publish live status
+      - name: Finalize dispatch result with PR correlation
+        if: ${{ always() && github.event_name == 'workflow_dispatch' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-          RUN_ID: ${{ github.run_id }}
-          TASK_ID: ${{ inputs.task_id }}
-          REQUEST_ID: ${{ inputs.request_id }}
-          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TASK_ID: ${{ env.G2_TASK_ID }}
+          REQUEST_ID: ${{ env.G2_REQUEST_ID }}
         shell: bash
         run: |
           set -euo pipefail
-
-          STATUS_BRANCH='automation/status'
-          STATUS_PATH="dispatch/status/${REQUEST_ID}.json"
-          STATUS_FILE="/tmp/g2-status.json"
-
-          publish_status() {
-            local state="$1"
-            local phase="$2"
-            local job_status="$3"
-            local job_conclusion="$4"
-            local current_step="$5"
-            local pr_number="$6"
-            local pr_url="$7"
-            local pr_state="$8"
-            local head_sha="$9"
-            local started_at="${10}"
-            local finished_at="${11}"
-            local elapsed="${12}"
-            local now
-            now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-
-            jq -n \
-              --arg task_id "$TASK_ID" \
-              --arg request_id "$REQUEST_ID" \
-              --arg state "$state" \
-              --arg phase "$phase" \
-              --arg job_status "$job_status" \
-              --arg job_conclusion "$job_conclusion" \
-              --arg current_step "$current_step" \
-              --arg pr_number "$pr_number" \
-              --arg pr_url "$pr_url" \
-              --arg pr_state "$pr_state" \
-              --arg head_sha "$head_sha" \
-              --arg run_id "$RUN_ID" \
-              --arg run_url "$RUN_URL" \
-              --arg started_at "$started_at" \
-              --arg finished_at "$finished_at" \
-              --arg elapsed "$elapsed" \
-              --arg updated_at "$now" \
-              '{task_id:$task_id,request_id:$request_id,state:$state,phase:$phase,job_status:$job_status,job_conclusion:$job_conclusion,current_step:$current_step,pr_number:(if $pr_number=="" then null else ($pr_number|tonumber) end),pr_url:(if $pr_url=="" then null else $pr_url end),pr_state:(if $pr_state=="" then null else $pr_state end),head_sha:(if $head_sha=="" then null else $head_sha end),run_id:($run_id|tonumber),run_url:$run_url,started_at:$started_at,finished_at:(if $finished_at=="" then null else $finished_at end),elapsed_seconds:($elapsed|tonumber),updated_at:$updated_at}' > "$STATUS_FILE"
-
-            if ! git show-ref --verify --quiet "refs/remotes/origin/$STATUS_BRANCH"; then
-              git fetch origin "$STATUS_BRANCH:$STATUS_BRANCH" 2>/dev/null || true
-            fi
-            if git show-ref --verify --quiet "refs/remotes/origin/$STATUS_BRANCH"; then
-              git checkout -B "$STATUS_BRANCH" "origin/$STATUS_BRANCH"
-              git rm -rf . >/dev/null 2>&1 || true
-            else
-              git checkout --orphan "$STATUS_BRANCH"
-              git rm -rf . >/dev/null 2>&1 || true
-            fi
-
-            mkdir -p "$(dirname "$STATUS_PATH")"
-            cp "$STATUS_FILE" "$STATUS_PATH"
-            git add "$STATUS_PATH"
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit -m "chore: update ${REQUEST_ID} status" >/dev/null 2>&1 || true
-            git push --force origin "$STATUS_BRANCH" >/dev/null
-          }
-
-          for attempt in $(seq 1 720); do
-            jobs=$(gh api -H 'Accept: application/vnd.github+json' "/repos/${REPO}/actions/runs/${RUN_ID}/jobs?per_page=100")
-            job=$(printf '%s' "$jobs" | jq -c '.jobs[] | select(.name=="opencode")' | head -n1 || true)
-
-            if test -z "$job"; then
-              publish_status 'queued' 'waiting_for_opencode_job' 'queued' '' '' '' '' '' '' '' '' '0'
-              sleep 30
-              continue
-            fi
-
-            job_status=$(printf '%s' "$job" | jq -r '.status')
-            job_conclusion=$(printf '%s' "$job" | jq -r '.conclusion // ""')
-            started_at=$(printf '%s' "$job" | jq -r '.started_at // ""')
-            finished_at=$(printf '%s' "$job" | jq -r '.completed_at // ""')
-            current_step=$(printf '%s' "$job" | jq -r '[.steps[]? | select(.status=="in_progress") | .name] | first // ""')
-
-            prs=$(gh api -H 'Accept: application/vnd.github+json' "/repos/${REPO}/pulls?state=all&per_page=100")
-            pr=$(printf '%s' "$prs" | jq -c --arg task "$TASK_ID" '
-              map(select(((.title // "") | contains($task)) or ((.body // "") | contains($task)) or ((.head.ref // "") | contains($task))))
-              | sort_by(.created_at)
-              | last // empty
-            ')
-            pr_number=''
-            pr_url=''
-            pr_state=''
-            head_sha=''
-            if test -n "$pr"; then
-              pr_number=$(printf '%s' "$pr" | jq -r '.number')
-              pr_url=$(printf '%s' "$pr" | jq -r '.html_url')
-              pr_state=$(printf '%s' "$pr" | jq -r '.state')
-              head_sha=$(printf '%s' "$pr" | jq -r '.head.sha')
-            fi
-
-            now_epoch=$(date -u +%s)
-            if test -n "$started_at"; then
-              started_epoch=$(date -u -d "$started_at" +%s)
-              elapsed=$((now_epoch-started_epoch))
-            else
-              elapsed=0
-            fi
-
-            if test "$job_status" = 'completed'; then
-              if test "$job_conclusion" = 'success' && test -n "$pr_number"; then
-                state='completed'
-                phase='pr_created'
-              elif test "$job_conclusion" = 'success'; then
-                state='completed_no_pr'
-                phase='opencode_completed_pr_missing'
-              elif test "$job_conclusion" = 'cancelled'; then
-                state='cancelled'
-                phase='workflow_cancelled'
-              else
-                state='failed'
-                phase='opencode_failed'
-              fi
-              finished_at=${finished_at:-$(date -u +%Y-%m-%dT%H:%M:%SZ)}
-              publish_status "$state" "$phase" "$job_status" "$job_conclusion" "$current_step" "$pr_number" "$pr_url" "$pr_state" "$head_sha" "$started_at" "$finished_at" "$elapsed"
-              break
-            fi
-
-            state='running'
-            phase='opencode_running'
-            if test -n "$pr_number"; then
-              phase='pr_detected_while_running'
-            fi
-            publish_status "$state" "$phase" "$job_status" "$job_conclusion" "$current_step" "$pr_number" "$pr_url" "$pr_state" "$head_sha" "$started_at" '' "$elapsed"
-            sleep 30
-          done
+          TRACE_BRANCH='automation/status'
+          TRACE_REPO='/tmp/g2-final-trace'
+          TRACE_PATH="dispatch/trace/${REQUEST_ID}.json"
+          rm -rf "$TRACE_REPO"
+          git clone --quiet --depth 1 --branch "$TRACE_BRANCH" "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" "$TRACE_REPO"
+          prs=$(gh api -H 'Accept: application/vnd.github+json' "/repos/${REPO}/pulls?state=all&per_page=100")
+          pr=$(printf '%s' "$prs" | jq -c --arg task "$TASK_ID" '[.[] | select(((.title // "") | contains($task)) or ((.body // "") | contains($task)) or ((.head.ref // "") | contains($task)))] | sort_by(.created_at) | last // empty')
+          if test -n "$pr" && test -f "$TRACE_REPO/$TRACE_PATH"; then
+            jq --arg n "$(printf '%s' "$pr" | jq -r '.number')" --arg u "$(printf '%s' "$pr" | jq -r '.html_url')" --arg s "$(printf '%s' "$pr" | jq -r '.state')" --arg h "$(printf '%s' "$pr" | jq -r '.head.sha')" '. + {pr_number:($n|tonumber),pr_url:$u,pr_state:$s,pr_head_sha:$h}' "$TRACE_REPO/$TRACE_PATH" > "$TRACE_REPO/$TRACE_PATH.tmp"
+            mv "$TRACE_REPO/$TRACE_PATH.tmp" "$TRACE_REPO/$TRACE_PATH"
+            git -C "$TRACE_REPO" config user.name 'github-actions[bot]'
+            git -C "$TRACE_REPO" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git -C "$TRACE_REPO" add "$TRACE_PATH"
+            git -C "$TRACE_REPO" commit -m "chore: correlate ${REQUEST_ID} with PR" >/dev/null 2>&1 || true
+            git -C "$TRACE_REPO" push --quiet origin "$TRACE_BRANCH" || true
+          fi
