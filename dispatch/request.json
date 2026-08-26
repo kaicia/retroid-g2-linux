@@ -1,7 +1,7 @@
 {
-  "task_id": "B-TRACE-TEST-A2",
-  "request_id": "B-TRACE-TEST-A2-20260827-01",
+  "task_id": "B-TRACE-TEST-A3",
+  "request_id": "B-TRACE-TEST-A3-20260827-01",
   "ref": "main",
   "model": "deepseek/deepseek-v4-flash",
-  "prompt": "Smoke test A2 only. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Read README.md and report its first non-empty line, then exit. This test verifies OpenCode with DeepSeek and the new live trace path."
+  "prompt": "Smoke test 1 only. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Read README.md and report its first non-empty line, then exit. This test validates launch, live trace initialization, and completion correlation."
 }
