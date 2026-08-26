@@ -1,13 +1,13 @@
 {
   "task_id": "B-TRACE-SEARCH-A3",
   "request_id": "B-TRACE-SEARCH-A3-20260827-01",
-  "state": "starting",
-  "phase": "preparing",
+  "state": "running",
+  "phase": "opencode_running",
   "run_id": 33022187874,
   "workflow_sha": "488158b3092c2809ce137d294a7277e92753116c",
-  "updated_at": "2026-08-26T23:08:58Z",
-  "elapsed_seconds": 0,
-  "last_activity": "Preparing OpenCode/DeepSeek live trace",
+  "updated_at": "2026-08-26T23:09:08Z",
+  "elapsed_seconds": 8,
+  "last_activity": "OpenCode/DeepSeek is running",
   "last_output": [],
   "tool_trace": []
 }
