@@ -1,7 +1,7 @@
 {
-  "task_id": "B-TRACE-VERIFY-1",
-  "request_id": "B-TRACE-VERIFY-1-20260827-01",
+  "task_id": "B-TRACE-VERIFY-2",
+  "request_id": "B-TRACE-VERIFY-2-20260827-01",
   "ref": "main",
   "model": "deepseek/deepseek-v4-flash",
-  "prompt": "Trace verification 1. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Read README.md directly, then report exactly its first non-empty line and exit. This test verifies file-read tool activity is captured in the live trace."
+  "prompt": "Trace verification 2. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Use the shell tool to run exactly: printf 'TRACE_SHELL_MARKER_2\\n'; sleep 5; printf 'TRACE_SHELL_DONE_2\\n'. Report the two marker lines and exit. This test verifies shell tool activity is visible in the live trace while the model is still running."
 }
