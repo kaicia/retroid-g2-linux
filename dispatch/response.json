@@ -1,15 +1,15 @@
 {
-  "task_id": "B-TRACE-BRIDGE-1",
-  "request_id": "B-TRACE-BRIDGE-1-20260827-01",
+  "task_id": "B-TRACE-BRIDGE-A1",
+  "request_id": "B-TRACE-BRIDGE-A1-20260827-02",
   "status": "dispatched",
-  "run_id": 33019612267,
-  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/33019612267",
-  "run_created": "2026-08-26T22:25:11Z",
-  "run_sha": "c0e7f83b5e6c26c3cd79e38680601088adb00e0b",
-  "workflow_sha": "c0e7f83b5e6c26c3cd79e38680601088adb00e0b",
+  "run_id": 33019682264,
+  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/33019682264",
+  "run_created": "2026-08-26T22:26:20Z",
+  "run_sha": "015c18791c7c1a491f43aba837c0679d1c77e7c3",
+  "workflow_sha": "015c18791c7c1a491f43aba837c0679d1c77e7c3",
   "workflow_ref": "main",
-  "bridge_commit": "c0e7f83b5e6c26c3cd79e38680601088adb00e0b",
+  "bridge_commit": "015c18791c7c1a491f43aba837c0679d1c77e7c3",
   "status_ref": "automation/status",
-  "status_path": "dispatch/status/B-TRACE-BRIDGE-1-20260827-01.json",
-  "trace_path": "dispatch/trace/B-TRACE-BRIDGE-1-20260827-01.json"
+  "status_path": "dispatch/status/B-TRACE-BRIDGE-A1-20260827-02.json",
+  "trace_path": "dispatch/trace/B-TRACE-BRIDGE-A1-20260827-02.json"
 }
