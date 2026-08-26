@@ -108,6 +108,7 @@ jobs:
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USE_GITHUB_TOKEN: 'true'
           G2_TASK_ID: ${{ env.G2_TASK_ID }}
           G2_REQUEST_ID: ${{ env.G2_REQUEST_ID }}
         shell: bash
@@ -120,12 +121,13 @@ jobs:
           START_EPOCH=$(date +%s)
           export MODEL='${{ inputs.model }}'
           export PROMPT="${{ format('[G2_TASK_ID={0}][G2_REQUEST_ID={1}] {2}', inputs.task_id, inputs.request_id, inputs.prompt) }}"
+          export USE_GITHUB_TOKEN='true'
 
           curl -fsSL https://opencode.ai/install | bash
           export PATH="$HOME/.opencode/bin:$PATH"
           echo "OpenCode version: $(opencode --version || true)"
 
-          opencode --log-level DEBUG github run >"$LOG" 2>&1 &
+          opencode github run >"$LOG" 2>&1 &
           OC_PID=$!
 
           publish_trace() {
@@ -142,7 +144,10 @@ jobs:
               *[Ee]dit*|*patch*|*write*) phase='implementing' ;;
               *[Ss]earch*|*read*|*grep*|*source*) phase='researching' ;;
             esac
-            output_json=$(tail -n 10 "$LOG" 2>/dev/null | sed 's/[[:cntrl:]]//g' | grep -viE 'api[_-]?key|authorization|bearer|token=' | jq -R -s 'split("\n") | map(select(length>0))' || echo '[]')
+            output_json=$(tail -n 10 "$LOG" 2>/dev/null \
+              | sed 's/[[:cntrl:]]//g' \
+              | grep -viE '::add-mask::|api[_-]?key|authorization|bearer|token=|eyJ[A-Za-z0-9_-]{20,}' \
+              | jq -R -s 'split("\n") | map(select(length>0))' || echo '[]')
             cat > "$TRACE_REPO/$TRACE_PATH" <<EOF
           {
             "task_id":"${G2_TASK_ID}",
@@ -179,7 +184,10 @@ jobs:
           final_state='completed'
           final_phase='opencode_completed'
           test "$OC_RC" -eq 0 || { final_state='failed'; final_phase='opencode_failed'; }
-          final_json=$(tail -n 20 "$LOG" 2>/dev/null | sed 's/[[:cntrl:]]//g' | grep -viE 'api[_-]?key|authorization|bearer|token=' | jq -R -s 'split("\n") | map(select(length>0))' || echo '[]')
+          final_json=$(tail -n 20 "$LOG" 2>/dev/null \
+            | sed 's/[[:cntrl:]]//g' \
+            | grep -viE '::add-mask::|api[_-]?key|authorization|bearer|token=|eyJ[A-Za-z0-9_-]{20,}' \
+            | jq -R -s 'split("\n") | map(select(length>0))' || echo '[]')
           cat > "$TRACE_REPO/$TRACE_PATH" <<EOF
           {
             "task_id":"${G2_TASK_ID}",
