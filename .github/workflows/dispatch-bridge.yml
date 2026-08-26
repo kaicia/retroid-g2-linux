@@ -32,16 +32,14 @@ jobs:
       - name: Resolve exact workflow revision
         id: workflow
         env:
-          DISPATCH_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}
-          REPO: ${{ github.repository }}
           REF: ${{ steps.request.outputs.ref }}
         shell: bash
         run: |
           set -euo pipefail
-          sha=$(git ls-remote "https://x-access-token:${DISPATCH_TOKEN}@github.com/${REPO}.git" "refs/heads/${REF}" | awk 'NR==1 {print $1}')
+          git fetch --quiet origin "refs/heads/${REF}:refs/remotes/origin/${REF}"
+          sha=$(git rev-parse "refs/remotes/origin/${REF}")
           test -n "$sha"
           RUNNER_REF='automation/opencode-runner'
-          git fetch --quiet origin "$sha"
           git push --force --quiet origin "$sha:refs/heads/$RUNNER_REF"
           echo "workflow_sha=$sha" >> "$GITHUB_OUTPUT"
           echo "workflow_ref=$RUNNER_REF" >> "$GITHUB_OUTPUT"
@@ -58,7 +56,7 @@ jobs:
         run: |
           set -euo pipefail
           test -n "$DISPATCH_TOKEN"
-          payload=$(jq -c --arg sha "$WORKFLOW_SHA" --arg ref "$WORKFLOW_REF" '{ref:$ref, inputs:{task_id:.task_id,request_id:.request_id,workflow_sha:$sha,prompt:.prompt,model:(.model // "deepseek/deepseek-v4-flash")}}' dispatch/request.json)
+          payload=$(jq -c --arg sha "$WORKFLOW_SHA" --arg ref "$WORKFLOW_REF" '{ref:$ref,inputs:{task_id:.task_id,request_id:.request_id,workflow_sha:$sha,prompt:.prompt,model:(.model // "deepseek/deepseek-v4-flash")}}' dispatch/request.json)
           echo "dispatch_started=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
           http_code=$(curl -sS -o /tmp/dispatch-response.json -w '%{http_code}' \
             -X POST \
@@ -88,15 +86,12 @@ jobs:
               -H 'X-GitHub-Api-Version: 2026-03-10' \
               -H "Authorization: Bearer $DISPATCH_TOKEN" \
               "https://api.github.com/repos/$REPO/actions/workflows/opencode.yml/runs?event=workflow_dispatch&per_page=50")
-
             run_id=$(printf '%s' "$runs" | jq -r --argjson started "$started_epoch" --arg ref "$WORKFLOW_REF" --arg sha "$WORKFLOW_SHA" '
               .workflow_runs
               | map(select((.created_at | fromdateiso8601) >= $started and .head_branch == $ref and .head_sha == $sha))
               | sort_by(.created_at)
               | last
-              | .id // empty
-            ')
-
+              | .id // empty')
             if test -n "$run_id"; then
               run_url=$(printf '%s' "$runs" | jq -r --arg id "$run_id" '.workflow_runs[] | select(.id == ($id | tonumber)) | .html_url')
               run_created=$(printf '%s' "$runs" | jq -r --arg id "$run_id" '.workflow_runs[] | select(.id == ($id | tonumber)) | .created_at')
