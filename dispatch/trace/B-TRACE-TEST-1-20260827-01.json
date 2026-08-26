@@ -1,0 +1,11 @@
+{
+  "task_id":"B-TRACE-TEST-1",
+  "request_id":"B-TRACE-TEST-1-20260827-01",
+  "state":"starting",
+  "phase":"preparing",
+  "run_id":33016376318,
+  "updated_at":"2026-08-26T21:39:38Z",
+  "elapsed_seconds":0,
+  "last_activity":"Preparing OpenCode/DeepSeek live trace",
+  "last_output":[]
+}
