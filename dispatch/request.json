@@ -1,7 +1,7 @@
 {
-  "task_id": "B-TRACE-VERIFY-2",
-  "request_id": "B-TRACE-VERIFY-2-20260827-01",
+  "task_id": "B-TRACE-VERIFY-2B",
+  "request_id": "B-TRACE-VERIFY-2B-20260827-01",
   "ref": "main",
   "model": "deepseek/deepseek-v4-flash",
-  "prompt": "Trace verification 2. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Use the shell tool to run exactly: printf 'TRACE_SHELL_MARKER_2\\n'; sleep 5; printf 'TRACE_SHELL_DONE_2\\n'. Report the two marker lines and exit. This test verifies shell tool activity is visible in the live trace while the model is still running."
+  "prompt": "Trace verification 2B. Do not modify files, do not commit, do not create a branch or PR, do not install packages, and do not access any physical device. Use the shell tool to run exactly: printf 'TRACE_SHELL_MARKER_2B\\n'; sleep 5; printf 'TRACE_SHELL_DONE_2B\\n'. Then report both marker lines and exit. This test verifies shell tool activity and live trace capture while the model is still running."
 }
