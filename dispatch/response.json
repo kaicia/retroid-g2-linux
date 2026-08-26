@@ -1,9 +1,11 @@
 {
-  "task_id": "G2-C-0001",
-  "request_id": "G2-C-0001-R5",
+  "task_id": "B-TRACE-TEST-A",
+  "request_id": "B-TRACE-TEST-A-20260827-01",
   "status": "dispatched",
-  "run_id": 32960212210,
-  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/32960212210",
-  "run_created": "2026-08-26T10:49:46Z",
-  "bridge_commit": "7a978ec3f06e0d71ac74bd0ede2fc834726981c8"
+  "run_id": 33015876749,
+  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/33015876749",
+  "run_created": "2026-08-26T21:33:02Z",
+  "bridge_commit": "93aed992598445ea4833e4d2468d7c616fb5b3b9",
+  "status_ref": "automation/status",
+  "status_path": "dispatch/status/B-TRACE-TEST-A-20260827-01.json"
 }
