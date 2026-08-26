@@ -1,0 +1,13 @@
+{
+  "task_id": "B-TRACE-SHELL-A2",
+  "request_id": "B-TRACE-SHELL-A2-20260827-01",
+  "state": "starting",
+  "phase": "preparing",
+  "run_id": 33022061663,
+  "workflow_sha": "140276c4577cfe202968724c9dc8784266c93d48",
+  "updated_at": "2026-08-26T23:06:43Z",
+  "elapsed_seconds": 0,
+  "last_activity": "Preparing OpenCode/DeepSeek live trace",
+  "last_output": [],
+  "tool_trace": []
+}
