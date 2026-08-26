@@ -1,15 +1,15 @@
 {
-  "task_id": "B-TRACE-SHELL-A2",
-  "request_id": "B-TRACE-SHELL-A2-20260827-01",
+  "task_id": "B-TRACE-SEARCH-A3",
+  "request_id": "B-TRACE-SEARCH-A3-20260827-01",
   "status": "dispatched",
-  "run_id": 33022061663,
-  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/33022061663",
-  "run_created": "2026-08-26T23:06:30Z",
-  "run_sha": "140276c4577cfe202968724c9dc8784266c93d48",
-  "workflow_sha": "140276c4577cfe202968724c9dc8784266c93d48",
+  "run_id": 33022187874,
+  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/33022187874",
+  "run_created": "2026-08-26T23:08:45Z",
+  "run_sha": "488158b3092c2809ce137d294a7277e92753116c",
+  "workflow_sha": "488158b3092c2809ce137d294a7277e92753116c",
   "workflow_ref": "main",
-  "bridge_commit": "140276c4577cfe202968724c9dc8784266c93d48",
+  "bridge_commit": "488158b3092c2809ce137d294a7277e92753116c",
   "status_ref": "automation/status",
-  "status_path": "dispatch/status/B-TRACE-SHELL-A2-20260827-01.json",
-  "trace_path": "dispatch/trace/B-TRACE-SHELL-A2-20260827-01.json"
+  "status_path": "dispatch/status/B-TRACE-SEARCH-A3-20260827-01.json",
+  "trace_path": "dispatch/trace/B-TRACE-SEARCH-A3-20260827-01.json"
 }
