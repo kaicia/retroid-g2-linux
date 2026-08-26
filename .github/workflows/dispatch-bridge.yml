@@ -29,21 +29,19 @@ jobs:
           echo "request_id=$(jq -r '.request_id' dispatch/request.json)" >> "$GITHUB_OUTPUT"
           echo "ref=$(jq -r '.ref // \"main\"' dispatch/request.json)" >> "$GITHUB_OUTPUT"
 
-      - name: Resolve exact workflow revision
+      - name: Pin workflow revision
         id: workflow
         env:
-          REF: ${{ steps.request.outputs.ref }}
+          REQUEST_REF: ${{ steps.request.outputs.ref }}
         shell: bash
         run: |
           set -euo pipefail
-          git fetch --quiet origin "refs/heads/${REF}:refs/remotes/origin/${REF}"
-          sha=$(git rev-parse "refs/remotes/origin/${REF}")
-          test -n "$sha"
-          RUNNER_REF='automation/opencode-runner'
-          git push --force --quiet origin "$sha:refs/heads/$RUNNER_REF"
-          echo "workflow_sha=$sha" >> "$GITHUB_OUTPUT"
-          echo "workflow_ref=$RUNNER_REF" >> "$GITHUB_OUTPUT"
-          echo "Resolved workflow revision $sha and pinned ref $RUNNER_REF"
+          test "$REQUEST_REF" = "main"
+          WORKFLOW_SHA="$GITHUB_SHA"
+          WORKFLOW_REF="main"
+          echo "workflow_sha=$WORKFLOW_SHA" >> "$GITHUB_OUTPUT"
+          echo "workflow_ref=$WORKFLOW_REF" >> "$GITHUB_OUTPUT"
+          echo "Pinned workflow revision $WORKFLOW_SHA on ref $WORKFLOW_REF"
 
       - name: Dispatch OpenCode workflow
         id: dispatch
