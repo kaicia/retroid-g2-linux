@@ -15,10 +15,6 @@ on:
         description: 'Unique execution request identifier'
         required: true
         type: string
-      workflow_sha:
-        description: 'Exact workflow commit SHA dispatched by the bridge'
-        required: true
-        type: string
       prompt:
         description: 'Exact task for OpenCode / DeepSeek'
         required: true
@@ -27,6 +23,10 @@ on:
         description: 'DeepSeek model'
         required: true
         default: 'deepseek/deepseek-v4-flash'
+        type: string
+      workflow_sha:
+        description: 'Exact workflow revision expected for this run'
+        required: true
         type: string
 
 jobs:
@@ -56,7 +56,11 @@ jobs:
           EXPECTED_WORKFLOW_SHA: ${{ inputs.workflow_sha }}
         run: |
           set -euo pipefail
-          test "$EXPECTED_WORKFLOW_SHA" = "$GITHUB_SHA"
+          test -n "$EXPECTED_WORKFLOW_SHA"
+          test "$GITHUB_SHA" = "$EXPECTED_WORKFLOW_SHA" || {
+            echo "Workflow revision mismatch: GITHUB_SHA=$GITHUB_SHA expected=$EXPECTED_WORKFLOW_SHA" >&2
+            exit 1
+          }
           echo "Workflow revision verified: $GITHUB_SHA"
 
       - name: Set development task identity
@@ -67,7 +71,6 @@ jobs:
           set -euo pipefail
           echo "G2_TASK_ID=$TASK_ID" >> "$GITHUB_ENV"
           echo "G2_REQUEST_ID=$REQUEST_ID" >> "$GITHUB_ENV"
-          echo "G2_WORKFLOW_SHA=$GITHUB_SHA" >> "$GITHUB_ENV"
 
       - name: Run legacy OpenCode action
         if: ${{ github.event_name != 'workflow_dispatch' }}
@@ -87,7 +90,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
-        shell: bash
         run: |
           set -euo pipefail
           TRACE_BRANCH='automation/status'
@@ -96,7 +98,13 @@ jobs:
           rm -rf "$TRACE_REPO"
           git clone --quiet --depth 1 --branch "$TRACE_BRANCH" "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" "$TRACE_REPO"
           mkdir -p "$TRACE_REPO/dispatch/trace"
-          jq -n --arg task "$G2_TASK_ID" --arg req "$G2_REQUEST_ID" --arg run "$GITHUB_RUN_ID" --arg sha "$G2_WORKFLOW_SHA" '{task_id:$task,request_id:$req,state:"starting",phase:"preparing",run_id:($run|tonumber),workflow_sha:$sha,updated_at:now|todateiso8601,elapsed_seconds:0,last_activity:"Preparing OpenCode/DeepSeek live trace",last_output:[]}' > "$TRACE_REPO/$TRACE_PATH"
+          jq -n \
+            --arg task "$G2_TASK_ID" \
+            --arg req "$G2_REQUEST_ID" \
+            --arg run "$GITHUB_RUN_ID" \
+            --arg sha "$GITHUB_SHA" \
+            '{task_id:$task,request_id:$req,state:"starting",phase:"preparing",run_id:($run|tonumber),workflow_sha:$sha,updated_at:now|todateiso8601,elapsed_seconds:0,last_activity:"Preparing OpenCode/DeepSeek live trace",last_output:[]}' \
+            > "$TRACE_REPO/$TRACE_PATH"
           git -C "$TRACE_REPO" config user.name 'github-actions[bot]'
           git -C "$TRACE_REPO" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git -C "$TRACE_REPO" add "$TRACE_PATH"
@@ -111,7 +119,8 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USE_GITHUB_TOKEN: 'true'
-        shell: bash
+          G2_TASK_ID: ${{ env.G2_TASK_ID }}
+          G2_REQUEST_ID: ${{ env.G2_REQUEST_ID }}
         run: |
           set -euo pipefail
           LOG='/tmp/opencode-live.log'
@@ -127,8 +136,14 @@ jobs:
           export PATH="$(npm prefix -g)/bin:$PATH"
           echo "OpenCode version: $(opencode --version)"
 
-          opencode --log-level DEBUG github run >"$LOG" 2>&1 &
+          opencode --print-logs --log-level DEBUG github run >"$LOG" 2>&1 &
           OC_PID=$!
+
+          latest_opencode_log() {
+            find "$HOME/.local/share/opencode/log" -maxdepth 1 -type f -name '*.log' -print0 2>/dev/null \
+              | xargs -0 -r ls -1t 2>/dev/null \
+              | head -n 1
+          }
 
           publish_trace() {
             local activity="${1:-OpenCode/DeepSeek is running}"
@@ -139,13 +154,38 @@ jobs:
               *[Cc]ommit*|*branch*) phase='committing' ;;
               *[Pp]ull*request*|*PR*) phase='creating_pr' ;;
               *[Ee]dit*|*patch*|*write*) phase='implementing' ;;
-              *[Ss]earch*|*read*|*grep*|*source*) phase='researching' ;;
+              *[Ss]earch*|*read*|*grep*|*source*|*tool*) phase='researching' ;;
             esac
-            local now elapsed output_json
+            local now elapsed output_json tool_json logfile
             now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
             elapsed=$(($(date +%s)-START_EPOCH))
-            output_json=$(tail -n 25 "$LOG" 2>/dev/null | sed 's/[[:cntrl:]]//g' | grep -viE '::add-mask::|api[_-]?key|authorization|bearer|token=|eyJ[A-Za-z0-9_-]{20,}' | jq -R -s 'split("\n") | map(select(length>0))')
-            jq -n --arg task "$G2_TASK_ID" --arg req "$G2_REQUEST_ID" --arg phase "$phase" --arg act "$activity" --arg run "$GITHUB_RUN_ID" --arg sha "$G2_WORKFLOW_SHA" --arg now "$now" --argjson elapsed "$elapsed" --argjson output "$output_json" '{task_id:$task,request_id:$req,state:"running",phase:$phase,run_id:($run|tonumber),workflow_sha:$sha,updated_at:$now,elapsed_seconds:$elapsed,last_activity:$act,last_output:$output}' > "$TRACE_REPO/$TRACE_PATH"
+            logfile=$(latest_opencode_log || true)
+            output_json=$(tail -n 20 "$LOG" 2>/dev/null \
+              | sed 's/[[:cntrl:]]//g' \
+              | grep -viE '::add-mask::|api[_-]?key|authorization|bearer|token=|eyJ[A-Za-z0-9_-]{20,}' \
+              | jq -R -s 'split("\n") | map(select(length>0))' || echo '[]')
+            tool_json='[]'
+            if test -n "$logfile" && test -f "$logfile"; then
+              tool_json=$(tail -n 40 "$logfile" \
+                | sed 's/[[:cntrl:]]//g' \
+                | grep -E 'role=server|tool|permission|session|run=' \
+                | grep -viE 'api[_-]?key|authorization|bearer|token=|eyJ[A-Za-z0-9_-]{20,}' \
+                | tail -n 15 \
+                | jq -R -s 'split("\n") | map(select(length>0))' || echo '[]')
+            fi
+            jq -n \
+              --arg task "$G2_TASK_ID" \
+              --arg req "$G2_REQUEST_ID" \
+              --arg phase "$phase" \
+              --arg act "$activity" \
+              --arg run "$GITHUB_RUN_ID" \
+              --arg sha "$GITHUB_SHA" \
+              --arg now "$now" \
+              --argjson elapsed "$elapsed" \
+              --argjson output "$output_json" \
+              --argjson tools "$tool_json" \
+              '{task_id:$task,request_id:$req,state:"running",phase:$phase,run_id:($run|tonumber),workflow_sha:$sha,updated_at:$now,elapsed_seconds:$elapsed,last_activity:$act,last_output:$output,tool_trace:$tools}' \
+              > "$TRACE_REPO/$TRACE_PATH"
             git -C "$TRACE_REPO" add "$TRACE_PATH"
             git -C "$TRACE_REPO" commit -m "chore: update ${G2_REQUEST_ID} live trace" >/dev/null 2>&1 || true
             git -C "$TRACE_REPO" push --quiet origin "$TRACE_BRANCH" || true
@@ -164,10 +204,37 @@ jobs:
           set -e
           now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
           elapsed=$(($(date +%s)-START_EPOCH))
-          final_state='completed'; final_phase='opencode_completed'
+          logfile=$(latest_opencode_log || true)
+          final_state='completed'
+          final_phase='opencode_completed'
           test "$OC_RC" -eq 0 || { final_state='failed'; final_phase='opencode_failed'; }
-          final_json=$(tail -n 40 "$LOG" 2>/dev/null | sed 's/[[:cntrl:]]//g' | grep -viE '::add-mask::|api[_-]?key|authorization|bearer|token=|eyJ[A-Za-z0-9_-]{20,}' | jq -R -s 'split("\n") | map(select(length>0))')
-          jq -n --arg task "$G2_TASK_ID" --arg req "$G2_REQUEST_ID" --arg state "$final_state" --arg phase "$final_phase" --arg run "$GITHUB_RUN_ID" --arg sha "$G2_WORKFLOW_SHA" --arg now "$now" --argjson elapsed "$elapsed" --argjson output "$final_json" --arg act "OpenCode/DeepSeek exited with code $OC_RC" '{task_id:$task,request_id:$req,state:$state,phase:$phase,run_id:($run|tonumber),workflow_sha:$sha,updated_at:$now,elapsed_seconds:$elapsed,last_activity:$act,last_output:$output}' > "$TRACE_REPO/$TRACE_PATH"
+          final_json=$(tail -n 30 "$LOG" 2>/dev/null \
+            | sed 's/[[:cntrl:]]//g' \
+            | grep -viE '::add-mask::|api[_-]?key|authorization|bearer|token=|eyJ[A-Za-z0-9_-]{20,}' \
+            | jq -R -s 'split("\n") | map(select(length>0))' || echo '[]')
+          final_tools='[]'
+          if test -n "$logfile" && test -f "$logfile"; then
+            final_tools=$(tail -n 80 "$logfile" \
+              | sed 's/[[:cntrl:]]//g' \
+              | grep -E 'role=server|tool|permission|session|run=' \
+              | grep -viE 'api[_-]?key|authorization|bearer|token=|eyJ[A-Za-z0-9_-]{20,}' \
+              | tail -n 30 \
+              | jq -R -s 'split("\n") | map(select(length>0))' || echo '[]')
+          fi
+          jq -n \
+            --arg task "$G2_TASK_ID" \
+            --arg req "$G2_REQUEST_ID" \
+            --arg state "$final_state" \
+            --arg phase "$final_phase" \
+            --arg run "$GITHUB_RUN_ID" \
+            --arg sha "$GITHUB_SHA" \
+            --arg now "$now" \
+            --argjson elapsed "$elapsed" \
+            --argjson output "$final_json" \
+            --argjson tools "$final_tools" \
+            --arg act "OpenCode/DeepSeek exited with code $OC_RC" \
+            '{task_id:$task,request_id:$req,state:$state,phase:$phase,run_id:($run|tonumber),workflow_sha:$sha,updated_at:$now,elapsed_seconds:$elapsed,last_activity:$act,last_output:$output,tool_trace:$tools}' \
+            > "$TRACE_REPO/$TRACE_PATH"
           git -C "$TRACE_REPO" add "$TRACE_PATH"
           git -C "$TRACE_REPO" commit -m "chore: finalize ${G2_REQUEST_ID} live trace" >/dev/null 2>&1 || true
           git -C "$TRACE_REPO" push --quiet origin "$TRACE_BRANCH" || true
@@ -175,13 +242,16 @@ jobs:
 
       - name: Finalize task identity
         if: ${{ always() && github.event_name == 'workflow_dispatch' }}
+        env:
+          TASK_ID: ${{ env.G2_TASK_ID }}
+          REQUEST_ID: ${{ env.G2_REQUEST_ID }}
         run: |
           {
             echo '### G2 development task'
             echo
-            echo "- Task ID: \`${G2_TASK_ID}\`"
-            echo "- Request ID: \`${G2_REQUEST_ID}\`"
+            echo "- Task ID: \`$TASK_ID\`"
+            echo "- Request ID: \`$REQUEST_ID\`"
             echo "- Actions Run ID: \`${GITHUB_RUN_ID}\`"
             echo "- Workflow SHA: \`${GITHUB_SHA}\`"
-            echo "- Live trace: \`automation/status:dispatch/trace/${G2_REQUEST_ID}.json\`"
+            echo "- Live trace: \`automation/status:dispatch/trace/${REQUEST_ID}.json\`"
           } >> "$GITHUB_STEP_SUMMARY"
