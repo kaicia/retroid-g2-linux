@@ -1,0 +1,48 @@
+{
+  "task_id": "G2-B-0001",
+  "request_id": "G2-B-0001-R2",
+  "rerun_of": "G2-B-0001-R1",
+  "trace_integrity_note": "GitHub rerun reused the same workflow run_id and the live-trace implementation reused the R1 trace path during execution. R1 is preserved unchanged. This R2 record is the corrected archival record derived from the verified rerun Job and final OpenCode output.",
+  "workflow_run_id": 33066792269,
+  "job_id": 98510476863,
+  "workflow_sha": "a922c4a22bbb6269cd9cede3bf38651937ffac39",
+  "provider": "deepseek",
+  "model": "deepseek-v4-flash",
+  "open_code_agent": "build",
+  "open_code_session": "ses_fbce2fc93ffedcPs4AccCwYe0k",
+  "state": "completed",
+  "phase": "opencode_completed",
+  "started_at": "2026-08-27T12:06:09Z",
+  "completed_at": "2026-08-27T13:04:23Z",
+  "elapsed_seconds": 3503,
+  "result": "PASS",
+  "summary": "First G2 kernel Image and G2 board DTB built and schema-validated. No device, SD card, flash, or internal Android/UFS/boot partition was modified.",
+  "artifacts": {
+    "Image_bytes": 42113536,
+    "Image_sha256": "c9a6125f0576ac53704e49aa29923260c26251acead6393d038506ab36a95d4d",
+    "g2_dtb_bytes": 52983,
+    "g2_dtb_sha256": "6b46bbf39284847405e146bc1536e6e5e7d294600f37494dda06ccc6a16bb297",
+    "baseline_dtb_bytes": 69126,
+    "baseline_dtb_sha256": "c3908fe06eeb9e236923b9081639d7f7d18bb10d42848077750b2397c8f5ad6a"
+  },
+  "repository_result": {
+    "branch": "opencode/g2-b-0001-first-kernel-build",
+    "commit": "5d998c1e25de109bc04f22d8568644ed153ceca4",
+    "pr": 15,
+    "pr_url": "https://github.com/kaicia/retroid-g2-linux/pull/15",
+    "pr_state": "open",
+    "merged": false
+  },
+  "live_trace_source": "dispatch/trace/G2-B-0001-R1.json (original execution path; preserved for historical evidence)",
+  "verified_job_steps": [
+    "Set up job: success",
+    "Checkout repository: success",
+    "Verify workflow revision: success",
+    "Set development task identity: success",
+    "Prepare live trace: success",
+    "Run OpenCode with DeepSeek and stream trace: success",
+    "Finalize task identity: success",
+    "Post Checkout repository: success",
+    "Complete job: success"
+  ]
+}
