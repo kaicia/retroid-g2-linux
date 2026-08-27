@@ -1,0 +1,34 @@
+name: g2-sdhci-static
+
+on:
+  push:
+    paths:
+      - 'dts/g2-sdhci-upstream-candidate.dtsi'
+      - 'scripts/validate-g2-sdhci-provider-map.py'
+      - '.github/workflows/g2-sdhci-static.yml'
+  workflow_dispatch:
+
+jobs:
+  static-provider-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Run provider-map consistency checks
+        run: python3 scripts/validate-g2-sdhci-provider-map.py
+
+      - name: Syntax smoke check
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('dts/g2-sdhci-upstream-candidate.dtsi')
+          s = p.read_text()
+          assert s.count('{') == s.count('}'), 'brace mismatch'
+          assert s.count('(') == s.count(')'), 'paren mismatch'
+          assert 'mmc@8804000' in s
+          assert 'status = "disabled";' in s
+          print('PASS: DTS fragment structural smoke checks')
+          PY
