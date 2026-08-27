@@ -1,13 +1,13 @@
 {
   "task_id": "COMMENT-33070169170",
   "request_id": "COMMENT-33070169170",
-  "state": "starting",
-  "phase": "preparing",
+  "state": "running",
+  "phase": "opencode_running",
   "run_id": 33070169170,
   "workflow_sha": "ab081f1238880cc2433c34800a7d600bea060c8d",
-  "updated_at": "2026-08-27T12:04:23Z",
-  "elapsed_seconds": 0,
-  "last_activity": "Preparing OpenCode/DeepSeek live trace",
+  "updated_at": "2026-08-27T12:04:32Z",
+  "elapsed_seconds": 8,
+  "last_activity": "OpenCode/DeepSeek is running",
   "last_output": [],
   "tool_trace": []
 }
