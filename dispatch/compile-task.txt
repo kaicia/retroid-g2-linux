@@ -1,0 +1,1 @@
+Use DeepSeek/OpenCode to execute docs/deepseek-compile-task-20260827.md and save the result to docs/deepseek-compile-result-20260827.md. Do not modify device or bootloader. Report exact first compilation error if any.
