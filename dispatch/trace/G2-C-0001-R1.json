@@ -5,8 +5,8 @@
   "phase": "opencode_running",
   "run_id": 33127843444,
   "workflow_sha": "bb0b1d67edb9c1b33404e816a5d46bdd986dde43",
-  "updated_at": "2026-08-27T23:54:33Z",
-  "elapsed_seconds": 72,
+  "updated_at": "2026-08-27T23:54:50Z",
+  "elapsed_seconds": 89,
   "last_activity": "timestamp=2026-08-27T23:54:30.810Z level=INFO run=8db59cbc message=cleanup prune=7.days",
   "last_output": [
     "  git: \"/home/runner/.local/share/opencode/snapshot/0cc586de72dd486a361927a32d9be3e8a6f1f11d/8799bcb9a1b120da5a42fae5de20d7e921384d56\",\n}\n[23:54:24.369] INFO (#8275): process {\n  \"session.id\": \"ses_fba5b6359ffe7ZVu6a61q80HVa\",\n  messageID: \"msg_045a56ccf0015rilN7pp4Z26jW\",\n}\n[23:54:24.370] INFO (#8275): stream {\n  providerID: \"deepseek\",\n  modelID: \"deepseek-v4-flash\",\n  \"session.id\": \"ses_fba5b6359ffe7ZVu6a61q80HVa\",\n  small: \"false\",\n  agent: \"build\",\n  mode: \"primary\",\n}\n[23:54:24.371] INFO (#8275): llm runtime selected {\n  \"llm.runtime\": \"ai-sdk\",\n  \"llm.provider\": \"deepseek\",\n  \"llm.model\": \"deepseek-v4-flash\",\n}\ntimestamp=2026-08-27T23:54:30.810Z level=INFO run=8db59cbc message=cleanup prune=7.days"
