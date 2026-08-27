@@ -50,24 +50,24 @@ jobs:
           set -euo pipefail
           cp dts/g2-sdhci-milos-merge.dtsi linux/arch/arm64/boot/dts/qcom/g2-sdhci-milos-merge.dtsi
           cat > linux/arch/arm64/boot/dts/qcom/g2-sdhci-compile-test.dts <<'EOF'
-/dts-v1/;
+          /dts-v1/;
 
-#include "milos.dtsi"
-#include "pm7550.dtsi"
-#include "g2-sdhci-milos-merge.dtsi"
+          #include "milos.dtsi"
+          #include "pm7550.dtsi"
+          #include "g2-sdhci-milos-merge.dtsi"
 
-/ {
-	model = "Retroid Pocket G2 SDHCI compile test";
-	compatible = "retroid,g2-sdhci-compile-test", "qcom,milos";
-};
-EOF
+          / {
+          	model = "Retroid Pocket G2 SDHCI compile test";
+          	compatible = "retroid,g2-sdhci-compile-test", "qcom,milos";
+          };
+          EOF
           printf '%s\n' 'dtb-y += g2-sdhci-compile-test.dtb' >> linux/arch/arm64/boot/dts/qcom/Makefile
 
       - name: Compile G2 SDHCI DTB
         working-directory: linux
         run: |
           set -euo pipefail
-          make ARCH=arm64 LLVM=1 -j2 arch/arm64/boot/dts/qcom/g2-sdhci-compile-test.dtb
+          make ARCH=arm64 LLVM=1 -j2 qcom/g2-sdhci-compile-test.dtb
 
       - name: Record result
         if: always()
