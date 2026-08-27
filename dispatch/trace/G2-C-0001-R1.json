@@ -5,8 +5,8 @@
   "phase": "opencode_running",
   "run_id": 33127843444,
   "workflow_sha": "bb0b1d67edb9c1b33404e816a5d46bdd986dde43",
-  "updated_at": "2026-08-27T23:58:36Z",
-  "elapsed_seconds": 315,
+  "updated_at": "2026-08-27T23:58:52Z",
+  "elapsed_seconds": 331,
   "last_activity": "[0m",
   "last_output": [
     "  permission: \"bash\",\n  pattern: \"git -C /tmp/opencode/linux checkout 73e3f0710014fe6d4ed98cfc02292f6121db7558\",\n  action: {\n    permission: \"*\",\n    action: \"allow\",\n    pattern: \"*\",\n  },\n}\n[23:58:17.268] INFO (#11486): evaluated {\n  permission: \"bash\",\n  pattern: \"git -C /tmp/opencode/linux rev-parse HEAD\",\n  action: {\n    permission: \"*\",\n    action: \"allow\",\n    pattern: \"*\",\n  },\n}\n[0m\nClone started. Now fetch and checkout the pinned revision:\n[0m"
