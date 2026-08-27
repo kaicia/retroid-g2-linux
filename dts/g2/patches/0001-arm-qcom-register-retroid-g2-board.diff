@@ -1,0 +1,12 @@
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index ff8a35df7862..2fbca3d0e0e6 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -189,6 +189,7 @@ properties:
+       - items:
+           - enum:
+               - fairphone,fp6
++              - retroid,g2
+               - nothing,asteroids
+           - const: qcom,milos
+ 

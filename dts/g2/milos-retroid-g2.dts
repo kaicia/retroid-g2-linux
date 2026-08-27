@@ -1,0 +1,156 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Retroid Pocket G2 board device tree — first G2 kernel/DTS build candidate.
+ *
+ * COMPILE/VALIDATION CANDIDATE ONLY. This is not a bootable board file:
+ * it does not describe memory, reserved-memory, or the boot prerequisites,
+ * and it must NOT be flashed to or booted from the device. The physical
+ * development objective stays microSD-only and non-destructive.
+ *
+ * Board-specific values are G2-confirmed hardware values captured from the
+ * physical device via read-only ADB audits (see dumps/g2/ and
+ * docs/g2-sdhci-linux-provider-map-20260827.md). Provider labels and
+ * driver representations come from the mainline Milos/SM7635 tree at Linux
+ * revision 73e3f0710014fe6d4ed98cfc02292f6121db7558.
+ *
+ * Known hardware-vs-source discrepancies tracked as open items in
+ * docs/g2-first-kernel-build-20260827.md (TLMM base, SDCC2 interconnect
+ * endpoints, SMMU stream ID).
+ */
+
+/dts-v1/;
+
+#include "milos.dtsi"
+#include "pm7550.dtsi"
+
+/ {
+	model = "Retroid Pocket G2";
+	compatible = "retroid,g2", "qcom,milos";
+};
+
+/*
+ * G2 physical SDCC2 VDD/VDD-IO rails: PMXR2230 (Linux pm7550, pmic-id "b")
+ * LDO13 and LDO23. Voltages are the G2-confirmed qcom,vdd-voltage-level and
+ * qcom,vdd-io-voltage-level values from the ADB dump (2960 mV fixed;
+ * 1800-2960 mV).
+ */
+&apps_rsc {
+	regulators-0 {
+		compatible = "qcom,pm7550-rpmh-regulators";
+		qcom,pmic-id = "b";
+
+		vreg_l13b: ldo13 {
+			regulator-name = "vreg_l13b";
+			regulator-min-microvolt = <2960000>;
+			regulator-max-microvolt = <2960000>;
+		};
+
+		vreg_l23b: ldo23 {
+			regulator-name = "vreg_l23b";
+			regulator-min-microvolt = <1800000>;
+			regulator-max-microvolt = <2960000>;
+		};
+	};
+};
+
+/*
+ * G2 SDCC2 pinctrl. Pin numbers, functions, drive strengths and bias are
+ * G2-confirmed from the physical sdc2_on/sdc2_off states. The mainline
+ * Milos sdc2_default/sdc2_sleep states use different (SoC-reference)
+ * pins, so G2-specific states are defined here.
+ */
+&tlmm {
+	sdc2_default_g2: sdc2-default-g2-state {
+		clk-pins {
+			pins = "gpio62";
+			function = "sdc2_clk";
+			drive-strength = <16>;
+			bias-disable;
+		};
+
+		cmd-pins {
+			pins = "gpio51";
+			function = "sdc2_cmd";
+			drive-strength = <10>;
+			bias-pull-up;
+		};
+
+		data-pins {
+			pins = "gpio38", "gpio39", "gpio48", "gpio49";
+			function = "sdc2_data";
+			drive-strength = <10>;
+			bias-pull-up;
+		};
+
+		sd-cd-pins {
+			pins = "gpio31";
+			function = "gpio";
+			drive-strength = <2>;
+			bias-pull-up;
+		};
+	};
+
+	sdc2_sleep_g2: sdc2-sleep-g2-state {
+		clk-pins {
+			pins = "gpio62";
+			function = "gpio";
+			drive-strength = <2>;
+			bias-disable;
+		};
+
+		cmd-pins {
+			pins = "gpio51";
+			function = "gpio";
+			drive-strength = <2>;
+			bias-pull-up;
+		};
+
+		data-pins {
+			pins = "gpio38", "gpio39", "gpio48", "gpio49";
+			function = "gpio";
+			drive-strength = <2>;
+			bias-pull-up;
+		};
+
+		sd-cd-pins {
+			pins = "gpio31";
+			function = "gpio";
+			drive-strength = <2>;
+			bias-pull-up;
+		};
+	};
+};
+
+/*
+ * SDCC2: G2-confirmed interrupts (207/223), clocks (iface/core only),
+ * SMMU stream tuple 0x140/0, card-detect GPIO 31 active-low, and VDD/VDD-IO
+ * supplies. The mainline Milos CX power-domain / required-opps wiring is not
+ * confirmed by the G2 physical DT and is removed from this candidate; the
+ * G2 SDCC2 OPP table (100/202 MHz) is tracked as an open item.
+ */
+&sdhc_2 {
+	interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH 0>,
+		     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH 0>;
+
+	clocks = <&gcc GCC_SDCC2_AHB_CLK>,
+		 <&gcc GCC_SDCC2_APPS_CLK>;
+	clock-names = "iface", "core";
+
+	iommus = <&apps_smmu 0x140 0>;
+
+	cd-gpios = <&tlmm 31 GPIO_ACTIVE_LOW>;
+	cd-debounce-delay-ms = <1500>;
+
+	vmmc-supply = <&vreg_l13b>;
+	vqmmc-supply = <&vreg_l23b>;
+
+	pinctrl-0 = <&sdc2_default_g2>;
+	pinctrl-1 = <&sdc2_sleep_g2>;
+	pinctrl-names = "default", "sleep";
+
+	status = "okay";
+
+	/delete-property/ power-domains;
+	/delete-property/ operating-points-v2;
+	/delete-node/ opp-table;
+};
