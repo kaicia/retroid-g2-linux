@@ -1,0 +1,45 @@
+/*
+ * G2 SDCC2 compile candidate fragment for the upstream Milos/SM7635
+ * provider stack. This is a fragment only; it is not a bootable DTS.
+ *
+ * All board-specific values below come from the physical G2 audit already
+ * recorded in this repository. Provider labels come from Linux Milos/SM7635.
+ */
+
+&sdhc_2 {
+	compatible = "qcom,milos-sdhci", "qcom,sdhci-msm-v5";
+
+	reg = <0x0 0x08804000 0x0 0x1000>;
+
+	interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH 0>,
+			     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH 0>;
+	interrupt-names = "hc_irq", "pwr_irq";
+
+	clocks = <&gcc GCC_SDCC2_AHB_CLK>,
+		 <&gcc GCC_SDCC2_APPS_CLK>;
+	clock-names = "iface", "core";
+
+	interconnects = <&aggre2_noc MASTER_SDCC_2 QCOM_ICC_TAG_ALWAYS
+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+			<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+			 &cnoc_cfg SLAVE_SDCC_2 QCOM_ICC_TAG_ACTIVE_ONLY>;
+	interconnect-names = "sdhc-ddr", "cpu-sdhc";
+
+	iommus = <&apps_smmu 0x540 0>;
+	resets = <&gcc GCC_SDCC2_BCR>;
+
+	bus-width = <4>;
+	dma-coherent;
+
+	qcom,dll-config = <0x0007442c>;
+	qcom,ddr-config = <0x80040868>;
+
+	vmmc-supply = <&vreg_l13b>;
+	vqmmc-supply = <&vreg_l23b>;
+
+	/* G2 physical card-detect: GPIO 31, active-low. Linux pinctrl state
+	 * wiring is intentionally left for the board-specific DTS stage. */
+
+	/* Non-boot compile candidate: keep the controller disabled. */
+	status = "disabled";
+};
