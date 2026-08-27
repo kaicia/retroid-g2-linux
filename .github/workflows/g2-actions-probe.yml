@@ -1,0 +1,18 @@
+name: g2-actions-probe
+
+on:
+  push:
+    paths:
+      - '.github/workflows/g2-actions-probe.yml'
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe runner
+        run: |
+          set -euo pipefail
+          echo "runner-ok"
+          uname -a
+          git --version
