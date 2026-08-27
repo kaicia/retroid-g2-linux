@@ -1,0 +1,66 @@
+/dts-v1/;
+
+/*
+ * Retroid Pocket G2 SDHCI upstream/Milos-style compile candidate.
+ * NON-BOOTABLE: this fragment is for source/binding validation only.
+ *
+ * Hardware-derived G2 values are kept authoritative:
+ *   base       = 0x08804000
+ *   IRQs       = 207, 223
+ *   bus-width  = 4
+ *   card-detect= Cliffs GPIO 31, active-low (raw flags cell 0x1)
+ *   VDD        = PMXR2230 LDO13 -> Linux vreg_l13b
+ *   VDD-IO     = PMXR2230 LDO23 -> Linux vreg_l23b
+ *   SMMU       = apps_smmu stream 0x540/0
+ *   SDCC2 OPP  = 100 MHz / 202 MHz
+ *   DLL/DDR    = 0x0007442c / 0x80040868
+ *
+ * Provider labels below are from the SM7635/Milos Linux source mapping.
+ * This file deliberately does not claim that a complete G2 SoC DTS exists.
+ */
+
+&soc {
+	sdhc2_g2_upstream_candidate: mmc@8804000 {
+		compatible = "qcom,milos-sdhci", "qcom,sdhci-msm-v5";
+		reg = <0x0 0x08804000 0x0 0x1000>;
+
+		interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH 0>,
+				     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH 0>;
+		interrupt-names = "hc_irq", "pwr_irq";
+
+		clocks = <&gcc GCC_SDCC2_AHB_CLK>,
+			 <&gcc GCC_SDCC2_APPS_CLK>;
+		clock-names = "iface", "core";
+
+		interconnects = <&aggre2_noc MASTER_SDCC_2 QCOM_ICC_TAG_ALWAYS
+				 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+				<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+				 &cnoc_cfg SLAVE_SDCC_2 QCOM_ICC_TAG_ACTIVE_ONLY>;
+		interconnect-names = "sdhc-ddr", "cpu-sdhc";
+
+		iommus = <&apps_smmu 0x540 0>;
+		dma-coherent;
+
+		resets = <&gcc GCC_SDCC2_BCR>;
+		bus-width = <4>;
+
+		qcom,dll-config = <0x0007442c>;
+		qcom,ddr-config = <0x80040868>;
+
+		vmmc-supply = <&vreg_l13b>;
+		vqmmc-supply = <&vreg_l23b>;
+
+		/* Physical G2 raw tuple <0x16c 0x1f 0x1> -> GPIO 31 active-low. */
+		/* cd-gpios = <&tlmm 31 GPIO_ACTIVE_LOW>; */
+
+		/*
+		 * Exact Linux G2 SDCC2 pinctrl labels still require a G2 board
+		 * pinctrl definition; do not invent them here.
+		 */
+		/* pinctrl-names = "default", "sleep"; */
+		/* pinctrl-0 = <&sdc2_default_g2>; */
+		/* pinctrl-1 = <&sdc2_sleep_g2>; */
+
+		status = "disabled";
+	};
+};
