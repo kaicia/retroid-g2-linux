@@ -5,26 +5,11 @@
   "phase": "opencode_running",
   "run_id": 33037277800,
   "workflow_sha": "79648cc334203feedb1542c97424844303c5bc8f",
-  "updated_at": "2026-08-27T03:53:46Z",
-  "elapsed_seconds": 537,
+  "updated_at": "2026-08-27T03:54:02Z",
+  "elapsed_seconds": 553,
   "last_activity": "}",
   "last_output": [
-    "    action: \"allow\",\n    pattern: \"*\",\n  },\n}\n[03:53:46.233] INFO (#14501): evaluated {\n  permission: \"bash\",\n  pattern: \"git log --oneline -3\",\n  action: {\n    permission: \"*\",\n    action: \"allow\",\n    pattern: \"*\",\n  },\n}\n\n[91m[1m| [0m[90m Shell    [0m{\"command\":\"git config user.name 'github-actions[bot]' && git config user.email '41898282+github-actions[bot]@users.noreply.github.com' && git commit -m \\\"Baseline PASS, G2 PASS: resolve vreg_l13b/l23b via board wrapper.",
-    "",
-    "Round-2 continuation of PR #13 (not merged). Compile-wrapper-only fix:",
-    "g2-sdhci-compile-test.dts now includes the reference Milos board file",
-    "(milos-fairphone-fp6.dts), which defines the board-specific vreg_l13b and",
-    "vreg_l23b regulator labels, then applies the unchanged G2 SDHCI fragment.",
-    "",
-    "Re-verified at Linux 73e3f0710014fe6d4ed98cfc02292f6121db7558:",
-    "- qcom/milos-fairphone-fp6.dtb: PASS (69126 B, byte-identical)",
-    "- qcom/g2-sdhci-compile-test.dtb: PASS (69118 B), vmmc-supply/vqmmc-supply",
-    "  phandles resolve to PM7550 LDO13/LDO23, mmc@8804000 stays disabled.",
-    "",
-    "No G2 hardware values invented; dts/g2-sdhci-milos-merge.dtsi unchanged.",
-    "No device/bootloader/Android partition/UFS/firmware modified.",
-    "",
-    "Co-authored-by: kaicia <kaicia@users.noreply.github.com>\\\" && git log --oneline -3\"}\n[03:53:46.445] INFO (#8279): tracking {\n  hash: \"39a9e37e3d0d42c81c0e90447debebf9523273e6\",\n  cwd: \"/home/runner/work/retroid-g2-linux/retroid-g2-linux\",\n  git: \"/home/runner/.local/share/opencode/snapshot/0cc586de72dd486a361927a32d9be3e8a6f1f11d/8799bcb9a1b120da5a42fae5de20d7e921384d56\",\n}"
+    "  cwd: \"/home/runner/work/retroid-g2-linux/retroid-g2-linux\",\n  git: \"/home/runner/.local/share/opencode/snapshot/0cc586de72dd486a361927a32d9be3e8a6f1f11d/8799bcb9a1b120da5a42fae5de20d7e921384d56\",\n}\n[03:53:58.208] INFO (#8279): process {\n  \"session.id\": \"ses_fbeadda7effezAR6erj9BaQgN1\",\n  messageID: \"msg_0415a640a0019OjN6h4qssKagV\",\n}\n[03:53:58.209] INFO (#8279): stream {\n  providerID: \"deepseek\",\n  modelID: \"deepseek-v4-flash\",\n  \"session.id\": \"ses_fbeadda7effezAR6erj9BaQgN1\",\n  small: \"false\",\n  agent: \"build\",\n  mode: \"primary\",\n}\n[03:53:58.210] INFO (#8279): llm runtime selected {\n  \"llm.runtime\": \"ai-sdk\",\n  \"llm.provider\": \"deepseek\",\n  \"llm.model\": \"deepseek-v4-flash\",\n}"
   ],
   "tool_trace": [
     "timestamp=2026-08-27T03:44:56.861Z level=INFO run=6a56c0c0 message=\"creating instance\" directory=/home/runner/work/retroid-g2-linux/retroid-g2-linux\ntimestamp=2026-08-27T03:44:56.863Z level=INFO run=6a56c0c0 message=fromDirectory directory=/home/runner/work/retroid-g2-linux/retroid-g2-linux\ntimestamp=2026-08-27T03:44:56.927Z level=INFO run=6a56c0c0 message=bootstrapping directory=/home/runner/work/retroid-g2-linux/retroid-g2-linux\ntimestamp=2026-08-27T03:44:56.932Z level=INFO run=6a56c0c0 message=loading path=/home/runner/.config/opencode/config.json\ntimestamp=2026-08-27T03:44:56.932Z level=INFO run=6a56c0c0 message=loading path=/home/runner/.config/opencode/opencode.json\ntimestamp=2026-08-27T03:44:56.933Z level=INFO run=6a56c0c0 message=loading path=/home/runner/.config/opencode/opencode.jsonc\ntimestamp=2026-08-27T03:44:56.935Z level=INFO run=6a56c0c0 message=loading path=/home/runner/work/retroid-g2-linux/retroid-g2-linux/opencode.json\ntimestamp=2026-08-27T03:44:57.116Z level=INFO run=6a56c0c0 message=\"all LSPs are disabled\"\ntimestamp=2026-08-27T03:44:57.118Z level=INFO run=6a56c0c0 message=\"all formatters are disabled\"\ntimestamp=2026-08-27T03:44:57.118Z level=INFO run=6a56c0c0 message=init\ntimestamp=2026-08-27T03:45:00.137Z level=INFO run=6a56c0c0 message=\"shell tool using shell\" shell=/bin/bash\ntimestamp=2026-08-27T03:45:00.145Z level=INFO run=6a56c0c0 message=init count=1\ntimestamp=2026-08-27T03:45:00.213Z level=INFO run=6a56c0c0 message=\"watcher backend\" directory=/home/runner/work/retroid-g2-linux/retroid-g2-linux platform=linux backend=inotify\ntimestamp=2026-08-27T03:45:00.214Z level=INFO run=6a56c0c0 message=\"project copy refresh started\" projectID=0cc586de72dd486a361927a32d9be3e8a6f1f11d\ntimestamp=2026-08-27T03:45:00.515Z level=INFO run=6a56c0c0 message=\"project copy refresh done\" projectID=0cc586de72dd486a361927a32d9be3e8a6f1f11d updated=[] removed=[]\ntimestamp=2026-08-27T03:45:00.534Z level=INFO run=6a56c0c0 message=\"booting location services\" directory=/home/runner/work/retroid-g2-linux/retroid-g2-linux workspaceID=undefined\ntimestamp=2026-08-27T03:45:57.177Z level=INFO run=6a56c0c0 message=cleanup prune=7.days"
