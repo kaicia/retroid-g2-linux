@@ -44,9 +44,6 @@ The SM7635 interconnect driver exposes these providers:
 - `qcom,sm7635-mc-virt`
 - `qcom,sm7635-gem-noc`
 - `qcom,sm7635-cnoc-cfg`
-- plus the remaining SM7635 NoC providers
-
-The SM7635 binding uses two interconnect cells per provider endpoint.
 
 The provider phandles already resolved from the physical G2 DT map as follows:
 
@@ -74,75 +71,49 @@ interconnects = <&aggre2_noc MASTER_SDCC_2 QCOM_ICC_TAG_ALWAYS
 interconnect-names = "sdhc-ddr", "cpu-sdhc";
 ```
 
-For the pocknix downstream SDHCI binding, the same topology is represented with the endpoint IDs and zero tags used by that downstream DTS style. The important point is that G2's physical tuple order and endpoint numbers now have an actual SM7635 Linux provider definition rather than a guessed translation.
+For the pocknix downstream SDHCI binding, the same topology is represented with the endpoint IDs and zero tags used by that downstream DTS style.
 
 ## 4. SMMU mapping
 
-The SM7635 Linux Device Tree defines:
-
-```dts
-apps_smmu: iommu@15000000 {
-    compatible = "qcom,sm7635-smmu-500", "qcom,smmu-500", "arm,mmu-500";
-    #iommu-cells = <2>;
-};
-```
-
-The SM7635 SDCC2 node uses:
+The SM7635 Linux Device Tree defines an `apps_smmu` at `0x15000000` with two IOMMU cells, and the upstream SDCC2 node uses:
 
 ```dts
 iommus = <&apps_smmu 0x540 0>;
 ```
 
-The physical G2 audit already identified `apps-smmu@15000000`, so the Linux provider label and the two-cell stream mapping are now source-supported. The exact stream ID should still be kept as a source-verified value rather than inferred from the address alone.
+The physical G2 audit already identified `apps-smmu@15000000`, so the Linux provider label and the two-cell stream mapping are source-supported.
 
 ## 5. PMXR2230 / PM7550 regulator mapping
 
-Linux upstream work first documented the PMXR2230 device under `qcom,pmxr2230`; subsequent review requested the PM7550 naming. The resulting Milos/SM7635 Device Tree uses `pmxr2230.dtsi`/PM7550-compatible regulator definitions and exposes the LDO labels used by SD card support.
-
-The SM7635/Fairphone SD card node uses:
+Linux upstream work first documented the PMXR2230 device and the Milos/SM7635 device tree exposes the corresponding regulator definitions. The SM7635/Fairphone SD card node uses:
 
 ```dts
 vmmc-supply = <&vreg_l13b>;
 vqmmc-supply = <&vreg_l23b>;
 ```
 
-The PM7550 regulator map defines these as LDO13 and LDO23 respectively.
+These correspond to the physical G2 audit's PMXR2230 LDO13 and LDO23 rails.
 
-The physical G2 DT audit independently identified:
-
-- VDD -> PMXR2230 LDO13
-- VDD-IO -> PMXR2230 LDO23
-
-Therefore the Linux source-supported regulator labels matching the physical G2 rails are:
-
-```dts
-vmmc-supply = <&vreg_l13b>;
-vqmmc-supply = <&vreg_l23b>;
-```
-
-The SDHCI downstream driver may use its legacy `vdd-supply` / `vdd-io-supply` property names rather than the generic `vmmc-supply` / `vqmmc-supply` names. The electrical provider mapping is the important part and must match the selected driver binding.
+The downstream driver may use the legacy `vdd-supply` / `vdd-io-supply` property names instead. The electrical provider mapping is the important part and must match the selected driver binding.
 
 ## 6. Cliffs/SM7635 pinctrl mapping
 
-The SM7635 Linux Device Tree exposes the SDCC2 pin states through the top-level `&tlmm` controller and uses labels:
+The SM7635 Linux device tree exposes the SDCC2 pin states through the top-level `&tlmm` controller and uses labels such as `sdc2_default` and `sdc2_sleep`.
 
-- `sdc2_default`
-- `sdc2_sleep`
+The physical G2 DT identifies its separate card-detect GPIO as GPIO 31 on the Cliffs pinctrl controller. The raw GPIO tuple is `<0x16c 0x1f 0x1>`; under the standard Linux GPIO flag encoding, the final cell `0x1` represents `GPIO_ACTIVE_LOW`.
 
-The pin configuration includes the SDCC2 clock, command and data pins with drive strengths matching the SM7635 reference wiring.
-
-The physical G2 DT uses the same SDCC2 pinctrl state names/concepts (`sdc2_on` / `sdc2_off`) and identifies the separate card-detect GPIO on the Cliffs pinctrl controller as GPIO 31. The final G2 DTS should therefore use the Linux `&tlmm` provider label only if the selected G2 kernel tree uses the SM7635 pinctrl implementation and exports GPIO 31 in the same way; do not copy the Fairphone card-detect GPIO number (65), because that is board-specific.
+Therefore the final G2 DTS must preserve GPIO 31 and its active-low polarity. The Fairphone card-detect GPIO number must not be copied because it is board-specific.
 
 ## 7. OPP and DLL compatibility
 
-The SM7635 upstream SDCC2 node defines 100 MHz and 202 MHz OPPs and the DLL/DDR values:
+The upstream SM7635/Milos SDCC2 node defines 100 MHz and 202 MHz operating points and uses:
 
 ```dts
 qcom,dll-config = <0x0007442c>;
 qcom,ddr-config = <0x80040868>;
 ```
 
-The physical G2 audit captured a vendor DLL HSR list containing the same two key values inside the G2 raw data. The pocknix downstream driver expects its `qcom,dll-hsr-list` representation instead of the mainline `dll-config`/`ddr-config` pair, so conversion must be performed according to the actual downstream driver source rather than by textual substitution.
+The physical G2 audit captured a vendor DLL HSR list containing the same key values. The pocknix downstream driver expects a `qcom,dll-hsr-list` representation instead of the mainline `dll-config`/`ddr-config` pair, so conversion must follow the actual downstream driver source rather than textual substitution.
 
 ## 8. Current provider status
 
@@ -156,24 +127,23 @@ Confirmed source-supported mappings:
 6. SMMU provider -> `&apps_smmu`, stream tuple `<0x540 0>`
 7. SD VDD provider -> `&vreg_l13b`
 8. SD VDD-IO provider -> `&vreg_l23b`
-9. SM7635 pinctrl labels -> `&tlmm`, `sdc2_default`, `sdc2_sleep`
+9. SM7635 pinctrl provider -> `&tlmm`
+10. G2 card-detect GPIO -> GPIO 31, active-low
 
 Still unresolved for a bootable G2 DTS:
 
-- Whether the selected G2 kernel should use the pocknix downstream SDHCI driver or the upstream SM7635 SDHCI driver.
-- Exact G2 Linux pinctrl state for card-detect GPIO 31.
+- Whether the selected G2 kernel should use the pocknix downstream SDHCI driver or the upstream SM7635/Milos SDHCI driver.
+- Exact G2 Linux pinctrl state/label for the card-detect GPIO 31.
 - Exact downstream-driver voltage/current property compatibility for the PM7550/PMXR2230 rails.
-- Whether the G2 downstream kernel contains the full SM7635 Cliffs GCC/ICC/pinctrl/SMMU support or needs those drivers imported/backported.
+- Whether the G2 downstream kernel contains the full SM7635 GCC/ICC/pinctrl/SMMU support or needs those drivers imported/backported.
 - Final downstream QoS representation. The physical G2 masks are `0xf8` and `0x07`, while the pocknix SM8550 reference uses `0xf0` and `0x0f`; G2 values must remain hardware-derived.
 
 ## Next action
 
-Do not mark `dts/g2-sdhci-wip.dtsi` bootable yet. The provider map is sufficiently complete to create a source-backed compile candidate, but the exact selected kernel tree must first be assembled/verified with the SM7635 provider implementations and the downstream SDHCI driver. After that, generate a non-bootable compile candidate and run `dtc` plus relevant schema checks.
+Do not mark `dts/g2-sdhci-wip.dtsi` bootable yet. The provider map is sufficiently complete to create source-backed compile candidates, but the exact selected kernel tree must first be assembled/verified with the SM7635 providers and the downstream SDHCI driver. After that, generate non-bootable compile candidates and run `dtc` plus relevant schema checks.
 
 ## Source references
 
-- SM7635 GCC binding and IDs: Linux kernel SM7635 GCC patch series (June 2025).
-- SM7635 interconnect provider and IDs: Linux kernel SM7635 interconnect patch series (June 2025).
-- SM7635 SDCC2 DT, pinctrl and SMMU definitions: Linux kernel SM7635/Milos Device Tree series.
-- PMXR2230/PM7550 regulator naming: Linux kernel PMXR2230 support discussion and Milos/Fairphone DT.
+- SM7635/Milos GCC, interconnect, SMMU, pinctrl and SDHCI definitions from the Linux kernel.
+- PMXR2230/PM7550 regulator definitions and Milos/Fairphone DT.
 - Pocknix downstream SDHCI reference: `shuuri-labs/pocknix-os` revision `3592553f79d737b9c9e4781dbeb5bce97b7be893`.
