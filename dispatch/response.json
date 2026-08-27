@@ -1,15 +1,15 @@
 {
-  "task_id": "B-TRACE-PERM-A4",
-  "request_id": "B-TRACE-PERM-A4-20260827-01",
+  "task_id": "G2-B-0001",
+  "request_id": "G2-B-0001-R1",
   "status": "dispatched",
-  "run_id": 33022273450,
-  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/33022273450",
-  "run_created": "2026-08-26T23:10:17Z",
-  "run_sha": "0c7179fb2551a45edcb3120073ba3d6f51fedf06",
-  "workflow_sha": "0c7179fb2551a45edcb3120073ba3d6f51fedf06",
+  "run_id": 33066792269,
+  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/33066792269",
+  "run_created": "2026-08-27T11:18:29Z",
+  "run_sha": "a922c4a22bbb6269cd9cede3bf38651937ffac39",
+  "workflow_sha": "a922c4a22bbb6269cd9cede3bf38651937ffac39",
   "workflow_ref": "main",
-  "bridge_commit": "0c7179fb2551a45edcb3120073ba3d6f51fedf06",
+  "bridge_commit": "a922c4a22bbb6269cd9cede3bf38651937ffac39",
   "status_ref": "automation/status",
-  "status_path": "dispatch/status/B-TRACE-PERM-A4-20260827-01.json",
-  "trace_path": "dispatch/trace/B-TRACE-PERM-A4-20260827-01.json"
+  "status_path": "dispatch/status/G2-B-0001-R1.json",
+  "trace_path": "dispatch/trace/G2-B-0001-R1.json"
 }
