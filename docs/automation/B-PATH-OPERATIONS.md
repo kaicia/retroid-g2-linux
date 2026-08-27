@@ -48,8 +48,6 @@ Task ID
 
 A task is not considered started until the bridge has produced a real OpenCode `workflow_dispatch` Run ID.
 
-A task is not considered complete until the matching OpenCode Run, job/log result, and actual repository result have been checked.
-
 ## Human-in-the-loop operating rule
 
 1. Review current GitHub state and select exactly one next task.
@@ -59,9 +57,40 @@ A task is not considered complete until the matching OpenCode Run, job/log resul
 5. Do not launch another development task while waiting.
 6. The project owner later asks for a status check.
 7. Re-check the exact OpenCode Run ID and its Job/log state.
-8. If running, report running and wait.
-9. If failed, diagnose and repair before resuming.
-10. If successful, inspect branch/commit/diff/PR and only then select the next task.
+8. **Always read the matching live trace file before interpreting progress or completion:** `dispatch/trace/<request_id>.json` on `automation/status` (or its explicitly recorded replacement for a rerun).
+9. Compare the trace's `updated_at`, `state`, `phase`, `last_activity`, `last_output`, and `tool_trace` with the Actions job/log state. Never rely on the Actions job state alone.
+10. If running, report running and wait.
+11. If failed, diagnose and repair before resuming.
+12. If successful, inspect branch/commit/diff/PR and only then select the next task.
+
+## Mandatory status-check checklist
+
+Whenever the project owner asks for a status check (`확인해`, `확인`, or equivalent), the assistant must perform these checks in order:
+
+1. Exact Task ID / Request ID.
+2. Exact Actions Run ID and latest Job ID.
+3. **Matching live trace file**, including latest `updated_at`, `state`, `phase`, `last_activity`, `last_output`, and `tool_trace`.
+4. Current OpenCode/DeepSeek provider and model when visible.
+5. Actual job steps/logs.
+6. On completion: branch, commit SHA, changed files, report, artifacts, PR and CI/status checks.
+7. Only after all relevant evidence agrees, declare success/failure and choose the next task.
+
+A trace file is evidence, not a substitute for the Actions/job result; both must agree before completion is declared.
+
+## Retry / Rerun identity rule
+
+A GitHub Actions job rerun must receive a **new logical Request ID** even when GitHub keeps the same workflow `run_id` and creates a new Job ID. The original request and trace file must remain immutable historical evidence.
+
+For example:
+
+```text
+G2-B-0001-R1 → original request / original trace
+G2-B-0001-R2 → rerun request / separate trace
+```
+
+The R2 trace must record the underlying GitHub workflow `run_id`, the new Job ID, and `rerun_of: G2-B-0001-R1` when the same workflow run is reused. Never overwrite R1 with R2 data.
+
+If the automation currently reuses the old trace path during a rerun, record that as a trace-integrity defect and repair it before the next real development task. Preserve the old trace and create the corrected R2 record from the verified run/job evidence.
 
 ## Completion rules
 
@@ -71,10 +100,11 @@ Complete means all relevant evidence points to the same task:
 - matching bridge Run;
 - matching OpenCode `workflow_dispatch` Run;
 - successful OpenCode job/logs;
+- matching live trace state and timestamps;
 - actual changed files and commit when code work was requested;
 - PR when a PR is required by the task.
 
-A stale Run, a similar-looking comment, or a successful test run is never sufficient.
+A stale Run, a similar-looking comment, a trace from another request, or a successful test run is never sufficient.
 
 ## Failure rules
 
