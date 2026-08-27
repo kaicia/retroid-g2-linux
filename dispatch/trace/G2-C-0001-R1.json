@@ -1,0 +1,13 @@
+{
+  "task_id": "G2-C-0001",
+  "request_id": "G2-C-0001-R1",
+  "state": "starting",
+  "phase": "preparing",
+  "run_id": 33127843444,
+  "workflow_sha": "bb0b1d67edb9c1b33404e816a5d46bdd986dde43",
+  "updated_at": "2026-08-27T23:53:20Z",
+  "elapsed_seconds": 0,
+  "last_activity": "Preparing OpenCode/DeepSeek live trace",
+  "last_output": [],
+  "tool_trace": []
+}
