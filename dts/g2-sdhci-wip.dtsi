@@ -16,7 +16,7 @@
  *   reset: core_reset
  *   interconnect names: sdhc-ddr, cpu-sdhc
  *   OPP: 100 MHz, 202 MHz
- *   CD: Cliffs pinctrl GPIO 31, active-high flag as encoded by Android DT
+ *   CD: Cliffs pinctrl GPIO 31, GPIO flags cell = 0x1 (active-low)
  *   VDD: PMXR2230 LDO13
  *   VDD-IO: PMXR2230 LDO23
  *   SMMU: apps-smmu@15000000
@@ -81,7 +81,7 @@
 		/* pinctrl-1 = <&sdc2_off>; */
 
 		/* BLOCKED: map Cliffs pinctrl provider label. */
-		/* cd-gpios = <&cliffs_pinctrl 31 GPIO_ACTIVE_...>; */
+		/* cd-gpios = <&cliffs_pinctrl 31 GPIO_ACTIVE_LOW>; */
 
 		/* Hardware-derived OPP table structure; provider syntax TBD. */
 		/* operating-points-v2 = <&sdhc2_opp_table>; */
