@@ -5,8 +5,8 @@
   "phase": "opencode_running",
   "run_id": 33066792269,
   "workflow_sha": "a922c4a22bbb6269cd9cede3bf38651937ffac39",
-  "updated_at": "2026-08-27T11:29:50Z",
-  "elapsed_seconds": 671,
+  "updated_at": "2026-08-27T11:30:06Z",
+  "elapsed_seconds": 687,
   "last_activity": "}",
   "last_output": [
     "  cwd: \"/home/runner/work/retroid-g2-linux/retroid-g2-linux\",\n  git: \"/home/runner/.local/share/opencode/snapshot/0cc586de72dd486a361927a32d9be3e8a6f1f11d/8799bcb9a1b120da5a42fae5de20d7e921384d56\",\n}\n[11:29:43.145] INFO (#8275): process {\n  \"session.id\": \"ses_fbd0e3d43ffePno85eJEnWRZbR\",\n  messageID: \"msg_042fba4c0001BGqacxD9BuUcdp\",\n}\n[11:29:43.146] INFO (#8275): stream {\n  providerID: \"deepseek\",\n  modelID: \"deepseek-v4-flash\",\n  \"session.id\": \"ses_fbd0e3d43ffePno85eJEnWRZbR\",\n  small: \"false\",\n  agent: \"build\",\n  mode: \"primary\",\n}\n[11:29:43.147] INFO (#8275): llm runtime selected {\n  \"llm.runtime\": \"ai-sdk\",\n  \"llm.provider\": \"deepseek\",\n  \"llm.model\": \"deepseek-v4-flash\",\n}"
