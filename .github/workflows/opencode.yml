@@ -72,21 +72,8 @@ jobs:
           echo "G2_TASK_ID=$TASK_ID" >> "$GITHUB_ENV"
           echo "G2_REQUEST_ID=$REQUEST_ID" >> "$GITHUB_ENV"
 
-      - name: Run legacy OpenCode action
-        if: ${{ github.event_name != 'workflow_dispatch' }}
-        uses: anomalyco/opencode/github@latest
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          G2_TASK_ID: ${{ env.G2_TASK_ID }}
-          G2_REQUEST_ID: ${{ env.G2_REQUEST_ID }}
-        with:
-          model: ${{ contains(github.event.comment.body, '[pro]') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/oc-pro') && 'deepseek/deepseek-v4-pro' || contains(github.event.comment.body, '/opencode-pro') && 'deepseek/deepseek-v4-pro' || 'deepseek/deepseek-v4-flash' }}
-          prompt: ''
-          use_github_token: true
-
       - name: Prepare live trace
-        if: ${{ github.event_name == 'workflow_dispatch' }}
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -114,7 +101,6 @@ jobs:
           printf '%s\n' "$TRACE_PATH" > /tmp/g2-trace-path
 
       - name: Run OpenCode with DeepSeek and stream trace
-        if: ${{ github.event_name == 'workflow_dispatch' }}
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -128,13 +114,21 @@ jobs:
           TRACE_PATH="$(cat /tmp/g2-trace-path)"
           TRACE_BRANCH='automation/status'
           START_EPOCH=$(date +%s)
-          export MODEL='${{ inputs.model }}'
-          export PROMPT="${{ format('[G2_TASK_ID={0}][G2_REQUEST_ID={1}] {2}', inputs.task_id, inputs.request_id, inputs.prompt) }}"
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            export MODEL='${{ inputs.model }}'
+            export PROMPT="${{ format('[G2_TASK_ID={0}][G2_REQUEST_ID={1}] {2}', inputs.task_id, inputs.request_id, inputs.prompt) }}"
+          else
+            export MODEL='deepseek/deepseek-v4-flash'
+            export PROMPT="${GITHUB_EVENT_COMMENT_BODY:-}"
+          fi
           export USE_GITHUB_TOKEN='true'
 
           npm install -g opencode-ai
           export PATH="$(npm prefix -g)/bin:$PATH"
           echo "OpenCode version: $(opencode --version)"
+          echo "Task: $G2_TASK_ID"
+          echo "Request: $G2_REQUEST_ID"
+          echo "Prompt: $PROMPT"
 
           latest_opencode_log() {
             find "$HOME/.local/share/opencode/log" -maxdepth 1 -type f -name '*.log' -print0 2>/dev/null \
@@ -157,17 +151,17 @@ jobs:
             now=$(date -u +%Y-%m-%dT%H:%M:%SZ)
             elapsed=$(($(date +%s)-START_EPOCH))
             logfile=$(latest_opencode_log || true)
-            output_text=$(tail -n 20 "$LOG" 2>/dev/null \
+            output_text=$(tail -n 30 "$LOG" 2>/dev/null \
               | sed 's/[[:cntrl:]]//g' \
               | grep -viE '::add-mask::|api[_-]?key|authorization|bearer|token=|eyJ[A-Za-z0-9_-]{20,}' \
               | tail -n 20 || true)
             tool_text=''
             if test -n "$logfile" && test -f "$logfile"; then
-              tool_text=$(tail -n 40 "$logfile" 2>/dev/null \
+              tool_text=$(tail -n 60 "$logfile" 2>/dev/null \
                 | sed 's/[[:cntrl:]]//g' \
                 | grep -E 'role=server|tool|permission|session|run=' \
                 | grep -viE 'api[_-]?key|authorization|bearer|token=|eyJ[A-Za-z0-9_-]{20,}' \
-                | tail -n 15 || true)
+                | tail -n 20 || true)
             fi
             jq -n \
               --arg task "$G2_TASK_ID" \
@@ -206,17 +200,17 @@ jobs:
           final_state='completed'
           final_phase='opencode_completed'
           test "$OC_RC" -eq 0 || { final_state='failed'; final_phase='opencode_failed'; }
-          final_output=$(tail -n 30 "$LOG" 2>/dev/null \
+          final_output=$(tail -n 40 "$LOG" 2>/dev/null \
             | sed 's/[[:cntrl:]]//g' \
             | grep -viE '::add-mask::|api[_-]?key|authorization|bearer|token=|eyJ[A-Za-z0-9_-]{20,}' \
             | tail -n 30 || true)
           final_tools=''
           if test -n "$logfile" && test -f "$logfile"; then
-            final_tools=$(tail -n 80 "$logfile" 2>/dev/null \
+            final_tools=$(tail -n 100 "$logfile" 2>/dev/null \
               | sed 's/[[:cntrl:]]//g' \
               | grep -E 'role=server|tool|permission|session|run=' \
               | grep -viE 'api[_-]?key|authorization|bearer|token=|eyJ[A-Za-z0-9_-]{20,}' \
-              | tail -n 30 || true)
+              | tail -n 40 || true)
           fi
           jq -n \
             --arg task "$G2_TASK_ID" \
