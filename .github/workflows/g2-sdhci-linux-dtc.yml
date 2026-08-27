@@ -1,0 +1,91 @@
+name: g2-sdhci-linux-dtc
+
+on:
+  push:
+    paths:
+      - 'dts/g2-sdhci-milos-merge.dtsi'
+      - 'docs/g2-sdhci-linux-provider-map-20260827.md'
+      - '.github/workflows/g2-sdhci-linux-dtc.yml'
+  workflow_dispatch:
+
+jobs:
+  compile-g2-sdhci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Clone Linux source
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/torvalds/linux.git linux
+          git -C linux rev-parse HEAD | tee linux-revision.txt
+
+      - name: Install build dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y bc bison flex libssl-dev libelf-dev device-tree-compiler
+
+      - name: Install G2 compile fragment
+        run: |
+          set -euo pipefail
+          cp dts/g2-sdhci-milos-merge.dtsi linux/arch/arm64/boot/dts/qcom/g2-sdhci-milos-merge.dtsi
+          cat > linux/arch/arm64/boot/dts/qcom/g2-sdhci-compile-test.dts <<'EOF'
+/dts-v1/;
+
+#include "milos.dtsi"
+#include "pm7550.dtsi"
+#include "g2-sdhci-milos-merge.dtsi"
+
+/ {
+	model = "Retroid Pocket G2 SDHCI compile test";
+	compatible = "retroid,g2-sdhci-compile-test", "qcom,milos";
+};
+EOF
+
+      - name: Prepare kernel build system
+        working-directory: linux
+        run: |
+          set -euo pipefail
+          make ARCH=arm64 LLVM=1 defconfig
+
+      - name: Compile G2 SDHCI DTB
+        working-directory: linux
+        run: |
+          set -euo pipefail
+          make ARCH=arm64 LLVM=1 -j2 arch/arm64/boot/dts/qcom/g2-sdhci-compile-test.dtb
+
+      - name: Record result
+        if: always()
+        run: |
+          set -euo pipefail
+          {
+            echo '# G2 SDHCI Linux DT compile result'
+            echo
+            echo "Linux revision: \`$(cat linux-revision.txt)\`"
+            echo
+            if test -f linux/arch/arm64/boot/dts/qcom/g2-sdhci-compile-test.dtb; then
+              echo 'Result: **PASS — DTB was generated.**'
+            else
+              echo 'Result: **FAIL — DTB was not generated.**'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload compile logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: g2-sdhci-linux-dtc-${{ github.run_id }}
+          path: |
+            linux-revision.txt
+            linux/.config
+            linux/arch/arm64/boot/dts/qcom/g2-sdhci-compile-test.dtb
+            linux/arch/arm64/boot/dts/qcom/g2-sdhci-compile-test.dts
+          if-no-files-found: warn
