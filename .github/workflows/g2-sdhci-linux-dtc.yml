@@ -33,6 +33,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y bc bison flex libssl-dev libelf-dev device-tree-compiler
 
+      - name: Prepare kernel build system
+        working-directory: linux
+        run: |
+          set -euo pipefail
+          make ARCH=arm64 LLVM=1 defconfig
+
+      - name: Compile known-good Milos DTB
+        working-directory: linux
+        run: |
+          set -euo pipefail
+          make ARCH=arm64 LLVM=1 -j2 arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dtb
+
       - name: Install G2 compile fragment
         run: |
           set -euo pipefail
@@ -49,12 +61,7 @@ jobs:
 	compatible = "retroid,g2-sdhci-compile-test", "qcom,milos";
 };
 EOF
-
-      - name: Prepare kernel build system
-        working-directory: linux
-        run: |
-          set -euo pipefail
-          make ARCH=arm64 LLVM=1 defconfig
+          printf '%s\n' 'dtb-y += g2-sdhci-compile-test.dtb' >> linux/arch/arm64/boot/dts/qcom/Makefile
 
       - name: Compile G2 SDHCI DTB
         working-directory: linux
@@ -71,14 +78,19 @@ EOF
             echo
             echo "Linux revision: \`$(cat linux-revision.txt)\`"
             echo
-            if test -f linux/arch/arm64/boot/dts/qcom/g2-sdhci-compile-test.dtb; then
-              echo 'Result: **PASS — DTB was generated.**'
+            if test -f linux/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dtb; then
+              echo 'Known-good Milos DTB: **PASS**'
             else
-              echo 'Result: **FAIL — DTB was not generated.**'
+              echo 'Known-good Milos DTB: **FAIL**'
+            fi
+            if test -f linux/arch/arm64/boot/dts/qcom/g2-sdhci-compile-test.dtb; then
+              echo 'G2 SDHCI compile candidate: **PASS — DTB generated.**'
+            else
+              echo 'G2 SDHCI compile candidate: **FAIL — DTB not generated.**'
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Upload compile logs
+      - name: Upload compile artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -88,4 +100,5 @@ EOF
             linux/.config
             linux/arch/arm64/boot/dts/qcom/g2-sdhci-compile-test.dtb
             linux/arch/arm64/boot/dts/qcom/g2-sdhci-compile-test.dts
+            linux/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dtb
           if-no-files-found: warn
