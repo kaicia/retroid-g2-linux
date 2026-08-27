@@ -5,8 +5,8 @@
   "phase": "opencode_running",
   "run_id": 33066792269,
   "workflow_sha": "a922c4a22bbb6269cd9cede3bf38651937ffac39",
-  "updated_at": "2026-08-27T12:58:19Z",
-  "elapsed_seconds": 3139,
+  "updated_at": "2026-08-27T12:58:36Z",
+  "elapsed_seconds": 3156,
   "last_activity": "}",
   "last_output": [
     "  },\n}\n[12:57:59.030] INFO (#19345): evaluated {\n  permission: \"bash\",\n  pattern: \"ls -la /tmp/opencode/linux/arch/arm64/boot/Image 2>/dev/null\",\n  action: {\n    permission: \"*\",\n    action: \"allow\",\n    pattern: \"*\",\n  },\n}\n[12:57:59.030] INFO (#19345): evaluated {\n  permission: \"bash\",\n  pattern: \"tail -5 /tmp/opencode/image-build.log\",\n  action: {\n    permission: \"*\",\n    action: \"allow\",\n    pattern: \"*\",\n  },\n}"
