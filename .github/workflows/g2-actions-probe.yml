@@ -13,6 +13,6 @@ jobs:
       - name: Probe runner
         run: |
           set -euo pipefail
-          echo "runner-ok"
+          echo "runner-ok-v2"
           uname -a
           git --version
