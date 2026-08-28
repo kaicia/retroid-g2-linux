@@ -75,13 +75,19 @@ For the pocknix downstream SDHCI binding, the same topology is represented with 
 
 ## 4. SMMU mapping
 
-The SM7635 Linux Device Tree defines an `apps_smmu` at `0x15000000` with two IOMMU cells, and the upstream SDCC2 node uses:
+The SM7635 Linux Device Tree defines an `apps_smmu` at `0x15000000` with two IOMMU cells. The upstream SM7635/Milos SDCC2 reference node uses:
 
 ```dts
 iommus = <&apps_smmu 0x540 0>;
 ```
 
-The physical G2 audit already identified `apps-smmu@15000000`, so the Linux provider label and the two-cell stream mapping are source-supported.
+`0x540` is the upstream reference stream ID only. The physical G2 Android DT audit resolved the SDCC2 `iommus` phandle to `apps-smmu@15000000` (`0x12a`) and captured the raw tuple `00 00 01 2a 00 00 01 40 00 00 00 00` (see `dumps/g2/g2-sdhci-phandle-resolution-20260821-061126.txt`), giving the G2-confirmed stream tuple `<&apps_smmu 0x140 0>`.
+
+Correction (G2-C-0001-R1): the G2 stream ID is `0x140`, not the upstream reference `0x540`. The stale `0x540` value is preserved in git history and is forbidden in new candidates by `scripts/validate-g2-sdhci-provider-map.py`. The Linux provider label and the two-cell stream mapping remain source-supported; the stream ID is hardware-derived.
+
+```dts
+iommus = <&apps_smmu 0x140 0>;
+```
 
 ## 5. PMXR2230 / PM7550 regulator mapping
 
@@ -124,7 +130,7 @@ Confirmed source-supported mappings:
 3. GCC SDCC2 reset -> `GCC_SDCC2_BCR` (20)
 4. SDCC2 interconnect topology -> aggre2/mc_virt and gem_noc/cnoc_cfg
 5. Interconnect endpoint IDs -> SDCC2 8, EBI1 1, APPSS_PROC 2, SDCC2 slave 20
-6. SMMU provider -> `&apps_smmu`, stream tuple `<0x540 0>`
+6. SMMU provider -> `&apps_smmu`, stream tuple `<0x140 0>`
 7. SD VDD provider -> `&vreg_l13b`
 8. SD VDD-IO provider -> `&vreg_l23b`
 9. SM7635 pinctrl provider -> `&tlmm`

@@ -4,6 +4,11 @@
  *
  * All board-specific values below come from the physical G2 audit already
  * recorded in this repository. Provider labels come from Linux Milos/SM7635.
+ *
+ * SMMU stream 0x140 is the G2-confirmed stream ID (physical G2 iommus
+ * tuple <0x12a 0x140 0>). The stale 0x540 was the upstream Milos/SM7635
+ * reference value and is preserved in git history; see
+ * docs/g2-sdhci-linux-provider-map-20260827.md section 4.
  */
 
 &sdhc_2 {
@@ -25,7 +30,7 @@
 			 &cnoc_cfg SLAVE_SDCC_2 QCOM_ICC_TAG_ACTIVE_ONLY>;
 	interconnect-names = "sdhc-ddr", "cpu-sdhc";
 
-	iommus = <&apps_smmu 0x540 0>;
+	iommus = <&apps_smmu 0x140 0>;
 	resets = <&gcc GCC_SDCC2_BCR>;
 
 	bus-width = <4>;
