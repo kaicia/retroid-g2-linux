@@ -29,8 +29,26 @@ jobs:
           echo "request_id=$(jq -r '.request_id' dispatch/request.json)" >> "$GITHUB_OUTPUT"
           echo "ref=$(jq -r '.ref // \"main\"' dispatch/request.json)" >> "$GITHUB_OUTPUT"
 
+      - name: Reject superseded bridge invocation
+        id: freshness
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --quiet origin main
+          latest_main_sha=$(git rev-parse origin/main)
+          echo "bridge_sha=$GITHUB_SHA"
+          echo "latest_main_sha=$latest_main_sha"
+          if test "$latest_main_sha" != "$GITHUB_SHA"; then
+            echo "current=false" >> "$GITHUB_OUTPUT"
+            echo "This bridge invocation is superseded by a newer main commit; no OpenCode dispatch or receipt publish will occur."
+            exit 0
+          fi
+          echo "current=true" >> "$GITHUB_OUTPUT"
+          echo "Bridge invocation is current."
+
       - name: Pin workflow revision and request identity
         id: workflow
+        if: steps.freshness.outputs.current == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -46,6 +64,7 @@ jobs:
 
       - name: Dispatch OpenCode workflow
         id: dispatch
+        if: steps.freshness.outputs.current == 'true'
         env:
           DISPATCH_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}
           REPO: ${{ github.repository }}
@@ -70,6 +89,7 @@ jobs:
 
       - name: Wait for dispatched OpenCode Run ID with freshness gate
         id: run
+        if: steps.freshness.outputs.current == 'true'
         env:
           DISPATCH_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}
           REPO: ${{ github.repository }}
@@ -81,6 +101,12 @@ jobs:
           set -euo pipefail
           started_epoch=$(date -u -d "$STARTED_AT" +%s)
           for attempt in $(seq 1 60); do
+            git fetch --quiet origin main
+            latest_main_sha=$(git rev-parse origin/main)
+            if test "$latest_main_sha" != "$GITHUB_SHA"; then
+              echo "A newer request commit superseded this bridge while waiting; refusing to accept or publish a stale Run."
+              exit 1
+            fi
             runs=$(curl -fsS \
               -H 'Accept: application/vnd.github+json' \
               -H 'X-GitHub-Api-Version: 2022-11-28' \
@@ -111,7 +137,22 @@ jobs:
           echo 'Dispatch was accepted, but no fresh OpenCode Run matching the current request revision and post-dispatch timestamp was observed within 120 seconds.' >&2
           exit 1
 
+      - name: Final freshness check before publishing receipt
+        id: publish_freshness
+        if: steps.freshness.outputs.current == 'true' && steps.run.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --quiet origin main
+          latest_main_sha=$(git rev-parse origin/main)
+          test "$latest_main_sha" = "$GITHUB_SHA" || {
+            echo "A newer request commit exists; refusing to publish a stale dispatch receipt." >&2
+            exit 1
+          }
+          echo "Latest main still matches bridge SHA: $GITHUB_SHA"
+
       - name: Publish dispatch result
+        if: steps.freshness.outputs.current == 'true' && steps.run.outcome == 'success' && steps.publish_freshness.outcome == 'success'
         env:
           TASK_ID: ${{ steps.request.outputs.task_id }}
           REQUEST_ID: ${{ steps.request.outputs.request_id }}
