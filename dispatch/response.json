@@ -1,15 +1,15 @@
 {
   "task_id": "G2-C-0002",
-  "request_id": "G2-C-0002-R1",
+  "request_id": "G2-C-0002-R2",
   "status": "dispatched",
-  "run_id": 33152767424,
-  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/33152767424",
-  "run_created": "2026-08-28T07:47:09Z",
-  "run_sha": "88916ff2aa7cb68e7625b95d7a4e60edbc7d3fe6",
-  "workflow_sha": "88916ff2aa7cb68e7625b95d7a4e60edbc7d3fe6",
+  "run_id": 33160674754,
+  "run_url": "https://github.com/kaicia/retroid-g2-linux/actions/runs/33160674754",
+  "run_created": "2026-08-28T09:45:29Z",
+  "run_sha": "175e0a6a6757ecccb28feb9f4eda0ec26265ce16",
+  "workflow_sha": "175e0a6a6757ecccb28feb9f4eda0ec26265ce16",
   "workflow_ref": "main",
-  "bridge_commit": "88916ff2aa7cb68e7625b95d7a4e60edbc7d3fe6",
+  "bridge_commit": "175e0a6a6757ecccb28feb9f4eda0ec26265ce16",
   "status_ref": "automation/status",
-  "status_path": "dispatch/status/G2-C-0002-R1.json",
-  "trace_path": "dispatch/trace/G2-C-0002-R1.json"
+  "status_path": "dispatch/status/G2-C-0002-R2.json",
+  "trace_path": "dispatch/trace/G2-C-0002-R2.json"
 }
