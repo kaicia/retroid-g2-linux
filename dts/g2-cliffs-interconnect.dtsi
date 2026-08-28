@@ -1,0 +1,35 @@
+/*
+ * Retroid Pocket G2 (Cliffs) interconnect providers — minimum subset.
+ *
+ * The physical G2 Android DT resolves the four SDCC2 interconnect endpoints
+ * to these Cliffs NoC providers (compatible strings captured from the device):
+ *
+ *   qcom,cliffs-aggre1_noc  (interconnect@16e0000)  -> MASTER_SDCC_2 (47)
+ *   qcom,cliffs-mc_virt     (interconnect@1)        -> SLAVE_EBI1    (512)
+ *   qcom,cliffs-gem_noc     (interconnect@24100000) -> MASTER_APPSS_PROC (2)
+ *   qcom,cliffs-cnoc_cfg    (interconnect@1600000)  -> SLAVE_SDCC_2  (542)
+ *
+ * These NoCs occupy the same register addresses as the SM7635/Milos NoCs in
+ * the upstream Linux tree, so this fragment overrides only the compatible
+ * strings. The underlying reg/clocks/bcm-voter properties remain the
+ * upstream Milos scaffolding and are NOT asserted here as G2-verified.
+ *
+ * UNRESOLVED (do not guess): per-NoC `qcom,bcm-voters`/clock wiring and any
+ * additional Cliffs endpoints beyond the four SDCC2 endpoints listed above.
+ */
+
+&aggre1_noc {
+	compatible = "qcom,cliffs-aggre1_noc";
+};
+
+&mc_virt {
+	compatible = "qcom,cliffs-mc_virt";
+};
+
+&gem_noc {
+	compatible = "qcom,cliffs-gem_noc";
+};
+
+&cnoc_cfg {
+	compatible = "qcom,cliffs-cnoc_cfg";
+};

@@ -2,6 +2,14 @@
 
 Date: 2026-08-27
 
+> **Correction 2026-08-28 (G2-C-0002-R1):** the interconnect IDs/topology in
+> section 3 below were SM7635/Milos mainline per-NoC values. The source-verified
+> Cliffs vendor IDs for the physical G2 are instead
+> `MASTER_SDCC_2=47`, `SLAVE_EBI1=512`, `MASTER_APPSS_PROC=2`,
+> `SLAVE_SDCC_2=542`, with the SDCC2 master on `aggre1_noc` (not `aggre2_noc`).
+> See `docs/g2-cliffs-interconnect-provider-result-20260828.md` and
+> `docs/g2-cliffs-provider-mapping-progress-20260822.md`.
+
 ## Scope
 
 This document records the provider mappings established from the SM7635/Milos Linux Device Tree and driver sources, compared against the physical Retroid Pocket G2 Android DT already captured in this repository.

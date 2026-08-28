@@ -1,0 +1,3 @@
+# Local Linux kernel clone used for build-side DTB validation (not committed)
+linux/
+linux-revision.txt
