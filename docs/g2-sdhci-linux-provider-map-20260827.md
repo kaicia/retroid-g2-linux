@@ -37,6 +37,17 @@ The downstream pocknix driver remains a separate compatibility decision; these l
 
 ## 3. Interconnect mapping
 
+> **CORRECTION (2026-08-28, G2-C-0002-R2):** the section below previously
+> recorded the SM7635/Milos mainline per-NoC IDs. The physical G2 DT resolves
+> its SDCC2 endpoints to the **Cliffs vendor flat-namespace IDs** instead:
+> `MASTER_SDCC_2=47` (`0x2f`), `SLAVE_EBI1=512` (`0x200`),
+> `MASTER_APPSS_PROC=2`, `SLAVE_SDCC_2=542` (`0x21e`), with the SDCC2 master
+> on `aggre1_noc` (not `aggre2_noc`). These are source-verified in
+> `docs/g2-cliffs-provider-mapping-progress-20260822.md` and are now the
+> authoritative values for the G2 SD-only DTS (see
+> `docs/g2-cliffs-interconnect-provider-result-20260828-r2.md`). The Milos
+> per-NoC IDs remain valid only for the upstream Milos board files.
+
 The SM7635 interconnect driver exposes these providers:
 
 - `qcom,sm7635-aggre1-noc`
@@ -123,7 +134,7 @@ Confirmed source-supported mappings:
 2. GCC SDCC2 apps/core clock -> `GCC_SDCC2_APPS_CLK` (122)
 3. GCC SDCC2 reset -> `GCC_SDCC2_BCR` (20)
 4. SDCC2 interconnect topology -> aggre2/mc_virt and gem_noc/cnoc_cfg
-5. Interconnect endpoint IDs -> SDCC2 8, EBI1 1, APPSS_PROC 2, SDCC2 slave 20
+5. Interconnect endpoint IDs -> **Cliffs**: SDCC2 47 (aggre1_noc), EBI1 512 (mc_virt), APPSS_PROC 2 (gem_noc), SDCC2 slave 542 (cnoc_cfg) [corrected 2026-08-28; the SM7635/Milos per-NoC values were 8/1/2/20]
 6. SMMU provider -> `&apps_smmu`, stream tuple `<0x540 0>`
 7. SD VDD provider -> `&vreg_l13b`
 8. SD VDD-IO provider -> `&vreg_l23b`
