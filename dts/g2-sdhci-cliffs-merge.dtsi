@@ -1,0 +1,71 @@
+/*
+ * Retroid Pocket G2 (Cliffs) SDCC2 compile candidate fragment.
+ * This is a fragment only; it is not a bootable DTS.
+ *
+ * All board-specific values below come from the physical G2 audit already
+ * recorded in this repository. Interconnect endpoint IDs and provider
+ * compatible strings come from the source-verified Cliffs binding
+ * (qcom,cliffs.h) — NOT from SM8550/SM8650 and NOT from the SM7635/Milos
+ * mainline per-NoC IDs.
+ *
+ * Cliffs interconnect topology (see docs/g2-cliffs-provider-mapping-progress-20260822.md):
+ *   sdhc-ddr: <&aggre1_noc MASTER_SDCC_2 ... &mc_virt SLAVE_EBI1 ...>
+ *   cpu-sdhc: <&gem_noc MASTER_APPSS_PROC ... &cnoc_cfg SLAVE_SDCC_2 ...>
+ */
+
+&sdhc_2 {
+	compatible = "qcom,milos-sdhci", "qcom,sdhci-msm-v5";
+
+	reg = <0x0 0x08804000 0x0 0x1000>;
+
+	interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH 0>,
+		     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH 0>;
+	interrupt-names = "hc_irq", "pwr_irq";
+
+	clocks = <&gcc GCC_SDCC2_AHB_CLK>,
+		 <&gcc GCC_SDCC2_APPS_CLK>;
+	clock-names = "iface", "core";
+
+	interconnects = <&aggre1_noc MASTER_SDCC_2 QCOM_ICC_TAG_ALWAYS
+			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+			<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+			 &cnoc_cfg SLAVE_SDCC_2 QCOM_ICC_TAG_ACTIVE_ONLY>;
+	interconnect-names = "sdhc-ddr", "cpu-sdhc";
+
+	/*
+	 * SMMU stream ID left as the current Milos value (0x540). The
+	 * G2-confirmed stream ID (0x140) is tracked separately by task
+	 * G2-C-0001; do not conflate the two here.
+	 */
+	iommus = <&apps_smmu 0x540 0>;
+	resets = <&gcc GCC_SDCC2_BCR>;
+
+	bus-width = <4>;
+	dma-coherent;
+
+	qcom,dll-config = <0x0007442c>;
+	qcom,ddr-config = <0x80040868>;
+
+	/*
+	 * UNRESOLVED: G2 SD rails are PMXR2230 LDO13 (VDD) / LDO23 (VDD-IO).
+	 * The upstream Linux tree at the pinned revision has no PMXR2230
+	 * regulator provider, and the milos/pm7550 `vreg_l13b`/`vreg_l23b`
+	 * stand-ins are board-level nodes present only in
+	 * milos-fairphone-fp6.dts, not in the SoC DTSI. Referencing them here
+	 * causes a phandle_references build error. Do not guess a Linux
+	 * regulator phandle for the G2 rails.
+	 */
+	/* vmmc-supply = <&vreg_l13b>; */
+	/* vqmmc-supply = <&vreg_l23b>; */
+
+	/* UNRESOLVED: G2 card-detect GPIO 31 (active-low) and the exact Linux
+	 * Cliffs pinctrl state/label for sdc2_on/sdc2_off are board-specific
+	 * and are left for the G2 board DTS stage. */
+	/* cd-gpios = <&tlmm 31 GPIO_ACTIVE_LOW>; */
+	/* pinctrl-names = "default", "sleep"; */
+	/* pinctrl-0 = <&sdc2_on>; */
+	/* pinctrl-1 = <&sdc2_off>; */
+
+	/* Non-boot compile candidate: keep the controller disabled. */
+	status = "disabled";
+};

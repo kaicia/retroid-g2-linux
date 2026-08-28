@@ -1,0 +1,6 @@
+# Build artifacts (local Linux kernel tree, never committed)
+/linux/
+
+# Python
+__pycache__/
+*.pyc
