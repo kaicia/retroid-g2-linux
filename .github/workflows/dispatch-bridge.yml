@@ -80,7 +80,7 @@ jobs:
         run: |
           set -euo pipefail
           started_epoch=$(date -u -d "$STARTED_AT" +%s)
-          for attempt in $(seq 1 30); do
+          for attempt in $(seq 1 60); do
             runs=$(curl -fsS \
               -H 'Accept: application/vnd.github+json' \
               -H 'X-GitHub-Api-Version: 2022-11-28' \
@@ -108,7 +108,7 @@ jobs:
             fi
             sleep 2
           done
-          echo 'Dispatch was accepted, but no fresh OpenCode Run matching the current request revision and post-dispatch timestamp was observed within 60 seconds.' >&2
+          echo 'Dispatch was accepted, but no fresh OpenCode Run matching the current request revision and post-dispatch timestamp was observed within 120 seconds.' >&2
           exit 1
 
       - name: Publish dispatch result
