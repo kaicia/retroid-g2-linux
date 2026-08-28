@@ -16,7 +16,7 @@ required = {
     'SLAVE_EBI1': "EBI1 interconnect slave",
     'MASTER_APPSS_PROC': "APPSS interconnect master",
     'SLAVE_SDCC_2': "SDCC2 config slave",
-    'apps_smmu 0x540 0': "SMMU stream tuple",
+    'apps_smmu 0x140 0': "SMMU stream tuple",
     'vreg_l13b': "VDD regulator",
     'vreg_l23b': "VDD-IO regulator",
     '0x0007442c': "DLL config",
@@ -30,7 +30,8 @@ for needle, label in required.items():
     else:
         missing.append(label)
         print(f"FAIL: {label}")
-for needle in ('GPIO_ACTIVE_HIGH', '&pm8550_gpios 12', '&aggre1_noc MASTER_SDCC_2'):
+for needle in ('GPIO_ACTIVE_HIGH', '&pm8550_gpios 12', '&aggre1_noc MASTER_SDCC_2',
+               'apps_smmu 0x540 0'):
     if needle in text:
         missing.append(f"forbidden candidate content: {needle}")
         print(f"FAIL: forbidden {needle}")

@@ -11,12 +11,17 @@
  *   card-detect= Cliffs GPIO 31, active-low (raw flags cell 0x1)
  *   VDD        = PMXR2230 LDO13 -> Linux vreg_l13b
  *   VDD-IO     = PMXR2230 LDO23 -> Linux vreg_l23b
- *   SMMU       = apps_smmu stream 0x540/0
+ *   SMMU       = apps_smmu stream 0x140/0
  *   SDCC2 OPP  = 100 MHz / 202 MHz
  *   DLL/DDR    = 0x0007442c / 0x80040868
  *
  * Provider labels below are from the SM7635/Milos Linux source mapping.
  * This file deliberately does not claim that a complete G2 SoC DTS exists.
+ *
+ * SMMU stream 0x140 is the G2-confirmed stream ID from the physical G2
+ * iommus dump; the earlier 0x540 was the upstream reference value and is
+ * preserved in git history (docs/g2-sdhci-linux-provider-map-20260827.md
+ * section 4).
  */
 
 &soc {
@@ -38,7 +43,7 @@
 				 &cnoc_cfg SLAVE_SDCC_2 QCOM_ICC_TAG_ACTIVE_ONLY>;
 		interconnect-names = "sdhc-ddr", "cpu-sdhc";
 
-		iommus = <&apps_smmu 0x540 0>;
+		iommus = <&apps_smmu 0x140 0>;
 		dma-coherent;
 
 		resets = <&gcc GCC_SDCC2_BCR>;
