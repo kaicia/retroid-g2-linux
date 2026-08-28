@@ -62,6 +62,21 @@ per-NoC interconnect IDs (8/20/1).
   SM8650 PM8550 card-detect values.
 - `.gitignore` — NEW: ignore the local `linux/` build tree.
 
+### Deferred (not in this commit)
+
+The two CI workflows (`.github/workflows/g2-sdhci-linux-dtc.yml`,
+`.github/workflows/g2-sdhci-static.yml`) still reference the old
+`dts/g2-sdhci-milos-merge.dtsi` filename and the SM7635 wrapper include set.
+Updating them to (a) trigger on the new `dts/g2-sdhci-cliffs-merge.dtsi` /
+`dts/qcom,cliffs.h` / `dts/g2-cliffs-interconnect.dtsi` paths and (b) install
+the header + NoC override + Cliffs fragment into the kernel tree requires a
+`.github/workflows/*` modification, which the Actions `GITHUB_TOKEN` cannot
+push (it lacks the `workflows` permission — the push is rejected with
+`refusing to allow a GitHub App to create or update workflow ... without
+'workflows' permission`). The provider-map validator and the kernel/DTB build
+were therefore run locally. A maintainer with a PAT/`workflows` permission must
+apply the workflow update as a follow-up.
+
 ## 4. Exact commands
 
 ```sh
