@@ -2,6 +2,7 @@
   "task_id": "G2-C-0002",
   "request_id": "G2-C-0002-R2",
   "rerun_of": "G2-C-0002-R1",
+  "dispatch_nonce": "20260828-1824-r2-final",
   "ref": "main",
   "model": "deepseek/deepseek-v4-pro",
   "model_reason": "V4-Pro is justified only for this specific rerun because G2-C-0002 is kernel/DTS interconnect-provider porting and dependency reasoning, an explicitly difficult provider/driver task. Do not use this selection as the default for later tasks.",
