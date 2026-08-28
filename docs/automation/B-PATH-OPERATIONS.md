@@ -4,6 +4,19 @@
 
 This is the production GitHub-centred development path for the Retroid Pocket G2 SteamOS-class project. It is separate from the historical `/oc` comment path, which remains available as a compatibility/fallback path.
 
+## Mandatory execution backend
+
+All real G2 development tasks on the production B path **must be executed through GitHub Actions → OpenCode → the official DeepSeek API**.
+
+**Codex is not the execution backend for this project. Do not create `@codex` task instructions for real G2 development work.**
+
+Model routing:
+
+- **DeepSeek V4-Flash**: default for ordinary repository inspection, straightforward coding, documentation, routine fixes, and normal validation.
+- **DeepSeek V4-Pro**: use for genuinely difficult kernel/DTS dependency reasoning, provider/driver porting, difficult build failures, or work where Flash has failed or produced uncertain results.
+
+An issue/comment may be used only as input to the configured OpenCode/DeepSeek bridge. Creating an issue with `@codex` is not an approved way to dispatch a real task.
+
 ## Task request format
 
 Every real development request is exactly one task and carries a unique `task_id`.
@@ -28,6 +41,7 @@ Rules:
 - `model` defaults to official DeepSeek V4-Flash. Use V4-Pro only for a justified escalation.
 - `prompt` must describe one concrete task, its evidence requirements, safety limits, and expected deliverable.
 - A real task must not use historical test identifiers such as `B-TEST-*`.
+- Before any real dispatch, verify that the selected backend is **OpenCode + DeepSeek**, not Codex.
 
 ## Execution identity chain
 
@@ -112,6 +126,7 @@ A stale Run, a similar-looking comment, a trace from another request, or a succe
 - Never start a duplicate task merely because the current task has not been checked recently.
 - Fix the automation or task blocker first when the current execution fails.
 - If OpenCode leaves a changed branch without a PR, the configured deterministic PR fallback may recover it; record that as a fallback event.
+- If a task is accidentally created with a Codex trigger, stop before execution, remove the Codex trigger, replace it with the approved OpenCode/DeepSeek dispatch mechanism, and record the correction.
 
 ## Safety rules for G2
 
