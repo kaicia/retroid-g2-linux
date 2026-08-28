@@ -3,6 +3,8 @@
 Date: 2026-08-28
 Request: G2-C-0002-R2 (fresh rerun of G2-C-0002-R1; this run's job/trace are the
 sole evidence for R2 — R1 evidence is not reused).
+Actions Run ID: 33161559817 (workflow_sha dcad0174d974ec44706a0328125dc37be69bb2cf)
+PR: #23
 
 ## 1. Summary
 
