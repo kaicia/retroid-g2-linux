@@ -15,7 +15,9 @@
  *   SDCC2 OPP  = 100 MHz / 202 MHz
  *   DLL/DDR    = 0x0007442c / 0x80040868
  *
- * Provider labels below are from the SM7635/Milos Linux source mapping.
+ * Provider labels below are the source-supported Cliffs interconnect
+ * providers and endpoint IDs (MASTER_SDCC_2=47, SLAVE_EBI1=512,
+ * MASTER_APPSS_PROC=2, SLAVE_SDCC_2=542), NOT the SM7635/Milos per-NoC IDs.
  * This file deliberately does not claim that a complete G2 SoC DTS exists.
  */
 
@@ -32,7 +34,7 @@
 			 <&gcc GCC_SDCC2_APPS_CLK>;
 		clock-names = "iface", "core";
 
-		interconnects = <&aggre2_noc MASTER_SDCC_2 QCOM_ICC_TAG_ALWAYS
+		interconnects = <&aggre1_noc MASTER_SDCC_2 QCOM_ICC_TAG_ALWAYS
 				 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
 				<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
 				 &cnoc_cfg SLAVE_SDCC_2 QCOM_ICC_TAG_ACTIVE_ONLY>;
