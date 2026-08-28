@@ -1,13 +1,13 @@
 {
   "task_id": "G2-C-0002",
   "request_id": "G2-C-0002-R2",
-  "state": "starting",
-  "phase": "preparing",
+  "state": "running",
+  "phase": "opencode_running",
   "run_id": 33160674754,
   "workflow_sha": "175e0a6a6757ecccb28feb9f4eda0ec26265ce16",
-  "updated_at": "2026-08-28T09:45:38Z",
-  "elapsed_seconds": 0,
-  "last_activity": "Preparing OpenCode/DeepSeek live trace",
+  "updated_at": "2026-08-28T09:45:49Z",
+  "elapsed_seconds": 10,
+  "last_activity": "OpenCode/DeepSeek is running",
   "last_output": [],
   "tool_trace": []
 }
