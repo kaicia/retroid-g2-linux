@@ -130,6 +130,23 @@ All G2 investigations completed so far are read-only Device Tree inspection. No 
 - `docs/g2-sdhci-dts-wip-status-20260822.md`
 - `dts/g2-sdhci-wip.dtsi`
 
+## Stage B progress (2026-08-23)
+
+Stage B of the roadmap began. The first compile-verified G2 SD-only DTS
+target and a non-destructive microSD image harness were created:
+
+- `dts/g2/g2-cliffs-sd.dts` — compiles to a DTB (dtc PASS, 3891 bytes) using
+  only source-verified G2/Cliffs values.
+- `scripts/validate-g2-cliffs-dts.sh` — non-destructive cpp+dtc validation.
+- `scripts/prepare-g2-sd-image.sh` — non-destructive microSD image builder
+  with strict internal-storage guards (refuses `/dev/sda`, `/dev/nvme*`,
+  `/dev/mmcblk0`; removable microSD only `/dev/mmcblk[1-9]*`).
+- `config/g2-sd/extlinux.conf` — draft boot configuration.
+- `docs/g2-stage-b-sd-image-prep-20260823.md` — validation report.
+
+Full results and limitations are recorded in the Stage B report. Kernel and
+rootfs inputs are not yet in the repository and are required by the harness.
+
 ## Next concrete task
 
 Inspect the exact pocknix/ROCKNIX kernel source and patchset used by the intended build, then resolve the G2 Cliffs GCC, interconnect, PMXR2230 regulator, SMMU and pinctrl references against actual Linux code. Update the WIP DTS only with values that are source-supported. Then perform static DTS/schema validation before any boot experiment.
