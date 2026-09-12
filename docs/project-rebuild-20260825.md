@@ -116,78 +116,24 @@ Once the device boots reliably:
 - automate kernel/DTS/image validation;
 - document known limitations and recovery procedure.
 
-## 3. Track B — GitHub-centred DeepSeek development loop
+## 3. Track B — development execution loop
 
-### B0 — GitHub is the system of record
+**Superseded 2026-09-12.** Track B originally specified a GitHub-centred
+DeepSeek execution loop: one JSON dispatch request per task, a bridge workflow,
+an OpenCode run, and a mandatory identity chain correlating task/request/run/job
+/trace identifiers before a result could be accepted.
 
-Repository documents, Issues, PRs, commits, logs, artifacts and test results are the authoritative project history.
+That loop was retired when development moved to a coding agent working directly
+on the repository. The current execution model is `docs/development-workflow.md`.
+The retired design is preserved in `docs/archive/automation/`.
 
-Do not use the chat as the only place where a decision exists. Important decisions are recorded in GitHub.
+Two Track B principles were carried forward and remain in force:
 
-### B1 — One task at a time
+- one task at a time;
+- a result is evidence only for the request that produced it, and an older
+  result is never presented as the outcome of a later request.
 
-Every development task has:
-
-- one explicit task prompt;
-- one unique execution reference/comment ID;
-- one expected Actions/OpenCode execution;
-- one resulting branch/commit/PR or a documented blocker.
-
-No duplicate task is launched while the current task is being awaited.
-
-### B2 — Execution model requested by the project owner
-
-The normal loop is deliberately human-in-the-loop:
-
-1. Assistant reviews repository state and defines the next concrete task.
-2. Assistant submits the task to the configured GitHub/OpenCode/DeepSeek entry point.
-3. Assistant immediately reports that exact execution request and its identifier.
-4. Assistant does **not** start another task while waiting.
-5. The project owner later asks for a status check.
-6. Assistant re-queries GitHub and follows the exact task identifier to its Actions run, job, logs and completion result.
-7. If complete, Assistant reviews the actual diff/PR/result and chooses the next task.
-8. If still running, Assistant reports that it is still running and waits for the next requested check.
-9. If failed or blocked, Assistant diagnoses the failure and fixes the automation/project problem before resuming development.
-
-### B3 — Mandatory identity checks
-
-For every execution and result, correlate these fields:
-
-- exact task comment ID;
-- exact task body (or a unique task marker);
-- Actions run ID;
-- OpenCode job ID;
-- model/provider;
-- branch;
-- commit SHA;
-- completion/result comment ID;
-- PR number/URL.
-
-A result from an older run or older comment must never be presented as the result of the current task.
-
-### B4 — DeepSeek policy
-
-- Default: official DeepSeek V4-Flash through the configured GitHub automation.
-- Escalate to V4-Pro only when the task genuinely needs difficult kernel/DTS/driver/build reasoning or Flash cannot reliably complete it.
-- Do not silently substitute OpenRouter/free models for the current development loop.
-
-### B5 — PR policy
-
-OpenCode is the primary PR creator.
-
-If OpenCode completes a real task with a changed branch/commit but leaves no PR, a deterministic fallback may create the PR. This fallback must be recorded as an exception rather than mistaken for normal behavior.
-
-### B6 — Waiting/verification policy
-
-The assistant must not claim that a task is complete from a stale run, a matching-looking comment, or a test run.
-
-Completion requires current evidence from GitHub:
-
-- matching execution identifier;
-- matching Actions run;
-- successful job/log result;
-- actual changed files/commit;
-- resulting PR when required.
+Track A below is unaffected.
 
 ## 4. Temporary/test material
 
@@ -217,14 +163,14 @@ Therefore the rebuild does **not** restart by blindly recreating the first DTS/i
 
 ## 6. Clean starting state for the next cycle
 
-The next active task must be explicitly identified before any DeepSeek execution.
+The next active task must be explicitly identified before work begins.
 
 The assistant must first inspect:
 
 - current `main`;
 - PR #6 and PR #9 diffs/results;
 - current roadmap and hardware research;
-- current OpenCode workflow;
+- current CI workflows;
 - any unresolved provider/boot-chain blockers.
 
-Only then should one new development task be submitted.
+Only then should one new development task be started.

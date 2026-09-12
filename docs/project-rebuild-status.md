@@ -20,5 +20,7 @@ The main OpenCode workflow was restored to the pre-experiment baseline after the
 
 - `docs/development-roadmap-20260822.md` — existing technical roadmap and Armada/pocknix/ROCKNIX-derived iterative bring-up method.
 - `docs/project-rebuild-20260825.md` — authoritative two-track rebuild protocol.
-- `docs/automation/README.md` — active GitHub-centred human-in-the-loop execution rules.
-- `docs/automation/temporary-tests.md` — historical test inventory.
+- `docs/development-workflow.md` — active execution rules (replaced the retired
+  OpenCode/DeepSeek loop on 2026-09-12).
+- `docs/archive/automation/` — retired automation design and historical test
+  inventory; history only.

@@ -1,5 +1,12 @@
 # Retroid Pocket G2 SteamOS Porting Project — Project Status
 
+> **Workflow sections superseded (2026-09-12).** Sections 6, 7, 9 and 10 describe
+> the Codespaces/Codex/ChatGPT execution model, which is no longer used.
+> Development is now performed by a coding agent working directly on the
+> repository; see `docs/development-workflow.md`. The goals, hardware
+> investigation scope, safety rules and phase plan in the other sections are
+> unchanged.
+
 ## 1. Final Goal
 
 The final goal is to run SteamOS/Linux on the Retroid Pocket G2 without permanently replacing the existing Android installation.
