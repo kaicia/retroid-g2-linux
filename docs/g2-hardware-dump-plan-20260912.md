@@ -3,8 +3,17 @@
 Everything the port still needs from the physical device, collected in **one**
 read-only ADB session instead of a script per question.
 
-Run: `scripts/run-g2-consolidated-hardware-dump-readonly-v1.sh`
-Output: `dumps/g2/g2-consolidated-hardware-<timestamp>.txt`
+Run: `scripts/run-g2-consolidated-hardware-dump-readonly-v2.sh`
+
+Two outputs:
+
+| Artifact | Why |
+|---|---|
+| `dumps/g2/g2-devicetree-<stamp>.tar.gz` | **the whole** `/sys/firmware/devicetree/base` tree. With the complete DT in the repository, every future device-tree question is answerable offline and never needs the device again. This is the important one. |
+| `dumps/g2/g2-consolidated-hardware-<stamp>.txt` | readable report: SoC identity, SDCC2 gaps, boot chain and console paths, subsystem inventory, kernel/proc/sys state |
+
+Archiving the DT is a plain read — `/sys/firmware/devicetree/base` is a static
+representation of the DTB. Only that subtree is archived, never all of `/sys`.
 
 ## How to run it
 
@@ -14,7 +23,7 @@ authorized:
 ```sh
 cd ~/retroid-g2-linux
 git checkout <the branch you want the dump on>
-bash scripts/run-g2-consolidated-hardware-dump-readonly-v1.sh
+bash scripts/run-g2-consolidated-hardware-dump-readonly-v2.sh
 ```
 
 The script refuses to run unless exactly one device is attached. It pushes a
@@ -34,7 +43,7 @@ backoff (2s, 4s, 8s, 16s); if all fail the commit is still safe locally and the
 script prints the manual retry command.
 
 It also refuses to commit a dump that is empty or truncated: the collector writes
-`END schema=1` as its last line, and the wrapper checks for it.
+`END schema=2` as its last line, and the wrapper checks for it.
 
 ### Safety
 
@@ -75,27 +84,43 @@ a G2 DTB the bootloader will accept.
 Some of B needs root to be fully useful (`/sys/kernel/debug/...`). The script
 degrades gracefully and reports "unreadable" rather than failing.
 
-### C — Boot chain / SD boot feasibility
+### C — Boot chain, console, SD boot feasibility
 
-**This is the project's largest unknown and nothing in `dumps/g2/` answers it.**
-The entire goal depends on the stock bootloader being able to reach removable
-media without flashing anything.
+Substantially narrowed on 2026-09-12 without the device — see
+`docs/g2-boot-console-feasibility-20260912.md`. The bootloader is already
+unlocked, the boot chain is UEFI with no internal ESP, and the device's own
+`chosen/stdout-path` names a debug UART that upstream already supports. What
+section C now collects is the data needed to *choose a console channel*:
 
-Collected: all `ro.boot.*` properties, `/proc/cmdline`, partition **names**
-(never contents), presence of an EFI system partition, which filesystems the
-kernel knows, and the external SD block attributes.
+| Item | Why |
+|---|---|
+| full `chosen` node | `bootargs` and `stdout-path` values, not just their paths |
+| `qup_uart@a94000` node **and its pinctrl** | the G2's pin assignment for the designated console UART; the G2 TLMM map differs from upstream milos, so upstream's gpio25/26 cannot be assumed |
+| every `reserved-memory` child with `reg` and `size` | `ramoops_region` (a reboot-surviving kernel log — the fallback that needs no console at all) and `splash_region` (the `simple-framebuffer` handoff candidate) |
+| `/sys/fs/pstore` | whether a pstore backend is already active and readable |
+| `ro.boot.*`, partition names, EFI-looking partitions, known filesystems | the reversible removable-media boot path, as in Armada issue #155 for the RP6 |
 
-What we are looking for is the same precedent Armada issue #155 documents for
-the RP6: stock UEFI enumerating a removable SD, so an EFI/GRUB path can be
-enabled without an ABL flash. If the G2's bootloader has no such path, the
-project's premise needs revisiting before more DTS work.
+`/proc/cmdline` is permission-denied without root on this device, but
+`chosen/bootargs` in the device tree carries the same information and is
+readable.
 
 ### D — Subsystem inventory
 
-Identity only, for phases after first boot: display panel, GPU, input devices
-(the gamepad matters for a SteamOS-class target), USB, audio, Wi-Fi/Bluetooth,
-power/battery/thermal, and the full vendor module list. Cheap to collect now,
-and it avoids another device session later.
+For phases after first boot: display, GPU, input devices (the gamepad matters
+for a SteamOS-class target), USB, audio, Wi-Fi/Bluetooth, power/battery/thermal.
+
+The panel is already known from `chosen/bootargs` to be
+`qcom,mdss_dsi_g1548_fhd_plus_60_video` — a `g1548`, FHD+, 60 Hz, DSI video-mode
+panel. Section D now walks the matching DT nodes to get its timings, which the
+`simple-framebuffer` console option also needs.
+
+### E — Kernel / proc / sys state
+
+New in v2. `/proc/interrupts` cross-checks the SDCC2 IRQ conflict (207/223 vs
+upstream 204/125) against what the running kernel actually registered.
+`/proc/iomem`, `/proc/devices`, `/proc/modules`, `/proc/config.gz` and a `dmesg`
+attempt round out what the vendor kernel is doing, which is the reference for
+what ours has to reproduce.
 
 ## After the dump lands
 
@@ -103,15 +128,17 @@ The script has already committed and pushed it. Then:
 
 1. Resolve decision-doc §4.1 from section B5 — if the live SMMU group confirms
    `0x140`, the candidate fragments are already correct and the conflict closes.
-2. Fill the real pinctrl states into `dts/g2-sdhci-upstream-candidate.dtsi` from
+2. Fill the real pinctrl states into `dts/g2-sdhci-compile-test.dts` from
    section B2.
-3. Assess SD-boot feasibility from section C before any further DTS work.
+3. Choose a console channel from section C against the ranking in
+   `docs/g2-boot-console-feasibility-20260912.md` §6.
 4. Answer the SoC-identity question from section A and, if confirmed, drop the
    remaining "SM7635" inference wording.
+5. Keep the device-tree archive as the reference for all later DT work instead
+   of collecting another targeted dump.
 
 ## Not covered here
 
-The SDCC2 IRQ conflict (decision doc §4.2 — G2 DT says SPI 207/223, upstream
-`milos.dtsi` says 204/125) cannot be settled by a dump. The device DT is already
-the authority for the G2; the divergence only resolves when a G2 kernel actually
-takes SDCC2 interrupts, or by inspecting upstream's own source for that value.
+Whether the debug UART lines are physically reachable — test pads, a header, or
+the USB-C sideband pins — cannot be answered from software. That needs physical
+inspection, and it is the reason ramoops is kept as the fallback channel.

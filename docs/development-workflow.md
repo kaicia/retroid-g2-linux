@@ -118,11 +118,22 @@ downstream comparison has not been built.
 ### 6.4 Collect the consolidated hardware dump
 
 `docs/g2-hardware-dump-plan-20260912.md` plus
-`scripts/run-g2-consolidated-hardware-dump-readonly-v1.sh` gather every
-outstanding device-side fact in one read-only session: SoC identity
-(`/sys/devices/soc0`, absent from every existing dump), the SDCC2 gaps, boot
-chain / SD-boot feasibility, and a subsystem inventory for later phases.
-Requires physical access to the G2.
+`scripts/run-g2-consolidated-hardware-dump-readonly-v2.sh` gather every
+outstanding device-side fact in one read-only session, and archive the **entire**
+device tree so later DT questions never need the device again. Requires physical
+access to the G2; nothing else in this list does.
+
+### 6.4b Choose a console channel before any boot attempt
+
+`docs/g2-boot-console-feasibility-20260912.md` settled most of this build-side:
+the bootloader is already unlocked, the boot chain is UEFI with no internal ESP,
+and `chosen/stdout-path` names `serial@a94000`, which upstream already supports
+as `qcom,geni-debug-uart`. Three console channels need zero new driver code;
+ramoops is the fallback that needs no console at all. What remains is picking one
+from the dump's section C data, plus physical inspection for UART accessibility.
+
+A boot attempt without a chosen channel returns no information and should not
+happen.
 
 ### 6.5 Close out G2-C-0002
 
