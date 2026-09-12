@@ -67,10 +67,10 @@ Two workflows remain and are unrelated to the retired dispatch machinery:
 | `.github/workflows/g2-sdhci-static.yml` | changes to the G2 DTS fragments or the validator | runs `scripts/validate-g2-sdhci-provider-map.py` and structural smoke checks |
 | `.github/workflows/g2-sdhci-linux-dtc.yml` | changes to `dts/g2-sdhci-milos-merge.dtsi` or the provider map | builds a known-good Milos DTB, then compiles the G2 candidate fragment |
 
-Known defect: `g2-sdhci-linux-dtc.yml` clones `torvalds/linux` with `--depth 1`
-and no commit pin, so its kernel input changes between runs. This contradicts
-the project's reproducible-kernel-input requirement and should be fixed before
-its results are treated as a stable baseline.
+Both are driven by `scripts/build-g2-dtb-compile-candidate.sh`, which pins the
+upstream kernel revision. The pin matters: the G2 candidate exists precisely to
+disagree with upstream `milos` on IRQs, SMMU stream ID and pin map, so an
+unpinned tree would silently change what the build is compared against.
 
 ## 6. Outstanding technical work
 
@@ -87,23 +87,33 @@ while resolving it and remain open — SMMU stream ID (`0x140` per the G2 dump v
 bring-up blockers, and the SMMU one is answered by the consolidated hardware dump
 (`docs/g2-hardware-dump-plan-20260912.md`, section B5).
 
-### 6.2 Compile the G2 candidate DTB
+### 6.2 Compile the G2 candidate DTB — DONE 2026-09-12
 
-Previously specified in `docs/archive/automation/deepseek-compile-task-20260827.md`
-and never executed:
+`dts/g2-sdhci-compile-test.dts` builds against pinned Linux
+`5225b8eec4c9bb21aecff6295fab6346a3c3738e` and passes DT schema validation apart
+from the unregistered board compatible. Reproduce with
+`scripts/build-g2-dtb-compile-candidate.sh`; results and the four known runtime
+risks are in `docs/g2-dtb-compile-result-20260912.md`. The `g2-sdhci-linux-dtc`
+workflow now pins the kernel revision, closing the reproducibility defect noted
+in §5.
 
-1. Build the baseline `arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dtb`.
-2. Install `dts/g2-sdhci-milos-merge.dtsi` into the QCOM DTS directory.
-3. Create a compile-test DTS including `milos.dtsi`, `pm7550.dtsi`, and the G2
-   fragment.
-4. Compile it and record the exact first error if it fails.
+### 6.3 Describe the G2 TLMM (new, now the largest SD-path blocker)
 
-### 6.3 Choose the SDHCI driver path
+Upstream has no Cliffs pinctrl driver, and `pinctrl-milos.c` cannot mux the G2's
+SDCC2 cmd/data pins — see `docs/g2-provider-domain-decision-20260912.md` §4.3.
+Either verify that the milos pin map applies to the G2 or write a Cliffs one.
+Until this is settled the card cannot work, whatever the DTS says.
+
+Related and still open: the G2's PMXR2230 LDO13/LDO23 rails have no upstream
+description, so the compile candidate currently has no `vmmc-supply` /
+`vqmmc-supply` and cannot power the card.
+
+### 6.3b Choose the SDHCI driver path
 
 `docs/g2-sdhci-driver-compatibility-20260827.md` leaves the choice between the
 upstream `qcom,milos-sdhci` driver, the pocknix downstream SDHCI driver, and a
-hybrid kernel unresolved. Its recommended order is to produce both compile
-candidates and compare them.
+hybrid kernel unresolved. The compile candidate takes the upstream path; the
+downstream comparison has not been built.
 
 ### 6.4 Collect the consolidated hardware dump
 

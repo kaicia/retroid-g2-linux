@@ -12,8 +12,8 @@
 # firmware operation. No block-device content is read. Nothing is written to the
 # device outside /data/local/tmp, and that file is removed at the end.
 #
-# Unlike the older scripts this one does NOT commit or push by itself; it saves
-# the dump and prints what to do next.
+# On success the dump is committed and pushed to the branch that is currently
+# checked out in $REPO. It never switches branches and never force-pushes.
 set -u
 REPO="$HOME/retroid-g2-linux"
 STAMP="$(date +%Y%m%d-%H%M%S)"
@@ -23,6 +23,26 @@ REMOTE_OUT="/data/local/tmp/g2-consolidated-${STAMP}.txt"
 
 cd "$REPO" || { echo "ERROR: $REPO not found"; exit 1; }
 run_adb(){ ANDROID_NO_USE_FWMARK_CLIENT=1 fakeroot termux-adb "$@"; }
+
+BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+if [ -z "$BRANCH" ] || [ "$BRANCH" = "HEAD" ]; then
+  echo "ERROR: no branch checked out in $REPO (detached HEAD?)."
+  exit 1
+fi
+echo "==> repo branch: $BRANCH"
+
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  echo "ERROR: working tree has uncommitted changes. Commit or stash them first,"
+  echo "       so the dump lands as its own commit."
+  git status --short
+  exit 1
+fi
+
+echo "==> syncing branch"
+git pull --ff-only origin "$BRANCH" || {
+  echo "ERROR: git pull --ff-only failed. Resolve it before collecting a dump."
+  exit 1
+}
 
 if ! run_adb devices | awk 'NR>1 && $2=="device" {n++} END{exit !(n==1)}'; then
   echo 'ERROR: exactly one ADB device must be connected and authorized.'
@@ -294,12 +314,45 @@ echo "==> cleaning up device temp files"
 run_adb shell "rm -f $REMOTE_SCRIPT $REMOTE_OUT" >/dev/null
 rm -f "$TMP"
 
+if [ ! -s "$OUT" ]; then
+  echo "ERROR: dump is empty; nothing will be committed."
+  exit 1
+fi
+if ! grep -q "END schema=1" "$OUT"; then
+  echo "ERROR: dump is truncated (no end marker); nothing will be committed."
+  echo "       Kept for inspection: $OUT"
+  exit 1
+fi
+
+echo "==> dump looks complete: $(wc -c < "$OUT") bytes, $(wc -l < "$OUT") lines"
+
+echo "==> committing"
+git add "$OUT" || exit 1
+if git diff --cached --quiet; then
+  echo "Nothing staged (identical dump already committed?). Stopping."
+  exit 0
+fi
+git commit -m "data: consolidated G2 read-only hardware dump ${STAMP}" \
+           -m "Collected by scripts/$(basename "$0"). Read-only: SoC identity, SDCC2 gaps, boot chain, subsystem inventory. No device write, flash, erase, repartition, slot, AVB or firmware operation." || exit 1
+
+echo "==> pushing to origin/$BRANCH"
+DELAY=2
+ATTEMPT=1
+until git push -u origin "$BRANCH"; do
+  if [ "$ATTEMPT" -ge 5 ]; then
+    echo "ERROR: push failed after 5 attempts. The commit is safe locally:"
+    git log --oneline -1
+    echo "Retry manually with: git push -u origin $BRANCH"
+    exit 1
+  fi
+  echo "push failed (attempt $ATTEMPT), retrying in ${DELAY}s..."
+  sleep "$DELAY"
+  DELAY=$((DELAY * 2))
+  ATTEMPT=$((ATTEMPT + 1))
+done
+
 echo
-echo "DONE: $OUT"
-echo "size: $(wc -c < "$OUT") bytes, $(wc -l < "$OUT") lines"
-echo
-echo "Nothing was committed or pushed. Review the file, then:"
-echo "  cd $REPO"
-echo "  git add dumps/g2/$(basename "$OUT")"
-echo "  git commit -m 'data: consolidated G2 read-only hardware dump'"
-echo "  git push -u origin <your-branch>"
+echo "DONE"
+echo "  file   : $OUT"
+echo "  branch : $BRANCH"
+echo "  commit : $(git rev-parse --short HEAD)"

@@ -60,7 +60,7 @@ fragments in `dts/` were already right; what was missing was the reason.
 wrong — `0x1a2` is exactly the master path provider downstream. It has been
 corrected.
 
-## 3. Cliffs and Milos are the same silicon
+## 3. Cliffs and Milos are closely related but NOT identical
 
 Previously asserted without evidence. Now established by address-level
 correspondence between the G2 dumps and upstream `milos.dtsi`:
@@ -89,14 +89,26 @@ The matching UFS stream ID is the strongest single item: SMMU stream IDs are
 fixed hardware wiring, they are in the same numbering space on both sides, and
 an unrelated SoC would not agree on it.
 
+**Correction, later the same day.** An earlier revision of this section
+concluded "same silicon". The pinctrl evidence below does not support that
+wording. The correct claim is that Cliffs and Milos share the same SoC-internal
+address map and tuning constants — almost certainly the same base design — but
+they are **not pin-, IRQ- or stream-ID-identical**, so the G2 is a port onto the
+milos platform, not a re-use of it. The three divergences are listed in §4.
+
 Upstream does not use the string "SM7635" anywhere in these files. The
 `SM7635` label used in earlier documents is an inference, not an upstream fact.
 `milos` is the name to use.
 
-## 4. Two conflicts that survive — hardware verification required
+Upstream carries **no Cliffs support of any kind** — no pinctrl, interconnect,
+clock or DTS file, and no dt-binding, matches "cliffs" anywhere in the tree.
+Everything the G2 gets from upstream, it gets through `milos`.
 
-These are the only SDCC2 values where the G2 vendor DT and upstream milos
-disagree. Since §3 establishes the same silicon, one side is wrong in each case.
+## 4. Three conflicts that survive — hardware verification required
+
+These are the SDCC2 values where the G2 vendor DT and upstream milos
+disagree. Since §3 establishes a shared base design, each is either a real
+part-to-part difference or an error on one side.
 
 ### 4.1 SMMU stream ID (high risk)
 
@@ -126,7 +138,44 @@ The G2 values are kept. The repository already required this and it is unchanged
 it is recorded here because it is the second half of the same divergence and
 should be investigated together with §4.1.
 
-Both conflicts are recorded as bring-up blockers, not resolved facts.
+### 4.3 TLMM pin map (highest risk of the three)
+
+The G2 `sdc2_on` state decodes from `dumps/g2/g2-readonly-investigation.txt` as:
+
+```
+clk    pins="gpio62"                                drive-strength 0x10
+cmd    pins="gpio51"                 bias-pull-up   drive-strength 0x0a
+data   pins="gpio38","gpio39","gpio48","gpio49"
+                                     bias-pull-up   drive-strength 0x0a
+sd-cd  pins="gpio31"                 bias-pull-up   drive-strength 0x02
+```
+
+Upstream `milos.dtsi` `sdc2_default` uses `gpio62` (clk), `gpio61` (cmd) and
+`gpio58/57/35/34` (data). Only the clock pin agrees.
+
+This is worse than a DTS disagreement. `drivers/pinctrl/qcom/pinctrl-milos.c`
+defines which function each pin can take:
+
+```c
+[34] = PINGROUP(34, sdc2_data, ...)   [51] = PINGROUP(51, qup1_se4, qdss_gpio, ddr_pxi1, ...)
+[35] = PINGROUP(35, sdc2_data, ...)   [38] = PINGROUP(38, qup1_se1, qup1_se2, ...)
+[57] = PINGROUP(57, sdc2_data, ...)   [39] = PINGROUP(39, qup1_se1, resout_gpio_n, ...)
+[58] = PINGROUP(58, sdc2_data, ...)   [48] = PINGROUP(48, qup1_se4, ...)
+[61] = PINGROUP(61, sdc2_cmd, ...)    [49] = PINGROUP(49, qup1_se4, ...)
+[62] = PINGROUP(62, sdc2_clk, ...)
+```
+
+Under the upstream milos pinctrl driver, the G2's cmd and data pins are QUP
+(serial) pins and cannot be muxed to `sdc2_cmd` / `sdc2_data` at all. `dtc` does
+not validate pin/function pairs, so a G2 DTS carrying the real hardware values
+compiles cleanly and is expected to be rejected by the pinctrl driver at probe.
+
+Since TLMM pin maps are fixed silicon, this is the strongest single piece of
+evidence that Cliffs and Milos are different parts. A Cliffs TLMM description
+(a `pinctrl-cliffs.c`, or a verified statement that the milos map applies) is
+now a prerequisite for a *working* G2 SD card, independent of the DTS.
+
+All three conflicts are recorded as bring-up blockers, not resolved facts.
 
 ## 5. Verification method
 

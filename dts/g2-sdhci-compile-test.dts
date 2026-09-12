@@ -1,0 +1,132 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Retroid Pocket G2 -- SDCC2 compile candidate on the upstream Linux `milos`
+ * platform.
+ *
+ * THIS HAS NEVER BEEN BOOTED. It compiles; that is all that is claimed.
+ * See docs/g2-dtb-compile-result-20260912.md for the three known runtime
+ * risks, every one of which compiles cleanly and only fails on real hardware.
+ *
+ * Every G2 value below is taken from the read-only dumps in dumps/g2/.
+ * No value is copied from milos-fairphone-fp6.dts.
+ */
+
+/dts-v1/;
+
+#include "milos.dtsi"
+#include "pm7550.dtsi"
+
+/ {
+	model = "Retroid Pocket G2 (SDCC2 compile candidate)";
+	compatible = "retroid,g2", "qcom,milos";
+};
+
+&tlmm {
+	/*
+	 * G2 sdc2_on, decoded from
+	 * dumps/g2/g2-readonly-investigation.txt "SD PINCTRL":
+	 *   clk   pins="gpio62"                              drive-strength 0x10
+	 *   cmd   pins="gpio51"              bias-pull-up    drive-strength 0x0a
+	 *   data  pins="gpio38","gpio39","gpio48","gpio49"
+	 *                                    bias-pull-up    drive-strength 0x0a
+	 *   sd-cd pins="gpio31"              bias-pull-up    drive-strength 0x02
+	 *
+	 * WARNING: upstream drivers/pinctrl/qcom/pinctrl-milos.c offers
+	 * sdc2_cmd only on gpio61 and sdc2_data only on gpio34/35/57/58.
+	 * gpio38/39/48/49/51 are QUP functions there. Only the clk pin agrees.
+	 * dtc does not validate pin/function pairs, so this compiles and is
+	 * expected to be rejected by the pinctrl driver at probe time.
+	 */
+	g2_sdc2_default: g2-sdc2-default-state {
+		clk-pins {
+			pins = "gpio62";
+			function = "sdc2_clk";
+			drive-strength = <16>;
+			bias-disable;
+		};
+
+		cmd-pins {
+			pins = "gpio51";
+			function = "sdc2_cmd";
+			drive-strength = <10>;
+			bias-pull-up;
+		};
+
+		data-pins {
+			pins = "gpio38", "gpio39", "gpio48", "gpio49";
+			function = "sdc2_data";
+			drive-strength = <10>;
+			bias-pull-up;
+		};
+	};
+
+	g2_sdc2_sleep: g2-sdc2-sleep-state {
+		clk-pins {
+			pins = "gpio62";
+			function = "gpio";
+			drive-strength = <2>;
+			bias-disable;
+		};
+
+		cmd-pins {
+			pins = "gpio51";
+			function = "gpio";
+			drive-strength = <2>;
+			bias-pull-up;
+		};
+
+		data-pins {
+			pins = "gpio38", "gpio39", "gpio48", "gpio49";
+			function = "gpio";
+			drive-strength = <2>;
+			bias-pull-up;
+		};
+	};
+
+	g2_sdc2_card_det: g2-sdc2-card-det-state {
+		pins = "gpio31";
+		function = "gpio";
+		drive-strength = <2>;
+		bias-pull-up;
+	};
+};
+
+&sdhc_2 {
+	/*
+	 * G2 dump: interrupts = <0x0 0xcf 0x4>, <0x0 0xdf 0x4>
+	 * = GIC_SPI 207 / 223, IRQ_TYPE_LEVEL_HIGH.
+	 * Upstream milos.dtsi declares 204 / 125 for the same node.
+	 */
+	interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH 0>,
+		     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH 0>;
+	interrupt-names = "hc_irq", "pwr_irq";
+
+	/*
+	 * G2 dump: iommus = <0x12a 0x140 0x0>, phandle 0x12a resolves to
+	 * /soc/apps-smmu@15000000. Upstream milos.dtsi uses 0x540.
+	 * The UFS controller agrees on both sides (0x60), so the two SDCC2
+	 * values are a real conflict, not a numbering-space difference.
+	 */
+	iommus = <&apps_smmu 0x140 0>;
+
+	/* G2 dump: cd-gpios = <0x16c 0x1f 0x1> -> tlmm GPIO 31, active low. */
+	cd-gpios = <&tlmm 31 GPIO_ACTIVE_LOW>;
+
+	pinctrl-0 = <&g2_sdc2_default>, <&g2_sdc2_card_det>;
+	pinctrl-1 = <&g2_sdc2_sleep>, <&g2_sdc2_card_det>;
+	pinctrl-names = "default", "sleep";
+
+	/*
+	 * TODO: vmmc-supply / vqmmc-supply are deliberately absent.
+	 * The G2 rails are PMXR2230 LDO13 / LDO23 (dump phandles 0x352 /
+	 * 0x359 -> regulator-pmxr2230-l13 / -l23). Upstream has no PMXR2230
+	 * definition, and copying the Fairphone pm7550 vreg_l13b / vreg_l23b
+	 * voltage windows would be exactly the board-value copying this
+	 * project forbids. Without them the card will not be powered.
+	 */
+
+	no-sdio;
+	no-mmc;
+
+	status = "okay";
+};

@@ -13,14 +13,28 @@ authorized:
 
 ```sh
 cd ~/retroid-g2-linux
-git pull
+git checkout <the branch you want the dump on>
 bash scripts/run-g2-consolidated-hardware-dump-readonly-v1.sh
 ```
 
 The script refuses to run unless exactly one device is attached. It pushes a
-collector to `/data/local/tmp`, runs it, pulls the result back, and deletes the
-temp files. It does **not** commit or push — review the dump first, then commit
-it yourself.
+collector to `/data/local/tmp`, runs it, pulls the result back, deletes the temp
+files, then commits the dump and pushes it.
+
+Preconditions it enforces before touching the device, so the dump lands as a
+clean commit on the right branch:
+
+- a branch must be checked out (not detached HEAD);
+- the working tree must be clean;
+- `git pull --ff-only origin <branch>` must succeed.
+
+It commits to **whatever branch is currently checked out** — it never switches
+branches and never force-pushes. Push failures retry five times with exponential
+backoff (2s, 4s, 8s, 16s); if all fail the commit is still safe locally and the
+script prints the manual retry command.
+
+It also refuses to commit a dump that is empty or truncated: the collector writes
+`END schema=1` as its last line, and the wrapper checks for it.
 
 ### Safety
 
@@ -85,13 +99,14 @@ and it avoids another device session later.
 
 ## After the dump lands
 
-1. Commit the dump under `dumps/g2/`.
-2. Resolve decision-doc §4.1 from section B5 — if the live SMMU group confirms
+The script has already committed and pushed it. Then:
+
+1. Resolve decision-doc §4.1 from section B5 — if the live SMMU group confirms
    `0x140`, the candidate fragments are already correct and the conflict closes.
-3. Fill the real pinctrl states into `dts/g2-sdhci-upstream-candidate.dtsi` from
+2. Fill the real pinctrl states into `dts/g2-sdhci-upstream-candidate.dtsi` from
    section B2.
-4. Assess SD-boot feasibility from section C before any further DTS work.
-5. Answer the SoC-identity question from section A and, if confirmed, drop the
+3. Assess SD-boot feasibility from section C before any further DTS work.
+4. Answer the SoC-identity question from section A and, if confirmed, drop the
    remaining "SM7635" inference wording.
 
 ## Not covered here
