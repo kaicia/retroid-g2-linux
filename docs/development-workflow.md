@@ -77,25 +77,15 @@ its results are treated as a stable baseline.
 These items were defined inside the now-deleted `dispatch/` request files and
 are recorded here so they are not lost.
 
-### 6.1 Decide the provider-header domain (blocking)
+### 6.1 Decide the provider-header domain — RESOLVED 2026-09-12
 
-The repository currently carries two incompatible numbering systems for the
-same hardware:
-
-| Symbol | Downstream `qcom,cliffs.h` (`docs/g2-cliffs-provider-mapping-progress-20260822.md`) | Upstream SM7635/Milos (`docs/g2-sdhci-linux-provider-map-20260827.md`) |
-|---|---|---|
-| `GCC_SDCC2_AHB_CLK` | 108 | 121 |
-| `GCC_SDCC2_APPS_CLK` | 109 | 122 |
-| `GCC_SDCC2_BCR` | 17 | 20 |
-| `MASTER_SDCC_2` | 47 | 8 |
-| `SLAVE_SDCC_2` | 542 | 20 |
-| `SLAVE_EBI1` | 512 | 1 |
-
-Both sets are correct within their own header. The DTS fragments in `dts/` use
-symbolic names, so the question is which header the selected kernel tree
-provides. The retired G2-C-0002 dispatch request asked for upstream-Linux
-compatibility while quoting the downstream numbers; that conflict must be
-resolved before any further interconnect work.
+Settled in `docs/g2-provider-domain-decision-20260912.md`: target upstream Linux
+`milos` symbols exclusively; downstream `cliffs` IDs are vendor-topology evidence
+only and must never appear in an upstream DTS. Two hardware conflicts were found
+while resolving it and remain open — SMMU stream ID (`0x140` per the G2 dump vs
+`0x540` upstream) and SDCC2 IRQs (207/223 vs 204/125). Both are recorded as
+bring-up blockers, and the SMMU one is answered by the consolidated hardware dump
+(`docs/g2-hardware-dump-plan-20260912.md`, section B5).
 
 ### 6.2 Compile the G2 candidate DTB
 
@@ -115,7 +105,16 @@ upstream `qcom,milos-sdhci` driver, the pocknix downstream SDHCI driver, and a
 hybrid kernel unresolved. Its recommended order is to produce both compile
 candidates and compare them.
 
-### 6.4 Close out G2-C-0002
+### 6.4 Collect the consolidated hardware dump
+
+`docs/g2-hardware-dump-plan-20260912.md` plus
+`scripts/run-g2-consolidated-hardware-dump-readonly-v1.sh` gather every
+outstanding device-side fact in one read-only session: SoC identity
+(`/sys/devices/soc0`, absent from every existing dump), the SDCC2 gaps, boot
+chain / SD-boot feasibility, and a subsystem inventory for later phases.
+Requires physical access to the G2.
+
+### 6.5 Close out G2-C-0002
 
 The last dispatch (`G2-C-0002-R2`, Actions run `33161623434`, 2026-08-28) was
 recorded as `dispatched` and its result was never confirmed. Several

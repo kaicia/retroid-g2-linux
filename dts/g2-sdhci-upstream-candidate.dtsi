@@ -6,16 +6,18 @@
  *
  * Hardware-derived G2 values are kept authoritative:
  *   base       = 0x08804000
- *   IRQs       = 207, 223
+ *   IRQs       = 207, 223 (upstream milos: 204, 125)
  *   bus-width  = 4
  *   card-detect= Cliffs GPIO 31, active-low (raw flags cell 0x1)
  *   VDD        = PMXR2230 LDO13 -> Linux vreg_l13b
  *   VDD-IO     = PMXR2230 LDO23 -> Linux vreg_l23b
- *   SMMU       = apps_smmu stream 0x540/0
+ *   SMMU       = apps_smmu stream 0x140/0 (upstream milos: 0x540)
  *   SDCC2 OPP  = 100 MHz / 202 MHz
  *   DLL/DDR    = 0x0007442c / 0x80040868
  *
- * Provider labels below are from the SM7635/Milos Linux source mapping.
+ * Provider labels below are upstream Linux `milos` symbols. Do not mix in
+ * downstream `cliffs` numeric IDs; see
+ * docs/g2-provider-domain-decision-20260912.md.
  * This file deliberately does not claim that a complete G2 SoC DTS exists.
  */
 
@@ -38,7 +40,15 @@
 				 &cnoc_cfg SLAVE_SDCC_2 QCOM_ICC_TAG_ACTIVE_ONLY>;
 		interconnect-names = "sdhc-ddr", "cpu-sdhc";
 
-		iommus = <&apps_smmu 0x540 0>;
+		/*
+		 * G2 dump: iommus raw <0x12a 0x140 0x0>, phandle 0x12a =
+		 * /soc/apps-smmu@15000000. Upstream milos.dtsi uses 0x540 for
+		 * the same node; the G2 value is kept per the dumps-are-truth
+		 * rule. Unverified on hardware -- a wrong stream ID compiles
+		 * cleanly and fails as an SMMU fault on the first SDCC2 DMA.
+		 * See docs/g2-provider-domain-decision-20260912.md 4.1.
+		 */
+		iommus = <&apps_smmu 0x140 0>;
 		dma-coherent;
 
 		resets = <&gcc GCC_SDCC2_BCR>;

@@ -25,7 +25,15 @@
 			 &cnoc_cfg SLAVE_SDCC_2 QCOM_ICC_TAG_ACTIVE_ONLY>;
 	interconnect-names = "sdhc-ddr", "cpu-sdhc";
 
-	iommus = <&apps_smmu 0x540 0>;
+	/*
+	 * G2 dump: iommus raw <0x12a 0x140 0x0>, phandle 0x12a =
+	 * /soc/apps-smmu@15000000. Upstream milos.dtsi uses 0x540 for
+	 * the same node; the G2 value is kept per the dumps-are-truth
+	 * rule. Unverified on hardware -- a wrong stream ID compiles
+	 * cleanly and fails as an SMMU fault on the first SDCC2 DMA.
+	 * See docs/g2-provider-domain-decision-20260912.md 4.1.
+	 */
+	iommus = <&apps_smmu 0x140 0>;
 	resets = <&gcc GCC_SDCC2_BCR>;
 
 	bus-width = <4>;

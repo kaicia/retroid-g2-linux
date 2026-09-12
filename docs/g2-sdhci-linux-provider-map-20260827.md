@@ -1,6 +1,10 @@
 # G2 SDHCI Linux provider mapping
 
-Date: 2026-08-27
+Date: 2026-08-27. **Partially corrected 2026-09-12** — see
+`docs/g2-provider-domain-decision-20260912.md`, which supersedes this document
+wherever the two disagree. Two errors are corrected inline below and marked
+`[corrected 2026-09-12]`. The "SM7635" label used throughout is an inference;
+upstream calls the platform `milos`.
 
 ## Scope
 
@@ -49,7 +53,7 @@ The provider phandles already resolved from the physical G2 DT map as follows:
 
 | G2 physical phandle | Physical provider | Linux provider label | G2 SD path role |
 |---|---|---|---|
-| `0x1a2` | `qcom,cliffs-aggre1_noc` | `&aggre1_noc` | not used by the captured SDCC2 master path |
+| `0x1a2` | `qcom,cliffs-aggre1_noc` | `&aggre1_noc` | **[corrected 2026-09-12]** this *is* the SDCC2 master provider downstream (raw tuple `0x1a2 0x2f`). Upstream registers the master in `aggre2_noc` instead, so an upstream DTS still uses `&aggre2_noc`. |
 | `0x189` | `qcom,cliffs-mc_virt` | `&mc_virt` | SDCC2 destination memory side |
 | `0x1a3` | `qcom,cliffs-gem_noc` | `&gem_noc` | CPU/system side source |
 | `0x1a4` | `qcom,cliffs-cnoc_cfg` | `&cnoc_cfg` | SDCC2 configuration slave |
@@ -78,10 +82,22 @@ For the pocknix downstream SDHCI binding, the same topology is represented with 
 The SM7635 Linux Device Tree defines an `apps_smmu` at `0x15000000` with two IOMMU cells, and the upstream SDCC2 node uses:
 
 ```dts
-iommus = <&apps_smmu 0x540 0>;
+iommus = <&apps_smmu 0x540 0>;   /* upstream milos value */
 ```
 
-The physical G2 audit already identified `apps-smmu@15000000`, so the Linux provider label and the two-cell stream mapping are source-supported.
+**[corrected 2026-09-12]** `0x540` is the *upstream* stream ID and was wrongly
+recorded here as the G2 value. The G2 dump gives a different one:
+
+```
+/soc/sdhci@8804000/iommus = 0000012a 00000140 00000000
+phandle 0x12a -> /soc/apps-smmu@15000000
+```
+
+so the G2 stream ID is **`0x140`**. The provider label `&apps_smmu` and the
+two-cell form are source-supported; the stream number was not. Both values are
+in the same numbering space (the UFS controller reads `0x60` on the G2 dump and
+`0x60` upstream), so this is a genuine conflict to settle on hardware, not a
+naming difference.
 
 ## 5. PMXR2230 / PM7550 regulator mapping
 
@@ -124,7 +140,7 @@ Confirmed source-supported mappings:
 3. GCC SDCC2 reset -> `GCC_SDCC2_BCR` (20)
 4. SDCC2 interconnect topology -> aggre2/mc_virt and gem_noc/cnoc_cfg
 5. Interconnect endpoint IDs -> SDCC2 8, EBI1 1, APPSS_PROC 2, SDCC2 slave 20
-6. SMMU provider -> `&apps_smmu`, stream tuple `<0x540 0>`
+6. SMMU provider -> `&apps_smmu`; stream tuple `<0x140 0>` from the G2 dump (upstream milos uses `<0x540 0>` — unresolved, see the decision document)
 7. SD VDD provider -> `&vreg_l13b`
 8. SD VDD-IO provider -> `&vreg_l23b`
 9. SM7635 pinctrl provider -> `&tlmm`
