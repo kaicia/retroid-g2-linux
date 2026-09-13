@@ -21,7 +21,7 @@
 # On success both artifacts are committed and pushed to the branch currently
 # checked out in $REPO. It never switches branches and never force-pushes.
 set -u
-REPO="$HOME/retroid-g2-linux"
+REPO="${G2_REPO:-$HOME/retroid-g2-linux}"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 OUT="$REPO/dumps/g2/g2-consolidated-hardware-${STAMP}.txt"
 DTOUT="$REPO/dumps/g2/g2-devicetree-${STAMP}.tar.gz"
@@ -30,7 +30,25 @@ REMOTE_OUT="/data/local/tmp/g2-consolidated-${STAMP}.txt"
 REMOTE_DT="/data/local/tmp/g2-devicetree-${STAMP}.tar.gz"
 
 cd "$REPO" || { echo "ERROR: $REPO not found"; exit 1; }
-run_adb(){ ANDROID_NO_USE_FWMARK_CLIENT=1 fakeroot termux-adb "$@"; }
+
+# termux-adb (nohajc) reaches USB devices without root and is what the earlier
+# G2 dumps were collected with. Plain adb works too when the device is reachable
+# some other way (network adb, a rooted host, a PC).
+if command -v termux-adb >/dev/null 2>&1; then
+  if command -v fakeroot >/dev/null 2>&1; then
+    run_adb(){ ANDROID_NO_USE_FWMARK_CLIENT=1 fakeroot termux-adb "$@"; }
+  else
+    run_adb(){ ANDROID_NO_USE_FWMARK_CLIENT=1 termux-adb "$@"; }
+  fi
+  echo "==> adb: termux-adb"
+elif command -v adb >/dev/null 2>&1; then
+  run_adb(){ adb "$@"; }
+  echo "==> adb: adb"
+else
+  echo "ERROR: neither termux-adb nor adb found."
+  echo "       In Termux: pkg install android-tools   (or install termux-adb)"
+  exit 1
+fi
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
 if [ -z "$BRANCH" ] || [ "$BRANCH" = "HEAD" ]; then
