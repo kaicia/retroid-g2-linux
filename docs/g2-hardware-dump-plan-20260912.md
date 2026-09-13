@@ -17,8 +17,61 @@ representation of the DTB. Only that subtree is archived, never all of `/sys`.
 
 ## How to run it
 
-From Termux on the Galaxy S20 FE, with the G2 connected by USB and ADB
-authorized:
+From Termux on the phone the G2 is plugged into. One command sets everything
+up — no prior clone, no manual package installs:
+
+```sh
+pkg install -y curl
+curl -fsSLO https://raw.githubusercontent.com/kaicia/retroid-g2-linux/refs/heads/claude/content-analysis-04z778/scripts/termux-bootstrap.sh
+less termux-bootstrap.sh          # read it before running it
+bash termux-bootstrap.sh
+```
+
+Download and read, rather than piping straight into a shell. The repository is
+public, so no token is needed to fetch or clone; one is only needed to push.
+
+Once this branch is merged, swap `refs/heads/claude/content-analysis-04z778`
+for `refs/heads/main` and pass `G2_REF=main`.
+
+`scripts/termux-bootstrap.sh` then:
+
+1. checks it is really running under Termux;
+2. installs whatever is missing (`git`, `tar`, `curl`, `fakeroot`, and `adb` if
+   neither `termux-adb` nor `adb` is present);
+3. clones or updates `$HOME/retroid-g2-linux` and checks out the branch;
+4. refuses to continue on a dirty working tree — before the device is plugged
+   in, not after;
+5. asks for a git identity if none is set;
+6. waits up to ~60s for exactly one authorized ADB device, explaining what
+   `unauthorized` versus an empty list means;
+7. runs the collector, which commits and pushes.
+
+It is safe to re-run. Overridable: `G2_REF` (branch), `G2_REPO` (checkout path),
+`G2_REMOTE` (clone URL).
+
+### About the push credentials
+
+The bootstrap never handles your token. It enables git's credential store, and
+git itself prompts on the first push.
+
+- The password git asks for must be a **GitHub Personal Access Token**, not your
+  account password. A fine-grained token limited to `kaicia/retroid-g2-linux`
+  with *Contents: read and write* is enough.
+- That token is stored **in plain text** at `~/.git-credentials` on the phone.
+- If that is not acceptable, use SSH instead:
+  `G2_REMOTE=git@github.com:kaicia/retroid-g2-linux.git bash termux-bootstrap.sh`
+
+### ADB access
+
+`termux-adb` reaches USB devices without root and is what the earlier G2 dumps
+were collected with; it is not in the main Termux repository, so install it
+separately if you do not already have it. Plain `adb` also works when the device
+is reachable some other way. The scripts detect whichever is present.
+
+### Running the collector on its own
+
+If the phone is already set up, the bootstrap is optional — the collector runs
+standalone and does its own commit and push:
 
 ```sh
 cd ~/retroid-g2-linux
@@ -26,31 +79,14 @@ git checkout <the branch you want the dump on>
 bash scripts/run-g2-consolidated-hardware-dump-readonly-v2.sh
 ```
 
-The script refuses to run unless exactly one device is attached. It pushes a
-collector to `/data/local/tmp`, runs it, pulls the result back, deletes the temp
-files, then commits the dump and pushes it.
-
-Preconditions it enforces before touching the device, so the dump lands as a
-clean commit on the right branch:
-
-- a branch must be checked out (not detached HEAD);
-- the working tree must be clean;
-- `git pull --ff-only origin <branch>` must succeed.
-
-It commits to **whatever branch is currently checked out** — it never switches
-branches and never force-pushes. Push failures retry five times with exponential
-backoff (2s, 4s, 8s, 16s); if all fail the commit is still safe locally and the
-script prints the manual retry command.
-
-It also refuses to commit a dump that is empty or truncated: the collector writes
-`END schema=2` as its last line, and the wrapper checks for it.
-
 ### Safety
 
 Audited before commit: no `dd`, `mkfs`, `fastboot`, `parted`, `mount`,
-`setprop` or any other write; exactly one output redirection (the dump file);
-`/dev/block/` is only listed by name and existence-tested, never read. No flash,
-erase, format, repartition, slot, AVB or firmware operation.
+`setprop` or any other write. The collector writes exactly two things, both on
+the device's own `/data/local/tmp` and both removed afterwards: the text report
+and the device-tree tarball. `/dev/block/` is only listed by name and
+existence-tested, never read. No flash, erase, format, repartition, slot, AVB or
+firmware operation. Both scripts pass `shellcheck` at warning level.
 
 ## What each section answers
 
