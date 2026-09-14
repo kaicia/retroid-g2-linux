@@ -62,6 +62,13 @@ corrected.
 
 ## 3. Cliffs and Milos are closely related but NOT identical
 
+> **Superseded 2026-09-14.** The device dump settles this: they are *different
+> silicon*. Five fixed-silicon values disagree (SDCC2 and UART interrupt
+> numbers, SDCC2 and UART pin assignments, SDCC2 SMMU stream), and the interrupt
+> numbers are confirmed by the running vendor kernel. See
+> `docs/g2-dump-findings-20260914.md` §1. The address-map correspondence below
+> is real but is family resemblance, not identity.
+
 Previously asserted without evidence. Now established by address-level
 correspondence between the G2 dumps and upstream `milos.dtsi`:
 
@@ -110,7 +117,13 @@ These are the SDCC2 values where the G2 vendor DT and upstream milos
 disagree. Since §3 establishes a shared base design, each is either a real
 part-to-part difference or an error on one side.
 
-### 4.1 SMMU stream ID (high risk)
+### 4.1 SMMU stream ID (high risk) — RESOLVED 2026-09-14
+
+Closed in favour of the G2 value. `/sys/class/iommu/smmu.0x0000000015000000/`
+lists `8804000.sdhci`, so the vendor kernel attached SDCC2 through apps_smmu with
+`0x140` and the card enumerates. `0x140` is proven on this silicon; the candidate
+DTS and the validator already use it.
+
 
 | Source | Value |
 |---|---|
@@ -127,7 +140,12 @@ The G2 value `0x140` is now used in the candidate fragments. A wrong stream ID
 does not fail to compile — it fails at runtime as an SMMU translation fault on
 the first SDCC2 DMA, so this must be confirmed on hardware.
 
-### 4.2 SDCC2 interrupts
+### 4.2 SDCC2 interrupts — RESOLVED 2026-09-14
+
+Closed in favour of the G2 values. `/proc/interrupts` on the device shows
+`GICv3 239` for `mmc1` and `GICv3 255` for `8804000.sdhci`; Linux prints SPI
+hwirq as SPI + 32, so those are SPI 207 and SPI 223 exactly as the DT declares.
+
 
 | Source | hc_irq | pwr_irq |
 |---|---|---|

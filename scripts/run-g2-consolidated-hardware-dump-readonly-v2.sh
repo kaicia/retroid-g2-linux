@@ -117,10 +117,28 @@ resolve(){
     [ "$(hex "$p")" = "$v" ] && { dirname "$p"; break; }
   done
 }
+# A phandle-list property (pinctrl-0, clocks, ...) holds several 4-byte cells;
+# hex() returns them concatenated. Split into 8-hex-digit cells so each can be
+# resolved separately.
+cells(){
+  h="$1"
+  while [ -n "$h" ]; do
+    echo "$h" | cut -c1-8
+    h=$(echo "$h" | cut -c9-)
+  done
+}
+resolve_all(){
+  for c in $(cells "$1"); do
+    [ -n "$c" ] || continue
+    D=$(resolve "$c")
+    echo ">>> phandle $c -> $D"
+    [ -n "$D" ] && tree_props "$D"
+  done
+}
 
 echo "G2 CONSOLIDATED READ-ONLY HARDWARE DUMP"
 echo "date=$(date)"
-echo "schema=2"
+echo "schema=3"
 echo "devicetree_archive=$(basename "$DT")"
 echo "id=$(getprop ro.product.model) / $(getprop ro.product.device)"
 
@@ -175,12 +193,8 @@ sub "B1 full SDHCI node"
 props "$SD"
 
 sub "B2 pinctrl states behind pinctrl-0 / pinctrl-1"
-for ph in $(hex $SD/pinctrl-0) $(hex $SD/pinctrl-1); do
-  [ -n "$ph" ] || continue
-  D=$(resolve "$ph")
-  echo ">>> phandle $ph -> $D"
-  [ -n "$D" ] && tree_props "$D"
-done
+resolve_all "$(hex $SD/pinctrl-0)"
+resolve_all "$(hex $SD/pinctrl-1)"
 
 sub "B3 card-detect and debounce"
 echo "cd-gpios             = $(hex $SD/cd-gpios)"
@@ -238,12 +252,8 @@ for d in \
 done
 echo "--- resolve that uart's pinctrl phandles ---"
 U="$BASE/soc/qcom,qupv3_0_geni_se@ac0000/qcom,qup_uart@a94000"
-for ph in $(hex $U/pinctrl-0) $(hex $U/pinctrl-1); do
-  [ -n "$ph" ] || continue
-  D=$(resolve "$ph")
-  echo ">>> phandle $ph -> $D"
-  [ -n "$D" ] && tree_props "$D"
-done
+resolve_all "$(hex $U/pinctrl-0)"
+resolve_all "$(hex $U/pinctrl-1)"
 echo "--- any other geni uart nodes ---"
 find "$BASE/soc" -maxdepth 2 -type d -name "*uart*" 2>/dev/null
 
@@ -366,7 +376,7 @@ sec "SAFETY"
 echo "READ-ONLY audit only."
 echo "No block-device content was read; partitions listed by name only."
 echo "No flash, erase, format, repartition, slot, AVB or firmware operation."
-echo "END schema=2"
+echo "END schema=3"
 EOF
 
 echo "==> pushing collector to device"
@@ -389,7 +399,7 @@ if [ ! -s "$OUT" ]; then
   echo "ERROR: report is empty; nothing will be committed."
   exit 1
 fi
-if ! grep -q "END schema=2" "$OUT"; then
+if ! grep -q "END schema=3" "$OUT"; then
   echo "ERROR: report is truncated (no end marker); nothing will be committed."
   echo "       Kept for inspection: $OUT"
   exit 1

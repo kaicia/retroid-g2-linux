@@ -97,12 +97,15 @@ risks are in `docs/g2-dtb-compile-result-20260912.md`. The `g2-sdhci-linux-dtc`
 workflow now pins the kernel revision, closing the reproducibility defect noted
 in §5.
 
-### 6.3 Describe the G2 TLMM (new, now the largest SD-path blocker)
+### 6.3 Decide whether to write a Cliffs SoC description (largest open question)
 
-Upstream has no Cliffs pinctrl driver, and `pinctrl-milos.c` cannot mux the G2's
-SDCC2 cmd/data pins — see `docs/g2-provider-domain-decision-20260912.md` §4.3.
-Either verify that the milos pin map applies to the G2 or write a Cliffs one.
-Until this is settled the card cannot work, whatever the DTS says.
+Upstream has no Cliffs support of any kind. The 2026-09-14 dump showed the G2
+differs from upstream `milos` in every fixed-silicon ID space checked —
+interrupts, pin map, SMMU stream — so treating `milos.dtsi` as the SoC base means
+overriding essentially all of it. Writing a Cliffs SoC DTSI and pinctrl driver is
+now the honest path, and it is substantially more work than the roadmap assumed.
+This should be decided explicitly rather than drifted into; see
+`docs/g2-dump-findings-20260914.md` §1.
 
 Related and still open: the G2's PMXR2230 LDO13/LDO23 rails have no upstream
 description, so the compile candidate currently has no `vmmc-supply` /
@@ -115,13 +118,19 @@ upstream `qcom,milos-sdhci` driver, the pocknix downstream SDHCI driver, and a
 hybrid kernel unresolved. The compile candidate takes the upstream path; the
 downstream comparison has not been built.
 
-### 6.4 Collect the consolidated hardware dump
+### 6.4 Collect the consolidated hardware dump — DONE 2026-09-14
 
 `docs/g2-hardware-dump-plan-20260912.md` plus
 `scripts/run-g2-consolidated-hardware-dump-readonly-v2.sh` gather every
 outstanding device-side fact in one read-only session, and archive the **entire**
 device tree so later DT questions never need the device again. Requires physical
 access to the G2; nothing else in this list does.
+
+Collected: `dumps/g2/g2-consolidated-hardware-20260914-222623.txt` plus the full
+device-tree archive (4015 nodes). Analysis in
+`docs/g2-dump-findings-20260914.md`. It closed decision-doc §4.1 and §4.2 in
+favour of the G2 values, and established that Cliffs is different silicon from
+upstream `milos` — which makes §6.3 bigger than previously framed.
 
 ### 6.4b Choose a console channel before any boot attempt
 

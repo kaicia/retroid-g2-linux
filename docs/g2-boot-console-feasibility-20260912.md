@@ -93,6 +93,12 @@ rather than software investigation.
 
 ### ramoops
 
+> **Corrected 2026-09-14.** The region turned out to have no fixed `reg` — it is
+> dynamically allocated, so its address differs per boot and an Android-side
+> readback of *our* kernel's log does not work without extra machinery. This
+> section overstated it; see `docs/g2-dump-findings-20260914.md` §4. It is now
+> ranked third, not first.
+
 `reserved-memory` contains a `ramoops_region` with `compatible`, `size`,
 `pmsg-size`, `mem-type` and `alloc-ranges` properties. Upstream carries
 `fs/pstore/ram.c`, and a `ramoops` reserved-memory node is an established
@@ -136,11 +142,13 @@ is not wired for the user.
 
 ## 6. Console strategy, ranked
 
+Revised after the 2026-09-14 dump:
+
 | | Channel | Driver work | Blocked on |
 |---|---|---|---|
-| 1 | `earlycon` on `serial@a94000` | none — upstream already has it | physical access to the UART lines |
-| 2 | ramoops readback from Android | none — `fs/pstore/ram.c` in tree | region address/size from a dump |
-| 3 | `simple-framebuffer` on the splash region | none — `simpledrm` in tree | splash address, panel geometry, pixel format |
+| 1 | `earlycon` on `serial@a94000` (SPI 358, TX gpio22 / RX gpio23, already `status = "ok"`) | none | physical access to the UART lines |
+| 2 | `simple-framebuffer` at `0xE3940000` (45 MB region; panel 1080x1920, 24 bpp) | none — `simpledrm` in tree | pixel format and stride |
+| 3 | ramoops readback from Android | none, but the region is dynamically allocated | needs both kernels pinned to one fixed address plus raw-memory access |
 | 4 | USB gadget serial | moderate | only works late in boot; useless for early hangs |
 
 Options 1–3 all require zero new driver code. Option 2 is the one that needs
