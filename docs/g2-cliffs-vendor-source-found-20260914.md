@@ -149,14 +149,15 @@ is indistinguishable from a nonexistent repository, which is why every probe
 failed. The project actually lives at **`armada-os/armada`** and is public;
 pinned `f7eef8886d69af69fa5e9af015d7919a188aaacc`.
 
-Reading it confirmed, from its own source, what had until then only been
-inferred: Armada's installation **requires flashing the bootloader** (an `abl/`
-directory of flash/backup/restore scripts and a table of ROCKNIX ABL image
-hashes), on all four SoCs it supports — SM8250, SM8550, SM8650, SM8750. Cliffs is
-not among them.
+Armada's OS runs from the microSD card with Android intact. Installation first
+swaps the bootloader — `dd` of a ROCKNIX-ABL image over `abl_a`/`abl_b`, 258 KiB
+each, backed up and restorable — on all four SoCs it supports (SM8250, SM8550,
+SM8650, SM8750; Cliffs is not among them).
 
-That makes the roadmap's Armada citation wrong in substance, not merely
-unverifiable. Details in `docs/g2-reference-projects-review-20260914.md` §2.
+So the roadmap's specific claim that Armada avoids an ABL flash is wrong, while
+its broader premise — reversible SD-booting Linux beside Android — is exactly
+what Armada demonstrates. Both candidate paths for the G2 are set out in
+`docs/g2-reference-projects-review-20260914.md` §2b.
 
 ## 7. Next
 

@@ -8,12 +8,18 @@
 >    says the RP6 uses `qcom-abl` and expects a **ROCKNIX-flashed ABL**. It is the
 >    **RP5** (`devices/sm8250/profile.conf`, `arm-efi`) that boots off the factory
 >    bootloader. The precedent this project depends on is real, but it is the RP5's.
-> 2. Armada was read directly (`armada-os/armada`, public). Its installation
->    **requires flashing the bootloader** on every device it supports — an `abl/`
->    directory of flash/backup/restore scripts and ROCKNIX ABL images. The claim
->    below that Armada documents a path "explicitly avoiding an ABL flash" is the
->    opposite of what Armada does. It is a counter-example for this project, not
->    a precedent, and both issue citations should be disregarded.
+>  2. Armada was read directly (`armada-os/armada`, public). Its OS boots from the
+>    microSD card with Android intact, but installation first swaps the bootloader:
+>    `dd` of a ROCKNIX-ABL image over `abl_a` and `abl_b`, 258 KiB each, backed up
+>    and restorable. So the claim below that Armada avoids an ABL flash is wrong,
+>    while the broader point — that a reversible SD-booting Linux alongside Android
+>    is achievable — is right and is demonstrated daily by Armada, ROCKNIX,
+>    Batocera, Knulli and others on ROCKNIX-ABL.
+>
+>    This puts a real question to the "no ABL modification" rule below: the
+>    ecosystem's standard route is a reversible 258 KiB bootloader swap that leaves
+>    Android bootable. Whether that is acceptable here is the project owner's call;
+>    see `docs/g2-reference-projects-review-20260914.md` §2b for both paths.
 >
 > Also: the pocknix/ROCKNIX "iterative bring-up" method adopted below assumes an
 > upstream SoC base exists — both its SoCs (SM8550, SM8250) are fully supported

@@ -61,39 +61,73 @@ the project.
 Armada's actual home is `armada-os/armada`, and it is public. It clones
 anonymously through the same proxy as everything else.
 
-### What Armada actually does — and it refutes the roadmap citation directly
+### What Armada actually does — corrected again, 2026-09-14
 
-Its own README, first warning:
+An earlier revision of this section called Armada a "counter-example" that
+"writes to internal storage". That conflated two separate things and was
+misleading. The accurate picture:
 
-> Armada is prototype software under active development. **Installation requires
-> bootloader changes that can brick a device**, corrupt partitions, or cause data
-> loss.
+**The operating system lives on, and boots from, the microSD card.** Armada's own
+README lists "SD-card boot with optional internal-storage installation". People
+run it from SD; that is the normal configuration, not an edge case.
 
-The repository carries an `abl/` directory holding `flash_abl.sh.template`,
-`backup_abl.sh.template`, `restore_backup_abl.sh.template`, and `releases.tsv` —
-a table of SHA-256 sums for ROCKNIX ABL images across eight versions. `abl/README`
-is explicit about the procedure: copy `rocknix_abl` to Android internal storage,
-run `backup_abl.sh`, run `flash_abl.sh`, reboot holding VOL− into the new ABL menu
-and toggle boot mode to Linux. The ABL images come from `ROCKNIX/abl`, GPL-2.0.
+**Installation additionally requires a one-time bootloader swap.** From the
+`abl/` directory, the entire write is:
 
-So `docs/development-roadmap-20260822.md`'s claim —
+```sh
+dd if=.../abl_signed-%DEVICE%.elf of=/dev/block/by-name/abl_a bs=1M
+dd if=.../abl_signed-%DEVICE%.elf of=/dev/block/by-name/abl_b bs=1M
+```
 
-> Armada issue #155 documents a verified RP6 path through stock UEFI + removable
-> SD, **explicitly avoiding an ABL flash**.
+Two partitions, 258 KiB each per `abl/releases.tsv`. Nothing else on internal
+storage is touched — not `boot`, not `system`, not `userdata`, not `vbmeta`. A
+`backup_abl.sh` dumps the originals first and `restore_backup_abl.sh` writes them
+back, so the change is reversible with the backup in hand.
 
-— is the opposite of what Armada does. Flashing the bootloader is its entire
-installation model, on every device it supports. This is now confirmed from
-Armada's own source rather than inferred from pocknix's profiles.
+**Android survives and stays selectable.** The replacement is ROCKNIX-ABL
+(`github.com/ROCKNIX/abl`, public), a custom Qualcomm ABL whose stated purpose is
+"making Linux the primary boot target **while retaining the ability to boot
+Android** whenever needed". It boots Linux from internal storage, SD card or USB,
+needs no GRUB or U-Boot, has a configurable default boot target and a
+Volume-Up-at-startup override, and is used by ROCKNIX, Batocera, Knulli, Armada,
+Thorch, MaSi-OS and NovaDeck.
 
-Armada's supported SoCs are SM8250, SM8550, SM8650 and SM8750 (`abl/README`).
-Cliffs is not among them, and could not be without the SoC port this project is
-sizing separately.
+So Armada is not a counter-example. It is a working, widely-used instance of
+exactly what this project wants — Android intact, OS on removable media — reached
+by a route this project's rules currently forbid.
 
-### Consequence
+### The roadmap citation is still wrong, but for a narrower reason
 
-Armada is a **counter-example** for this project, not a precedent. Its approach
-writes to internal storage, which the G2 project forbids. The reversible path
-remains pocknix's RP5 `arm-efi` contract in §3 — factory ABL, no flash.
+`docs/development-roadmap-20260822.md` credits Armada with a path "explicitly
+avoiding an ABL flash". Armada does flash the ABL; that specific claim does not
+hold. What is true, and what the citation was probably reaching for, is that
+Armada achieves a reversible SD-booting Linux with Android preserved.
+
+## 2b. Two candidate boot paths for the G2
+
+Both are legitimate and they trade off differently. This is a decision for the
+project owner, not a technical conclusion.
+
+| | A — factory ABL + EFI | B — ROCKNIX-ABL swap |
+|---|---|---|
+| Precedent | pocknix RP5 (`arm-efi`) | Armada, ROCKNIX, Batocera, Knulli, Thorch, … |
+| Internal writes | **none** | `abl_a` + `abl_b`, 258 KiB each, backed up and restorable |
+| Mechanism | firmware runs `\EFI\BOOT\BOOTAA64.EFI` from the SD card's ESP; GRUB supplies kernel + DTB | purpose-built dual-boot bootloader with a boot-source menu |
+| Android | untouched | untouched; selectable from the ABL menu |
+| Status for the G2 | **unverified** — needs the G2's factory ABL to run the removable-media fallback | **blocked** — ROCKNIX-ABL must be built per device and no Cliffs build exists |
+| Project rules | allowed | forbidden by the current "no ABL modification" rule |
+
+Path B is how essentially the whole handheld Linux ecosystem does this, and its
+risk profile is milder than the project's rules imply. But it is not available
+today: `ROCKNIX/abl` publishes a README and an updater, not buildable ABL source,
+and its own warning is to "verify the ABL is built for your specific device".
+A Cliffs ABL would have to be produced by ROCKNIX or by someone with that
+toolchain — a third-party dependency, not something this project can resolve
+alone.
+
+Path A remains the one this project can pursue unilaterally, and the G2's
+unlocked bootloader plus `uefi_a`/`uefi_b`/`uefivarstore` partitions make it
+plausible. It is still unverified.
 
 ## 3. The precedent does not transfer — but a different one does
 
@@ -198,6 +232,8 @@ copying that approach.
 - Vendor-source check: **resolved** — found on GitHub, not CodeLinaro
   (`docs/g2-cliffs-vendor-source-found-20260914.md`).
 - pocknix: read, and it reframes the project — see §3.
-- Armada: **read** at `armada-os/armada`. It requires flashing the bootloader on
-  every device it supports, which makes it a counter-example for this project
-  rather than the precedent the roadmap cited (§2).
+- Armada: **read** at `armada-os/armada`. Its OS runs from the microSD card with
+  Android intact — a working instance of this project's goal — reached via a
+  one-time, reversible 258 KiB ABL swap that the project's current rules forbid.
+  Two candidate boot paths for the G2 are set out in §2b; choosing between them
+  is a decision for the project owner.
