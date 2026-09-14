@@ -141,6 +141,15 @@ device-tree archive (4015 nodes). Analysis in
 favour of the G2 values, and established that Cliffs is different silicon from
 upstream `milos` — which makes §6.3 bigger than previously framed.
 
+### 6.4a Boot path — DECIDED 2026-09-14: A now, B deferred
+
+Path A (factory ABL + the EFI removable-media fallback, pocknix's RP5 route, no
+internal writes) is the project's path. Path B (the ROCKNIX-ABL swap that Armada
+and most of the ecosystem use — 258 KiB, reversible, Android preserved) is
+**deferred, not rejected**: revisit once A is either working or shown impossible.
+B also cannot be started unilaterally, since no Cliffs ABL exists and
+`ROCKNIX/abl` publishes no buildable source. `docs/g2-decisions-20260914.md` §1.
+
 ### 6.4b Choose a console channel before any boot attempt
 
 `docs/g2-boot-console-feasibility-20260912.md` settled most of this build-side:

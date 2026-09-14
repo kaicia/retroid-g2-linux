@@ -93,6 +93,14 @@ model         = Qualcomm Technologies, Inc. Cliffs MTP
 Firmware CRM strings name **LANAI** (boot, TZ, DSP) and **PALAWAN**
 (`Variant: SocPalawanLAA`, WLAN `QCALAMSLPALAWANQ`).
 
+> **Correction 2026-09-14.** SoC ID 700 is *not* "CLIFFS" in Qualcomm's own
+> socinfo table — that is 614, with CLIFFSP 642 — and 700 is absent even from the
+> newest vendor table reachable (to 702). The G2 is a newer derivative in the
+> Cliffs family running Cliffs platform code, and its marketing part number is
+> unknown. Any `SM7675` / `Snapdragon 7+ Gen 3` mapping mentioned elsewhere in
+> this repository is **retracted**: it came from a search summary and does not
+> apply to SoC ID 700. See `docs/g2-decisions-20260914.md` §2.
+
 `qcom,msm-id` and `qcom,board-id` are what the bootloader matches a DTB against,
 so these are the values a G2 DTB must carry to be accepted.
 

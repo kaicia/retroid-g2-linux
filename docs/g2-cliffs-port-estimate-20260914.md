@@ -6,6 +6,13 @@ structural analogue.
 
 ## 0. First, the identity question is now closed
 
+> **Refined 2026-09-14.** "Not milos" still holds. But the G2 is also not
+> "CLIFFS" in the SoC-ID sense (that is 614; the G2 is 700 / `SGP_LAMMA`) — it is
+> a newer derivative running Cliffs platform code, and the Cliffs drivers are
+> verified to fit everything its device tree touches. Its marketing part number
+> is unknown; any SM7675 mapping here is retracted.
+> See `docs/g2-decisions-20260914.md` §2.
+
 The CPU complex ends the argument. ARM part numbers from `/proc/cpuinfo`
 (implementer 0x41):
 
