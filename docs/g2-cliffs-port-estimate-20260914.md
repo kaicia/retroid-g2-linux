@@ -39,7 +39,23 @@ It does **not** contain the **driver data tables**, which live in `.c` files:
 A device tree tells you a device uses `<&gcc 75>`. It never tells you what clock
 75 *is*. That data cannot be derived from our dump at any level of effort.
 
-### So the estimate forks on one question
+### RESOLVED 2026-09-14 — the source exists
+
+Found in `MiCode/Xiaomi_Kernel_OpenSource`, branch `peridot-u-oss`, GPL-2.0,
+and verified against the G2's own device tree three independent ways (clock IDs,
+interconnect IDs, pin map). See
+`docs/g2-cliffs-vendor-source-found-20260914.md`.
+
+Real sizes, replacing the milos proxies below: `gcc-cliffs.c` 3207 lines,
+`pinctrl-cliffs.c` 2305, `drivers/interconnect/qcom/cliffs.c` 3054 — 8566 for the
+three core drivers, about a third more than proxied. The 7000-9000 line figure
+for reaching SD boot still holds roughly; what changes is that the work is
+adapting existing GPL source rather than reverse-engineering, so Tiers 1-3 are
+tractable.
+
+The original framing is kept below for the record.
+
+### So the estimate forked on one question
 
 The G2 runs Android Common Kernel `6.1.115-android14-11` with Cliffs support as
 loadable vendor modules: `gcc_cliffs`, `pinctrl_cliffs`, `qnoc_cliffs`,
@@ -47,9 +63,8 @@ loadable vendor modules: `gcc_cliffs`, `pinctrl_cliffs`, `qnoc_cliffs`,
 drivers are GPL, so their source should be published — Qualcomm's usual host is
 CodeLinaro (`git.codelinaro.org`, `clo/la/kernel/msm-6.1`).
 
-**I could not verify this from here** — the session's proxy cannot reach
-CodeLinaro (connection fails, not a 404). Checking it from any browser is the
-single highest-value next action, because:
+CodeLinaro itself is refused by this session's egress policy. The source was
+found on GitHub instead (see above). The fork mattered because:
 
 - **source available** → porting is mechanical table translation. Large, tedious,
   well-trodden; this is exactly what mainline SoC enablement normally is.

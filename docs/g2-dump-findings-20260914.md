@@ -7,6 +7,12 @@ collected read-only from the device.
 Headline: **Cliffs is not the same silicon as upstream `milos`.** Section 1 is
 the evidence, and it changes the port's shape.
 
+> **Confirmed and named, later the same day.** Qualcomm's Cliffs source was
+> located (GPL, on GitHub) and every value derived below matches it exactly —
+> see `docs/g2-cliffs-vendor-source-found-20260914.md`. That document also
+> corrects this repository's long-standing SoC label: **SM7635 is Milos**, the
+> Fairphone 6 part, not the G2's. The G2 is Cliffs.
+
 ## 1. Cliffs ≠ Milos — now settled by hardware values
 
 `docs/g2-provider-domain-decision-20260912.md` §3 argued from matching register

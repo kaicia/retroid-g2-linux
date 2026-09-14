@@ -108,11 +108,11 @@ This should be decided explicitly rather than drifted into; see
 `docs/g2-dump-findings-20260914.md` §1 and the sizing in
 `docs/g2-cliffs-port-estimate-20260914.md`.
 
-Two things gate it. First, **verify that Qualcomm's Cliffs vendor source is
-published** (CodeLinaro `clo/la/kernel/msm-6.1`) — clock/pinctrl/interconnect
-data tables cannot be derived from a device tree, so their availability decides
-whether the port is tractable at all. Second, **Tier 0 is worth doing either
-way**: a first kernel log needs a minimal DTSI and no Cliffs driver code,
+The first gate is now cleared: Qualcomm's Cliffs source **is** published, GPL,
+and verified as this SoC's — `docs/g2-cliffs-vendor-source-found-20260914.md`.
+The driver port is adaptation of existing source, not reverse-engineering. What
+remains is the decision to commit to it, with real sizes in hand (8566 lines
+across the three core drivers). Second, **Tier 0 is worth doing either way**: a first kernel log needs a minimal DTSI and no Cliffs driver code,
 because earlycon writes MMIO directly and the firmware has already set up the
 UART.
 
