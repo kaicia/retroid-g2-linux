@@ -105,7 +105,16 @@ interrupts, pin map, SMMU stream — so treating `milos.dtsi` as the SoC base me
 overriding essentially all of it. Writing a Cliffs SoC DTSI and pinctrl driver is
 now the honest path, and it is substantially more work than the roadmap assumed.
 This should be decided explicitly rather than drifted into; see
-`docs/g2-dump-findings-20260914.md` §1.
+`docs/g2-dump-findings-20260914.md` §1 and the sizing in
+`docs/g2-cliffs-port-estimate-20260914.md`.
+
+Two things gate it. First, **verify that Qualcomm's Cliffs vendor source is
+published** (CodeLinaro `clo/la/kernel/msm-6.1`) — clock/pinctrl/interconnect
+data tables cannot be derived from a device tree, so their availability decides
+whether the port is tractable at all. Second, **Tier 0 is worth doing either
+way**: a first kernel log needs a minimal DTSI and no Cliffs driver code,
+because earlycon writes MMIO directly and the firmware has already set up the
+UART.
 
 Related and still open: the G2's PMXR2230 LDO13/LDO23 rails have no upstream
 description, so the compile candidate currently has no `vmmc-supply` /

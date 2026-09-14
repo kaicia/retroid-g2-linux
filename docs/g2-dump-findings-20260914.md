@@ -17,7 +17,14 @@ The distinction that matters: some ID spaces are **software convention** (a
 driver picks its own indices) and some are **fixed silicon**. Only the second
 kind is evidence.
 
-### Fixed-silicon values that differ
+### The CPU complex settles it outright
+
+ARM part numbers from `/proc/cpuinfo` (implementer 0x41): the G2 has
+3× Cortex-A520 (`0xd80`), 4× Cortex-A720 (`0xd81`) and 1× **Cortex-X4**
+(`0xd82`) across three clusters. Upstream milos has 4× A520 + 4× A720 in two
+clusters and no X4 at all. Core composition cannot vary within one die.
+
+### Other fixed-silicon values that differ
 
 | | G2 / Cliffs | upstream milos |
 |---|---|---|
@@ -185,7 +192,9 @@ SDHCI node.
 1. Physical access to gpio22/23 — inspection, not software.
 2. Pixel format and stride of the splash buffer.
 3. Whether to write a Cliffs SoC DTSI and pinctrl driver, or to keep overriding
-   milos. §1 argues the first is now the honest path; that is a much larger piece
-   of work than the roadmap assumed and should be decided explicitly.
+   milos. §1 argues the first is now the honest path. Sized in
+   `docs/g2-cliffs-port-estimate-20260914.md`: roughly 7000–9000 lines of
+   Cliffs-specific driver data to reach SD boot, contingent on Qualcomm's vendor
+   source being published — which is the one thing that still needs checking.
 4. PMXR2230 LDO13/LDO23 rail description, still needed before the card can be
    powered.
