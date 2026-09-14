@@ -8,8 +8,12 @@
 >    says the RP6 uses `qcom-abl` and expects a **ROCKNIX-flashed ABL**. It is the
 >    **RP5** (`devices/sm8250/profile.conf`, `arm-efi`) that boots off the factory
 >    bootloader. The precedent this project depends on is real, but it is the RP5's.
-> 2. Both Armada issue citations (#1, #155) are in a **private** repository and
->    cannot be verified. Treat them as unverified.
+> 2. Armada was read directly (`armada-os/armada`, public). Its installation
+>    **requires flashing the bootloader** on every device it supports — an `abl/`
+>    directory of flash/backup/restore scripts and ROCKNIX ABL images. The claim
+>    below that Armada documents a path "explicitly avoiding an ABL flash" is the
+>    opposite of what Armada does. It is a counter-example for this project, not
+>    a precedent, and both issue citations should be disregarded.
 >
 > Also: the pocknix/ROCKNIX "iterative bring-up" method adopted below assumes an
 > upstream SoC base exists — both its SoCs (SM8550, SM8250) are fully supported

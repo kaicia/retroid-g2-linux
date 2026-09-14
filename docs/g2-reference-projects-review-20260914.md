@@ -4,7 +4,11 @@ Two tasks: verify that Qualcomm's Cliffs vendor source is published, and study
 pocknix and Armada as references. The second went well. The first is **blocked**
 and is reported as blocked, not as done.
 
-## 1. Vendor-source check — BLOCKED, needs a browser
+## 1. Vendor-source check — RESOLVED later the same day
+
+> This section is kept for the record. It was written while CodeLinaro looked
+> like a dead end; the source was afterwards found on GitHub instead. See
+> `docs/g2-cliffs-vendor-source-found-20260914.md`.
 
 `git.codelinaro.org` is **unreachable from this session** — the connection
 fails outright (not a 404, not an auth error). `git.kernel.org` is likewise
@@ -40,34 +44,56 @@ to before it is answered.
 | | Repo | State |
 |---|---|---|
 | pocknix | `shuuri-labs/pocknix-os` | public, cloned and read |
-| Armada | `shuuri-labs/armada` | **private** — anonymous clone is refused and this session cannot attach a cross-owner repo |
+| Armada | **`armada-os/armada`** | **public, cloned and read** — pinned `f7eef8886d69af69fa5e9af015d7919a188aaacc` |
 
-Armada could not be read. Everything below about it comes from pocknix's own
-references to it.
+### Correction — an earlier revision of this document had Armada wrong
 
-### This invalidates two of this repository's citations
+It said Armada was private and unreadable. That was wrong, and the error was in
+the *address*, not the access. pocknix's README links
+`https://github.com/shuuri-labs/armada`, which is a stale link — that path
+behaves byte-identically to a repository that does not exist (git asks for
+credentials, `raw.githubusercontent.com` returns 404 for every branch tried,
+exactly as for a name invented at random). GitHub deliberately makes private and
+absent repositories indistinguishable to unauthenticated clients, so "not
+readable" was a correct observation about that URL and a wrong conclusion about
+the project.
 
-`docs/development-roadmap-20260822.md` cites "Armada issue #1" and "Armada issue
-#155" as evidence. Those issues are in a **private repository**, so the
-automated loop that wrote that document could not have read them either. Treat
-both citations as unverified.
+Armada's actual home is `armada-os/armada`, and it is public. It clones
+anonymously through the same proxy as everything else.
 
-The #155 claim is worse than unverified — pocknix's own device profile
-contradicts it. The roadmap says:
+### What Armada actually does — and it refutes the roadmap citation directly
 
-> Armada issue #155 documents a verified **RP6** path through stock UEFI +
-> removable SD, explicitly avoiding an ABL flash.
+Its own README, first warning:
 
-But `devices/sm8550/profile.conf` (RP6) reads:
+> Armada is prototype software under active development. **Installation requires
+> bootloader changes that can brick a device**, corrupt partitions, or cause data
+> loss.
 
-```
-# --- qcom-abl boot contract (what the ROCKNIX-flashed ABL expects) ---
-: "${BOOTLOADER:=qcom-abl}"
-```
+The repository carries an `abl/` directory holding `flash_abl.sh.template`,
+`backup_abl.sh.template`, `restore_backup_abl.sh.template`, and `releases.tsv` —
+a table of SHA-256 sums for ROCKNIX ABL images across eight versions. `abl/README`
+is explicit about the procedure: copy `rocknix_abl` to Android internal storage,
+run `backup_abl.sh`, run `flash_abl.sh`, reboot holding VOL− into the new ABL menu
+and toggle boot mode to Linux. The ABL images come from `ROCKNIX/abl`, GPL-2.0.
 
-RP6 requires a **flashed** ABL. It is the **RP5** that boots off the factory
-bootloader. The roadmap attributed the stock-bootloader path to the wrong
-device, and it is the one precedent this project most depends on.
+So `docs/development-roadmap-20260822.md`'s claim —
+
+> Armada issue #155 documents a verified RP6 path through stock UEFI + removable
+> SD, **explicitly avoiding an ABL flash**.
+
+— is the opposite of what Armada does. Flashing the bootloader is its entire
+installation model, on every device it supports. This is now confirmed from
+Armada's own source rather than inferred from pocknix's profiles.
+
+Armada's supported SoCs are SM8250, SM8550, SM8650 and SM8750 (`abl/README`).
+Cliffs is not among them, and could not be without the SoC port this project is
+sizing separately.
+
+### Consequence
+
+Armada is a **counter-example** for this project, not a precedent. Its approach
+writes to internal storage, which the G2 project forbids. The reversible path
+remains pocknix's RP5 `arm-efi` contract in §3 — factory ABL, no flash.
 
 ## 3. The precedent does not transfer — but a different one does
 
@@ -169,7 +195,9 @@ copying that approach.
 
 ## 5. Status
 
-- Vendor-source check: **blocked**, needs a browser (§1).
+- Vendor-source check: **resolved** — found on GitHub, not CodeLinaro
+  (`docs/g2-cliffs-vendor-source-found-20260914.md`).
 - pocknix: read, and it reframes the project — see §3.
-- Armada: private, unreadable; two of this repository's citations rest on it and
-  one of them is contradicted by pocknix (§2).
+- Armada: **read** at `armada-os/armada`. It requires flashing the bootloader on
+  every device it supports, which makes it a counter-example for this project
+  rather than the precedent the roadmap cited (§2).

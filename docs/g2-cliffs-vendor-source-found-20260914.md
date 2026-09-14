@@ -141,19 +141,22 @@ return 403), and GitHub's web search was rate-limited, so the twelve Cliffs
 branches were found by probing all 264 branches of
 `MiCode/Xiaomi_Kernel_OpenSource` for the header path directly.
 
-## 6. Armada — verified private, not retrievable
+## 6. Armada — found after all, at a different address
 
-`shuuri-labs/armada` asks for credentials on an anonymous clone while
-`shuuri-labs/pocknix-os`, `qualcomm-linux/kernel`, `RetroidPocket/linux`,
-`MiCode/Xiaomi_Kernel_OpenSource` and `CodeLinaro-mirror/la_kernel_msm` all clone
-anonymously through the same proxy. It is a private repository, and `add_repo`
-cannot attach it (cross-owner adds are refused in this session).
+An earlier claim in this document, that Armada was private and unreadable, was
+wrong. `shuuri-labs/armada` — the link in pocknix's README — is a stale path that
+is indistinguishable from a nonexistent repository, which is why every probe
+failed. The project actually lives at **`armada-os/armada`** and is public;
+pinned `f7eef8886d69af69fa5e9af015d7919a188aaacc`.
 
-It is therefore not readable by any legitimate means available here. The two
-Armada citations in `docs/development-roadmap-20260822.md` remain unverifiable —
-and one of them was already shown wrong by pocknix's own device profiles
-(`docs/g2-reference-projects-review-20260914.md` §2). pocknix covered what
-Armada was being cited for.
+Reading it confirmed, from its own source, what had until then only been
+inferred: Armada's installation **requires flashing the bootloader** (an `abl/`
+directory of flash/backup/restore scripts and a table of ROCKNIX ABL image
+hashes), on all four SoCs it supports — SM8250, SM8550, SM8650, SM8750. Cliffs is
+not among them.
+
+That makes the roadmap's Armada citation wrong in substance, not merely
+unverifiable. Details in `docs/g2-reference-projects-review-20260914.md` §2.
 
 ## 7. Next
 
