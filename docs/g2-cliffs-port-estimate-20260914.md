@@ -143,14 +143,25 @@ For scale: that is a normal mainline SoC enablement effort, the kind that
 usually takes a small team months, or one determined person considerably longer.
 It is not a weekend, and it is not impossible.
 
+## 4b. Update — an EFI route to Tier 0 (2026-09-14)
+
+`docs/g2-reference-projects-review-20260914.md` found a shipping implementation
+of the boot path this project needs, in pocknix's RP5 profile: factory ABL →
+`EFI/BOOT/bootaa64.efi` → GRUB → `linux /KERNEL` + `devicetree <board>.dtb`, with
+no ABL flash and no internal write. GRUB supplies the DTB from the SD card, and
+`console=tty0` means the console rides the firmware framebuffer.
+
+That removes the open risk in the Tier 0 plan below — it no longer depends on the
+debug UART lines being physically reachable.
+
 ## 5. Recommended sequencing
 
 1. **Verify vendor source availability at CodeLinaro.** One browser check. It
    decides whether Tiers 1–3 are tractable at all, and nothing else should be
    committed to before it is answered.
 2. **Do Tier 0 regardless.** It is cheap, needs no vendor source, and a first
-   kernel log would be the project's first real device milestone. It also
-   validates the UART console assumption, which everything later depends on.
+   kernel log would be the project's first real device milestone. Follow the RP5
+   arm-efi shape (§4b) rather than betting on UART pad access.
 3. Only then decide whether to commit to Tier 1.
 
 ## 6. What does not need redoing

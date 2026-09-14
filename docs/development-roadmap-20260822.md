@@ -1,5 +1,21 @@
 # G2 Development Roadmap — 2026-08-22
 
+> **Two citations corrected 2026-09-14** — see
+> `docs/g2-reference-projects-review-20260914.md`.
+>
+> 1. The "Evidence from Armada" section below attributes a stock-UEFI, no-ABL-flash
+>    removable-SD path to the **RP6**. pocknix's own `devices/sm8550/profile.conf`
+>    says the RP6 uses `qcom-abl` and expects a **ROCKNIX-flashed ABL**. It is the
+>    **RP5** (`devices/sm8250/profile.conf`, `arm-efi`) that boots off the factory
+>    bootloader. The precedent this project depends on is real, but it is the RP5's.
+> 2. Both Armada issue citations (#1, #155) are in a **private** repository and
+>    cannot be verified. Treat them as unverified.
+>
+> Also: the pocknix/ROCKNIX "iterative bring-up" method adopted below assumes an
+> upstream SoC base exists — both its SoCs (SM8550, SM8250) are fully supported
+> upstream. Cliffs is not, so the *shape* of that method does not transfer to the
+> G2 even though its discipline does.
+
 ## Non-negotiable project boundary
 
 All bring-up and testing must use **microSD**. The internal Android storage/boot chain remains untouched.
