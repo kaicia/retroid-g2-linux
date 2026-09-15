@@ -159,14 +159,14 @@ Three menu entries exist so that a blank screen still tells us something.
 |---|---|
 | `g2-tier0` | `earlycon` with no argument → follows our `stdout-path`; `console=tty0` also puts the log on the display |
 | `g2-tier0-addr` | `earlycon=qcom_geni,0xa94000` → explicit address, in case stdout-path resolution fails |
-| `g2-tier0-fb` | display only → separates "kernel never started" from "kernel started, UART unreachable" |
+| `g2-tier0-fb` | display only, no `earlycon` → separates "kernel never started" from "kernel started, but `earlycon` hung on an unclocked UART" |
 
 | Observation | Reading |
 |---|---|
 | GRUB menu appears | the biggest unknown is resolved — the factory bootloader runs the removable-media fallback. Path A is viable |
 | No GRUB menu, Android boots normally | the firmware did not take the card. Path A may be dead; reassess against Path B |
 | GRUB menu, then a blank screen on every entry | the kernel is not starting, or is dying before any console. Suspect the DTB |
-| Kernel log on the display but not the UART | the UART lines are not physically reachable. Continue on the framebuffer |
+| Kernel log on the display (entry 3) but entry 1 hangs | `earlycon` wrote to a UART the firmware left unclocked, and hung. Not a failure — Tier 0 still counts. Continue on the framebuffer |
 | Kernel log on the UART | best case — a real console for everything afterwards |
 | Panic about the root filesystem | **Tier 0 complete** |
 

@@ -161,10 +161,16 @@ They exist so that even a blank screen narrows things down.
 |---|---|
 | 1 — earlycon via stdout-path + framebuffer | the normal one; log goes to both the debug UART and the screen |
 | 2 — earlycon at an explicit address | same, but names the UART directly in case the device-tree lookup fails |
-| 3 — framebuffer only | separates "the kernel never started" from "the kernel started but the UART is unreachable" |
+| 3 — framebuffer only | no `earlycon` at all → separates "the kernel never started" from "the kernel started, but `earlycon` hung on an unclocked UART" |
 
-If entry 1 shows nothing, try 3. If 3 shows kernel text and 1 does not, that is
-useful information, not a failure.
+If entry 1 is blank and entry 3 shows the log, that does **not** mean the UART
+pins are unreachable — an unconnected pin still accepts register writes and
+boots fine. It means `earlycon` itself hung the boot: with no Cliffs clock
+driver, whether the UART is clocked depends on what the firmware left behind,
+and writing to an unclocked UART can hang on the spot. Entry 3 never touches it.
+
+A log on screen from entry 3 is a complete Tier 0 success. Entry 1 working is a
+bonus.
 
 ## 5. If nothing happens
 

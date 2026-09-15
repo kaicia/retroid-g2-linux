@@ -113,10 +113,42 @@ A photo of the last screenful is a perfectly good result to send back.
 | GRUB menu, then black on every entry | kernel not starting; say which entries you tried |
 | No menu, Android boots normally | the firmware did not take the card — try §5 |
 
-If the first menu entry shows nothing, try the third ("framebuffer console
-only"). If that one shows text and the first does not, that is useful
-information rather than a failure — it means the debug UART is not physically
-reachable and the display is the console.
+### If entry 1 is blank, try entry 3
+
+The three entries differ only in where the kernel sends its log.
+
+| Entry | Log goes to |
+|---|---|
+| 1 | the debug UART **and** the screen |
+| 2 | the same, naming the UART's address directly |
+| 3 | the screen only |
+
+The UART is a serial port on the circuit board. The device tree says the G2 has
+one on gpio22/23, but reading it would mean opening the case and attaching a
+USB-to-serial adapter. **For this test the screen is what matters** — you can
+photograph it.
+
+So why include the UART entries at all? Because if it is reachable it is the
+better console: the full log, copyable, and it catches crashes that happen
+before the display is up.
+
+Now the case worth understanding. If entry 1 gives a black screen and entry 3
+shows the log, that does **not** mean the UART pins are unreachable — an
+unconnected pin would still accept register writes and boot fine. It means the
+`earlycon` attempt itself killed the boot. There is no Cliffs clock driver yet,
+so whether the UART is clocked depends entirely on what the firmware left
+behind; if the firmware shut it down after writing its own log, the kernel
+writing those registers can hang on the spot. Entry 3 is the fallback that never
+touches the UART.
+
+| Result | Meaning |
+|---|---|
+| Entry 1 shows the log | best case — the UART is alive too |
+| Entry 1 blank, **entry 3 shows the log** | `earlycon` is hanging the boot; use the screen and drop it |
+| Both blank | the kernel is not starting, or the framebuffer was not handed over |
+
+Either way, **a log on screen from entry 3 is a complete Tier 0 success.**
+Entry 1 working is a bonus, not a requirement.
 
 ## 5. If no GRUB menu appears
 
