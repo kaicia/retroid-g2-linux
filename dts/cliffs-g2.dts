@@ -38,7 +38,111 @@
 		serial0 = &uart5;
 	};
 
+	/*
+	 * Usable DRAM, taken verbatim from the device's own /memory node.
+	 *
+	 * cliffs.dtsi deliberately has no /memory because under EFI the stub
+	 * supplies one: reserve_regions() in drivers/firmware/efi/arm-init.c
+	 * wipes memblock and rebuilds it from the EFI memory map, so a DT
+	 * node there is ignored either way. On a non-EFI entry nothing
+	 * supplies it, and whether ABL patches one in is not something we
+	 * get to assume. Carrying it costs nothing on the EFI path and is
+	 * the difference between booting and not on the other.
+	 *
+	 * These are the AP-usable ranges only - 7.354 GiB of the 8 GiB the
+	 * two DDR banks hold (ddr-regions region0 = 2 GiB @ 0x80000000,
+	 * region1 = 6 GiB @ 0x880000000). Everything missing from this list
+	 * is secure or firmware-owned, so the list is used as-is rather
+	 * than reconstructed from the bank geometry: touching what the
+	 * bootloader left out is how you earn an SError.
+	 *
+	 * The device's list has a sixteenth entry, 0xd8800000 with size 0,
+	 * dropped here as the empty range it is.
+	 */
+	memory@816e0000 {
+		device_type = "memory";
+		reg = <0x0 0x816e0000 0x0 0x00320000>,
+		      <0x0 0x81cf5000 0x0 0x0000a000>,
+		      <0x0 0x81f20000 0x0 0x00580000>,
+		      <0x0 0x82800000 0x0 0x04300000>,
+		      <0x0 0x8a200000 0x0 0x01a00000>,
+		      <0x0 0x9989c000 0x0 0x00064000>,
+		      <0x0 0x9ad80000 0x0 0x00580000>,
+		      <0x0 0xa0680000 0x0 0x05d80000>,
+		      <0x0 0xa7000000 0x0 0x31000000>,
+		      <0x0 0xe1d40000 0x0 0x1dac0000>,
+		      <0x0 0xffb80000 0x0 0x00480000>,
+		      <0x8 0x80000000 0x0 0x2fafe000>,
+		      <0x8 0xb0000000 0x0 0x0b700000>,
+		      <0x8 0xc0000000 0x1 0x40000000>;
+	};
+
+	/*
+	 * The continuous-splash framebuffer the bootloader leaves running.
+	 *
+	 * XBL/ABL powers the panel, programs the DPU and streams from this
+	 * buffer before it hands off. If Linux does not touch the display
+	 * clocks or regulators - and at Tier 0 it cannot, there are no
+	 * providers - the panel keeps scanning out of it, so writing text
+	 * into it puts text on the screen.
+	 *
+	 * Under EFI this was unnecessary: the stub handed over a GOP and
+	 * efifb took it from there. On a non-EFI entry (fastboot boot) there
+	 * is no GOP, and without this node there is no console at all.
+	 *
+	 * Values from the device's own tree and live DRM state:
+	 *   /reserved-memory/splash_region  reg = <0x0 0xe3940000 0x0 0x2b00000>
+	 *                                   label "cont_splash_region"
+	 *   /sys/class/drm/card0-DSI-1/modes  1080x1920x60vid   (single mode)
+	 *   panel qcom,mdss_dsi_g1548_fhd_plus_60_video
+	 *
+	 * The format is the one assumption here. 32bpp ARGB is what Qualcomm
+	 * ABL programs on every recent target and what mainline Qualcomm
+	 * handset trees use; it is not stated anywhere in the dump. If the
+	 * screen shows noise or stripes rather than text, the format is
+	 * wrong, not the address - try x8r8g8b8, then r5g6b5 with stride
+	 * 2160.
+	 *
+	 * of_platform_default_populate_init() looks for exactly this: the
+	 * first child of /chosen compatible with "simple-framebuffer".
+	 *
+	 * The panel is portrait and the device is held landscape, so the
+	 * log comes out rotated. It is readable, which at Tier 0 is the
+	 * whole requirement.
+	 */
 	chosen {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
 		stdout-path = "serial0:115200n8";
+
+		framebuffer0: framebuffer@e3940000 {
+			compatible = "simple-framebuffer";
+			reg = <0x0 0xe3940000 0x0 (1080 * 1920 * 4)>;
+			width = <1080>;
+			height = <1920>;
+			stride = <(1080 * 4)>;
+			format = "a8r8g8b8";
+		};
+	};
+
+	/*
+	 * splash_region is absent from the carve-out list in cliffs.dtsi
+	 * because that list was generated from the no-map children only, and
+	 * the device's splash_region carries no no-map property. Under EFI
+	 * the memory map protected it. On a non-EFI entry nothing does, and
+	 * the kernel would allocate straight over the framebuffer it is
+	 * trying to print into. Reserve it here.
+	 */
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		cont_splash_mem: splash@e3940000 {
+			reg = <0x0 0xe3940000 0x0 0x02b00000>;
+			no-map;
+		};
 	};
 };
