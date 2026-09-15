@@ -117,12 +117,51 @@ work, and it is not a harmless failure to attempt.
 
 ### Where the G2 firehose would come from
 
-No public G2 firmware package was found. `wiki.retroidhandhelds.com` is blocked
-by this environment's network egress policy and could not be checked from here;
-it is the most likely place for it and should be checked directly.
+Nowhere public. The Retroid Handhelds wiki's Firmware page - the most likely
+location, and the one this environment's egress policy blocked us from reading -
+was checked directly and **has no G2 entry.** Nor does anything else searched:
+no reposted Drive or MEGA link, no Reddit thread, no Chinese 9008 community
+collection.
 
-Otherwise: Retroid support, or the Retroid Handhelds Discord. The device is
-recent enough to be in warranty, and this is a request vendors field routinely.
+That leaves Retroid themselves, through support or the Discord. It is a request
+vendors field routinely, and the device is recent enough to be in warranty.
+
+Only the programmer is strictly needed - not a full firmware package. With a
+working `prog_*firehose*.elf`, fixing the GPT slot attributes back to b is
+enough; the Android in slot b is intact and would boot.
+
+## Where this stands
+
+Two things remain, and they are not equivalent.
+
+**Recovery.** Untested, free, and the only route that needs nobody's
+cooperation. `recovery_a` is an independent 100 MiB partition that does not
+depend on `super`, so ABL failing to boot slot a's Android says nothing about
+whether it can boot slot a's recovery. If recovery starts, its menu reaches
+fastbootd, where `set_active` works.
+
+The USB silence during the bootloop turned out to be the useful instrument
+here. No enumeration across the whole loop means the kernel never reaches the
+USB gadget - so Android from slot a genuinely does not start, and no amount of
+polling for adb will catch it. But recovery runs adbd, so **if recovery boots,
+the PC enumerates and chimes.** That converts an ambiguous screen-watching
+exercise into a yes/no signal.
+
+**The firehose.** Everything else. Exhausted as above.
+
+## Exhausted
+
+| Route | Outcome |
+|---|---|
+| SD card, EFI removable-media fallback | Firmware does not enumerate removable media |
+| `fastboot boot` | Command absent |
+| `fastboot flash` / `set_active` / `flashing` | Commands absent; ABL's fastboot is read-only |
+| `oem` namespace | Only `device-info`; `oem help` and `oem ?` both absent |
+| Waiting for A/B fallback | Will never fire - `slot-successful:a: yes` |
+| adb during the bootloop | Kernel never reaches USB; nothing to catch |
+| A sibling device's firehose | The G2 is the only handheld with this SoC |
+| Public firehose collections | Nothing for this silicon |
+| ROCKNIX / GammaOS / community firmware / the Retroid wiki | No G2 |
 
 ## The SoC has a public name after all
 
