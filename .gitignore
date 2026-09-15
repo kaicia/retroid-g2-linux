@@ -1,1 +1,4 @@
 .build/
+
+# Build outputs. release/ is committed deliberately and is not ignored.
+.build-citest/

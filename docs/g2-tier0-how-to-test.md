@@ -9,17 +9,34 @@ Android boots exactly as before.
 
 ## 1. Get the files
 
-The build happens in CI so you do not need a Linux toolchain.
+**They are already built and committed** — `release/tier0/`. Nothing to compile
+and no CI run needed.
 
-1. Go to the repository → **Actions** → **g2-tier0-image** → **Run workflow**,
-   and pick this branch.
-2. Wait for it (roughly half an hour — it compiles a kernel).
-3. Open the finished run and download whichever artifact matches your route:
-   - **`g2-tier0-sd-files`** — the four loose files, for Route B.
-   - **`g2-tier0-sd-image`** — a full 256 MiB disk image, for Route A.
+If you already have the repository cloned (for example in Termux), this is the
+whole step:
 
-Both artifacts arrive as `.zip`. `g2-tier0-sd-files` also contains `SHA256SUMS`
-so you can confirm nothing was corrupted in transit.
+```sh
+cd ~/retroid-g2-linux
+git pull
+ls release/tier0/sd-files
+```
+
+Otherwise download them from the repository's web view, or clone it.
+
+| Path | Size | For |
+|---|---|---|
+| `release/tier0/sd-files/` | 43 MB | Route B — the four files, already in the card's layout |
+| `release/tier0/g2-tier0-sd.img.xz` | 10.8 MB | Route A — the full card image, compressed |
+
+Check they arrived intact:
+
+```sh
+cd release/tier0 && sha256sum -c SHA256SUMS
+```
+
+`release/tier0/README.md` records exactly what was built and from which
+revisions. Rebuilding is still possible — `scripts/build-g2-tier0-sd-image.sh`,
+or the manual `g2-tier0-image` workflow — but it is no longer necessary.
 
 ## 2. Prepare the card
 
@@ -34,7 +51,7 @@ Works with any microSD card that is **formatted FAT32**.
 > FAT32 first. Windows will not offer FAT32 above 32 GB; use a tool that does,
 > or a smaller card. It is worth starting with a small card for this reason.
 
-Unzip `g2-tier0-sd-files` and copy its contents to the **root** of the card,
+Copy the contents of `release/tier0/sd-files/` to the **root** of the card,
 keeping the directory structure exactly:
 
 ```
@@ -57,11 +74,14 @@ phone, or straight onto the card while it sits in the G2:
 
 ```sh
 # from Termux, with the G2 connected and the card mounted in it
-termux-adb shell 'mkdir -p /sdcard/EFI/BOOT /sdcard/boot/grub'
-termux-adb push BOOTAA64.EFI /sdcard/EFI/BOOT/BOOTAA64.EFI
-termux-adb push grub.cfg     /sdcard/boot/grub/grub.cfg
-termux-adb push cliffs-g2.dtb /sdcard/cliffs-g2.dtb
-termux-adb push KERNEL        /sdcard/KERNEL
+cd ~/retroid-g2-linux/release/tier0/sd-files
+CARD=/storage/XXXX-XXXX          # <- your card, from `termux-adb shell ls /storage`
+
+termux-adb shell "mkdir -p $CARD/EFI/BOOT $CARD/boot/grub"
+termux-adb push EFI/BOOT/BOOTAA64.EFI "$CARD/EFI/BOOT/BOOTAA64.EFI"
+termux-adb push boot/grub/grub.cfg    "$CARD/boot/grub/grub.cfg"
+termux-adb push cliffs-g2.dtb         "$CARD/cliffs-g2.dtb"
+termux-adb push KERNEL                "$CARD/KERNEL"
 ```
 
 Beware: on Android `/sdcard` is usually **internal** storage, not the card. The
@@ -80,9 +100,9 @@ partition layout that was tested. **It erases the whole card.**
 On a Linux PC:
 
 ```sh
-unzip g2-tier0-sd-image.zip
+unxz -k release/tier0/g2-tier0-sd.img.xz
 lsblk                      # find the card — check the SIZE column carefully
-sudo dd if=g2-tier0-sd.img of=/dev/sdX bs=4M conv=fsync status=progress
+sudo dd if=release/tier0/g2-tier0-sd.img of=/dev/sdX bs=4M conv=fsync status=progress
 sync
 ```
 
