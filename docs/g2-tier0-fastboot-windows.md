@@ -81,12 +81,71 @@ which one they wire to fastboot.
 
 One line with a serial number means you are in.
 
-If it prints nothing, Windows has not bound a driver to the device *in
-bootloader mode* — this is a separate driver from the one Android uses, so adb
-working is no guarantee. Device Manager → the unknown device (often "Android"
-with a warning triangle) → Update driver → Browse → the `usb_driver` folder
-inside platform-tools. If that folder is not there, install "Google USB Driver"
-from Android Studio's SDK Manager, or use a third-party universal ADB driver.
+If it prints nothing, the device is fine — it is sitting in the bootloader —
+and Windows simply has no driver bound to the fastboot interface. This is a
+*different* driver from the one Android uses, so adb working is no guarantee.
+
+### Why the Google USB Driver appears not to install
+
+It is not an installer. It is a folder containing `android_winusb.inf`, and
+that file lists the hardware IDs of Google's own devices. The G2's fastboot
+interface is not among them, so pointing Device Manager at the folder ends with
+"the best driver is already installed" and nothing happens. That is the expected
+behaviour, not a failed download.
+
+### First: find out what the device actually is
+
+Device Manager, with the G2 connected and sitting in the bootloader. Look under
+**Other devices** (or anywhere with a yellow warning triangle) for something
+called `Android`, `Android Phone`, or `QUSB_BULK`.
+
+Right-click → **Properties** → **Details** tab → Property dropdown →
+**Hardware Ids**. It reads something like `USB\VID_18D1&PID_D00D`.
+
+That VID/PID pair is what decides which of the fixes below applies. Worth
+recording here once it is known.
+
+### Fix 1 — pick the driver by hand
+
+Least invasive, and it often works, because the Android Bootloader Interface
+driver is usually already in the driver store; Windows just will not match it
+to an unrecognised hardware ID on its own.
+
+Device Manager → the device → **Update driver** → **Browse my computer** →
+**Let me pick from a list of available drivers on my computer** → tick **Show
+All Devices** → Next → manufacturer **Google, Inc.** → model **Android
+Bootloader Interface** → Next. Accept the compatibility warning.
+
+`.\fastboot devices` should now answer.
+
+### Fix 2 — Zadig, replace the driver with WinUSB
+
+If Google, Inc. does not appear in that list, or fastboot still says nothing.
+`fastboot` speaks WinUSB, and Zadig binds WinUSB to any device you point it at.
+
+Download Zadig from <https://zadig.akeo.ie>. With the G2 in the bootloader:
+**Options → List All Devices**, select the entry matching the hardware ID found
+above (`Android` / `QUSB_BULK`), choose **WinUSB** as the target driver, and
+**Replace Driver**.
+
+This changes only what Windows binds to that USB interface. The G2 is not
+touched, and Android's own USB behaviour is unaffected.
+
+### Fix 3 — skip Windows entirely
+
+The dumps in `dumps/g2/` were collected with `termux-adb` from an Android host
+over USB OTG, not from a PC. The same host can run fastboot, with no Windows
+driver in the picture at all:
+
+```sh
+termux-fastboot devices
+termux-fastboot getvar all
+termux-fastboot boot g2-tier0-fastboot.img
+```
+
+`termux-fastboot` ships alongside `termux-adb` and reaches USB devices without
+root, the same way the dump script already relies on. This is the route with
+the most evidence behind it on this particular hardware.
 
 ## Troubleshooting `adb`: `no devices/emulators found`
 
