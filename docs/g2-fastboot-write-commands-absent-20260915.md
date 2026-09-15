@@ -116,6 +116,24 @@ rather than `fastboot`, and `.\fastboot getvar is-userspace` should answer
 `yes`. If it does, the flash attempt is worth repeating there. `fastboot reboot`
 returns to Android from either mode.
 
+## fastbootd is reachable
+
+```
+.\fastboot devices
+MC94528AQF092400414      fastboot
+
+.\fastboot getvar is-userspace
+is-userspace: yes
+```
+
+The driver bound on its own this time. The serial differs from the
+bootloader's `35a9dd4d` because userspace fastboot takes it from a different
+source; it is the same device.
+
+So the question this document was written around is now live rather than
+hypothetical: a second, independent fastboot implementation is answering, and
+whether it will write when ABL's would not is one command away.
+
 ## If fastbootd cannot write either
 
 Then this device cannot be modified through fastboot at all, and the only
