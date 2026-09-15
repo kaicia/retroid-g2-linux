@@ -1,0 +1,76 @@
+name: g2-tier0-image
+
+# Builds the Tier 0 microSD boot image and uploads it, so it can be downloaded
+# without a local Linux toolchain. Manual only: it compiles a kernel, which
+# takes roughly half an hour on a hosted runner.
+on:
+  workflow_dispatch:
+
+env:
+  LINUX_REV: 5225b8eec4c9bb21aecff6295fab6346a3c3738e
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Install build dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y \
+            bc bison flex libssl-dev libelf-dev device-tree-compiler \
+            clang lld llvm \
+            grub-common dosfstools gdisk mtools
+
+      - name: Build the device trees
+        run: |
+          set -euo pipefail
+          LINUX_REV="$LINUX_REV" JOBS=$(nproc) \
+            scripts/build-g2-dtb-compile-candidate.sh
+
+      - name: Build the arm64 kernel Image
+        run: |
+          set -euo pipefail
+          make -C .build/linux ARCH=arm64 LLVM=1 -j"$(nproc)" Image
+          ls -l .build/linux/arch/arm64/boot/Image
+
+      - name: Build the SD boot image
+        run: |
+          set -euo pipefail
+          scripts/build-g2-tier0-sd-image.sh
+
+      - name: Stage the loose files
+        # For the "copy onto an existing FAT32 card" route, which needs no PC.
+        run: |
+          set -euo pipefail
+          mkdir -p out/sd-files/EFI/BOOT out/sd-files/boot/grub
+          cp .build/grub/bootaa64.efi                                out/sd-files/EFI/BOOT/BOOTAA64.EFI
+          cp boot/grub.cfg                                           out/sd-files/boot/grub/grub.cfg
+          cp .build/linux/arch/arm64/boot/dts/qcom/cliffs-g2.dtb     out/sd-files/cliffs-g2.dtb
+          cp .build/linux/arch/arm64/boot/Image                      out/sd-files/KERNEL
+          ( cd out/sd-files && find . -type f -exec sha256sum {} \; ) | tee out/sd-files/SHA256SUMS
+          cp .build/g2-tier0-sd.img out/
+
+      - name: Upload the SD image
+        uses: actions/upload-artifact@v4
+        with:
+          name: g2-tier0-sd-image
+          path: out/g2-tier0-sd.img
+          if-no-files-found: error
+          compression-level: 9
+
+      - name: Upload the loose SD files
+        uses: actions/upload-artifact@v4
+        with:
+          name: g2-tier0-sd-files
+          path: out/sd-files/
+          if-no-files-found: error

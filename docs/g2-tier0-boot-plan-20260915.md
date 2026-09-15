@@ -123,6 +123,15 @@ reproducing the CI sequence including the shallow kernel fetch.
 Caveat: the kernel reports `7.3.0-rc2-g5225b8eec4c9-dirty`. The `-dirty` is
 only because the build adds our DTS files to the kernel tree.
 
+## 4c. Running it on the device
+
+Step-by-step instructions, including how to get the artifacts without a local
+toolchain: **`docs/g2-tier0-how-to-test.md`**.
+
+The `g2-tier0-image` workflow (manual trigger) builds the DTB, the kernel and
+the SD image in CI and uploads two artifacts: the full `.img`, and the four
+loose files for copying onto an already-FAT32 card — which needs no PC.
+
 ## 5. What success looks like
 
 There is no root filesystem, so a successful boot ends in a panic:
