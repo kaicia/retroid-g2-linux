@@ -76,16 +76,45 @@ it is the most likely place for it and should be checked directly.
 Otherwise: Retroid support, or the Retroid Handhelds Discord. The device is
 recent enough to be in warranty, and this is a request vendors field routinely.
 
+## The SoC has a public name after all
+
+Worth recording separately, because this project has carried it as an open
+unknown since `g2-cliffs-port-estimate-20260914.md` and once had a wrong answer
+in it.
+
+The Retroid Pocket G2's chip is the **Snapdragon G2 Gen 2**, a part built for
+gaming handhelds rather than a rebadged phone SoC. Its published CPU
+configuration is 1x prime at 2.8 GHz, 4x performance at 2.57 GHz, 3x efficiency
+at 1.9 GHz.
+
+That is exactly the topology in `dts/cliffs.dtsi`: one Cortex-X4, four
+Cortex-A720, three Cortex-A520, in three clusters. It also matches
+`ro.boot.hardware.revision = "Qualcomm G2 Gen 2"` from the device dump, which we
+had read as a marketing string rather than as the part name.
+
+So: `qcom,msm-id` 0x2bc / SoC ID 700 / `SGP_LAMMA` / Cliffs-derivative **is**
+the Snapdragon G2 Gen 2. The earlier SM7675 / Snapdragon 7+ Gen 3 guess stays
+retracted; this replaces it.
+
+The practical consequence here is narrow: the G2 Gen 2 ships in very few
+devices, so a firehose programmer for it is unlikely to be circulating outside
+Retroid.
+
 ## Untested surface in ABL
 
 Two things, both cheap, neither yet tried:
 
-- `fastboot oem help` / `fastboot oem ?` — `oem device-info` works, so the
-  `oem` namespace exists. Whether it contains anything that writes is unknown.
-  **No other `oem` command should be run blind**: vendor `oem` namespaces
-  contain erase and format operations that are not distinguishable by name.
+- ~~`fastboot oem help` / `fastboot oem ?`~~ — both answer `unknown command`.
+  Only `oem device-info` exists. ABL's surface is now fully mapped and contains
+  nothing that writes.
 - The bootloader menu's full list of entries. Only `START` has been read off
   the screen so far.
+- `fastboot reboot fastboot` on the current state. This is the one command ABL
+  is *known* to accept and act on — it is how fastbootd was reached the first
+  time. Whether it still gets there now that slot a is active depends on
+  whether ABL takes the recovery image from the active slot, which we have
+  assumed but not established. It costs nothing and, if it works even once,
+  `set_active b` ends this immediately.
 
 ## Lesson for this project
 
