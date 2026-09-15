@@ -41,10 +41,15 @@ echo "==> linux HEAD: $(git -C "$SRC" rev-parse HEAD)"
 
 Q="$SRC/arch/arm64/boot/dts/qcom"
 
-echo "==> installing G2 candidate"
-cp "$REPO/dts/g2-sdhci-compile-test.dts" "$Q/g2-sdhci-compile-test.dts"
-grep -q 'g2-sdhci-compile-test.dtb' "$Q/Makefile" \
-  || echo 'dtb-$(CONFIG_ARCH_QCOM)	+= g2-sdhci-compile-test.dtb' >> "$Q/Makefile"
+echo "==> installing G2 sources"
+cp "$REPO/dts/cliffs.dtsi" \
+   "$REPO/dts/cliffs-g2.dts" \
+   "$REPO/dts/g2-sdhci-compile-test.dts" \
+   "$Q/"
+for t in cliffs-g2 g2-sdhci-compile-test; do
+  grep -q "$t.dtb" "$Q/Makefile" \
+    || printf 'dtb-$(CONFIG_ARCH_QCOM)\t+= %s.dtb\n' "$t" >> "$Q/Makefile"
+done
 
 echo "==> configuring"
 make -C "$SRC" ARCH=arm64 defconfig >/dev/null
@@ -67,5 +72,8 @@ echo "==> results"
   done )
 echo
 echo "A successful build proves the DTS is syntactically valid and every"
-echo "referenced label resolves. It does NOT prove the G2 will boot: see the"
-echo "known runtime risks in docs/g2-dtb-compile-result-20260912.md."
+echo "referenced label resolves. It does NOT prove the G2 will boot."
+echo "  cliffs-g2.dtb             Tier 0 boot target"
+echo "                            docs/g2-tier0-boot-plan-20260915.md"
+echo "  g2-sdhci-compile-test.dtb SDCC2 work, four known runtime risks"
+echo "                            docs/g2-dtb-compile-result-20260912.md"

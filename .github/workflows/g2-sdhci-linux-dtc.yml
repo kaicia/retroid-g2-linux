@@ -3,6 +3,8 @@ name: g2-sdhci-linux-dtc
 on:
   push:
     paths:
+      - 'dts/cliffs.dtsi'
+      - 'dts/cliffs-g2.dts'
       - 'dts/g2-sdhci-compile-test.dts'
       - 'dts/g2-sdhci-milos-merge.dtsi'
       - 'scripts/build-g2-dtb-compile-candidate.sh'
@@ -43,8 +45,9 @@ jobs:
       - name: Publish DTBs
         uses: actions/upload-artifact@v4
         with:
-          name: g2-dtb-candidate
+          name: g2-dtbs
           path: |
+            .build/linux/arch/arm64/boot/dts/qcom/cliffs-g2.dtb
             .build/linux/arch/arm64/boot/dts/qcom/g2-sdhci-compile-test.dtb
             .build/linux/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dtb
           if-no-files-found: error
