@@ -64,6 +64,45 @@ question, answerable with one safe command.
 `fastboot flashing get_unlock_ability` are read-only and have not been tried.
 Neither writes anything; both may explain the contradiction above.
 
+## Probe results
+
+```
+.\fastboot oem device-info
+(bootloader) Verity mode: true
+(bootloader) Device unlocked: true
+(bootloader) Device critical unlocked: true
+(bootloader) Charger screen enabled: false
+
+.\fastboot flashing get_unlock_ability
+FAILED (remote: 'unknown command')
+
+.\fastboot reboot fastboot
+Rebooting into fastboot     OKAY [  0.003s]
+< waiting for any device >
+Finished. Total time: 20.265s
+```
+
+**`Device critical unlocked: true`.** That is the `flashing unlock_critical`
+state - the level that permits writing bootloader partitions, not just the
+Android ones. So the device is unlocked at *both* levels and still refuses
+`flash`. Combined with the `flashing` command family also being absent, the
+"vendor stripped the write commands" reading above is now the only one left
+standing: there is no lock state this device could be in that would explain it,
+because it is already in the most permissive one.
+
+**`reboot fastboot` was accepted.** ABL answered OKAY and the device rebooted.
+What did not happen is the device reappearing on USB - fastboot waited 20
+seconds for any device and gave up.
+
+That is very likely a driver problem rather than a missing mode. Userspace
+fastboot presents a *different* USB interface from the bootloader's, so the
+driver bound for bootloader mode does not carry over; Windows sees a new
+unknown device and binds nothing. Exactly the same situation as the first time,
+needing exactly the same fix, on a new Device Manager entry.
+
+So the open question is unchanged and still open: the device may well be sitting
+in fastbootd right now, invisible to the PC.
+
 ## Probes, in order, none of which write
 
 ```
