@@ -18,8 +18,21 @@ So the command table looks like this:
 | `getvar` | works |
 | `download:` | works — 41 MB accepted twice |
 | `reboot` | works |
+| `oem device-info` | works |
 | `boot` | unknown command |
 | `flash` | unknown command |
+| `flashing get_unlock_ability` | unknown command |
+| `set_active` | unknown command |
+
+Everything that reads or reboots answers. Everything that changes state is
+gone — including `set_active`, which only rewrites a few bytes of slot metadata
+in `misc` and touches no image at all. This is not a bootloader with flashing
+disabled by a policy; it is a bootloader with the writing half of the protocol
+removed.
+
+One useful consequence: **the device's slot configuration was never modified.**
+`set_active a` was never run successfully, so slot b is still active and the
+device is in exactly the state it started in.
 
 Both write paths in this session's plan went through `flash`. Step 1 (flash
 `boot_a`) and step 2 (flash a custom `abl_a`) are blocked by the same missing
