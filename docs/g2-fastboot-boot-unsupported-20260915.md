@@ -42,10 +42,13 @@ without touching anything slot b uses. Recovery is `fastboot set_active b` from
 the bootloader — and ABL's own retry logic already does this automatically after
 a slot fails to boot several times.
 
-What it costs honestly: slot a stops being a bootable Android until it is
-reflashed. It is a spare, not a live system, but it is a real safety net being
-spent. And it is a write to internal storage, which is the line this project
-drew.
+What it costs honestly: it is a write to internal storage, which is the line
+this project drew.
+
+> **Corrected 2026-09-15 after `fastboot getvar all`.** This paragraph
+> originally called slot a "a real safety net being spent". It is not one.
+> The bootloader reports `slot-unbootable:a:yes` — it already refuses to boot
+> that slot. See `g2-getvar-analysis-20260915.md` §1.
 
 The image would need to keep header v2, since that is what puts our device tree
 in front of the kernel; a v4 image in `boot_a` would be paired with the stock
