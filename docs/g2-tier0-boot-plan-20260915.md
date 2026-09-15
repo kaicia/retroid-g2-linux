@@ -95,6 +95,34 @@ scripts/build-g2-tier0-sd-image.sh
 The image builder writes a **file**. It never touches a block device; putting
 the image on a card is a separate manual step and the script prints the command.
 
+## 4b. Built and verified end to end, 2026-09-15
+
+Not just syntax-checked — every step was run.
+
+| | |
+|---|---|
+| Linux | `5225b8eec4c9bb21aecff6295fab6346a3c3738e` (7.3.0-rc2), `ARCH=arm64 LLVM=1 defconfig Image` |
+| `Image` | 42,113,536 bytes, sha256 `9d03374c…` |
+| `cliffs-g2.dtb` | 5,929 bytes, sha256 `a7d78464…` |
+| `bootaa64.efi` | 856,064 bytes, built locally by `grub-mkimage` from pinned arm64-efi modules |
+| SD image | 256 MiB, sha256 `51faf1f5…` |
+
+Checks that actually ran:
+
+- The kernel `Image` carries a valid EFI header — `ARM\x64` magic at 0x38 and a
+  `PE\0\0` signature at 0x40 — so GRUB's `linux` command can load it.
+- The image has one GPT partition, type `EF00` (EFI System), label `G2BOOT`.
+- All four files are present at the expected paths, and `cliffs-g2.dtb`,
+  `KERNEL` and `grub.cfg` extracted from the image are **byte-identical** to
+  their sources.
+- `BOOTAA64.EFI` in the image is a PE32+ AArch64 EFI application.
+
+The build script was also run twice from a clean working directory,
+reproducing the CI sequence including the shallow kernel fetch.
+
+Caveat: the kernel reports `7.3.0-rc2-g5225b8eec4c9-dirty`. The `-dirty` is
+only because the build adds our DTS files to the kernel tree.
+
 ## 5. What success looks like
 
 There is no root filesystem, so a successful boot ends in a panic:
