@@ -150,6 +150,19 @@ and most of the ecosystem use — 258 KiB, reversible, Android preserved) is
 B also cannot be started unilaterally, since no Cliffs ABL exists and
 `ROCKNIX/abl` publishes no buildable source. `docs/g2-decisions-20260914.md` §1.
 
+### 6.4c Tier 0 artifacts — BUILT 2026-09-15
+
+`dts/cliffs.dtsi` + `dts/cliffs-g2.dts` compile clean (one schema finding: the
+unregistered board compatible). `boot/grub.cfg` and
+`scripts/build-g2-tier0-sd-image.sh` assemble a GPT + FAT32 SD image with a
+locally built `bootaa64.efi`. Nothing touches internal storage. Plan, expected
+outcomes and the diagnostic matrix: `docs/g2-tier0-boot-plan-20260915.md`.
+
+Console question answered while building it: `early_init_dt_scan_chosen_stdout()`
+does not check `status`, so earlycon attaches to the UART node even though it is
+`disabled` for want of a clock driver. That is why Tier 0 needs no Cliffs driver
+code.
+
 ### 6.4b Choose a console channel before any boot attempt
 
 `docs/g2-boot-console-feasibility-20260912.md` settled most of this build-side:

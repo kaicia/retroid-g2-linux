@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 #
-# Reproducibly build the G2 SDCC2 DTB compile candidate.
+# Reproducibly build the G2 device trees:
+#   qcom/cliffs-g2.dtb                -- Tier 0 minimal board (the boot target)
+#   qcom/g2-sdhci-compile-test.dtb    -- SDCC2 candidate on the milos stack
+#
+# Pass a target name to build just one.
 #
 # Build-side only. Nothing here touches a G2 device, a microSD card, or any
 # Android/UFS/ABL/GPT/boot/vendor_boot/vbmeta/dtbo partition.
@@ -50,12 +54,17 @@ make -C "$SRC" ARCH=arm64 defconfig >/dev/null
 echo "==> baseline: qcom/milos-fairphone-fp6.dtb"
 make -C "$SRC" ARCH=arm64 -j"$JOBS" qcom/milos-fairphone-fp6.dtb
 
-echo "==> candidate: qcom/g2-sdhci-compile-test.dtb"
-make -C "$SRC" ARCH=arm64 -j"$JOBS" qcom/g2-sdhci-compile-test.dtb
+TARGETS="${1:-cliffs-g2 g2-sdhci-compile-test}"
+for t in $TARGETS; do
+  echo "==> building qcom/$t.dtb"
+  make -C "$SRC" ARCH=arm64 -j"$JOBS" "qcom/$t.dtb"
+done
 
 echo
 echo "==> results"
-( cd "$Q" && sha256sum milos-fairphone-fp6.dtb g2-sdhci-compile-test.dtb )
+( cd "$Q" && for t in milos-fairphone-fp6 $TARGETS; do
+    [ -f "$t.dtb" ] && sha256sum "$t.dtb"
+  done )
 echo
 echo "A successful build proves the DTS is syntactically valid and every"
 echo "referenced label resolves. It does NOT prove the G2 will boot: see the"

@@ -1,0 +1,44 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Retroid Pocket G2 — Tier 0 board device tree.
+ *
+ * THIS HAS NEVER BEEN BOOTED. Its only goal is one line of kernel output.
+ * It carries no clock, pinctrl, regulator or interconnect providers, so no
+ * device will probe — that is expected, and is what Tier 1 adds.
+ *
+ * Boot path (Path A, docs/g2-decisions-20260914.md §1):
+ *   XBL -> factory ABL/UEFI -> SD card ESP \EFI\BOOT\BOOTAA64.EFI
+ *       -> GRUB -> `linux /KERNEL ...` + `devicetree /cliffs-g2.dtb`
+ * Nothing is written to internal storage.
+ *
+ * Console: earlycon on the UART the firmware itself designates. Put
+ *   earlycon=qcom_geni,0xa94000 keep_bootcon
+ * on the kernel command line; it needs no clock driver.
+ */
+
+/dts-v1/;
+
+#include "cliffs.dtsi"
+
+/ {
+	model = "Retroid Pocket G2";
+	compatible = "retroid,g2", "qcom,cliffs";
+
+	/*
+	 * From the device's own tree. These are what a Qualcomm bootloader
+	 * matches an appended DTB against. GRUB hands this DTB over
+	 * explicitly, so they are documentation here rather than a
+	 * requirement — kept because they identify the board unambiguously.
+	 *   SoC ID 700 (0x2bc), chip_id SGP_LAMMA, rev 1.0; board 8, subtype 0.
+	 */
+	qcom,msm-id = <0x2bc 0x10000>;
+	qcom,board-id = <0x8 0x0>;
+
+	aliases {
+		serial0 = &uart5;
+	};
+
+	chosen {
+		stdout-path = "serial0:115200n8";
+	};
+};
