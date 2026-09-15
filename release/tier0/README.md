@@ -3,14 +3,16 @@
 Everything needed to try the first boot on the G2, already built. No toolchain,
 no CI run. Verify with `sha256sum -c SHA256SUMS` from this directory.
 
-Full instructions: `docs/g2-tier0-how-to-test.md`.
+Full instructions: `docs/g2-tier0-how-to-test.md` — or
+`docs/g2-tier0-windows.md` if you are on Windows.
 What this is and what success looks like: `docs/g2-tier0-boot-plan-20260915.md`.
 
 ## Contents
 
 | File | Size | What |
 |---|---|---|
-| `sd-files/` | 43 MB | the four files, laid out exactly as they sit on the card |
+| `g2-tier0-sd-files.zip` | 15 MB | the same four files as one zip — **easiest on Windows**, extracts straight onto the card |
+| `sd-files/` | 43 MB | the four files loose, laid out exactly as they sit on the card |
 | `g2-tier0-sd.img.xz` | 10.8 MB | the full 256 MiB card image, xz-compressed |
 
 ```

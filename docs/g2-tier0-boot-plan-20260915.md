@@ -126,7 +126,13 @@ only because the build adds our DTS files to the kernel tree.
 ## 4c. Running it on the device
 
 Step-by-step instructions, including how to get the artifacts without a local
-toolchain: **`docs/g2-tier0-how-to-test.md`**.
+toolchain:
+
+- **Windows** — `docs/g2-tier0-windows.md`
+- **Linux or Termux** — `docs/g2-tier0-how-to-test.md`
+
+The artifacts are prebuilt and committed under `release/tier0/`, so neither
+route needs a compiler.
 
 The `g2-tier0-image` workflow (manual trigger) builds the DTB, the kernel and
 the SD image in CI and uploads two artifacts: the full `.img`, and the four

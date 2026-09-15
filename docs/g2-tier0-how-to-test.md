@@ -1,5 +1,8 @@
 # Tier 0 — how to run the test on the device
 
+> **On Windows?** Use `docs/g2-tier0-windows.md` instead — one zip, extract onto
+> the card, done. This page assumes Linux or a phone with Termux.
+
 Step by step. The whole test is: put four files on a microSD card, insert it,
 power on, look at the screen.
 
