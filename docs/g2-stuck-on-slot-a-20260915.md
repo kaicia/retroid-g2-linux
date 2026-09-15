@@ -34,12 +34,46 @@ refused. The Android installation is intact and waiting.
 
 ## Why it does not recover itself
 
-A/B is supposed to handle exactly this: ABL decrements `slot-retry-count` on
-each failed boot and falls back once it reaches zero. On this device the count
-stays at 6 across repeated real boot attempts, so **the automatic fallback is
-not functioning**. That is consistent with the rest of what this bootloader
-turned out to be — the write half of fastboot is gone, and the slot-retry
-machinery appears to be as well.
+Not a bug in this bootloader after all. **`slot-successful:a: yes`.**
+
+In the A/B scheme, `successful_boot` means a slot has already been validated by
+a userspace that booted from it and called `markBootSuccessful`. A bootloader
+does not run down the retry counter on a slot flagged that way — it has been
+told the slot is known-good, so it keeps booting it rather than counting
+failures toward a fallback. The retry counter is for slots that are *being
+tried*, not for slots already proven.
+
+So `slot-retry-count:a` staying at 6 across repeated real boot attempts is the
+specified behaviour, not a missing feature. **Waiting will never fix this**, no
+matter how many times the device loops.
+
+It also means slot a is not blank. A slot only carries `successful_boot` if
+something once booted from it and reached userspace — almost certainly the
+factory image, before an OTA moved the device to slot b.
+
+### Which points at recovery
+
+`super` is **not slotted** on this device (`has-slot:system: no`) - one shared
+`super` holding the current system. So slot a's older `boot_a` / `init_boot_a` /
+`vendor_boot_a` are paired with a `super` they do not match, and Android cannot
+come up. That is a complete explanation of the bootloop that does not require
+slot a to be empty.
+
+**Recovery does not mount `super`.** It is self-contained: kernel plus recovery
+ramdisk. `recovery_a` is a real partition here, 0x6400000 = 100 MiB, and the
+device is A/B with dedicated recovery partitions rather than the GKI
+recovery-in-boot arrangement.
+
+So an older-but-intact `recovery_a` should still boot even though Android from
+the same slot cannot. If it does, its menu offers **Enter fastboot** -> fastbootd
+-> `set_active b`, and this ends.
+
+Two traps worth naming, because either one reads as "recovery is broken" when
+it is not:
+
+- The **dead Android robot with `No command`** *is* recovery, waiting. The menu
+  appears on **Power + Volume Up**.
+- Recovery takes considerably longer to appear than the bootloader does.
 
 ## Why it cannot be fixed from the bootloader
 
@@ -66,6 +100,20 @@ bootloader screen and `secure:no` over fastboot. If that reflects the fuses
 rather than the unlock state, EDL's Sahara stage will accept an unsigned
 programmer, which is the difference between "needs the OEM's file" and "needs
 any correct file".
+
+### Searched, and closed
+
+| Source | Result |
+|---|---|
+| Another device with the same SoC | **The Retroid Pocket G2 is the only handheld using the Snapdragon G2 Gen 2.** There is no sibling device to take a programmer from |
+| Public firehose collections (bkerler/edl, Samsung EDL loader sets, Hovatek) | Nothing for this SoC |
+| ROCKNIX | No G2 device page. `rocknix.org` is blocked by this environment's egress policy, so this rests on search results rather than a direct read |
+| GammaOS / GammaOS Next | Covers RP4 Pro, RP Classic, AYANEO Pocket Micro. No G2 |
+| `TheGammaSqueeze/Retroid_Pocket_Stock_Firmware` | Pocket Mini and Pocket 5 only, SM8250 programmer |
+
+Loading a programmer built for a different SoC is not a fallback. A firehose
+initialises that SoC's DDR and UFS controllers; on the wrong silicon it cannot
+work, and it is not a harmless failure to attempt.
 
 ### Where the G2 firehose would come from
 
