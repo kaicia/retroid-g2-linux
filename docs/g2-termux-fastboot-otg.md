@@ -95,3 +95,28 @@ the one that is left.
 
 But it costs one cable and a few commands to find out, it needs no Windows
 driver, and if it works it is over.
+
+---
+
+## Result 2026-09-16: fastbootd does not come up
+
+`termux-fastboot reboot fastboot` over OTG left the device cycling — vendor logo,
+then reboot, repeating — and never presented fastbootd. This is the failure mode
+flagged above: the recovery ramdisk is loaded from the active slot (a), slot a is
+broken, so fastbootd cannot start any more than Android can.
+
+That closes the last self-service route. Every path to changing the slot goes
+through the active slot, which is broken:
+
+- ABL fastboot: no `set_active` (confirmed from source)
+- fastbootd `set_active b`: fastbootd will not boot (confirmed here)
+- A/B auto-fallback: never fires (`slot-successful:a`)
+- recovery: loads from slot a, will not boot
+
+The only remaining channel that writes storage independently of the boot slot is
+**EDL + a firehose**, because EDL is a different protocol handled by the PBL in
+mask ROM, not by anything on the broken slot. That is now the sole route, and it
+needs an SM8635/palawan `prog_firehose_ddr.elf`.
+
+To stop the loop: hold power ~15s, then Volume Down + Power into the bootloader,
+which is stable. Nothing is damaged; only the slot pointer is wrong.
