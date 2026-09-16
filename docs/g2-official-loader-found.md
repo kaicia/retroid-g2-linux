@@ -60,3 +60,26 @@ pre-driver 9008 enumeration, so this is very likely already 9008.)
 This supersedes the Moto/realme substitute route in
 `docs/g2-obtainable-firehose-sources.md`, which stays on file as the fallback if
 the official package cannot be obtained.
+
+## Additional community recovery assets (same thread)
+
+Another user, nerd80games (2026-07-23), bricked `boot_a` while trying to root and
+**recovered successfully** — the thread ends with the device showing "Welcome to
+Retroid Pocket G2". Two assets surfaced there:
+
+- A **G2 boot-partition backup** on Google Drive
+  (`drive.google.com/file/d/1MBoeSLGRKxa5GIjIssUJ9vKUiqqaYRse`).
+- **`rp5_backup_boot.sh`** (522 B) — run as root on a *working* G2 to dump its
+  boot partition to a `bootbackup` folder.
+
+Relevance to this device: **secondary.** Our `boot_a` and `boot_b` are both
+intact — nothing was ever flashed — so the fix is a slot-pointer change
+(`setactiveslot b`), not a boot reflash. The boot backup is a fallback: if
+`setactiveslot b` somehow does not take, flashing a known-good boot image to
+`boot_a` (making slot a bootable again) is the alternative, and this Drive backup
+is a candidate payload for that.
+
+Either way the **loader `xbl_s_devprg_ns.melf` is still the one required item** —
+it is the tool; the boot backup is only a payload. And any community file
+(Drive backup included) is user-uploaded and must be verified here before use;
+the Retroid-supplied loader is the authoritative one.
