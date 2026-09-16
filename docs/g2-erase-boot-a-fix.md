@@ -1,4 +1,12 @@
-# The fix: `fastboot erase boot_a`
+# `fastboot erase boot_a` — proposed, then disproved
+
+> **RETRACTED 2026-09-16, before anyone acted on it.** The command-table
+> registration settles it: `erase` is compiled out of this build alongside the
+> commands we already confirmed absent. The mechanism below is real and
+> correctly read; it is simply not reachable here. Kept because the reasoning
+> is what led to the findings in `g2-abl-source-findings.md`, and because a
+> retraction is worth more than a deleted file.
+
 
 Found by reading Qualcomm's ABL source — `QcomModulePkg`, the bootloader this
 device runs. Every quote below is from that source.
