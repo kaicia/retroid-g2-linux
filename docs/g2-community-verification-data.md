@@ -43,3 +43,35 @@ independently, that **the bootloader's fastboot cannot fix this — only EDL can
 - The **`update error code=20`** threads are about OTA failing on Magisk-patched
   init_boot — a different problem from a wrong active slot.
 - **Overclock files are explicitly flagged as bricking the G2** — never apply.
+
+## Verified: Mike's boot backup (received 2026-09-17)
+
+A community member (Mike) shared a `bootbackup.zip` (27 MB) containing full dumps
+of `boot_a` and `boot_b`, each 100663296 B = 0x6000000, matching the G2's boot
+partition size exactly. Verified locally (the binaries were NOT committed — they
+are vendor firmware, kept off the public repo):
+
+- **Genuine G2, not RP5.** `ANDROID!` magic; kernel `Linux 6.1.115-android14-11`
+  (GKI); device fingerprint `...qti/pineapple/pineapple:14/...` (pineapple =
+  this device's family) and the literal string `RPG2` in the kernel. The lone
+  `qcom,pcie-sm8250` string is a generic GKI driver compatible, not the device
+  SoC.
+- **Older firmware than this device.** Fingerprint is Android **14**
+  (`UKQ1.250213.001`); this device is Android **15** (`AQ3A.250226.002`). So it
+  is a valid G2 boot image but not a byte-match for the current firmware —
+  flashing it would pair a 14-era boot with a 15-era super/vendor and may not
+  boot cleanly or may trip AVB.
+- boot_a vs boot_b differ in only 4 of 24576 4K blocks (AVB metadata); same
+  firmware, essentially the same kernel.
+
+sha256:
+```
+boot_a  d81705719164dd1c27aa5e2d969bf009f7c1054dd8187897e15947f5e762c1f5
+boot_b  a8ae97ec590234b0583990dd4fb764ce9eb84c49f0af7796cbc1dbb98c5777dc
+```
+
+Bearing on the fix: **none needed.** This device's boot_a/boot_b are intact (the
+Tier-0 image was never written — the flash was refused), so the fix is
+`setactiveslot b`, not a boot reflash. This backup is a last-resort fallback
+only, and its version mismatch lowers even that value. The one still-required
+item remains the loader `xbl_s_devprg_ns.melf`.
