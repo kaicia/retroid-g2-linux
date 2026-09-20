@@ -1,5 +1,23 @@
 # Project Decisions
 
+## 2026-09-20
+
+### Bricked G2 fully recovered via EDL (data preserved)
+- Root cause: `fastboot set_active a` (in fastbootd) set both the GPT active slot
+  and the UFS boot LUN to slot a, which has no bootable image → bootloop.
+- Fix (all from bkerler/edl over EDL 9008 + WinUSB, with the verified native
+  loader `xbl_s_devprg_ns.melf`): `setactiveslot b` (GPT flip) +
+  `setbootablestoragedrive 2` (boot LUN → slot b) + reboot; last leftover
+  `boot-fastboot` in misc/BCB cleared by rebooting to system. Device now boots
+  Android 15 on slot b, all user data intact.
+- Full as-executed record with every gotcha: `docs/g2-EDL-recovery-runbook.md`.
+- Backup procedure to make a future incident a 5-minute restore:
+  `docs/g2-edl-backup-runbook.md` (run while healthy — not yet performed).
+- Key lessons: WinUSB (not QDLoader serial) is required for bkerler; two
+  `firehose.py` patches were needed for reads over WinUSB; `getactiveslot`/
+  `setactiveslot` reject `--memory` (auto-detects UFS); recovering the slot
+  needs BOTH the GPT slot and the boot LUN.
+
 ## 2026-08-17
 
 ### Development workflow
