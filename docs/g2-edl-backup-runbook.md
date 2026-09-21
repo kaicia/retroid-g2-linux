@@ -12,6 +12,21 @@ recovery runbook). Reads are non-destructive.
 > `rl` accept it. Memory type auto-detects as UFS regardless. **Do not add
 > `--debugmode`** — it makes transfers ~10× slower.
 
+## One-shot script (recommended)
+
+`scripts/backup_g2_edl.ps1` does all of this automatically: every LUN's GPT +
+every partition (super/userdata skipped by default), a full session log, and a
+`SHA256SUMS.txt` integrity manifest with a 0-byte check. Copy it into the
+`edl-master` folder and run:
+
+```
+powershell -ExecutionPolicy Bypass -File .\backup_g2_edl.ps1
+```
+Options: `-IncludeSuper`, `-IncludeUserdata`, `-OutDir <path>`,
+`-Loader <file>`, `-Luns 0,1,2,3,4`. Output lands in `backup_YYYYMMDD_HHMMSS\`.
+
+The manual steps below are the equivalent, for reference or partial backups.
+
 ## 0. Prep
 ```powershell
 cd C:\Users\KAICIA\Downloads\edl-master
