@@ -77,28 +77,27 @@ Log "LUN 목록  : $($Luns -join ', ')"
 Log "제외      : $(if($skip){$skip}else{'(없음 — super/userdata 포함)'})"
 $sw = [System.Diagnostics.Stopwatch]::StartNew()
 
-# --- 1) 각 LUN 의 GPT(파티션표) + 복원용 rawprogram xml ---
-Log "--- 1단계: GPT 백업 ---"
-$gptDir = Join-Path $OutDir "gpt"
-New-Item -ItemType Directory -Force -Path $gptDir | Out-Null
-foreach ($lun in $Luns) {
-  Log "GPT LUN $lun ..."
-  Run-Edl @("gpt", $gptDir, "--lun=$lun", "--genxml", "--memory=UFS", "--loader=$Loader") | Out-Null
-}
-
-# --- 2) 각 LUN 의 모든 파티션 덤프 (super/userdata 는 기본 제외) ---
-Log "--- 2단계: 파티션 덤프 ---"
+# --- 1) 각 LUN 의 모든 파티션 + GPT 덤프 ---
+# 주의: bkerler 의 'gpt' 서브명령은 이 버전에서 파일 쓰기가 주석 처리돼 있어 동작하지 않음.
+#       'rl'(read-all) 이 각 LUN 의 gpt_main/gpt_backup 비트맵 + rawprogram xml + 모든
+#       파티션(.bin)을 한 번에 저장하므로 rl 로 통일한다. (super/userdata 는 기본 제외)
+Log "--- 1단계: 파티션 + GPT 덤프 (rl) ---"
 foreach ($lun in $Luns) {
   $lunDir = Join-Path $OutDir ("lun{0}" -f $lun)
   New-Item -ItemType Directory -Force -Path $lunDir | Out-Null
-  Log "LUN $lun 파티션 읽는 중 (빈 LUN이면 그냥 넘어감) ..."
+  Log "LUN $lun 읽는 중 (빈 LUN이면 그냥 넘어감) ..."
   $rlArgs = @("rl", $lunDir, "--lun=$lun", "--genxml", "--memory=UFS", "--loader=$Loader")
   if ($skip) { $rlArgs += "--skip=$skip" }
   Run-Edl $rlArgs | Out-Null
+  # 빈 LUN 이면 아무 파일도 안 생김 → 빈 폴더 정리
+  if (-not (Get-ChildItem -Path $lunDir -File -ErrorAction SilentlyContinue)) {
+    Remove-Item -Path $lunDir -Recurse -Force -ErrorAction SilentlyContinue
+    Log "LUN $lun : 파티션 없음 (빈 LUN) — 폴더 삭제"
+  }
 }
 
-# --- 3) 무결성: SHA256 매니페스트 + 0바이트 검사 ---
-Log "--- 3단계: 무결성 매니페스트 생성 ---"
+# --- 2) 무결성: SHA256 매니페스트 + 0바이트 검사 ---
+Log "--- 2단계: 무결성 매니페스트 생성 ---"
 $manifest = Join-Path $OutDir "SHA256SUMS.txt"
 Remove-Item $manifest -ErrorAction SilentlyContinue
 $root = (Resolve-Path $OutDir).Path

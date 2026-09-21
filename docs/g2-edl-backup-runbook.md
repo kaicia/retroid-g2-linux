@@ -33,11 +33,13 @@ cd C:\Users\KAICIA\Downloads\edl-master
 mkdir backup -Force
 ```
 
-## 1. GPT / partition tables (most important, seconds)
-```
-python edl.py gpt backup\gpt --genxml --memory=UFS --loader=xbl_s_devprg_ns.melf
-```
-Saves each LUN's GPT plus a `rawprogram` XML for restore.
+## 1. GPT / partition tables
+> ⚠️ **Do NOT use `edl.py gpt`** — in this bkerler version its file writes are
+> commented out, so it saves nothing, never creates the folder, and crashes on
+> `--genxml` (`FileNotFoundError: rawprogram0.xml`). Use `rl` (step 3) instead:
+> it writes `gpt_main{lun}.bin`, `gpt_backup{lun}.bin` and `rawprogram{lun}.xml`
+> per LUN automatically. To only *view* the table (no file), use
+> `python edl.py printgpt --lun=0 --memory=UFS --loader=xbl_s_devprg_ns.melf`.
 
 ## 2. Recovery-critical partitions, both slots (~3–8 min, ~1–1.5 GB)
 ```powershell
@@ -78,11 +80,26 @@ python edl.py setbootablestoragedrive 2 --loader=xbl_s_devprg_ns.melf   # 1=slot
 python edl.py reset --loader=xbl_s_devprg_ns.melf
 ```
 
-## Time estimates (EDL over USB2, ~10–20 MB/s effective)
-| Step | Size | Time |
-|---|---|---|
-| 1. GPT | tens of KB | < 10 s |
-| 2. critical partitions (a/b) | ~1–1.5 GB | ~3–8 min |
-| 3. full dump (no super/userdata) | ~2–4 GB | ~10–30 min |
+## Time & size estimates (EDL over USB2, ~10–20 MB/s effective)
 
-Minimum useful backup = **steps 1 + 2** (~5–10 min).
+Sizes are from this device's GPT (128 GB UFS, ~107 GiB usable):
+
+| Target | Size | Time |
+|---|---|---|
+| GPT (via rl) | tens of KB | < 10 s |
+| critical partitions (a/b) | ~1–1.5 GB | ~3–8 min |
+| all firmware (no super/userdata) | ~2–4 GB | ~10–30 min |
+| **super** (OS logical partition) | **≈ 12 GB** | **~10–20 min** |
+| **userdata** (your data, encrypted) | **≈ 83 GiB (~89 GB)** | **~1.5–3 hours** |
+| **everything incl. super + userdata** | **≈ 100+ GB** | **~2–4 hours** |
+
+Notes if including the big two:
+- Needs **100+ GB free** on the PC drive where the backup folder lives.
+- `userdata` is your live, **FBE-encrypted** data — the dump is an opaque blob
+  (restorable, not browsable) and is **not needed for slot/boot recovery**.
+- `super` (system/vendor/product) is intact and reflashable from the firmware
+  package; not needed for slot recovery either.
+- So for unbricking, **skip both** (the default). Include them only for a full
+  offline clone, with the disk space and hours above.
+
+Minimum useful backup = **critical partitions + GPT** (~5–10 min, default run).
