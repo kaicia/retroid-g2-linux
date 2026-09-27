@@ -43,6 +43,12 @@ param(
 
 $ErrorActionPreference = "Continue"
 
+# --- 인코딩 고정: cp949 UnicodeEncodeError(진행률 막대 █) 방지 ---
+$env:PYTHONUTF8 = "1"
+$env:PYTHONIOENCODING = "utf-8"
+try { chcp 65001 > $null 2>&1 } catch { }
+try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
+
 if (-not (Test-Path ".\edl.py"))     { Write-Host "[!] edl.py 없음. edl-master 폴더에서 실행하세요." -ForegroundColor Red; exit 1 }
 if (-not (Test-Path ".\$Loader"))    { Write-Host "[!] 로더 '$Loader' 없음." -ForegroundColor Red; exit 1 }
 

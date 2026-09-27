@@ -1,5 +1,5 @@
 <#
-  backup_g2_factory.ps1  —  Retroid Pocket G2 "공장복원용" 전체 백업 (userdata만 제외)
+  backup_g2_factory.ps1  —  Retroid Pocket G2 "factory" full backup (userdata excluded)
 
   이 스크립트 하나면 gpt + core + full + super 가 전부 포함됩니다 (userdata 만 빠짐).
   소프트웨어/펌웨어 벽돌은 이걸로 거의 다 복구 가능.
@@ -17,6 +17,9 @@
 
   읽기 전용 — 기기에 아무것도 쓰지 않습니다. 예상: ~15~20 GB, ~20~45분
   (userdata 포함 시 +~83 GiB, +1.5~3시간, PC 여유 100 GB+ 필요)
+
+  참고: 한글 Windows 콘솔(cp949)에서 bkerler 진행률 막대(█) 때문에 나던
+        UnicodeEncodeError 를 막으려고 Python 을 UTF-8 출력 모드로 강제합니다.
 #>
 
 param(
@@ -29,8 +32,14 @@ param(
 
 $ErrorActionPreference = "Continue"
 
-if (-not (Test-Path ".\edl.py"))  { Write-Host "[!] edl.py 없음. edl-master 폴더에서 실행하세요." -ForegroundColor Red; exit 1 }
-if (-not (Test-Path ".\$Loader")) { Write-Host "[!] 로더 '$Loader' 없음." -ForegroundColor Red; exit 1 }
+# --- 인코딩 고정: cp949 UnicodeEncodeError(진행률 막대 █) 방지 ---
+$env:PYTHONUTF8 = "1"
+$env:PYTHONIOENCODING = "utf-8"
+try { chcp 65001 > $null 2>&1 } catch { }
+try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
+
+if (-not (Test-Path ".\edl.py"))  { Write-Host "[!] edl.py not found. Run from the edl-master folder." -ForegroundColor Red; exit 1 }
+if (-not (Test-Path ".\$Loader")) { Write-Host "[!] loader '$Loader' not found." -ForegroundColor Red; exit 1 }
 
 if ([string]::IsNullOrEmpty($OutDir)) { $OutDir = "backup_factory_" + (Get-Date -Format "yyyyMMdd_HHmmss") }
 New-Item -ItemType Directory -Force -Path $OutDir | Out-Null
@@ -47,25 +56,25 @@ function Run-Edl([string[]]$a){
 }
 
 $sw = [System.Diagnostics.Stopwatch]::StartNew()
-Log "=== G2 공장복원용 백업 시작 (userdata 제외: $([bool](-not $IncludeUserdata))) ==="
-Log "출력 폴더: $OutDir / 로더: $Loader / LUN: $($Luns -join ',')"
+Log ("=== G2 factory backup start (exclude userdata: {0}) ===" -f [bool](-not $IncludeUserdata))
+Log "out: $OutDir / loader: $Loader / LUNs: $($Luns -join ',')"
 
 # 각 LUN: GPT(gpt_main/backup) + rawprogram xml + 모든 파티션 (rl)
 foreach ($lun in $Luns){
   $lunDir = Join-Path $OutDir ("lun{0}" -f $lun)
   New-Item -ItemType Directory -Force -Path $lunDir | Out-Null
-  Log "LUN $lun 덤프 중 (빈 LUN이면 넘어감) ..."
+  Log "LUN $lun : dumping (empty LUN is skipped) ..."
   $a = @("rl", $lunDir, "--lun=$lun", "--genxml", "--memory=UFS", "--loader=$Loader")
   if ($skip){ $a += "--skip=$skip" }
   Run-Edl $a | Out-Null
   if (-not (Get-ChildItem -Path $lunDir -File -ErrorAction SilentlyContinue)){
     Remove-Item -Path $lunDir -Recurse -Force -ErrorAction SilentlyContinue
-    Log "LUN $lun : 파티션 없음 (빈 LUN) — 폴더 삭제"
+    Log "LUN $lun : no partitions (empty) - folder removed"
   }
 }
 
 # 무결성: SHA256 매니페스트 + 0바이트 검사
-Log "무결성 매니페스트 생성 ..."
+Log "generating SHA256 manifest ..."
 $man  = Join-Path $OutDir "SHA256SUMS.txt"
 Remove-Item $man -ErrorAction SilentlyContinue
 $root = (Resolve-Path $OutDir).Path
@@ -78,9 +87,9 @@ Get-ChildItem -Path $OutDir -Recurse -File | Where-Object { $_.Name -ne "SHA256S
 }
 
 $sw.Stop()
-Log ("=== 완료 ({0} 분) ===" -f [math]::Round($sw.Elapsed.TotalMinutes,1))
-if ($zero.Count -gt 0){ Log "[!] 0바이트 파일 (재확인 필요):"; $zero | ForEach-Object { Log ("    " + $_) } }
-else { Log "0바이트 파일 없음 — 정상." }
-Log ">>> 이 폴더($OutDir) 와 로더($Loader) 를 함께 안전한 곳에 보관하세요."
-Log ">>> 복원 방법: docs/g2-edl-backup-runbook.md"
+Log ("=== done ({0} min) ===" -f [math]::Round($sw.Elapsed.TotalMinutes,1))
+if ($zero.Count -gt 0){ Log "[!] zero-byte files (re-check needed):"; $zero | ForEach-Object { Log ("    " + $_) } }
+else { Log "no zero-byte files - OK." }
+Log ">>> keep this folder ($OutDir) together with the loader ($Loader)."
+Log ">>> restore guide: docs/g2-edl-backup-runbook.md"
 try { Stop-Transcript | Out-Null } catch { }
