@@ -27,7 +27,7 @@ powershell -ExecutionPolicy Bypass -File .\backup_g2_edl.ps1 -Tier core
 | `gpt` | partition tables only (`r gpt`, 32 sectors/LUN) | ~1 MB | < 1 min |
 | `core` | key partitions a/b (boot, xbl, abl, vbmeta, dtbo, modem…) + GPT | ~1–1.5 GB | ~3–8 min |
 | `full` | all firmware, **super + userdata excluded** | ~2–4 GB | ~10–30 min |
-| `factory` | **userdata excluded only** (super included) — reflash to clean state | ~15–20 GB | ~20–45 min |
+| `factory` | **userdata excluded only** (super included) — reflash to clean state | ~25–28 GB | ~15–45 min |
 | `all` | the four above, each in its own folder | ~20–26 GB | ~35–80 min |
 
 Tiers nest: `factory ⊃ full ⊃ gpt`, and `core` is a curated subset of `full`.
@@ -103,7 +103,7 @@ Sizes are from this device's GPT (128 GB UFS, ~107 GiB usable). Big partitions:
 | gpt | partition tables only | ~1 MB | < 1 min |
 | core | key partitions a/b + GPT | ~1–1.5 GB | ~3–8 min |
 | full | all firmware (no super/userdata) | ~2–4 GB | ~10–30 min |
-| factory | all except userdata (super in) | ~15–20 GB | ~20–45 min |
+| factory | all except userdata (super + rawdump in) | ~25–28 GB | ~15–45 min |
 | all four (separate folders) | — | ~20–26 GB | ~35–80 min |
 | + userdata (`-IncludeUserdata`) | adds encrypted data blob | +~83 GiB | +~1.5–3 h |
 

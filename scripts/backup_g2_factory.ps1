@@ -15,7 +15,7 @@
     # userdata(개인 데이터)까지 완전 클론하려면:
     powershell -ExecutionPolicy Bypass -File .\backup_g2_factory.ps1 -IncludeUserdata
 
-  읽기 전용 — 기기에 아무것도 쓰지 않습니다. 예상: ~15~20 GB, ~20~45분
+  읽기 전용 — 기기에 아무것도 쓰지 않습니다. 예상: ~25~28 GB (super+rawdump 포함), ~15~45분
   (userdata 포함 시 +~83 GiB, +1.5~3시간, PC 여유 100 GB+ 필요)
 
   참고: 한글 Windows 콘솔(cp949)에서 bkerler 진행률 막대(█) 때문에 나던
