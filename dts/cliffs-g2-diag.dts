@@ -1,0 +1,41 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Retroid Pocket G2: display-safe DIAGNOSTIC variant of cliffs-g2.dts.
+ *
+ * 2026-09-29: first ROCKNIX-ABL boot. The ABL log stayed on screen until the
+ * jump, then the screen went BLACK. A kernel that died early would have left
+ * the ABL log frozen on screen; black means something the kernel ran cut the
+ * display path. Every driver here that can do that is disabled:
+ *
+ *   apps_smmu  arm-smmu reset rewrites stream mappings (MDSS fetch path)
+ *   NoCs       icc sync_state drops boot-time bandwidth votes (MMSS/GEM NoC)
+ *   gcc        clk_disable_unused / GDSC off (GCC_DISP_* clocks)
+ *   sdhc_2     depends on the three above
+ *
+ * What is left: CPUs, GIC, timer, tlmm, rpmh-rsc + two SD regulators, and the
+ * simple-framebuffer console. The KERNEL built from this also passes
+ * clk_ignore_unused pd_ignore_unused. Expected: the kernel log on screen, ending
+ * in "VFS: Unable to mount root fs". If it shows, re-enable one group at a time
+ * to find the culprit. If it is still black, the display is cut before the
+ * kernel runs any driver (ABL exit path, or framebuffer address/format).
+ */
+#include "cliffs-g2.dts"
+
+&apps_smmu { status = "disabled"; };
+&sdhc_2 { status = "disabled"; };
+&gcc { status = "disabled"; };
+
+&clk_virt { status = "disabled"; };
+&mc_virt { status = "disabled"; };
+&aggre1_noc { status = "disabled"; };
+&aggre2_noc { status = "disabled"; };
+&cnoc_cfg { status = "disabled"; };
+&cnoc_main { status = "disabled"; };
+&gem_noc { status = "disabled"; };
+&lpass_ag_noc { status = "disabled"; };
+&lpass_lpiaon_noc { status = "disabled"; };
+&lpass_lpicx_noc { status = "disabled"; };
+&mmss_noc { status = "disabled"; };
+&nsp_noc { status = "disabled"; };
+&pcie_anoc { status = "disabled"; };
+&system_noc { status = "disabled"; };

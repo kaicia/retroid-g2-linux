@@ -236,6 +236,42 @@ vendor tree's name, in both `dts/cliffs-g2.dts` and
 `release/tier0-qcomabl/` artifacts are rebuilt from the same Image, and the DTB
 differs only in that node name. The source build (`scripts/build-g2-dtb-compile-candidate.sh`) produces a byte-identical `cliffs-g2.dtb` (sha256 `35b9b386…`).
 
+## Result 2026-09-29: rev 2 → ABL log to the end, then black
+
+What the ABL printed with Verbose mode:
+- "Total DDR Size: 0x1F112E000", then about 45 lines of *"Failed to get
+  Symbols node: /__symbols__ error: -1"*. These come from the partial-goods
+  label lookups (the gpucc/camcc/remoteproc label list), which our DTB has no
+  `__symbols__` for, so they are harmless.
+- "PartialGoods Value: 0x0" and "Update Device Tree total time: 91 ms".
+- "Shutting Down UEFI Boot Services: 4539 ms", followed by more symbol lines.
+
+The screen then went **black**. The ABL got through its whole path and jumped.
+A kernel that hung early would have left this log frozen on screen. Black means
+something the kernel ran cut the display path. The suspects, all present in the
+rev 2 DT:
+- **apps_smmu** (arm-smmu reset or stream-mapping handoff on the MDSS fetch
+  path);
+- **interconnect** sync_state dropping the boot bandwidth votes on the MMSS/GEM
+  NoCs;
+- **gcc**: clk_disable_unused on `GCC_DISP_*`, and GDSCs.
+
+**Diagnostic build** (`release/tier0-qcomabl/diag/KERNEL`, source
+`dts/cliffs-g2-diag.dts`):
+- It is rev 2 with apps_smmu, all 14 interconnect providers, gcc and sdhc_2
+  disabled.
+- It is compiled with `-@`, so it has `__symbols__` and the ABL's symbol errors
+  go away.
+- Its cmdline adds `clk_ignore_unused pd_ignore_unused`.
+- Same Image; the embedded config shows FB_SIMPLE=y and FRAMEBUFFER_CONSOLE=y.
+
+How to read the result:
+- **Kernel log shows:** one of the three groups is the culprit. Bisect by
+  re-enabling them one at a time.
+- **Still black:** the display is cut before any kernel driver runs. Look at
+  the ABL's ExitBootServices display callback, which exists in the SM8650 build
+  only, or at the FB address and format.
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0
