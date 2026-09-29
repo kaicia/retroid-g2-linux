@@ -69,7 +69,10 @@ providers' `#interconnect-cells = <1>` — the prior standalone candidate used t
   `cd-gpios`→tlmm 31 active-low all resolve.
 
 ## Deferred (not blocking compile; affects runtime)
-- **PMXR2230 regulator driver entry** (above) — the one real gap for SD to mount.
+- ~~**PMXR2230 regulator driver entry** — the one real gap for SD to mount.~~
+  **CLOSED 2026-09-29:** added as
+  `kernel/sm8635/patches/20-sm8635/drivers/regulator/qcom-rpmh-regulator-add-pmxr2230.patch`
+  (see `docs/g2-pmxr2230-regulator-port-notes-20260929.md`).
 - **power-domains + OPP** on sdhc_2 (`<&rpmhpd RPMHPD_CX>` + opp-table): omitted
   until rpmhpd is added; sdhci-msm still probes and runs at a default rate.
 - The standalone `dts/g2-sdhci-upstream-candidate.dtsi` remains as the research
