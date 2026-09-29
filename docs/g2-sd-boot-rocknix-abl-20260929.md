@@ -113,12 +113,70 @@ as root; we have no root, and EDL does the same job for one partition.
   (dead) to `qcom-abl`. Only the packaging step differs: `assemble_bootimg`
   instead of the raw Image.
 
+## Result 2026-09-29: compat check passed
+
+The user ran `check-abl-compat.py` on the factory backup
+(`backup_factory_20260928_001726\lun4\abl_b.bin`):
+- factory ABL: ELF32 ARM, entry and LOAD `0x9fa00000..0x9fa39000` (228 KiB), MBN v7, 241,464 B;
+- ROCKNIX SM8650: ELF32 ARM, entry and LOAD `0x9fa00000..0x9fa3d000` (244 KiB), MBN v7, 258,048 B;
+- every check OK: *"all checks match the factory ABL"*.
+
+One residual: the ROCKNIX image reaches 16 KiB further (to `0x9fa3d000`). The
+same SM8650 build loads on two vendors' pineapple devices, so XBL's ABL window
+is very likely at least that large. If it were not, the ABL would not start,
+which is recoverable by the EDL restore below.
+
+## Test 3 — ROCKNIX-ABL on `abl_b` (writes one 1 MiB partition)
+
+Artifacts:
+- `release/tier0-qcomabl/g2-qcomabl-sd.img.xz`, built by
+  `scripts/build-g2-qcomabl-sd-image.sh`;
+- `abl_signed-SM8650.elf` from ROCKNIX/abl v1.1.9.
+
+1. Write `g2-qcomabl-sd.img.xz` to a spare microSD with Etcher, as in Test 1.
+   Leave it **out** of the G2 for now.
+2. Enter EDL (9008), then:
+   ```
+   python edl.py w abl_b abl_signed-SM8650.elf --loader=xbl_s_devprg_ns.melf --memory=UFS
+   python edl.py reset --loader=xbl_s_devprg_ns.melf
+   ```
+   Only `abl_b`. Never touch `abl_a`, never switch slots, never run
+   `fastboot set_active`.
+3. **Check A (normal power-on):** does Android boot as usual? The factory Linux
+   mode is off until chosen in the menu.
+4. **Check B:** power off, then power on holding **VOL-**. Does the ROCKNIX-ABL
+   menu appear? Navigate with VOL-/+ and select with POWER. Photograph it.
+5. **Check C:** insert the card, open the menu again, and:
+   - set the device model: "Retroid Pocket G2" should be listed, read from our
+     DTB;
+   - set the boot mode to Linux (SD);
+   - select Start.
+
+   Success is the kernel log on screen, ending at
+   `VFS: Unable to mount root fs`, because there is no rootfs yet.
+6. To use Android again: VOL- menu, set the boot mode to Android.
+
+Results table:
+
+| Seen | Meaning |
+|---|---|
+| Black screen or no boot at all | XBL did not start this ABL → restore below |
+| Android boots, and the VOL- menu appears | **ABL works on the G2**: dual-boot mechanism in place |
+| The menu shows no model / "DEVICE MODEL NOT SET" | payload/DTB parsing issue; photograph it |
+| Kernel log on screen | **First kernel output. Tier 0 done** |
+| Logo hang after Start, no log | kernel started without console, or early hang; photograph it |
+
+**Restore** (EDL; the same method as the 2026-09-20 recovery):
+```
+python edl.py w abl_b backup_factory_20260928_001726\lun4\abl_b.bin --loader=xbl_s_devprg_ns.melf --memory=UFS
+python edl.py reset --loader=xbl_s_devprg_ns.melf
+```
+
 ## Next steps
-1. User runs `scripts/check-abl-compat.py` on the factory `abl_b.bin` backup
-   against the ROCKNIX `abl_signed-SM8650.elf` (v1.1.9), then reports the output.
-   This reads files only.
-2. If every check is OK: build the `qcom-abl` SD card, with KERNEL as a header-v0
-   boot image of our 7.1.2 kernel and `cliffs-g2.dtb`.
+1. ~~Compat check~~: passed, see above.
+2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0
+   boot image of our 7.1.2 kernel and `cliffs-g2.dtb`.~~ Done:
+   `release/tier0-qcomabl/`.
 3. EDL-write `abl_b` only. Then:
    - Boot normally: Android should still start.
    - Reboot holding VOL-: the ROCKNIX menu should appear. Set the model to

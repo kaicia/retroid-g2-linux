@@ -29,6 +29,7 @@ Layout (every section padded up to page_size):
 """
 
 import argparse
+import datetime
 import gzip
 import hashlib
 import io
@@ -70,6 +71,18 @@ SECOND_ADDR = BASE + 0x07F00000
 TAGS_ADDR = BASE + 0x00000100
 DTB_ADDR = BASE + 0x09000000
 
+# Header v0 (2026-09-29): the ROCKNIX-ABL payload (/KERNEL on the SD card's FAT
+# partition). Byte-for-byte the shape pocknix/holodor assemble_bootimg makes
+# with AOSP mkbootimg: header_version 0, gzip(Image) with the DTB appended as the
+# "kernel", AOSP defaults for page size (2048) and base (0x10000000) with
+# kernel/ramdisk/tags offsets 0, second offset 0x00f00000, os_version 12.0.0.
+# ROCKNIX-ABL decompresses the kernel itself and finds the DTB appended to it;
+# it lists each DTB's model property in its "Select your device model" menu.
+V0_PAGE_SIZE = 2048
+V0_BASE = 0x10000000
+V0_SECOND_ADDR = V0_BASE + 0x00F00000
+V0_OS_VERSION = (12, 0, 0)
+
 
 def pad(data: bytes, page_size: int) -> bytes:
     """Pad up to a whole number of pages."""
@@ -100,6 +113,44 @@ def empty_initramfs() -> bytes:
     with gzip.GzipFile(fileobj=buf, mode="wb", mtime=0) as gz:
         gz.write(rec)
     return buf.getvalue()
+
+
+def os_version_field(version, year: int, month: int) -> int:
+    """AOSP mkbootimg encoding: A.B.C in bits 31..11, patch level in 10..0."""
+    a, b, c = version
+    return ((a << 14 | b << 7 | c) << 11) | ((year - 2000) << 4 | month)
+
+
+def build_v0(kernel: bytes, ramdisk: bytes, cmdline: str, os_version: int,
+             page_size: int = V0_PAGE_SIZE) -> bytes:
+    """Header v0: no dtb field; the DTB travels appended to the kernel."""
+    cmdline_b = cmdline.encode()
+    if len(cmdline_b) > 512 + 1024:
+        raise SystemExit("cmdline too long: %d bytes (max 1536)" % len(cmdline_b))
+
+    # v0 id[]: SHA-1 over kernel, ramdisk, second, each followed by its size.
+    sha = hashlib.sha1()
+    for section in (kernel, ramdisk, b""):
+        sha.update(section)
+        sha.update(struct.pack("<I", len(section)))
+    img_id = sha.digest().ljust(32, b"\x00")[:32]
+
+    hdr = bytearray()
+    hdr += BOOT_MAGIC
+    hdr += struct.pack("<II", len(kernel), V0_BASE)
+    hdr += struct.pack("<II", len(ramdisk), V0_BASE)
+    hdr += struct.pack("<II", 0, V0_SECOND_ADDR)
+    hdr += struct.pack("<I", V0_BASE)               # tags_addr
+    hdr += struct.pack("<I", page_size)
+    hdr += struct.pack("<I", 0)                     # header_version
+    hdr += struct.pack("<I", os_version)
+    hdr += b"\x00" * 16                             # name
+    hdr += cmdline_b[:512].ljust(512, b"\x00")
+    hdr += img_id
+    hdr += cmdline_b[512:].ljust(1024, b"\x00")
+    assert len(hdr) == 1632, len(hdr)
+
+    return pad(bytes(hdr), page_size) + pad(kernel, page_size) + pad(ramdisk, page_size)
 
 
 def build(kernel: bytes, ramdisk: bytes, dtb: bytes, cmdline: str,
@@ -156,7 +207,11 @@ def main() -> int:
     ap.add_argument("--dtb", required=True)
     ap.add_argument("--ramdisk", help="default: a generated empty initramfs")
     ap.add_argument("--cmdline", required=True)
-    ap.add_argument("--page-size", type=int, default=PAGE_SIZE)
+    ap.add_argument("--page-size", type=int,
+                    help="default: 4096 for v2, 2048 for v0")
+    ap.add_argument("--header-version", type=int, choices=(0, 2), default=2,
+                    help="2: fastboot/boot_b image with the DTB in the header (default); "
+                         "0: ROCKNIX-ABL /KERNEL, gzip(Image) with the DTB appended")
     ap.add_argument("-o", "--output", required=True)
     args = ap.parse_args()
 
@@ -166,7 +221,7 @@ def main() -> int:
     # arm64 Image header: image_size (le64 at 0x10) is the effective size the
     # kernel occupies once loaded, BSS included; 0 on very old kernels.
     image_size = struct.unpack("<Q", kernel[16:24])[0] or len(kernel)
-    if KERNEL_ADDR + image_size > RAMDISK_ADDR:
+    if args.header_version == 2 and KERNEL_ADDR + image_size > RAMDISK_ADDR:
         raise SystemExit("kernel effective size %d overlaps the ramdisk at 0x%08x"
                          % (image_size, RAMDISK_ADDR))
     dtb = open(args.dtb, "rb").read()
@@ -174,7 +229,25 @@ def main() -> int:
         raise SystemExit("%s is not a device tree blob" % args.dtb)
     ramdisk = open(args.ramdisk, "rb").read() if args.ramdisk else empty_initramfs()
 
-    img = build(kernel, ramdisk, dtb, args.cmdline, args.page_size)
+    if args.header_version == 0:
+        # mtime=0 keeps the image byte-reproducible.
+        buf = io.BytesIO()
+        with gzip.GzipFile(fileobj=buf, mode="wb", mtime=0) as gz:
+            gz.write(kernel)
+        payload = buf.getvalue() + dtb
+        today = datetime.date.today()
+        img = build_v0(payload, ramdisk, args.cmdline,
+                       os_version_field(V0_OS_VERSION, today.year, today.month),
+                       args.page_size or V0_PAGE_SIZE)
+        open(args.output, "wb").write(img)
+        print("%s  %d bytes  (header v0, ROCKNIX-ABL /KERNEL)" % (args.output, len(img)))
+        print("  kernel   gzip(Image %d) + dtb %d = %d" % (len(kernel), len(dtb), len(payload)))
+        print("  ramdisk  %8d" % len(ramdisk))
+        print("  cmdline  %s" % args.cmdline)
+        print("  sha256   %s" % hashlib.sha256(img).hexdigest())
+        return 0
+
+    img = build(kernel, ramdisk, dtb, args.cmdline, args.page_size or PAGE_SIZE)
     open(args.output, "wb").write(img)
 
     print("%s  %d bytes" % (args.output, len(img)))
