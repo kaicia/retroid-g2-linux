@@ -22,7 +22,7 @@ viable `BOOTLOADER` for sm8635.
 | Path A (SD EFI) | no | **Closed** (3 attempts) |
 | `fastboot boot` | no | Closed (`unknown command`, 2026-09-15) |
 | **Path C** — our v2 boot image EDL-written into active `boot_b` | yes (`boot_b` only; restorable from backup) | **Next**, user's decision — `g2-boot-test-20260929.md` Test 2 |
-| Path B — replace ABL | yes (`abl_a/b`) | Needs a Cliffs ABL; ROCKNIX LinuxLoader is private |
+| Path B — replace ABL | yes (`abl_b` only) | **Update same day:** try the public ROCKNIX `abl_signed-SM8650.elf` first — see `g2-sd-boot-rocknix-abl-20260929.md` |
 
 Every route that avoids writing internal storage is now exhausted. The
 `BOOTLOADER=arm-efi` placeholder in `kernel/sm8635/profile.conf` is marked

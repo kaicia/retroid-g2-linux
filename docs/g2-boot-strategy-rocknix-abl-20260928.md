@@ -23,6 +23,12 @@ uses, including the two reference projects.
 
 ## The gap: no Cliffs build exists
 
+> **Update 2026-09-29:** ROCKNIX ABL builds are per SoC family and nearly
+> SoC-agnostic (SM8550/SM8650/SM8750 differ only in a display-power callback).
+> The G2 is `ro.board.platform=pineapple`, so the existing SM8650 build is the
+> first candidate; no Cliffs build may be needed. See
+> `g2-sd-boot-rocknix-abl-20260929.md`.
+
 `github.com/ROCKNIX/abl` is buildable source (edk2 / QcomModulePkg, GitHub
 Actions build workflows), but its supported SoCs today are:
 
