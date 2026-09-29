@@ -27,6 +27,9 @@
 
 #include <dt-bindings/interrupt-controller/arm-gic.h>
 #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+#include <dt-bindings/clock/qcom,gcc-cliffs.h>
+#include <dt-bindings/interconnect/qcom,cliffs.h>
+#include <dt-bindings/gpio/gpio.h>
 
 / {
 	interrupt-parent = <&intc>;
@@ -477,6 +480,52 @@
 			interrupt-controller;
 			#interrupt-cells = <2>;
 			gpio-ranges = <&tlmm 0 0 179>;
+
+			sdc2_default: sdc2-default-state {
+				clk-pins {
+					pins = "sdc2_clk";
+					drive-strength = <16>;
+					bias-disable;
+				};
+
+				cmd-pins {
+					pins = "sdc2_cmd";
+					drive-strength = <10>;
+					bias-pull-up;
+				};
+
+				data-pins {
+					pins = "sdc2_data";
+					drive-strength = <10>;
+					bias-pull-up;
+				};
+			};
+
+			sdc2_sleep: sdc2-sleep-state {
+				clk-pins {
+					pins = "sdc2_clk";
+					drive-strength = <2>;
+					bias-disable;
+				};
+
+				cmd-pins {
+					pins = "sdc2_cmd";
+					drive-strength = <2>;
+					bias-pull-up;
+				};
+
+				data-pins {
+					pins = "sdc2_data";
+					drive-strength = <2>;
+					bias-pull-up;
+				};
+			};
+
+			sd_cd: sd-cd-state {
+				pins = "gpio31";
+				function = "gpio";
+				bias-pull-up;
+			};
 		};
 
 		/*
@@ -502,6 +551,186 @@
 			apps_bcm_voter: bcm-voter {
 				compatible = "qcom,bcm-voter";
 			};
+
+			/*
+			 * PMXR2230 (SPMI PMIC id "b") RPMh-managed regulators.
+			 * Only the two SDCC2 rails are described; add the rest as
+			 * their consumers are wired. NOTE: needs a pmxr2230 entry in
+			 * the target kernel's qcom-rpmh-regulator driver; if absent
+			 * it is a small pmic5-ldo table addition (documented in
+			 * docs/g2-regulators-sdcc2-wiring-20260929.md).
+			 */
+			pmxr2230_rpmh_regulators: regulators-0 {
+				compatible = "qcom,pmxr2230-rpmh-regulators";
+				qcom,pmic-id = "b";
+
+				vreg_l13b: ldo13 {
+					regulator-name = "vreg_l13b";
+					regulator-min-microvolt = <2700000>;
+					regulator-max-microvolt = <3300000>;
+				};
+
+				vreg_l23b: ldo23 {
+					regulator-name = "vreg_l23b";
+					regulator-min-microvolt = <1650000>;
+					regulator-max-microvolt = <3544000>;
+				};
+			};
+		};
+
+		/*
+		 * apps SMMU (arm,mmu-500). Generic mainline driver; needed so DMA
+		 * masters (SDCC2 here; USB/UFS later) can translate. Downstream
+		 * qcom,actlr / handoff-smrs props are dropped (not mainline).
+		 */
+		apps_smmu: iommu@15000000 {
+			compatible = "qcom,sm8635-smmu-500", "qcom,smmu-500", "arm,mmu-500";
+			reg = <0x0 0x15000000 0x0 0x100000>;
+			#iommu-cells = <2>;
+			#global-interrupts = <1>;
+			dma-coherent;
+			interrupts =
+			     <GIC_SPI 0x41 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x61 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x62 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x63 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x64 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x65 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x66 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x67 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x68 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x69 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x6a IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x6b IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x6c IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x6d IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x6e IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x6f IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x70 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x71 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x72 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x73 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x74 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x75 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x76 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xb5 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xb6 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xb7 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xb8 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xb9 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xba IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xbb IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xbc IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xbd IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xbe IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xbf IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xc0 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x13b IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x13c IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x13d IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x13e IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x13f IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x140 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x141 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x142 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x143 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x144 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x145 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x146 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x147 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x148 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x149 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x14a IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x14b IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x14c IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x14d IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x14e IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x14f IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x150 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x151 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x152 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x153 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x154 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x155 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x156 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x157 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x158 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x159 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x18b IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x18c IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x18d IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x18e IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x18f IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x190 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x191 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x192 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x193 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x194 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x195 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x196 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x197 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x198 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x199 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x1a2 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x1a3 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x19c IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x1a5 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2c2 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x1a7 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x1a8 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x1a9 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b1 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b2 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b3 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b4 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b5 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b6 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b7 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b8 IRQ_TYPE_LEVEL_HIGH>;
+		};
+
+		/*
+		 * SDCC2 — external microSD (Tier 2 storage goal). Binds the generic
+		 * sdhci-msm driver via the qcom,sdhci-msm-v5 fallback (no driver
+		 * port needed). All values from the G2 DT + prior SDCC2
+		 * characterisation (dts/g2-sdhci-upstream-candidate.dtsi):
+		 * base 0x8804000, irqs SPI 207/223, DLL 0x0007442c, DDR 0x80040868,
+		 * SMMU SID 0x140, card-detect gpio31 active-low, vmmc=l13b vqmmc=l23b.
+		 * interconnects use 1 cell (no TAG) to match #interconnect-cells=<1>.
+		 */
+		sdhc_2: mmc@8804000 {
+			compatible = "qcom,sm8635-sdhci", "qcom,sdhci-msm-v5";
+			reg = <0x0 0x08804000 0x0 0x1000>;
+
+			interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "hc_irq", "pwr_irq";
+
+			clocks = <&gcc GCC_SDCC2_AHB_CLK>,
+				 <&gcc GCC_SDCC2_APPS_CLK>;
+			clock-names = "iface", "core";
+			resets = <&gcc GCC_SDCC2_BCR>;
+
+			interconnects = <&aggre2_noc MASTER_SDCC_2 &mc_virt SLAVE_EBI1>,
+					<&gem_noc MASTER_APPSS_PROC &cnoc_cfg SLAVE_SDCC_2>;
+			interconnect-names = "sdhc-ddr", "cpu-sdhc";
+
+			iommus = <&apps_smmu 0x140 0x0>;
+			dma-coherent;
+			bus-width = <4>;
+
+			qcom,dll-config = <0x0007442c>;
+			qcom,ddr-config = <0x80040868>;
+
+			vmmc-supply = <&vreg_l13b>;
+			vqmmc-supply = <&vreg_l23b>;
+
+			pinctrl-names = "default", "sleep";
+			pinctrl-0 = <&sdc2_default>, <&sd_cd>;
+			pinctrl-1 = <&sdc2_sleep>, <&sd_cd>;
+			cd-gpios = <&tlmm 31 GPIO_ACTIVE_LOW>;
+
+			status = "okay";
 		};
 
 		/*
