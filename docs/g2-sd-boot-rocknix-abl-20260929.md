@@ -172,6 +172,26 @@ python edl.py w abl_b backup_factory_20260928_001726\lun4\abl_b.bin --loader=xbl
 python edl.py reset --loader=xbl_s_devprg_ns.melf
 ```
 
+## Result 2026-09-29: ROCKNIX-ABL runs on the G2
+
+`abl_signed-SM8650.elf` (v1.1.9) was EDL-written to `abl_b` (LUN 4, sector
+448058, 63 sectors). On reset the device showed ROCKNIX-ABL's own error screen,
+with no SD card inserted:
+
+> **ERROR** — Error booting Linux. Switch ABL mode to Verbose for more
+> information. Press any key to reboot!
+
+- **XBL accepted and started the ROCKNIX ABL.** The load window is large enough
+  and the test signature is accepted.
+- **ABL display output works** through the G2's UEFI display protocol.
+- The factory default boot mode is **Linux**, not Android as assumed above.
+  With no card present, the Linux boot fails, which is the expected message.
+
+So the Armada dual-boot mechanism works on the G2's firmware. Remaining checks:
+- the VOL- menu, set to Verbose;
+- Android through the menu;
+- the SD card with the model set.
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0
