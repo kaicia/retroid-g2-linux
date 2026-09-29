@@ -187,10 +187,29 @@ with no SD card inserted:
 - The factory default boot mode is **Linux**, not Android as assumed above.
   With no card present, the Linux boot fails, which is the expected message.
 
-So the Armada dual-boot mechanism works on the G2's firmware. Remaining checks:
-- the VOL- menu, set to Verbose;
-- Android through the menu;
-- the SD card with the model set.
+So the Armada dual-boot mechanism works on the G2's firmware.
+
+**VOL- menu: works.** The header reads "Recovery mode".
+- ABL Settings:
+  - Boot mode: Linux
+  - ABL mode: Silent
+  - Alternative volume up: Android
+  - Boot source: Auto
+  - Offmode charging: On
+  - Version: v1.1.9
+- System Stats, all read correctly from the G2's firmware:
+  - SoC: Snapdragon G2 Gen 2
+  - RAM: 8 GB
+  - Storage: 128 GB
+  - SD card: Not Inserted
+  - Display: 1920 x 1080
+
+**Android through ROCKNIX-ABL: works.** With Boot mode set to Android, the stock
+Android boots. The dual-boot is in place; stock ABL is no longer needed day to
+day. The `abl_b` backup stays as the restore path.
+
+Remaining check: Linux from the SD card (`release/tier0-qcomabl/`), with the model
+set.
 
 ## Next steps
 1. ~~Compat check~~: passed, see above.
