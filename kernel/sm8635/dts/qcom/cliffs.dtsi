@@ -1,0 +1,837 @@
+// SPDX-License-Identifier: BSD-3-Clause
+/*
+ * Qualcomm Cliffs — SoC description for Retroid Pocket G2 bring-up.
+ *
+ * TIER 0 base: CPUs, PSCI, the architected timer, the GIC, firmware memory
+ * carve-outs — enough to get a kernel running and talking.
+ *
+ * TIER 1/2 providers (added 2026-09-29): the RPMh RSC + apps bcm-voter, the
+ * GCC clock/reset controller (qcom,gcc-sm8635), the TLMM pinctrl/GPIO block
+ * (qcom,sm8635-tlmm), and the 14 interconnect/NoC providers
+ * (qcom,sm8635-*). These bind to the drivers ported under
+ * kernel/sm8635/patches/20-sm8635/ (gcc-sm8635.c, pinctrl-sm8635.c,
+ * icc-sm8635.c). Regulators (PMXR2230) and the per-peripheral nodes (SDCC2,
+ * QUP/UART, USB, UFS) are the remaining Tier 2/3 work.
+ *
+ * Every value is taken from the device's own tree, archived at
+ * dumps/g2/g2-devicetree-20260914-222623.tar.gz (gcc reg 0x100000+0x1f4200,
+ * tlmm 0xf000000+0x1000000 irq SPI 208, apps_rsc 0x17a00000 drv-id 2
+ * tcs-offset 0xd00, and the 14 NoC bases). Nothing is inherited from upstream
+ * `milos`, which is a different SoC — see docs/g2-decisions-20260914.md.
+ *
+ * NOTE ON /memory: deliberately absent. This DTB is handed to Linux by the EFI
+ * stub (GRUB's `devicetree` command), and Linux then takes its memory map from
+ * EFI and ignores /memory. A guessed /memory node would be worse than none: it
+ * could hand Linux memory the firmware is still using.
+ */
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/soc/qcom,rpmh-rsc.h>
+#include <dt-bindings/clock/qcom,gcc-cliffs.h>
+#include <dt-bindings/interconnect/qcom,cliffs.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	interrupt-parent = <&intc>;
+
+	#address-cells = <2>;
+	#size-cells = <2>;
+
+	/*
+	 * Board input clocks. bi_tcxo (19.2 MHz XO) and the 32 kHz sleep clock
+	 * feed GCC. Upstream normally routes bi_tcxo through rpmhcc
+	 * (qcom,cliffs-rpmh-clk); that driver is not ported yet, so for bring-up
+	 * GCC takes the XO directly from this fixed-clock. Swap to
+	 * <&rpmhcc RPMH_CXO_CLK> once the rpmh clock driver lands.
+	 */
+	xo_board: xo-board-clk {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+		clock-frequency = <19200000>;
+		clock-output-names = "xo_board";
+	};
+
+	sleep_clk: sleep-clk {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+		clock-frequency = <32000>;
+		clock-output-names = "sleep_clk";
+	};
+
+	/*
+	 * Register-less (virtual) interconnect providers. Bind icc-sm8635.c,
+	 * vote through &apps_bcm_voter. Placed at root (not under the soc
+	 * simple-bus) because they have no MMIO reg. The 12 physical NoCs are
+	 * under soc@0.
+	 */
+	clk_virt: interconnect-0 {
+		compatible = "qcom,sm8635-clk-virt";
+		#interconnect-cells = <1>;
+		qcom,bcm-voters = <&apps_bcm_voter>;
+	};
+
+	mc_virt: interconnect-1 {
+		compatible = "qcom,sm8635-mc-virt";
+		#interconnect-cells = <1>;
+		qcom,bcm-voters = <&apps_bcm_voter>;
+	};
+
+	cpus {
+		#address-cells = <2>;
+		#size-cells = <0>;
+
+		/*
+		 * 3x Cortex-A520 + 4x Cortex-A720 + 1x Cortex-X4, three clusters.
+		 * Core types are from /proc/cpuinfo part numbers (0xd80 / 0xd81 /
+		 * 0xd82); MPIDR values and capacities are from the device tree.
+		 * The vendor tree calls all eight "qcom,kryo"; the ARM
+		 * compatibles are more specific and equally valid.
+		 */
+		cpu0: cpu@0 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a520";
+			reg = <0x0 0x0>;
+			enable-method = "psci";
+			capacity-dmips-mhz = <1024>;
+		};
+
+		cpu1: cpu@100 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a520";
+			reg = <0x0 0x100>;
+			enable-method = "psci";
+			capacity-dmips-mhz = <1024>;
+		};
+
+		cpu2: cpu@200 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a520";
+			reg = <0x0 0x200>;
+			enable-method = "psci";
+			capacity-dmips-mhz = <1024>;
+		};
+
+		cpu3: cpu@300 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a720";
+			reg = <0x0 0x300>;
+			enable-method = "psci";
+			capacity-dmips-mhz = <1690>;
+		};
+
+		cpu4: cpu@400 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a720";
+			reg = <0x0 0x400>;
+			enable-method = "psci";
+			capacity-dmips-mhz = <1690>;
+		};
+
+		cpu5: cpu@500 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a720";
+			reg = <0x0 0x500>;
+			enable-method = "psci";
+			capacity-dmips-mhz = <1690>;
+		};
+
+		cpu6: cpu@600 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a720";
+			reg = <0x0 0x600>;
+			enable-method = "psci";
+			capacity-dmips-mhz = <1690>;
+		};
+
+		cpu7: cpu@700 {
+			device_type = "cpu";
+			compatible = "arm,cortex-x4";
+			reg = <0x0 0x700>;
+			enable-method = "psci";
+			capacity-dmips-mhz = <1843>;
+		};
+
+		cpu-map {
+			cluster0 {
+				core0 { cpu = <&cpu0>; };
+				core1 { cpu = <&cpu1>; };
+				core2 { cpu = <&cpu2>; };
+			};
+
+			cluster1 {
+				core0 { cpu = <&cpu3>; };
+				core1 { cpu = <&cpu4>; };
+				core2 { cpu = <&cpu5>; };
+				core3 { cpu = <&cpu6>; };
+			};
+
+			cluster2 {
+				core0 { cpu = <&cpu7>; };
+			};
+		};
+	};
+
+	/*
+	 * No firmware/scm node. The binding requires a SoC-specific compatible
+	 * ahead of "qcom,scm" and there is no `qcom,scm-cliffs` — schema
+	 * validation rejects the bare form. Nothing in Tier 0 needs SCM; it is
+	 * pulled in by drivers (pinctrl secure access, ICE, remoteproc) that
+	 * arrive with Tier 1, which is also when a Cliffs compatible would be
+	 * added upstream. The vendor tree describes it as firmware/qcom_scm.
+	 */
+
+	psci {
+		compatible = "arm,psci-1.0";
+		method = "smc";
+	};
+
+	reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		/*
+		 * Firmware carve-outs, generated from the device's own
+		 * reserved-memory node (every child that is fixed-address and
+		 * no-map). Under EFI boot these should also appear in the EFI
+		 * memory map; keeping them here costs nothing and protects the
+		 * regions if this DTB is ever used on a non-EFI path.
+		 */
+		gunyah_hyp_region@80000000 {
+			reg = <0x0 0x80000000 0x0 0x00e00000>;
+			no-map;
+		};
+
+		cpusys_vm_region@80e00000 {
+			reg = <0x0 0x80e00000 0x0 0x00400000>;
+			no-map;
+		};
+
+		tags_region@81200000 {
+			reg = <0x0 0x81200000 0x0 0x004e0000>;
+			no-map;
+		};
+
+		xbl_dtlog_region@81a00000 {
+			reg = <0x0 0x81a00000 0x0 0x00040000>;
+			no-map;
+		};
+
+		xbl_ramdump_region@81a40000 {
+			reg = <0x0 0x81a40000 0x0 0x001c0000>;
+			no-map;
+		};
+
+		aop_image_region@81c00000 {
+			reg = <0x0 0x81c00000 0x0 0x00060000>;
+			no-map;
+		};
+
+		aop_cmd_db_region@81c60000 {
+			reg = <0x0 0x81c60000 0x0 0x00020000>;
+			no-map;
+		};
+
+		aop_config_region@81c80000 {
+			reg = <0x0 0x81c80000 0x0 0x00020000>;
+			no-map;
+		};
+
+		tme_crash_dump_region@81ca0000 {
+			reg = <0x0 0x81ca0000 0x0 0x00040000>;
+			no-map;
+		};
+
+		tme_log_region@81ce0000 {
+			reg = <0x0 0x81ce0000 0x0 0x00004000>;
+			no-map;
+		};
+
+		uefi_log_region@81ce4000 {
+			reg = <0x0 0x81ce4000 0x0 0x00010000>;
+			no-map;
+		};
+
+		chipinfo_region@81cf4000 {
+			reg = <0x0 0x81cf4000 0x0 0x00001000>;
+			no-map;
+		};
+
+		secdata_apss_region@81cff000 {
+			reg = <0x0 0x81cff000 0x0 0x00001000>;
+			no-map;
+		};
+
+		smem_region@81d00000 {
+			reg = <0x0 0x81d00000 0x0 0x00200000>;
+			no-map;
+		};
+
+		adsp_mhi_region@81f00000 {
+			reg = <0x0 0x81f00000 0x0 0x00020000>;
+			no-map;
+		};
+
+		pvm_fw_region@824a0000 {
+			reg = <0x0 0x824a0000 0x0 0x00100000>;
+			no-map;
+		};
+
+		hyp_mem_database_region@825a0000 {
+			reg = <0x0 0x825a0000 0x0 0x00060000>;
+			no-map;
+		};
+
+		global_sync_region@82600000 {
+			reg = <0x0 0x82600000 0x0 0x00100000>;
+			no-map;
+		};
+
+		tz_stat_region@82700000 {
+			reg = <0x0 0x82700000 0x0 0x00100000>;
+			no-map;
+		};
+
+		dsm_partition_1_region@86b00000 {
+			reg = <0x0 0x86b00000 0x0 0x03700000>;
+			no-map;
+		};
+
+		mpss_region@8bc00000 {
+			reg = <0x0 0x8bc00000 0x0 0x0cd00000>;
+			no-map;
+		};
+
+		q6_mpss_dtb_region@98900000 {
+			reg = <0x0 0x98900000 0x0 0x00080000>;
+			no-map;
+		};
+
+		ipa_fw_region@98980000 {
+			reg = <0x0 0x98980000 0x0 0x00010000>;
+			no-map;
+		};
+
+		ipa_gsi_region@98990000 {
+			reg = <0x0 0x98990000 0x0 0x0000a000>;
+			no-map;
+		};
+
+		gpu_microcode_region@9899a000 {
+			reg = <0x0 0x9899a000 0x0 0x00002000>;
+			no-map;
+		};
+
+		video_region@9899c000 {
+			reg = <0x0 0x9899c000 0x0 0x00800000>;
+			no-map;
+		};
+
+		cvp_region@9919c000 {
+			reg = <0x0 0x9919c000 0x0 0x00700000>;
+			no-map;
+		};
+
+		cdsp_region@99900000 {
+			reg = <0x0 0x99900000 0x0 0x01400000>;
+			no-map;
+		};
+
+		q6_cdsp_dtb_region@9ad00000 {
+			reg = <0x0 0x9ad00000 0x0 0x00080000>;
+			no-map;
+		};
+
+		camera_region@9b300000 {
+			reg = <0x0 0x9b300000 0x0 0x00800000>;
+			no-map;
+		};
+
+		wpss_region@9bb00000 {
+			reg = <0x0 0x9bb00000 0x0 0x01900000>;
+			no-map;
+		};
+
+		adspslpi_region@9d400000 {
+			reg = <0x0 0x9d400000 0x0 0x03200000>;
+			no-map;
+		};
+
+		q6_adsp_dtb_region@a0600000 {
+			reg = <0x0 0xa0600000 0x0 0x00080000>;
+			no-map;
+		};
+
+		wlan_msa_region@a6400000 {
+			reg = <0x0 0xa6400000 0x0 0x00c00000>;
+			no-map;
+		};
+
+		xbl_sc_region@d8000000 {
+			reg = <0x0 0xd8000000 0x0 0x00040000>;
+			no-map;
+		};
+
+		cpucp_fw_region@d8040000 {
+			reg = <0x0 0xd8040000 0x0 0x001c0000>;
+			no-map;
+		};
+
+		reserved_region@d8200000 {
+			reg = <0x0 0xd8200000 0x0 0x000e0000>;
+			no-map;
+		};
+
+		qtee_region@d82e0000 {
+			reg = <0x0 0xd82e0000 0x0 0x00520000>;
+			no-map;
+		};
+
+		tatags_region@d8800000 {
+			reg = <0x0 0xd8800000 0x0 0x093b0000>;
+			no-map;
+		};
+
+		reserved_region@e1bb0000 {
+			reg = <0x0 0xe1bb0000 0x0 0x00190000>;
+			no-map;
+		};
+
+		llcc_lpi_region@ff800000 {
+			reg = <0x0 0xff800000 0x0 0x00380000>;
+			no-map;
+		};
+
+	};
+
+	soc: soc@0 {
+		compatible = "simple-bus";
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges = <0 0 0 0 0x10 0>;
+		dma-ranges = <0 0 0 0 0x10 0>;
+
+		intc: interrupt-controller@17100000 {
+			compatible = "arm,gic-v3";
+			reg = <0x0 0x17100000 0x0 0x10000>,	/* GICD */
+			      <0x0 0x17180000 0x0 0x200000>;	/* GICR */
+
+			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
+
+			#interrupt-cells = <3>;
+			interrupt-controller;
+
+			#redistributor-regions = <1>;
+			redistributor-stride = <0x0 0x40000>;
+
+			#address-cells = <2>;
+			#size-cells = <2>;
+			ranges;
+		};
+
+		/*
+		 * The console the device's own firmware designates, per
+		 * chosen/stdout-path. Left DISABLED on purpose: the geni driver
+		 * needs its serial-engine clock, and there is no Cliffs clock
+		 * provider yet (Tier 1). Tier 0 reaches this same UART with
+		 * `earlycon=qcom_geni,0xa94000`, which writes MMIO directly and
+		 * relies on the baud the firmware already programmed.
+		 *
+		 * G2 values: SPI 358, TX gpio22 (qup0_se5_l2),
+		 * RX gpio23 (qup0_se5_l3), 115200n8.
+		 */
+		uart5: serial@a94000 {
+			compatible = "qcom,geni-debug-uart";
+			reg = <0x0 0x00a94000 0x0 0x4000>;
+			interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
+			status = "disabled";
+		};
+
+		/*
+		 * GCC — global clock + reset controller. Binds gcc-sm8635.c.
+		 * No #power-domain-cells: this GCC exposes no GDSCs (the ported
+		 * driver has none; power domains come via rpmhpd, added later).
+		 * Parents: bi_tcxo (XO) + sleep_clk. The PHY-derived parents the
+		 * driver also names (pcie_0_pipe, ufs_phy_*_symbol, usb3 pipe) are
+		 * added with their PHYs (Tier 3); the affected clocks simply don't
+		 * rate-set until then, GCC still probes.
+		 */
+		gcc: clock-controller@100000 {
+			compatible = "qcom,gcc-sm8635";
+			reg = <0x0 0x00100000 0x0 0x001f4200>;
+			#clock-cells = <1>;
+			#reset-cells = <1>;
+			clocks = <&xo_board>, <&sleep_clk>;
+			clock-names = "bi_tcxo", "sleep_clk";
+		};
+
+		/*
+		 * TLMM — pin mux / GPIO controller (179 GPIOs). Binds
+		 * pinctrl-sm8635.c. wakeup-parent = <&pdc> is omitted until the
+		 * PDC node (0xb220000) is added; GPIO + mux work without it, only
+		 * GPIO-as-wakeup is deferred.
+		 */
+		tlmm: pinctrl@f000000 {
+			compatible = "qcom,sm8635-tlmm";
+			reg = <0x0 0x0f000000 0x0 0x01000000>;
+			interrupts = <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			interrupt-controller;
+			#interrupt-cells = <2>;
+			gpio-ranges = <&tlmm 0 0 179>;
+
+			sdc2_default: sdc2-default-state {
+				clk-pins {
+					pins = "sdc2_clk";
+					drive-strength = <16>;
+					bias-disable;
+				};
+
+				cmd-pins {
+					pins = "sdc2_cmd";
+					drive-strength = <10>;
+					bias-pull-up;
+				};
+
+				data-pins {
+					pins = "sdc2_data";
+					drive-strength = <10>;
+					bias-pull-up;
+				};
+			};
+
+			sdc2_sleep: sdc2-sleep-state {
+				clk-pins {
+					pins = "sdc2_clk";
+					drive-strength = <2>;
+					bias-disable;
+				};
+
+				cmd-pins {
+					pins = "sdc2_cmd";
+					drive-strength = <2>;
+					bias-pull-up;
+				};
+
+				data-pins {
+					pins = "sdc2_data";
+					drive-strength = <2>;
+					bias-pull-up;
+				};
+			};
+
+			sd_cd: sd-cd-state {
+				pins = "gpio31";
+				function = "gpio";
+				bias-pull-up;
+			};
+		};
+
+		/*
+		 * RPMh RSC (apps) + its bcm-voter. The RSC is the generic mainline
+		 * qcom,rpmh-rsc driver; apps_bcm_voter is what every interconnect
+		 * provider votes through. drv-id 2 = the AP DRV; tcs-offset 0xd00
+		 * and the ACTIVE/SLEEP/WAKE/CONTROL tcs-config are from the G2 DT.
+		 */
+		apps_rsc: rsc@17a00000 {
+			compatible = "qcom,rpmh-rsc";
+			reg = <0x0 0x17a00000 0x0 0x10000>,
+			      <0x0 0x17a10000 0x0 0x10000>,
+			      <0x0 0x17a20000 0x0 0x10000>;
+			reg-names = "drv-0", "drv-1", "drv-2";
+			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
+			qcom,tcs-offset = <0xd00>;
+			qcom,drv-id = <2>;
+			qcom,tcs-config = <ACTIVE_TCS  3>, <SLEEP_TCS   2>,
+					  <WAKE_TCS    2>, <CONTROL_TCS 0>;
+
+			apps_bcm_voter: bcm-voter {
+				compatible = "qcom,bcm-voter";
+			};
+
+			/*
+			 * PMXR2230 (SPMI PMIC id "b") RPMh-managed regulators.
+			 * Only the two SDCC2 rails are described; add the rest as
+			 * their consumers are wired. NOTE: needs a pmxr2230 entry in
+			 * the target kernel's qcom-rpmh-regulator driver; if absent
+			 * it is a small pmic5-ldo table addition (documented in
+			 * docs/g2-regulators-sdcc2-wiring-20260929.md).
+			 */
+			pmxr2230_rpmh_regulators: regulators-0 {
+				compatible = "qcom,pmxr2230-rpmh-regulators";
+				qcom,pmic-id = "b";
+
+				vreg_l13b: ldo13 {
+					regulator-name = "vreg_l13b";
+					regulator-min-microvolt = <2700000>;
+					regulator-max-microvolt = <3300000>;
+				};
+
+				vreg_l23b: ldo23 {
+					regulator-name = "vreg_l23b";
+					regulator-min-microvolt = <1650000>;
+					regulator-max-microvolt = <3544000>;
+				};
+			};
+		};
+
+		/*
+		 * apps SMMU (arm,mmu-500). Generic mainline driver; needed so DMA
+		 * masters (SDCC2 here; USB/UFS later) can translate. Downstream
+		 * qcom,actlr / handoff-smrs props are dropped (not mainline).
+		 */
+		apps_smmu: iommu@15000000 {
+			compatible = "qcom,sm8635-smmu-500", "qcom,smmu-500", "arm,mmu-500";
+			reg = <0x0 0x15000000 0x0 0x100000>;
+			#iommu-cells = <2>;
+			#global-interrupts = <1>;
+			dma-coherent;
+			interrupts =
+			     <GIC_SPI 0x41 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x61 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x62 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x63 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x64 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x65 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x66 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x67 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x68 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x69 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x6a IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x6b IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x6c IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x6d IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x6e IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x6f IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x70 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x71 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x72 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x73 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x74 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x75 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x76 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xb5 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xb6 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xb7 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xb8 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xb9 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xba IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xbb IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xbc IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xbd IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xbe IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xbf IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0xc0 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x13b IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x13c IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x13d IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x13e IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x13f IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x140 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x141 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x142 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x143 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x144 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x145 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x146 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x147 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x148 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x149 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x14a IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x14b IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x14c IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x14d IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x14e IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x14f IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x150 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x151 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x152 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x153 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x154 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x155 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x156 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x157 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x158 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x159 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x18b IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x18c IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x18d IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x18e IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x18f IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x190 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x191 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x192 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x193 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x194 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x195 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x196 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x197 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x198 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x199 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x1a2 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x1a3 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x19c IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x1a5 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2c2 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x1a7 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x1a8 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x1a9 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b1 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b2 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b3 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b4 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b5 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b6 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b7 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 0x2b8 IRQ_TYPE_LEVEL_HIGH>;
+		};
+
+		/*
+		 * SDCC2 — external microSD (Tier 2 storage goal). Binds the generic
+		 * sdhci-msm driver via the qcom,sdhci-msm-v5 fallback (no driver
+		 * port needed). All values from the G2 DT + prior SDCC2
+		 * characterisation (dts/g2-sdhci-upstream-candidate.dtsi):
+		 * base 0x8804000, irqs SPI 207/223, DLL 0x0007442c, DDR 0x80040868,
+		 * SMMU SID 0x140, card-detect gpio31 active-low, vmmc=l13b vqmmc=l23b.
+		 * interconnects use 1 cell (no TAG) to match #interconnect-cells=<1>.
+		 */
+		sdhc_2: mmc@8804000 {
+			compatible = "qcom,sm8635-sdhci", "qcom,sdhci-msm-v5";
+			reg = <0x0 0x08804000 0x0 0x1000>;
+
+			interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "hc_irq", "pwr_irq";
+
+			clocks = <&gcc GCC_SDCC2_AHB_CLK>,
+				 <&gcc GCC_SDCC2_APPS_CLK>;
+			clock-names = "iface", "core";
+			resets = <&gcc GCC_SDCC2_BCR>;
+
+			interconnects = <&aggre2_noc MASTER_SDCC_2 &mc_virt SLAVE_EBI1>,
+					<&gem_noc MASTER_APPSS_PROC &cnoc_cfg SLAVE_SDCC_2>;
+			interconnect-names = "sdhc-ddr", "cpu-sdhc";
+
+			iommus = <&apps_smmu 0x140 0x0>;
+			dma-coherent;
+			bus-width = <4>;
+
+			qcom,dll-config = <0x0007442c>;
+			qcom,ddr-config = <0x80040868>;
+
+			vmmc-supply = <&vreg_l13b>;
+			vqmmc-supply = <&vreg_l23b>;
+
+			pinctrl-names = "default", "sleep";
+			pinctrl-0 = <&sdc2_default>, <&sd_cd>;
+			pinctrl-1 = <&sdc2_sleep>, <&sd_cd>;
+			cd-gpios = <&tlmm 31 GPIO_ACTIVE_LOW>;
+
+			status = "okay";
+		};
+
+		/*
+		 * Interconnect / NoC providers. Bind icc-sm8635.c. Each votes
+		 * through apps_bcm_voter (the downstream multi-voter list was
+		 * stripped with the QoS layer). #interconnect-cells = <1> matches
+		 * the ported driver's one-cell node ids. These 12 carry their NoC
+		 * base from the G2 DT; the two register-less *_virt providers are
+		 * at root level (below) so they stay off the simple-bus.
+		 */
+		aggre1_noc: interconnect@16e0000 {
+			compatible = "qcom,sm8635-aggre1-noc";
+			reg = <0x0 0x016e0000 0x0 0x00019180>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		aggre2_noc: interconnect@1700000 {
+			compatible = "qcom,sm8635-aggre2-noc";
+			reg = <0x0 0x01700000 0x0 0x0001e500>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		cnoc_cfg: interconnect@1600000 {
+			compatible = "qcom,sm8635-cnoc-cfg";
+			reg = <0x0 0x01600000 0x0 0x00006900>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		cnoc_main: interconnect@1500000 {
+			compatible = "qcom,sm8635-cnoc-main";
+			reg = <0x0 0x01500000 0x0 0x00014400>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		gem_noc: interconnect@24100000 {
+			compatible = "qcom,sm8635-gem-noc";
+			reg = <0x0 0x24100000 0x0 0x000c3080>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		lpass_ag_noc: interconnect@7e40000 {
+			compatible = "qcom,sm8635-lpass-ag-noc";
+			reg = <0x0 0x07e40000 0x0 0x0000e080>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		lpass_lpiaon_noc: interconnect@7400000 {
+			compatible = "qcom,sm8635-lpass-lpiaon-noc";
+			reg = <0x0 0x07400000 0x0 0x00019080>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		lpass_lpicx_noc: interconnect@7430000 {
+			compatible = "qcom,sm8635-lpass-lpicx-noc";
+			reg = <0x0 0x07430000 0x0 0x0003a200>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		mmss_noc: interconnect@1400000 {
+			compatible = "qcom,sm8635-mmss-noc";
+			reg = <0x0 0x01400000 0x0 0x000dc000>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		nsp_noc: interconnect@320c0000 {
+			compatible = "qcom,sm8635-nsp-noc";
+			reg = <0x0 0x320c0000 0x0 0x0000e080>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		pcie_anoc: interconnect@16c0000 {
+			compatible = "qcom,sm8635-pcie-anoc";
+			reg = <0x0 0x016c0000 0x0 0x00012400>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		system_noc: interconnect@1680000 {
+			compatible = "qcom,sm8635-system-noc";
+			reg = <0x0 0x01680000 0x0 0x00040000>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+	};
+
+	timer {
+		compatible = "arm,armv8-timer";
+		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
+			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
+			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
+			     <GIC_PPI 12 IRQ_TYPE_LEVEL_LOW>;
+		clock-frequency = <19200000>;
+	};
+};

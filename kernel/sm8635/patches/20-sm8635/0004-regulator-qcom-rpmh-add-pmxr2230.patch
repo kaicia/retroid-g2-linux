@@ -1,0 +1,79 @@
+regulator: qcom-rpmh: add PMXR2230 regulator support
+
+Add the PMXR2230 PMIC (SPMI id "b" on the Retroid Pocket G2 / SM8635 Cliffs)
+to the grouped RPMh regulator driver: a pmxr2230_vreg_data[] table and the
+matching "qcom,pmxr2230-rpmh-regulators" of_device_id.
+
+The regulator complement (3 FTSMPS, LDOs l1-l5/l7-l13/l16-l23, BOB1) and each
+rail's operating window were read from the G2's own /proc/device-tree dump
+(dumps/g2/g2-devicetree-20260914-*). Each rail is mapped to the mainline
+pmic5 hardware-range struct whose window covers it:
+  - smps1-3        -> pmic5_ftsmps525 (0.3-1.3V + 1.376V+; covers s1 ~2.0V,
+                      s2 ~1.4V, s3 ~1.0V)
+  - ldo1-5,7-12    -> pmic5_nldo515   (0.32-2.0V; incl. the 1.8V rails, as
+                      pm8550 also does)
+  - ldo13,16-23    -> pmic5_pldo      (1.504-3.544V; incl. the SD rails l13
+                      = vmmc and l23 = vqmmc)
+  - bob1           -> pmic5_bob       (3.0-3.99V)
+
+Without this, an SDCC2 (microSD) node whose vmmc/vqmmc point at
+vreg_l13b/vreg_l23b probe-defers forever. The SD rails (l13/l23) are the
+verified need; the range-struct choice for the other rails is inferred from
+the configured DT windows and should be datasheet-confirmed before they are
+relied on by other consumers.
+
+supply-name strings are per-rail placeholders (the board DT declares no
+parent input supplies for this PMIC), so they are cosmetic here; set the real
+vdd-*-supply groupings when the PMIC input schematic is known.
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01HrBfj3xKkbHux3URxsCmaQ
+---
+--- a/drivers/regulator/qcom-rpmh-regulator.c
++++ b/drivers/regulator/qcom-rpmh-regulator.c
+@@ -1457,6 +1457,34 @@
+ 	{}
+ };
+ 
++static const struct rpmh_vreg_init_data pmxr2230_vreg_data[] = {
++	RPMH_VREG("smps1",  SMPS, 1,  &pmic5_ftsmps525, "vdd-s1"),
++	RPMH_VREG("smps2",  SMPS, 2,  &pmic5_ftsmps525, "vdd-s2"),
++	RPMH_VREG("smps3",  SMPS, 3,  &pmic5_ftsmps525, "vdd-s3"),
++	RPMH_VREG("ldo1",   LDO,  1,  &pmic5_nldo515,   "vdd-l1"),
++	RPMH_VREG("ldo2",   LDO,  2,  &pmic5_nldo515,   "vdd-l2"),
++	RPMH_VREG("ldo3",   LDO,  3,  &pmic5_nldo515,   "vdd-l3"),
++	RPMH_VREG("ldo4",   LDO,  4,  &pmic5_nldo515,   "vdd-l4"),
++	RPMH_VREG("ldo5",   LDO,  5,  &pmic5_nldo515,   "vdd-l5"),
++	RPMH_VREG("ldo7",   LDO,  7,  &pmic5_nldo515,   "vdd-l7"),
++	RPMH_VREG("ldo8",   LDO,  8,  &pmic5_nldo515,   "vdd-l8"),
++	RPMH_VREG("ldo9",   LDO,  9,  &pmic5_nldo515,   "vdd-l9"),
++	RPMH_VREG("ldo10",  LDO,  10, &pmic5_nldo515,   "vdd-l10"),
++	RPMH_VREG("ldo11",  LDO,  11, &pmic5_nldo515,   "vdd-l11"),
++	RPMH_VREG("ldo12",  LDO,  12, &pmic5_nldo515,   "vdd-l12"),
++	RPMH_VREG("ldo13",  LDO,  13, &pmic5_pldo,      "vdd-l13"),
++	RPMH_VREG("ldo16",  LDO,  16, &pmic5_pldo,      "vdd-l16"),
++	RPMH_VREG("ldo17",  LDO,  17, &pmic5_pldo,      "vdd-l17"),
++	RPMH_VREG("ldo18",  LDO,  18, &pmic5_pldo,      "vdd-l18"),
++	RPMH_VREG("ldo19",  LDO,  19, &pmic5_pldo,      "vdd-l19"),
++	RPMH_VREG("ldo20",  LDO,  20, &pmic5_pldo,      "vdd-l20"),
++	RPMH_VREG("ldo21",  LDO,  21, &pmic5_pldo,      "vdd-l21"),
++	RPMH_VREG("ldo22",  LDO,  22, &pmic5_pldo,      "vdd-l22"),
++	RPMH_VREG("ldo23",  LDO,  23, &pmic5_pldo,      "vdd-l23"),
++	RPMH_VREG("bob1",   BOB,  1,  &pmic5_bob,       "vdd-bob1"),
++	{}
++};
++
+ static const struct rpmh_vreg_init_data pm8550vs_vreg_data[] = {
+ 	RPMH_VREG("smps1",  SMPS, 1, &pmic5_ftsmps525, "vdd-s1"),
+ 	RPMH_VREG("smps2",  SMPS, 2, &pmic5_ftsmps525, "vdd-s2"),
+@@ -2014,6 +2042,10 @@
+ 		.data = pm8550_vreg_data,
+ 	},
+ 	{
++		.compatible = "qcom,pmxr2230-rpmh-regulators",
++		.data = pmxr2230_vreg_data,
++	},
++	{
+ 		.compatible = "qcom,pm8550ve-rpmh-regulators",
+ 		.data = pm8550ve_vreg_data,
+ 	},
