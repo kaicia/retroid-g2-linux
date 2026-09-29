@@ -211,6 +211,31 @@ day. The `abl_b` backup stays as the restore path.
 Remaining check: Linux from the SD card (`release/tier0-qcomabl/`), with the model
 set.
 
+## Result 2026-09-29: Linux boot, rev 1 → black screen; cause found
+
+With the card inserted, the menu set up (model selected, Linux, Verbose) and
+Start pressed, the ABL's verbose log scrolled, then the screen went black and
+stayed black.
+
+The cause is in the ABL, not the kernel. LinuxLoader's DT fixup (strings, in
+order):
+- It looks up `/reserved-memory/splash_region`, then
+  `/reserved-memory/cont_splash_region`.
+- If neither exists: *"Splash region not found in device tree, powering down the
+  display and controller"*.
+- If one exists: it rewrites `reg = <… …>` with the live FB address and size,
+  then logs *"Display keep-alive: splash node present"*.
+
+Our node was named `splash@e3940000`. libfdt `fdt_path_offset` returns
+`FDT_ERR_NOTFOUND` for it (verified with `fdtget`), so the ABL shut the panel
+down before jumping. `simple-framebuffer` then scans out to a dark panel.
+
+**Fix (rev 2):** the node is renamed `splash_region@e3940000`, matching the
+vendor tree's name, in both `dts/cliffs-g2.dts` and
+`kernel/sm8635/dts/qcom/cliffs-g2.dts`. The lookup now resolves. The
+`release/tier0-qcomabl/` artifacts are rebuilt from the same Image, and the DTB
+differs only in that node name. The source build (`scripts/build-g2-dtb-compile-candidate.sh`) produces a byte-identical `cliffs-g2.dtb` (sha256 `35b9b386…`).
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0

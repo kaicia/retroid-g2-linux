@@ -134,13 +134,20 @@
 	 * the memory map protected it. On a non-EFI entry nothing does, and
 	 * the kernel would allocate straight over the framebuffer it is
 	 * trying to print into. Reserve it here.
+	 *
+	 * The node name is load-bearing: ROCKNIX-ABL looks up
+	 * /reserved-memory/splash_region (then cont_splash_region), rewrites its
+	 * reg with the live framebuffer, and keeps the display powered. If the
+	 * node is missing it powers the display and controller down before
+	 * jumping to the kernel, and simple-framebuffer shows nothing
+	 * (docs/g2-sd-boot-rocknix-abl-20260929.md, 2026-09-29 black screen).
 	 */
 	reserved-memory {
 		#address-cells = <2>;
 		#size-cells = <2>;
 		ranges;
 
-		cont_splash_mem: splash@e3940000 {
+		cont_splash_mem: splash_region@e3940000 {
 			reg = <0x0 0xe3940000 0x0 0x02b00000>;
 			no-map;
 		};
