@@ -25,7 +25,7 @@ board wiring and was cross-checked against these headers three ways
 |---|---|---|---|---|
 | GCC clock | `drivers/clk/qcom/gcc-cliffs.c` | 3207 | 1 | **PORTED** → `drivers/clk/qcom/gcc-sm8635.c` (2839 ln); offline-verified, compile-verify pending. See `docs/g2-gcc-cliffs-port-notes-20260929.md` |
 | TLMM pinctrl | `drivers/pinctrl/qcom/pinctrl-cliffs.c` | 2305 | 1 | **PORTED** → `drivers/pinctrl/qcom/pinctrl-sm8635.c` (2268 ln); offline-verified, compile-verify pending. See `docs/g2-pinctrl-cliffs-port-notes-20260929.md` |
-| Interconnect (NoC) | `drivers/interconnect/qcom/cliffs.c` | 3054 | 2 | not started |
+| Interconnect (NoC) | `drivers/interconnect/qcom/cliffs.c` | 3054 | 2 | **PORTED** → `drivers/interconnect/qcom/icc-sm8635.c` (2323 ln); QoS/multi-voter layer stripped to mainline icc-rpmh, topology kept; offline-verified, compile-verify pending. See `docs/g2-icc-cliffs-port-notes-20260929.md` |
 | DISP clock | `drivers/clk/qcom/dispcc-cliffs.c` | ~970 | 3 | not started |
 | GPU clock | `drivers/clk/qcom/gpucc-cliffs.c` | ~560 | 3 | not started |
 | CAM clock | `drivers/clk/qcom/camcc-cliffs.c` | ~2167 | 4 | out of scope (Tier 4) |
