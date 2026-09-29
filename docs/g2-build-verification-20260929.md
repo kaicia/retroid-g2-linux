@@ -1,8 +1,23 @@
-# Real build verification — all four SM8635 drivers compile — 2026-09-29
+# Real build verification — SM8635 drivers compile, link & modpost — 2026-09-29
 
 Compiled every ported Cliffs driver + the PMXR2230 regulator patch against a real
 kernel tree, catching the API/struct mismatches the offline structural checks
-could not. **Result: all four objects build clean.**
+could not. **Result: all four objects build clean; vmlinux links; modpost passes;
+all four `.ko` modules build with correct OF device-table aliases.**
+
+## Full-build result (vmlinux + modules)
+A complete `make -j4 vmlinux && make -j4 modules` on linux 7.1 (arm64):
+- **`make vmlinux` → exit 0** (179 MB vmlinux; `MODPOST vmlinux.symvers`). Every
+  built-in (`=y`) framework symbol resolves.
+- **`make modules` → exit 0** (`MODPOST Module.symvers`). No undefined-symbol
+  warnings for any of our modules — every `EXPORT_SYMBOL` they reference is
+  actually exported by the built kernel (the check a per-`.o` compile cannot do).
+- Modules built: `gcc-sm8635.ko` (132 KB), `pinctrl-sm8635.ko` (206 KB),
+  `icc-sm8635.ko` (380 KB), `qcom-rpmh-regulator.ko` (183 KB).
+- **modpost generated the OF aliases that match our DTS compatibles**, so the DTS
+  nodes will bind: `qcom,gcc-sm8635`, `qcom,sm8635-tlmm`, the 14
+  `qcom,sm8635-*-noc`/`-virt` (28 aliases), and **`qcom,pmxr2230-rpmh-regulators`**
+  (so the SDCC2 vmmc/vqmmc rails resolve).
 
 ## Target kernel
 Built against **linux 7.1** (`v7.1` tag from torvalds, VERSION 7 PATCHLEVEL 1) —
@@ -68,12 +83,12 @@ not numeric ids:
 Compiled clean as written — no changes needed.
 
 ## Meaning / limits
-- **Proven:** every translation unit compiles against the real 7.1 headers —
-  all struct fields, ops, helper signatures and symbols resolve. This is far
-  stronger than the earlier dtc/offline checks.
-- **Not proven:** link/modpost of a full image, and runtime correctness on
-  hardware (register values, the inferred non-SD regulator ranges, actual SD
-  mount). Those need a full `make` + a device.
+- **Proven:** every translation unit compiles against the real 7.1 headers; the
+  built-in kernel **links** (vmlinux); and **modpost** resolves every symbol our
+  four modules import against the built kernel, with the OF aliases matching the
+  DTS compatibles. This is the full build pipeline short of a device.
+- **Not proven:** runtime correctness on hardware — register values, the inferred
+  non-SD regulator ranges, and an actual SD mount. Those need the device.
 - The build tree lives under `.build/` (gitignored); only the verified sources +
   the reproducible transform scripts are committed.
 
