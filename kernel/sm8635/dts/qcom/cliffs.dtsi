@@ -227,7 +227,14 @@
 			no-map;
 		};
 
-		aop_cmd_db_region@81c60000 {
+		/*
+		 * AOP command DB. rpmh-rsc (and through it the bcm-voter, the
+		 * PMXR2230 regulators and every interconnect vote) defers until
+		 * cmd_db_ready(), so this region must carry the qcom,cmd-db
+		 * compatible, as the vendor tree's does.
+		 */
+		aop_cmd_db_mem: cmd-db@81c60000 {
+			compatible = "qcom,cmd-db";
 			reg = <0x0 0x81c60000 0x0 0x00020000>;
 			no-map;
 		};

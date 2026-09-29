@@ -56,12 +56,19 @@ PAGE_SIZE = 4096
 # the arm64 kernel is CONFIG_RELOCATABLE and will move itself to a 2 MiB
 # boundary regardless, and that many Qualcomm ABLs override these fields
 # with their own values outright. They are a best effort, not a contract.
+#
+# 2026-09-29: ramdisk and dtb moved up. The original layout left only 16 MiB
+# between kernel and ramdisk, but a real SM8635 Image is 40-70 MiB, so an ABL
+# that honours these fields would have loaded the kernel over its own ramdisk
+# and DTB. The kernel now gets 128 MiB; everything stays inside the 784 MiB
+# block, and main() refuses to pack an Image whose effective size (header
+# image_size, which includes BSS) would still overlap.
 BASE = 0xA7000000
 KERNEL_ADDR = BASE + 0x00008000
-RAMDISK_ADDR = BASE + 0x01000000
-SECOND_ADDR = BASE + 0x00F00000
+RAMDISK_ADDR = BASE + 0x08000000
+SECOND_ADDR = BASE + 0x07F00000
 TAGS_ADDR = BASE + 0x00000100
-DTB_ADDR = BASE + 0x02000000
+DTB_ADDR = BASE + 0x09000000
 
 
 def pad(data: bytes, page_size: int) -> bytes:
@@ -156,6 +163,12 @@ def main() -> int:
     kernel = open(args.kernel, "rb").read()
     if kernel[56:60] != b"ARM\x64":
         raise SystemExit("%s is not an arm64 Image (no ARM\\x64 at 0x38)" % args.kernel)
+    # arm64 Image header: image_size (le64 at 0x10) is the effective size the
+    # kernel occupies once loaded, BSS included; 0 on very old kernels.
+    image_size = struct.unpack("<Q", kernel[16:24])[0] or len(kernel)
+    if KERNEL_ADDR + image_size > RAMDISK_ADDR:
+        raise SystemExit("kernel effective size %d overlaps the ramdisk at 0x%08x"
+                         % (image_size, RAMDISK_ADDR))
     dtb = open(args.dtb, "rb").read()
     if dtb[:4] != b"\xd0\x0d\xfe\xed":
         raise SystemExit("%s is not a device tree blob" % args.dtb)
@@ -165,7 +178,7 @@ def main() -> int:
     open(args.output, "wb").write(img)
 
     print("%s  %d bytes" % (args.output, len(img)))
-    print("  kernel   %8d -> 0x%08x" % (len(kernel), KERNEL_ADDR))
+    print("  kernel   %8d -> 0x%08x  (effective %d)" % (len(kernel), KERNEL_ADDR, image_size))
     print("  ramdisk  %8d -> 0x%08x" % (len(ramdisk), RAMDISK_ADDR))
     print("  dtb      %8d -> 0x%08x" % (len(dtb), DTB_ADDR))
     print("  cmdline  %s" % args.cmdline)

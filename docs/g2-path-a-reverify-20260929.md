@@ -88,28 +88,22 @@ nothing to internal storage.
 > point it at a stub kernel, and it produces exactly this layout. For Stage 0 a
 > hand-made card per the steps above is enough and needs no build.
 
-## Secondary check: is `fastboot boot` actually available?
+## Secondary check: `fastboot boot` — already closed
 
-`g2-path-a-closed` named `fastboot boot` (RAM-only boot, writes no partition) as
-Path A's replacement for getting first kernel output. But
-`g2-abl-source-findings.md` shows `CmdBoot` is guarded by **`ENABLE_BOOT_CMD`**,
-a *separate* flag from the `ENABLE_UPDATE_PARTITIONS_CMDS` block that was proven
-compiled out (flash/set_active/get_unlock_ability all returned `unknown
-command`). Whether `ENABLE_BOOT_CMD` is set on the G2 build is **unconfirmed**.
-Cheap to check and worth knowing regardless of Path A:
-```
-fastboot boot <any-valid-boot.img>     # 'unknown command' => ENABLE_BOOT_CMD off too
-```
-If present, it's the RAM-boot route to first kernel output (dovetails with the
-kernel work, task 1). If absent, the only non-destructive boot route left is a
-custom ABL (Path B) or EDL-loaded execution.
+> **Correction 2026-09-29 (same day).** This section originally called
+> `ENABLE_BOOT_CMD` unconfirmed and proposed checking it. That was wrong: it was
+> tested on 2026-09-15 and failed — `Booting FAILED (remote: 'unknown command')`
+> after a successful 41 MB download (`g2-fastboot-boot-unsupported-20260915.md`).
+> `fastboot boot` is not available. The remaining routes are Path A Stage 0
+> (this doc), Path C (EDL-write our image into the active `boot_b`) and Path B;
+> see `g2-boot-test-20260929.md`.
 
 ## Recommendation
 
 1. **Run Stage 0** of the test above once. It's an afternoon and it settles Path
    A definitively for the *G2's specific ABL build*, against the correct
    (RP5-parity) contract rather than the ESP-typed card we tried before.
-2. **Check `fastboot boot`** (`ENABLE_BOOT_CMD`) at the same time.
+2. ~~Check `fastboot boot`~~ — already known unavailable (see correction above).
 3. **Regardless of the outcome, start task 1 (the sm8635/Cliffs ROCKNIX
    kernel).** It is required for *every* boot path — arm-efi, qcom-abl, or
    `fastboot boot` — so it is never wasted work and it is the long pole. Do not
