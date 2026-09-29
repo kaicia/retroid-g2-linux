@@ -67,9 +67,12 @@ with hyphens (e.g. `qcom,sm8635-aggre1-noc`, `qcom,sm8635-mc-virt`).
 - Header coverage: every `MASTER_*`/`SLAVE_*` ID used by the driver (169) is
   defined in `qcom,cliffs.h`.
 
-**Not yet done:** compile against mainline 7.1.2. Register/topology values
-trusted from vendor source (cross-checked against the G2 DT interconnect IDs,
-`g2-cliffs-vendor-source-found-20260914.md`).
+**Compile-verified (2026-09-29):** builds clean against linux 7.1 after converting
+to the mainline `link_nodes[]` pointer form (+ forward decls, drop
+crm_node/keepalive_early, icc_sync_state); see
+`docs/g2-build-verification-20260929.md`. Register/topology values remain trusted
+from vendor source (cross-checked against the G2 DT interconnect IDs,
+`g2-cliffs-vendor-source-found-20260914.md`), pending runtime confirmation.
 
 ## Integration TODO (at holodor `make kernel` time)
 1. `drivers/interconnect/qcom/Kconfig`:

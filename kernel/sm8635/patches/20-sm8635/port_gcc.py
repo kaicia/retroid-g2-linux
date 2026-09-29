@@ -102,6 +102,18 @@ while i < n:
     i += 1
 
 text = ''.join(out)
+
+# --- mainline API adaptations (compile-verified against linux 7.1) ---
+# 1. qcom_cc_really_probe() takes struct device *, not platform_device *.
+text = text.replace("qcom_cc_really_probe(pdev,", "qcom_cc_really_probe(&pdev->dev,")
+# 2. qcom_cc_sync_state / .sync_state do not exist upstream; drop them.
+text = re.sub(r'\nstatic void gcc_cliffs_sync_state\(struct device \*dev\)\n\{\n'
+              r'\tqcom_cc_sync_state\(dev, &gcc_cliffs_desc\);\n\}\n', '\n', text)
+text = re.sub(r'\n\t\t\.sync_state = gcc_cliffs_sync_state,', '', text)
+# 3. clk_branch2_hw_ctl_ops is downstream-only; mainline uses clk_branch2_ops
+#    for the *_hw_ctl_clk branches (as gcc-sm8650 does).
+text = text.replace("&clk_branch2_hw_ctl_ops", "&clk_branch2_ops")
+
 # collapse 3+ blank lines to 1
 text = re.sub(r'\n\n\n+', '\n\n', text)
 open("gcc-sm8635.c", "w").write(text)

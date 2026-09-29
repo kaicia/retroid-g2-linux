@@ -1078,7 +1078,7 @@ static struct clk_branch gcc_aggre_ufs_phy_axi_hw_ctl_clk = {
 			},
 			.num_parents = 1,
 			.flags = CLK_SET_RATE_PARENT,
-			.ops = &clk_branch2_hw_ctl_ops,
+			.ops = &clk_branch2_ops,
 		},
 	},
 };
@@ -2239,7 +2239,7 @@ static struct clk_branch gcc_ufs_phy_axi_hw_ctl_clk = {
 			},
 			.num_parents = 1,
 			.flags = CLK_SET_RATE_PARENT,
-			.ops = &clk_branch2_hw_ctl_ops,
+			.ops = &clk_branch2_ops,
 		},
 	},
 };
@@ -2279,7 +2279,7 @@ static struct clk_branch gcc_ufs_phy_ice_core_hw_ctl_clk = {
 			},
 			.num_parents = 1,
 			.flags = CLK_SET_RATE_PARENT,
-			.ops = &clk_branch2_hw_ctl_ops,
+			.ops = &clk_branch2_ops,
 		},
 	},
 };
@@ -2319,7 +2319,7 @@ static struct clk_branch gcc_ufs_phy_phy_aux_hw_ctl_clk = {
 			},
 			.num_parents = 1,
 			.flags = CLK_SET_RATE_PARENT,
-			.ops = &clk_branch2_hw_ctl_ops,
+			.ops = &clk_branch2_ops,
 		},
 	},
 };
@@ -2413,7 +2413,7 @@ static struct clk_branch gcc_ufs_phy_unipro_core_hw_ctl_clk = {
 			},
 			.num_parents = 1,
 			.flags = CLK_SET_RATE_PARENT,
-			.ops = &clk_branch2_hw_ctl_ops,
+			.ops = &clk_branch2_ops,
 		},
 	},
 };
@@ -2798,7 +2798,7 @@ static int gcc_cliffs_probe(struct platform_device *pdev)
 	regmap_update_bits(regmap, 0x32004, BIT(0), BIT(0));
 	regmap_update_bits(regmap, 0x32030, BIT(0), BIT(0));
 
-	ret = qcom_cc_really_probe(pdev, &gcc_cliffs_desc, regmap);
+	ret = qcom_cc_really_probe(&pdev->dev, &gcc_cliffs_desc, regmap);
 	if (ret) {
 		dev_err(&pdev->dev, "Failed to register GCC clocks\n");
 		return ret;
@@ -2809,17 +2809,11 @@ static int gcc_cliffs_probe(struct platform_device *pdev)
 	return ret;
 }
 
-static void gcc_cliffs_sync_state(struct device *dev)
-{
-	qcom_cc_sync_state(dev, &gcc_cliffs_desc);
-}
-
 static struct platform_driver gcc_cliffs_driver = {
 	.probe = gcc_cliffs_probe,
 	.driver = {
 		.name = "gcc-cliffs",
 		.of_match_table = gcc_cliffs_match_table,
-		.sync_state = gcc_cliffs_sync_state,
 	},
 };
 

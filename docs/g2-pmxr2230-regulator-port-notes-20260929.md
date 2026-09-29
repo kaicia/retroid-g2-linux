@@ -49,8 +49,9 @@ form is identical to the existing `pm8550_vreg_data[]`.
 - **supply-name strings are per-rail placeholders** — the board DT declares no
   parent input supplies for this PMIC, so they are cosmetic here. Set real
   `vdd-*-supply` groupings when the PMIC input schematic is known.
-- **Compile-verify pending:** like the other ports, not yet built against a real
-  tree (the DTB CI does not compile kernel C). `git apply --check` clean.
+- **Compile-verified (2026-09-29):** `qcom-rpmh-regulator.o` builds clean with the
+  PMXR2230 patch against linux 7.1; see `docs/g2-build-verification-20260929.md`.
+  (`git apply --check` was also clean; the DTB CI does not compile kernel C.)
 
 ## After this
 The full SDCC2 path is now representable end-to-end: gcc clocks + apps_smmu +

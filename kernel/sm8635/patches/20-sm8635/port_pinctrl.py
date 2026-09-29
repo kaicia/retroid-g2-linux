@@ -79,6 +79,52 @@ while i < n:
     i += 1
 
 text = ''.join(out)
+
+# --- mainline struct-layout adaptations (compile-verified against linux 7.1) ---
+# Mainline refactored struct msm_pingroup to embed `struct pingroup grp` and
+# dropped struct msm_function in favour of `struct pinfunction` + the
+# MSM_PIN_FUNCTION() helper from pinctrl-msm.h. Adapt the in-file macros.
+#
+# 1. drop the in-file FUNCTION macro; use MSM_PIN_FUNCTION from the header.
+text = text.replace(
+    "#define FUNCTION(fname)                                \\\n"
+    "\t[msm_mux_##fname] = {                          \\\n"
+    "\t\t.name = #fname,                        \\\n"
+    "\t\t.groups = fname##_groups,              \\\n"
+    "\t\t.ngroups = ARRAY_SIZE(fname##_groups), \\\n"
+    "\t}\n\n", "")
+# 2. PINGROUP: .name/.pins/.npins -> .grp; drop the non-mainline .wake_reg/.wake_bit.
+text = text.replace(
+    "\t{                                                                         \\\n"
+    "\t\t.name = \"gpio\" #id,                                               \\\n"
+    "\t\t.pins = gpio##id##_pins,                                          \\\n"
+    "\t\t.npins = (unsigned int)ARRAY_SIZE(gpio##id##_pins),               \\\n"
+    "\t\t.ctl_reg = REG_BASE + REG_SIZE * id,                              \\\n",
+    "\t{                                                                         \\\n"
+    "\t\t.grp = PINCTRL_PINGROUP(\"gpio\" #id, gpio##id##_pins,              \\\n"
+    "\t\t\tARRAY_SIZE(gpio##id##_pins)),                             \\\n"
+    "\t\t.ctl_reg = REG_BASE + REG_SIZE * id,                              \\\n")
+text = text.replace(
+    "\t\t.wake_reg = REG_BASE + wake_off,                                  \\\n"
+    "\t\t.wake_bit = bit,                                                  \\\n", "")
+# 3. UFS_RESET: .name/.pins/.npins -> .grp.
+text = text.replace(
+    "\t{                                                          \\\n"
+    "\t\t.name = #pg_name,                                  \\\n"
+    "\t\t.pins = pg_name##_pins,                            \\\n"
+    "\t\t.npins = (unsigned int)ARRAY_SIZE(pg_name##_pins), \\\n"
+    "\t\t.ctl_reg = offset,                                 \\\n",
+    "\t{                                                          \\\n"
+    "\t\t.grp = PINCTRL_PINGROUP(#pg_name, pg_name##_pins,  \\\n"
+    "\t\t\tARRAY_SIZE(pg_name##_pins)),               \\\n"
+    "\t\t.ctl_reg = offset,                                 \\\n")
+# 4. functions array type + 5. FUNCTION() call sites.
+text = text.replace("static const struct msm_function cliffs_functions[]",
+                    "static const struct pinfunction cliffs_functions[]")
+text = re.sub(r'(?<![_\w])FUNCTION\(', 'MSM_PIN_FUNCTION(', text)
+# 6. msm_pinctrl_remove does not exist upstream; mainline drivers set no .remove.
+text = text.replace("\n\t.remove = msm_pinctrl_remove,", "")
+
 text = re.sub(r'\n\n\n+', '\n\n', text)
 open("pinctrl-sm8635.c", "w").write(text)
 print("wrote pinctrl-sm8635.c  lines:", text.count("\n"))

@@ -62,11 +62,13 @@ legitimate `.flags = CLK_SET_RATE_PARENT` init flags.
 - **Header coverage:** every real `GCC_*` clock/reset ID the driver uses is
   defined in `qcom,gcc-cliffs.h`.
 
-**Not yet done (needs a real kernel tree):** compile against mainline 7.1.2. The
-port targets that framework but has not been built; that is the next validation
-step (below). Also unverified: exact register offsets against Cliffs silicon —
-these are trusted from the vendor source, which was cross-checked against the
-G2's own device tree three ways (`g2-cliffs-vendor-source-found-20260914.md`).
+**Compile-verified (2026-09-29):** builds clean against linux 7.1 (arm64) after 3
+mainline-API fixes (really_probe signature, drop sync_state,
+hw_ctl_ops→branch2_ops); see `docs/g2-build-verification-20260929.md`. The port and
+`port_gcc.py` both include these fixes. Still unverified: exact register offsets
+against Cliffs silicon — trusted from the vendor source, cross-checked against the
+G2's own device tree three ways (`g2-cliffs-vendor-source-found-20260914.md`), and
+runtime behaviour on hardware.
 
 ## Integration TODO (at holodor `make kernel` time)
 

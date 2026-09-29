@@ -45,8 +45,11 @@ pinctrl + pinctrl-msm.h).
   `msm_pinctrl_remove`, `msm_pinctrl_dev_pm_ops`, `of_device_get_match_data`.
 - No dangling references to the removed `cliffs_qup_regs` / `cliffs_vm_pinctrl`.
 
-**Not yet done:** compile against mainline 7.1.2 (next validation step). Register
-offsets trusted from vendor source (cross-checked against the G2 DT, see
+**Compile-verified (2026-09-29):** builds clean against linux 7.1 (arm64) after
+adapting to the mainline `struct msm_pingroup` `.grp` / `struct pinfunction`
+refactor (dropping the in-file FUNCTION macro, `.name/.pins/.npins`,
+`.wake_reg/.wake_bit`, and `.remove`); see `docs/g2-build-verification-20260929.md`.
+Register offsets trusted from vendor source (cross-checked against the G2 DT, see
 `g2-cliffs-vendor-source-found-20260914.md`).
 
 ## Integration TODO (at holodor `make kernel` time)
