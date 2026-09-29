@@ -272,6 +272,38 @@ How to read the result:
   the ABL's ExitBootServices display callback, which exists in the SM8650 build
   only, or at the FB address and format.
 
+## Result 2026-09-29: diagnostic KERNEL → still black
+
+With the display-safe DTB:
+- The ABL log is clean. `__symbols__` is present, so it now only prints
+  *"Not a Valid Label: cam_*"* for partial-goods labels that we do not have.
+- The screen still goes black after the jump.
+
+**SMMU, interconnect, gcc and clk/pd cleanup are ruled out.**
+
+Checked and ruled out, from the desk:
+- **Reserved memory:** every vendor `no-map` region is covered by ours. The only
+  fixed regions we lack are `qdss_apps` and the `trust_ui_vm`/`oem_vm`
+  shared-dma-pools, and none of those is no-map.
+- **FB format:** RP5 in Armada uses the same simple-framebuffer shape (1080x1920,
+  a8r8g8b8, stride 4320) on a Qualcomm ABL splash. Ours matches.
+- **Config:** the kernel's embedded config has FB_SIMPLE and FRAMEBUFFER_CONSOLE
+  enabled.
+
+Leading explanation: the kernel dies before fbcon prints, and the SoC then
+resets. A silent hang would have left the ABL log frozen. A reset (for example
+the watchdog, or an XPU fault) blanks the screen, and on Qualcomm it lands in
+download (9008) mode. The KONKR SM8750 bring-up in Armada saw exactly
+"boot → EDL".
+
+Next data to collect (no writes):
+- Time from the jump to black.
+- Whether the device enumerates as 9008 afterwards. If it is in Sahara
+  memory-dump mode, edl.py can capture RAM and the kernel log can be found in
+  it.
+- A video of the whole Verbose log, to read the ABL's *"Splash memory region
+  before/after updating: reg = <…>"* lines (the live FB address).
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0
