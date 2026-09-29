@@ -6,6 +6,8 @@ arm-efi boot contract the RP5 uses in production. Does that contract differ from
 what we already tested, in any way that could change the G2 factory ABL's
 behavior?
 
+> **Result 2026-09-29:** Stage 0 was run — Android booted, no GRUB. Path A is closed for good; see `g2-path-a-stage0-result-20260929.md`.
+
 ## Verdict up front
 
 **Path A remains very likely closed, but one cheap, decisive test is now
