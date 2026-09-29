@@ -1,16 +1,23 @@
 // SPDX-License-Identifier: BSD-3-Clause
 /*
- * Qualcomm Cliffs — minimal SoC description for Retroid Pocket G2 bring-up.
+ * Qualcomm Cliffs — SoC description for Retroid Pocket G2 bring-up.
  *
- * TIER 0 ONLY. This describes just enough to get a kernel running and talking:
- * CPUs, PSCI, the architected timer, the GIC, and the firmware memory
- * carve-outs. It deliberately contains no clock, pinctrl, interconnect or
- * regulator providers — those need the Cliffs vendor drivers, which is Tier 1.
+ * TIER 0 base: CPUs, PSCI, the architected timer, the GIC, firmware memory
+ * carve-outs — enough to get a kernel running and talking.
+ *
+ * TIER 1/2 providers (added 2026-09-29): the RPMh RSC + apps bcm-voter, the
+ * GCC clock/reset controller (qcom,gcc-sm8635), the TLMM pinctrl/GPIO block
+ * (qcom,sm8635-tlmm), and the 14 interconnect/NoC providers
+ * (qcom,sm8635-*). These bind to the drivers ported under
+ * kernel/sm8635/patches/20-sm8635/ (gcc-sm8635.c, pinctrl-sm8635.c,
+ * icc-sm8635.c). Regulators (PMXR2230) and the per-peripheral nodes (SDCC2,
+ * QUP/UART, USB, UFS) are the remaining Tier 2/3 work.
  *
  * Every value is taken from the device's own tree, archived at
- * dumps/g2/g2-devicetree-20260914-222623.tar.gz. Nothing is inherited from
- * upstream `milos`, which is a different SoC — see
- * docs/g2-decisions-20260914.md.
+ * dumps/g2/g2-devicetree-20260914-222623.tar.gz (gcc reg 0x100000+0x1f4200,
+ * tlmm 0xf000000+0x1000000 irq SPI 208, apps_rsc 0x17a00000 drv-id 2
+ * tcs-offset 0xd00, and the 14 NoC bases). Nothing is inherited from upstream
+ * `milos`, which is a different SoC — see docs/g2-decisions-20260914.md.
  *
  * NOTE ON /memory: deliberately absent. This DTB is handed to Linux by the EFI
  * stub (GRUB's `devicetree` command), and Linux then takes its memory map from
@@ -19,12 +26,52 @@
  */
 
 #include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/soc/qcom,rpmh-rsc.h>
 
 / {
 	interrupt-parent = <&intc>;
 
 	#address-cells = <2>;
 	#size-cells = <2>;
+
+	/*
+	 * Board input clocks. bi_tcxo (19.2 MHz XO) and the 32 kHz sleep clock
+	 * feed GCC. Upstream normally routes bi_tcxo through rpmhcc
+	 * (qcom,cliffs-rpmh-clk); that driver is not ported yet, so for bring-up
+	 * GCC takes the XO directly from this fixed-clock. Swap to
+	 * <&rpmhcc RPMH_CXO_CLK> once the rpmh clock driver lands.
+	 */
+	xo_board: xo-board-clk {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+		clock-frequency = <19200000>;
+		clock-output-names = "xo_board";
+	};
+
+	sleep_clk: sleep-clk {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+		clock-frequency = <32000>;
+		clock-output-names = "sleep_clk";
+	};
+
+	/*
+	 * Register-less (virtual) interconnect providers. Bind icc-sm8635.c,
+	 * vote through &apps_bcm_voter. Placed at root (not under the soc
+	 * simple-bus) because they have no MMIO reg. The 12 physical NoCs are
+	 * under soc@0.
+	 */
+	clk_virt: interconnect-0 {
+		compatible = "qcom,sm8635-clk-virt";
+		#interconnect-cells = <1>;
+		qcom,bcm-voters = <&apps_bcm_voter>;
+	};
+
+	mc_virt: interconnect-1 {
+		compatible = "qcom,sm8635-mc-virt";
+		#interconnect-cells = <1>;
+		qcom,bcm-voters = <&apps_bcm_voter>;
+	};
 
 	cpus {
 		#address-cells = <2>;
@@ -395,6 +442,158 @@
 			reg = <0x0 0x00a94000 0x0 0x4000>;
 			interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
 			status = "disabled";
+		};
+
+		/*
+		 * GCC — global clock + reset controller. Binds gcc-sm8635.c.
+		 * No #power-domain-cells: this GCC exposes no GDSCs (the ported
+		 * driver has none; power domains come via rpmhpd, added later).
+		 * Parents: bi_tcxo (XO) + sleep_clk. The PHY-derived parents the
+		 * driver also names (pcie_0_pipe, ufs_phy_*_symbol, usb3 pipe) are
+		 * added with their PHYs (Tier 3); the affected clocks simply don't
+		 * rate-set until then, GCC still probes.
+		 */
+		gcc: clock-controller@100000 {
+			compatible = "qcom,gcc-sm8635";
+			reg = <0x0 0x00100000 0x0 0x001f4200>;
+			#clock-cells = <1>;
+			#reset-cells = <1>;
+			clocks = <&xo_board>, <&sleep_clk>;
+			clock-names = "bi_tcxo", "sleep_clk";
+		};
+
+		/*
+		 * TLMM — pin mux / GPIO controller (179 GPIOs). Binds
+		 * pinctrl-sm8635.c. wakeup-parent = <&pdc> is omitted until the
+		 * PDC node (0xb220000) is added; GPIO + mux work without it, only
+		 * GPIO-as-wakeup is deferred.
+		 */
+		tlmm: pinctrl@f000000 {
+			compatible = "qcom,sm8635-tlmm";
+			reg = <0x0 0x0f000000 0x0 0x01000000>;
+			interrupts = <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			interrupt-controller;
+			#interrupt-cells = <2>;
+			gpio-ranges = <&tlmm 0 0 179>;
+		};
+
+		/*
+		 * RPMh RSC (apps) + its bcm-voter. The RSC is the generic mainline
+		 * qcom,rpmh-rsc driver; apps_bcm_voter is what every interconnect
+		 * provider votes through. drv-id 2 = the AP DRV; tcs-offset 0xd00
+		 * and the ACTIVE/SLEEP/WAKE/CONTROL tcs-config are from the G2 DT.
+		 */
+		apps_rsc: rsc@17a00000 {
+			compatible = "qcom,rpmh-rsc";
+			reg = <0x0 0x17a00000 0x0 0x10000>,
+			      <0x0 0x17a10000 0x0 0x10000>,
+			      <0x0 0x17a20000 0x0 0x10000>;
+			reg-names = "drv-0", "drv-1", "drv-2";
+			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
+			qcom,tcs-offset = <0xd00>;
+			qcom,drv-id = <2>;
+			qcom,tcs-config = <ACTIVE_TCS  3>, <SLEEP_TCS   2>,
+					  <WAKE_TCS    2>, <CONTROL_TCS 0>;
+
+			apps_bcm_voter: bcm-voter {
+				compatible = "qcom,bcm-voter";
+			};
+		};
+
+		/*
+		 * Interconnect / NoC providers. Bind icc-sm8635.c. Each votes
+		 * through apps_bcm_voter (the downstream multi-voter list was
+		 * stripped with the QoS layer). #interconnect-cells = <1> matches
+		 * the ported driver's one-cell node ids. These 12 carry their NoC
+		 * base from the G2 DT; the two register-less *_virt providers are
+		 * at root level (below) so they stay off the simple-bus.
+		 */
+		aggre1_noc: interconnect@16e0000 {
+			compatible = "qcom,sm8635-aggre1-noc";
+			reg = <0x0 0x016e0000 0x0 0x00019180>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		aggre2_noc: interconnect@1700000 {
+			compatible = "qcom,sm8635-aggre2-noc";
+			reg = <0x0 0x01700000 0x0 0x0001e500>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		cnoc_cfg: interconnect@1600000 {
+			compatible = "qcom,sm8635-cnoc-cfg";
+			reg = <0x0 0x01600000 0x0 0x00006900>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		cnoc_main: interconnect@1500000 {
+			compatible = "qcom,sm8635-cnoc-main";
+			reg = <0x0 0x01500000 0x0 0x00014400>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		gem_noc: interconnect@24100000 {
+			compatible = "qcom,sm8635-gem-noc";
+			reg = <0x0 0x24100000 0x0 0x000c3080>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		lpass_ag_noc: interconnect@7e40000 {
+			compatible = "qcom,sm8635-lpass-ag-noc";
+			reg = <0x0 0x07e40000 0x0 0x0000e080>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		lpass_lpiaon_noc: interconnect@7400000 {
+			compatible = "qcom,sm8635-lpass-lpiaon-noc";
+			reg = <0x0 0x07400000 0x0 0x00019080>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		lpass_lpicx_noc: interconnect@7430000 {
+			compatible = "qcom,sm8635-lpass-lpicx-noc";
+			reg = <0x0 0x07430000 0x0 0x0003a200>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		mmss_noc: interconnect@1400000 {
+			compatible = "qcom,sm8635-mmss-noc";
+			reg = <0x0 0x01400000 0x0 0x000dc000>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		nsp_noc: interconnect@320c0000 {
+			compatible = "qcom,sm8635-nsp-noc";
+			reg = <0x0 0x320c0000 0x0 0x0000e080>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		pcie_anoc: interconnect@16c0000 {
+			compatible = "qcom,sm8635-pcie-anoc";
+			reg = <0x0 0x016c0000 0x0 0x00012400>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
+		};
+
+		system_noc: interconnect@1680000 {
+			compatible = "qcom,sm8635-system-noc";
+			reg = <0x0 0x01680000 0x0 0x00040000>;
+			#interconnect-cells = <1>;
+			qcom,bcm-voters = <&apps_bcm_voter>;
 		};
 	};
 

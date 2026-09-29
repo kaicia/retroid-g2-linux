@@ -3,14 +3,20 @@
 The authoritative Cliffs/G2 device tree during bring-up lives in the repo's
 top-level `dts/`:
 
-- `dts/cliffs.dtsi`  — Tier 0 SoC description (CPUs, PSCI, arch timer, GIC,
-  reserved-memory). 409 lines. No clock/pinctrl/interconnect/regulator providers
-  (those are Tier 1+ and need the drivers in `../patches/20-sm8635/`).
-- `dts/cliffs-g2.dts` — Tier 0 board tree (`model = "Retroid Pocket G2"`,
+- `dts/cliffs.dtsi`  — SoC description. Tier 0 base (CPUs, PSCI, arch timer,
+  GIC, reserved-memory) **plus the Tier 1/2 providers wired 2026-09-29**:
+  board clocks (`xo_board`, `sleep_clk`), the RPMh RSC (`apps_rsc`) +
+  `apps_bcm_voter`, GCC (`qcom,gcc-sm8635`), TLMM (`qcom,sm8635-tlmm`), and the
+  14 interconnect providers (`qcom,sm8635-*`). These bind the drivers in
+  `../patches/20-sm8635/`. Still to add: PMXR2230 regulators, SDCC2/QUP/USB/UFS
+  peripheral nodes, PDC (for tlmm wakeup) and rpmhcc.
+- `dts/cliffs-g2.dts` — board tree (`model = "Retroid Pocket G2"`,
   `compatible = "retroid,g2", "qcom,cliffs"`), `#include "cliffs.dtsi"`.
 
-Both compile cleanly with `dtc` (verified 2026-09-29; Tier 0 dtb ~6.5 KB, also
-archived at `release/tier0/sd-files/cliffs-g2.dtb`).
+Both compile cleanly with `dtc`, zero warnings (verified 2026-09-29; grown dtb
+~9.4 KB with providers, was ~6.5 KB at Tier 0; Tier 0 dtb archived at
+`release/tier0/sd-files/cliffs-g2.dtb`). Provider `reg`/irq/RSC values are from
+the archived G2 device tree; see `docs/g2-dts-providers-wiring-20260929.md`.
 
 At holodor integration time these files populate this directory (holodor's
 `build-sd-image.sh` copies `${KOUT}/dtbs/*.dtb` onto the SD boot partition and,
