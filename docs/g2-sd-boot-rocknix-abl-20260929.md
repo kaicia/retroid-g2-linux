@@ -304,6 +304,31 @@ Next data to collect (no writes):
 - A video of the whole Verbose log, to read the ABL's *"Splash memory region
   before/after updating: reg = <…>"* lines (the live FB address).
 
+## Result 2026-09-29: video + device state → crash dump mode (900E)
+
+From the video (120 fps, read frame by frame):
+- The ABL loaded `\KERNEL` (0xF81000 B) and ran LoadImageAndAuth
+  ("boot state orange").
+- It reported *"FatCacheFix: SoC chipid 0x2BC"*, which matches our msm-id.
+- *"Decompressing kernel image total time: 314 ms"*.
+- *"[DTB MATCH FOUND]: Retroid Pocket G2"*, then *"Linux boot, disabling Android
+  DTBO overlays!"*.
+- The cmdline is ours, and the "Final RAM Partitions" list begins at
+  0x80000000.
+- The ABL then shut down boot services.
+
+After that, the ABL log stayed on screen **unchanged for about 8 s**, then the
+screen went black. The kernel never drew on the scanned-out buffer.
+
+After the black screen, Windows lists **Qualcomm HS-USB Diagnostics 900E**:
+Sahara memory-dump mode. The SoC went through an abnormal reset (a kernel crash,
+or a watchdog bite at about 8 to 10 s), and DRAM is preserved and readable.
+
+Next: capture it with `edl.py memorydump` and run
+`scripts/g2-ramdump-scan.py`. That gives the kernel log (search
+"Linux version 7.1") and the contents of 0xe3940000 as a BMP. The BMP shows
+whether fbcon drew into the buffer we point simple-framebuffer at.
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0
