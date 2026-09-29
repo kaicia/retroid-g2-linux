@@ -46,6 +46,18 @@ cp "$REPO/dts/cliffs.dtsi" \
    "$REPO/dts/cliffs-g2.dts" \
    "$REPO/dts/g2-sdhci-compile-test.dts" \
    "$Q/"
+
+# Install the SM8635/Cliffs dt-bindings headers cliffs.dtsi references. These are
+# our ported headers (from the Cliffs vendor GPL source); the pinned upstream
+# tree has no SM8635 support yet, so without this the cpp pass fails on
+# qcom,gcc-cliffs.h / qcom,cliffs.h. Copied read-only alongside the upstream
+# bindings; the upstream headers cliffs.dtsi also uses (arm-gic, qcom,rpmh-rsc,
+# gpio) are already present in the tree.
+BIND_SRC="$REPO/kernel/sm8635/patches/20-sm8635/include/dt-bindings"
+if [ -d "$BIND_SRC" ]; then
+  echo "==> installing SM8635 dt-bindings headers"
+  cp -a "$BIND_SRC/." "$SRC/include/dt-bindings/"
+fi
 for t in cliffs-g2 g2-sdhci-compile-test; do
   grep -q "$t.dtb" "$Q/Makefile" \
     || printf 'dtb-$(CONFIG_ARCH_QCOM)\t+= %s.dtb\n' "$t" >> "$Q/Makefile"
