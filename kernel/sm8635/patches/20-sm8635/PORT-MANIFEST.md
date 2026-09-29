@@ -23,8 +23,8 @@ board wiring and was cross-checked against these headers three ways
 
 | Driver | Source path | Lines | Tier | Status |
 |---|---|---|---|---|
-| GCC clock | `drivers/clk/qcom/gcc-cliffs.c` | 3207 | 1 | not started |
-| TLMM pinctrl | `drivers/pinctrl/qcom/pinctrl-cliffs.c` | 2305 | 1 | not started |
+| GCC clock | `drivers/clk/qcom/gcc-cliffs.c` | 3207 | 1 | **PORTED** → `drivers/clk/qcom/gcc-sm8635.c` (2839 ln); offline-verified, compile-verify pending. See `docs/g2-gcc-cliffs-port-notes-20260929.md` |
+| TLMM pinctrl | `drivers/pinctrl/qcom/pinctrl-cliffs.c` | 2305 | 1 | next |
 | Interconnect (NoC) | `drivers/interconnect/qcom/cliffs.c` | 3054 | 2 | not started |
 | DISP clock | `drivers/clk/qcom/dispcc-cliffs.c` | ~970 | 3 | not started |
 | GPU clock | `drivers/clk/qcom/gpucc-cliffs.c` | ~560 | 3 | not started |
