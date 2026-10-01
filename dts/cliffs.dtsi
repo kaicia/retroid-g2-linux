@@ -487,6 +487,16 @@
 			interrupt-controller;
 			#interrupt-cells = <2>;
 			gpio-ranges = <&tlmm 0 0 179>;
+			/*
+			 * GPIOs 56-60 belong to the secure world: the vendor tree
+			 * marks them qcom,gpios-reserved = <56 57 58 59 60>. Without
+			 * this, gpiolib reads every line's direction at registration,
+			 * touches 56-60, and the APPS access is blocked: the kernel
+			 * hangs at 0.018 s right after the tlmm device is created and
+			 * the watchdog resets the SoC into 900E dump mode
+			 * (docs/g2-sd-boot-rocknix-abl-20260929.md, RAM-dump log).
+			 */
+			gpio-reserved-ranges = <56 5>;
 
 			sdc2_default: sdc2-default-state {
 				clk-pins {

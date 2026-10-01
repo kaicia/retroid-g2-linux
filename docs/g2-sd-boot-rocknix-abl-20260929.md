@@ -329,6 +329,46 @@ Next: capture it with `edl.py memorydump` and run
 "Linux version 7.1") and the contents of 0xe3940000 as a BMP. The BMP shows
 whether fbcon drew into the buffer we point simple-framebuffer at.
 
+## Result 2026-10-01: RAM dump → the kernel hangs at the TLMM
+
+`edl.py memorydump` from 900E captured all 8 GB:
+- DDRCS0_0, at 0x80000000, 2 GB;
+- DDRCS1_0..2, at 0x880000000.
+
+`g2-ramdump-scan.py` found the printk text ring in DDRCS0_0 at file offset
+0x2b305150.
+
+What the diag-boot log shows:
+- The kernel boots fine through early init:
+  - "Machine model: Retroid Pocket G2", the reserved-memory map as designed,
+    7.3 GB available;
+  - PSCI 1.1 with OSI;
+  - GICv3 with 988 SPIs and redistributors for CPU0..7;
+  - the arch timer at 19.2 MHz;
+  - all 8 CPUs up at EL1.
+- Harmless notes: "Kernel image misaligned at boot" (the ABL places the kernel
+  off its 2 MiB alignment), "Unexpected variation in SYS_ID_AA64MMFR1_EL1"
+  between the big and little cores, "efi: UEFI not found".
+- The **last** message is at 0.017815 s: *"/soc@0/interrupt-controller@17100000:
+  Fixed dependency cycle(s) …"*, printed during of_platform_populate. Nothing
+  follows. The watchdog bit about 8 s later, so the SoC went to 900E and the
+  screen went black. fbcon never ran, which is why nothing was ever drawn.
+
+**Cause:** the next device to probe is the TLMM. gpiolib reads every valid
+line's direction when the gpiochip registers. The vendor tree has
+`qcom,gpios-reserved = <56 57 58 59 60>` on `pinctrl@f000000`: secure-world
+GPIOs that the APPS side may not touch. Our tlmm node had no reserved ranges,
+so the kernel touched GPIO 56-60 and hung.
+
+**Fix:** `gpio-reserved-ranges = <56 5>;` on tlmm in `cliffs.dtsi` (both
+copies). The new builds are:
+- `release/tier0-qcomabl/diag2/KERNEL`: display-safe DT plus the fix. Try it
+  first.
+- `release/tier0-qcomabl/rev3/KERNEL`: the full DT plus the fix.
+
+Both cmdlines add `initcall_debug log_buf_len=4M`, so the next RAM dump, if one
+is needed, names the last initcall.
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0
