@@ -778,6 +778,28 @@
 		};
 
 		/*
+		 * MDSS placeholder: the display's interconnect consumer, with no
+		 * driver yet. Rev 5 boot, 2026-10-01: once sdhc_2 (the only other
+		 * icc consumer) probed, the CLIFFS providers ran icc sync_state and
+		 * dropped every boot-time vote nobody had re-requested. That
+		 * included MM0, the display's path to DDR. The panel then lost its
+		 * scanout and went black, with no crash and no 900E. Mainline keeps
+		 * the display's bandwidth via the MDSS node's interconnects, as
+		 * here. With nothing bound to "qcom,sm8635-mdss", sync_state stays
+		 * pending (fw_devlink strict), so the boot votes, and the
+		 * simple-framebuffer console, survive. Same paths as sm8650's mdss.
+		 * The real dispcc/DPU port fills this node in later.
+		 */
+		mdss: display-subsystem@ae00000 {
+			compatible = "qcom,sm8635-mdss";
+			reg = <0x0 0x0ae00000 0x0 0x1000>;
+			reg-names = "mdss";
+			interconnects = <&mmss_noc MASTER_MDP &mc_virt SLAVE_EBI1>,
+					<&gem_noc MASTER_APPSS_PROC &cnoc_cfg SLAVE_DISPLAY_CFG>;
+			interconnect-names = "mdp0-mem", "cpu-cfg";
+		};
+
+		/*
 		 * Interconnect / NoC providers. Bind icc-sm8635.c. Each votes
 		 * through apps_bcm_voter (the downstream multi-voter list was
 		 * stripped with the QoS layer). #interconnect-cells = <1> matches

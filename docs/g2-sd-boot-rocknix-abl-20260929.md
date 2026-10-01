@@ -477,6 +477,29 @@ two owners.
 `release/tier0-qcomabl/rev5/` has the KERNEL and a full SD image. The cmdline
 is the same as rev4's.
 
+## Result 2026-10-01: rev5 → log, then a faster black, no 900E
+
+The log scrolled, then the screen went dark sooner than in the watchdog cases.
+No USB device appeared (no 900E), so this was no crash. The kernel kept
+running, and only the display path was cut.
+
+**Diagnosis:** with the cd-gpio conflict gone, sdhc_2 (the only icc consumer
+in the DT) bound. The CLIFFS providers then ran `icc_sync_state` (rev4 had
+printed "sync_state() pending due to 8804000.mmc" until then). sync_state drops
+every boot-time vote that no consumer re-requested. That includes MM0
+(`qns_mem_noc_hf`), the display's path to DDR, which is not a keepalive BCM in
+our driver or in mainline sm8650. The MDSS then underflows, and the panel goes
+black while the kernel carries on.
+
+**Fix (rev6):** an MDSS placeholder node, `display-subsystem@ae00000`,
+compatible `qcom,sm8635-mdss`. It has mainline sm8650's two paths: `mdp0-mem`
+(MASTER_MDP → SLAVE_EBI1) and `cpu-cfg` (APPSS → DISPLAY_CFG). No driver binds
+it, so under fw_devlink strict mode sync_state stays pending and the boot votes,
+and simplefb, survive. This is also the node a future dispcc/DPU port will fill
+in.
+
+`release/tier0-qcomabl/rev6/` has the KERNEL and a full SD image.
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0
