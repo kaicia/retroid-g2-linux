@@ -526,6 +526,17 @@ Open items, none blocking:
 - GPT warnings, because the 192 MiB image was written to a 116 GiB card.
   Harmless; resize later.
 
+## Tier 1 step 1: minimal busybox rootfs (built 2026-10-01)
+
+`release/tier1-minirootfs/g2-minirootfs-sd.img.xz` contains:
+- the rev6 KERNEL;
+- p2 = static busybox plus `rootfs/g2-mini/sbin/init`.
+
+init shows a status screen on the panel and saves a full diagnostic bundle
+(dmesg, clk, regulator and icc summaries, deferred devices, pinmux, bound
+drivers) to the FAT partition as `g2-logs/boot-NNN.txt`. From now on, debugging
+does not depend on photos or RAM dumps. See that release's README.
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0

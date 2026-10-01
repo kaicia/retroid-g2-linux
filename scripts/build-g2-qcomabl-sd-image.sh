@@ -10,7 +10,8 @@
 #             /KERNEL       Android boot image header v0: gzip(Image) + appended
 #                           cliffs-g2.dtb, empty cpio (scripts/mkbootimg-g2.py -H 0)
 #             /KERNEL.md5
-#   GPT p2  ext4, GPT name + label POCKNIX_ROOT (empty: no rootfs yet)
+#   GPT p2  ext4, GPT name + label POCKNIX_ROOT; empty, or filled from
+#           ROOTFS_DIR (e.g. scripts/build-g2-minirootfs.sh output)
 #
 # With no root filesystem, a successful boot ends on screen at
 # "VFS: Unable to mount root fs" - that is the Tier 0 success signal.
@@ -70,10 +71,16 @@ mcopy -i "$FS" "$KERNEL"          ::/KERNEL
 mcopy -i "$FS" "$WORK/KERNEL.md5" ::/KERNEL.md5
 dd if="$FS" of="$OUT" bs=512 seek="$S1" conv=notrunc status=none; rm -f "$FS"
 
-say "building ext4 p2 (POCKNIX_ROOT, empty)"
+say "building ext4 p2 (POCKNIX_ROOT${ROOTFS_DIR:+ from $ROOTFS_DIR})"
 FS2="$WORK/g2-qcomabl-p2.ext4"; rm -f "$FS2"
 truncate -s $(( (E2 - S2 + 1) * 512 )) "$FS2"
-mkfs.ext4 -q -F -L POCKNIX_ROOT "$FS2"
+if [ -n "${ROOTFS_DIR:-}" ]; then
+  [ -d "$ROOTFS_DIR" ] || die "ROOTFS_DIR not a directory: $ROOTFS_DIR"
+  # -d populates the filesystem from the directory; root:root, modes kept.
+  mkfs.ext4 -q -F -L POCKNIX_ROOT -E root_owner=0:0 -d "$ROOTFS_DIR" "$FS2"
+else
+  mkfs.ext4 -q -F -L POCKNIX_ROOT "$FS2"
+fi
 dd if="$FS2" of="$OUT" bs=512 seek="$S2" conv=notrunc status=none; rm -f "$FS2"
 
 say "verify"

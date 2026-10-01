@@ -1,0 +1,105 @@
+#!/bin/sh
+# Retroid Pocket G2 minimal rootfs: /sbin/init (busybox sh), PID 1.
+#
+# What it does:
+#   1. mounts the pseudo filesystems,
+#   2. shows a status screen on the panel (simple-framebuffer console),
+#   3. saves a full diagnostic bundle to the SD card's FAT partition
+#      (POCKNIX/g2-logs/boot-NNN.txt) so it can be read on a PC,
+#   4. keeps refreshing a small live status block forever. PID 1 must never exit.
+# No input drivers exist yet, so there is nothing to type at. Hold the power
+# key to turn the device off; the FAT partition is unmounted again right after
+# the log is written, so that is safe.
+
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export HOME=/root TERM=linux
+
+mount -t proc     proc     /proc
+mount -t sysfs    sysfs    /sys
+mount -t devtmpfs devtmpfs /dev 2>/dev/null
+mkdir -p /dev/pts
+mount -t devpts   devpts   /dev/pts
+mount -t tmpfs    tmpfs    /tmp
+mount -t tmpfs    tmpfs    /run
+mount -t debugfs  debugfs  /sys/kernel/debug 2>/dev/null
+
+# Keep kernel chatter off the console so this screen stays readable.
+dmesg -n 1
+
+line() { echo "--------------------------------------------------------------------------------"; }
+
+summary() {
+	line
+	echo " Retroid Pocket G2 -- Linux $(uname -r) -- minimal rootfs (busybox)"
+	line
+	echo " model    : $(tr -d '\0' 2>/dev/null < /proc/device-tree/model)"
+	echo " kernel   : $(uname -v)"
+	echo " cmdline  : $(cat /proc/cmdline)"
+	echo " cpus     : $(grep -c ^processor /proc/cpuinfo) online"
+	echo " memory   : $(awk '/MemTotal/{t=$2}/MemAvailable/{a=$2}END{printf "%d MiB total, %d MiB available", t/1024, a/1024}' /proc/meminfo)"
+	echo " root     : $(awk '$2=="/"{print $1" "$3" "$4}' /proc/mounts)"
+	echo " block    :"
+	awk 'NR>2{printf "   %-12s %8d MiB\n", $4, $3/1024}' /proc/partitions
+	echo " thermal  :"
+	for z in /sys/class/thermal/thermal_zone*; do
+		[ -r "$z/temp" ] || continue
+		printf "   %-24s %s mC\n" "$(cat $z/type)" "$(cat $z/temp 2>/dev/null)"
+	done 2>/dev/null | head -8
+	echo " deferred probes:"
+	if [ -r /sys/kernel/debug/devices_deferred ] && [ -s /sys/kernel/debug/devices_deferred ]; then
+		sed 's/^/   /' /sys/kernel/debug/devices_deferred | head -12
+	else
+		echo "   (none)"
+	fi
+	echo " kernel warnings/errors (last 15):"
+	dmesg | grep -iE 'error|fail|warn|timeout|unable|not found' | tail -15 | cut -c1-130 | sed 's/^/   /'
+	line
+}
+
+save_logs() {
+	mkdir -p /mnt/boot
+	if ! mount -t vfat -o rw,noatime /dev/mmcblk0p1 /mnt/boot 2>/dev/null; then
+		echo " log save : FAT partition /dev/mmcblk0p1 not mountable"
+		return
+	fi
+	mkdir -p /mnt/boot/g2-logs
+	n=$(ls /mnt/boot/g2-logs 2>/dev/null | wc -l)
+	f=$(printf "/mnt/boot/g2-logs/boot-%03d.txt" $((n + 1)))
+	{
+		echo "===== summary";            summary
+		echo "===== dmesg";              dmesg
+		echo "===== /proc/cpuinfo";      cat /proc/cpuinfo
+		echo "===== /proc/meminfo";      cat /proc/meminfo
+		echo "===== /proc/interrupts";   cat /proc/interrupts
+		echo "===== /proc/iomem";        cat /proc/iomem
+		echo "===== devices_deferred";   cat /sys/kernel/debug/devices_deferred
+		echo "===== clk_summary";        cat /sys/kernel/debug/clk/clk_summary
+		echo "===== regulator_summary";  cat /sys/kernel/debug/regulator/regulator_summary
+		echo "===== interconnect_summary"; cat /sys/kernel/debug/interconnect/interconnect_summary
+		echo "===== gpio";               cat /sys/kernel/debug/gpio
+		echo "===== pinmux-pins";        cat /sys/kernel/debug/pinctrl/f000000.pinctrl*/pinmux-pins
+		echo "===== device-tree model";  tr -d '\0' < /proc/device-tree/model; echo
+		echo "===== /sys/bus/platform/devices"; ls -l /sys/bus/platform/devices
+		echo "===== drivers bound"
+		for d in /sys/bus/platform/drivers/*/; do
+			for l in "$d"*; do [ -L "$l" ] && echo "$(basename "$d") -> $(basename "$l")"; done
+		done
+	} > "$f" 2>&1
+	sync
+	umount /mnt/boot && echo " log save : saved to SD card FAT partition as g2-logs/$(basename "$f")"
+}
+
+clear
+summary
+save_logs
+echo
+echo " Live status below. Hold the power key to power off."
+
+# PID 1 must never return. Refresh a short status block in place.
+while :; do
+	printf "\r uptime %s | load %s | %s       " \
+		"$(awk '{printf "%ds", $1}' /proc/uptime)" \
+		"$(cut -d' ' -f1-3 /proc/loadavg)" \
+		"$(awk '/MemAvailable/{printf "%d MiB free", $2/1024}' /proc/meminfo)"
+	sleep 5
+done
