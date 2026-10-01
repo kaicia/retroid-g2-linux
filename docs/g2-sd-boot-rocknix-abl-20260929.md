@@ -425,6 +425,30 @@ The fixes that got here:
 - `gpio-reserved-ranges = <56 5>`, so the kernel stops hanging on secure TLMM
   pins.
 
+## Result 2026-10-01: rev3 (full DT) boots, display survives
+
+With every ported driver enabled, the boot runs to the same VFS panic, and the
+panel stays lit the whole way. From the on-screen initcall_debug log:
+- `qnoc-cliffs 16c0000.interconnect: Registered CLIFFS ICC` and the same for
+  1600000: **our ported interconnect driver works on hardware**. gcc, pinctrl
+  and the rpmh regulators probe without errors.
+- `probe of 15000000.iommu returned -517`: apps_smmu defers. arm-smmu-qcom
+  waits for `qcom_scm_is_available()`, and there was no firmware/scm node.
+- `cliffs-pinctrl f000000.pinctrl: does not have pin group sdc2_clk` (and
+  `sdc2_cmd`, `sdc2_data`), "could not map group config": SM8635 has no
+  dedicated SDC2 pads. The vendor `sdc2_on` uses clk gpio62, cmd gpio51 and
+  data gpio38/39/48/49, with functions sdc2_clk, sdc2_cmd and sdc2_data.
+- `probe of 8804000.mmc returned -517`: sdhc_2 defers behind both of the
+  above.
+
+**Rev 4** (`release/tier0-qcomabl/rev4/`):
+- adds `firmware { scm { compatible = "qcom,scm-sm8635", "qcom,scm"; } }`;
+- moves the sdc2 pin states onto those GPIOs with the vendor drive and bias;
+- adds `root=PARTUUID=…0002 rootfstype=ext4 rootwait` to the cmdline.
+
+Success looks like `VFS: Mounted root (ext4 filesystem)` followed by a "No
+working init found" panic, which means the SD path works end to end.
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0

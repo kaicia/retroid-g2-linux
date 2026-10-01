@@ -172,13 +172,18 @@
 	};
 
 	/*
-	 * No firmware/scm node. The binding requires a SoC-specific compatible
-	 * ahead of "qcom,scm" and there is no `qcom,scm-cliffs` — schema
-	 * validation rejects the bare form. Nothing in Tier 0 needs SCM; it is
-	 * pulled in by drivers (pinctrl secure access, ICE, remoteproc) that
-	 * arrive with Tier 1, which is also when a Cliffs compatible would be
-	 * added upstream. The vendor tree describes it as firmware/qcom_scm.
+	 * SCM (secure monitor calls). Rev 3 boot, 2026-10-01: without it apps_smmu
+	 * defers forever (probe of 15000000.iommu returned -517), because
+	 * arm-smmu-qcom waits for qcom_scm_is_available(), and sdhc_2 defers behind
+	 * the SMMU. Same shape as mainline sm8650. No qcom,dload-mode (we do not
+	 * want Linux to arm download mode) and no interconnects (the CRYPTO path
+	 * vote is optional). The vendor tree describes it as firmware/qcom_scm.
 	 */
+	firmware {
+		scm: scm {
+			compatible = "qcom,scm-sm8635", "qcom,scm";
+		};
+	};
 
 	psci {
 		compatible = "arm,psci-1.0";
@@ -498,21 +503,30 @@
 			 */
 			gpio-reserved-ranges = <56 5>;
 
+			/*
+			 * SDC2 on SM8635 is muxed on regular GPIOs, not dedicated SDC pads
+			 * (rev 3 boot: "does not have pin group sdc2_clk"). Pins, functions,
+			 * drive and bias are copied from the vendor tree's sdc2_on/sdc2_off:
+			 * clk gpio62, cmd gpio51, data gpio38/39/48/49.
+			 */
 			sdc2_default: sdc2-default-state {
 				clk-pins {
-					pins = "sdc2_clk";
+					pins = "gpio62";
+					function = "sdc2_clk";
 					drive-strength = <16>;
 					bias-disable;
 				};
 
 				cmd-pins {
-					pins = "sdc2_cmd";
+					pins = "gpio51";
+					function = "sdc2_cmd";
 					drive-strength = <10>;
 					bias-pull-up;
 				};
 
 				data-pins {
-					pins = "sdc2_data";
+					pins = "gpio38", "gpio39", "gpio48", "gpio49";
+					function = "sdc2_data";
 					drive-strength = <10>;
 					bias-pull-up;
 				};
@@ -520,19 +534,22 @@
 
 			sdc2_sleep: sdc2-sleep-state {
 				clk-pins {
-					pins = "sdc2_clk";
+					pins = "gpio62";
+					function = "gpio";
 					drive-strength = <2>;
 					bias-disable;
 				};
 
 				cmd-pins {
-					pins = "sdc2_cmd";
+					pins = "gpio51";
+					function = "gpio";
 					drive-strength = <2>;
 					bias-pull-up;
 				};
 
 				data-pins {
-					pins = "sdc2_data";
+					pins = "gpio38", "gpio39", "gpio48", "gpio49";
+					function = "gpio";
 					drive-strength = <2>;
 					bias-pull-up;
 				};
