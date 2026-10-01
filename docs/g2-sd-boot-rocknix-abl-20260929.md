@@ -500,6 +500,32 @@ in.
 
 `release/tier0-qcomabl/rev6/` has the KERNEL and a full SD image.
 
+## Result 2026-10-01: rev6 → SD card up, ext4 root mounted
+
+![rootfs mounted](img/g2-sd-rootfs-mounted-20261001.jpg)
+
+- `sdhci_msm 8804000.mmc: TCXO clk not present (-2)` (harmless).
+- `mmc0: SDHCI controller on 8804000.mmc using ADMA 64-bit`.
+- `mmc0: new UHS-I speed SDR104 SDXC card at address 0001`, then
+  `mmcblk0: mmc0:0001 SD 116 GiB`, `mmcblk0: p1 p2`.
+- `EXT4-fs (mmcblk0p2): mounted filesystem … ro`, then
+  `VFS: Mounted root (ext4 filesystem) readonly on device 179:2`.
+- `Kernel panic - not syncing: No working init found`. This is expected: p2 is
+  an empty ext4.
+- The display stays on to the end, so the MDSS placeholder fix holds.
+
+**Validated on hardware:** the ported gcc, pinctrl, interconnect (all 14
+providers) and PMXR2230 rpmh regulators, plus mainline SMMU (with SCM) and
+sdhci-msm. The whole boot chain runs from ROCKNIX-ABL to an SD root.
+
+Open items, none blocking:
+- A `WARN` in `clk_rcg2` `update_config`, from `sdhci_msm_probe` →
+  `dev_pm_opp_set_rate` → `clk_rcg2_set_floor_rate_and_parent`: the RCG did
+  not latch in time, likely the sdcc2 source PLL. The card still runs at
+  SDR104. Check gcc-sm8635's sdcc2_apps_clk_src parents and PLL enablement.
+- GPT warnings, because the 192 MiB image was written to a 116 GiB card.
+  Harmless; resize later.
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0
