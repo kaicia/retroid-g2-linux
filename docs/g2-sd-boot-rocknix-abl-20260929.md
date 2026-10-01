@@ -537,6 +537,29 @@ init shows a status screen on the panel and saves a full diagnostic bundle
 drivers) to the FAT partition as `g2-logs/boot-NNN.txt`. From now on, debugging
 does not depend on photos or RAM dumps. See that release's README.
 
+## Result 2026-10-01: Linux userland runs on the G2
+
+![userland](img/g2-minirootfs-userland-20261001.jpg)
+
+The minimal rootfs boots to its status screen. PID 1 is the busybox init
+script, and the system stays up.
+
+Status screen contents:
+- **Identity:** model Retroid Pocket G2, kernel 7.1.0, 8 CPUs online,
+  roughly 7 GiB available.
+- **Root and block devices:** root `/dev/root` ext4 ro. The block devices are
+  the 116 GiB card and its 128 MiB and 62 MiB partitions.
+- **Saved log:** `log save : saved to SD card FAT partition as
+  g2-logs/boot-001.txt`.
+- **Live status:** the line updates.
+
+The warnings it lists are known:
+- `qnoc-cliffs …: failed to register ICC provider: -517`, one per provider:
+  these are the first, deferred probe attempts. All 14 register later, as in
+  rev3 to rev6. It is cosmetic; the driver should use dev_err_probe.
+- `WARNING: drivers/clk/qcom/clk-rcg2.c:136 at update_config`: the sdcc2 RCG
+  open item above.
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0
