@@ -393,12 +393,46 @@ The XBL build is `BOOT.MXF.2.1-02003-LANAI-1` (load.cmm). These fit a
 watchdog-initiated warm reset into dump mode, and agree with the kernel log
 stopping at 0.018 s.
 
+## Result 2026-10-01: TIER 0 DONE: first Linux kernel output on the G2
+
+`release/tier0-qcomabl/diag2/KERNEL` boots and prints to the panel:
+
+![first kernel boot](img/g2-first-kernel-boot-20261001.jpg)
+
+- Eight Tux logos, one per CPU, and the full `initcall_debug` log on the panel
+  through simple-framebuffer and fbcon.
+- Late initcalls run cleanly: `clk: Not disabling unused clocks`,
+  `PM: genpd: Not disabling unused power domains`, `regulator_init_complete`,
+  `of_platform_sync_state_init`.
+- At 0.4307 s: `/dev/root: Can't open blockdev`, then
+  `VFS: Cannot open root device "" or unknown-block(0,0): error -6`, and
+  `Kernel panic - not syncing: VFS: Unable to mount root fs on unknown-block(0,0)`.
+  This is the expected end: there is no root= and no storage driver in the
+  display-safe DT. The panic comes from `Hardware name: Retroid Pocket G2 (DT)`
+  on kernel 7.1.0.
+
+The boot chain that works:
+1. stock XBL;
+2. **ROCKNIX-ABL SM8650 build, in `abl_b` only**;
+3. SD FAT `KERNEL`, a header-v0 boot image of gzip(Image) with our DTB
+   appended;
+4. our SM8635 kernel.
+
+Android remains bootable from the same ABL.
+
+The fixes that got here:
+- the splash node name `splash_region`, so the ABL keeps the panel on;
+- `gpio-reserved-ranges = <56 5>`, so the kernel stops hanging on secure TLMM
+  pins.
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0
    boot image of our 7.1.2 kernel and `cliffs-g2.dtb`.~~ Done:
    `release/tier0-qcomabl/`.
-3. EDL-write `abl_b` only. Then:
+3. ~~EDL-write `abl_b` only~~ (done: ROCKNIX menu, Android and SD Linux all
+   work). Next: rev3, the full DT with gcc, interconnect, SMMU and SDHC, then a
+   root filesystem on the card's p2. Original step:
    - Boot normally: Android should still start.
    - Reboot holding VOL-: the ROCKNIX menu should appear. Set the model to
      "Retroid Pocket G2" and boot Linux from the SD card.
