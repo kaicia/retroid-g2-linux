@@ -449,6 +449,34 @@ panel stays lit the whole way. From the on-screen initcall_debug log:
 Success looks like `VFS: Mounted root (ext4 filesystem)` followed by a "No
 working init found" panic, which means the SD path works end to end.
 
+## Result 2026-10-01: rev4 → SMMU up, sdhc probes, then fails on gpio31
+
+On the rev4 log:
+- SCM is present, so apps_smmu no longer defers.
+- All 14 CLIFFS ICC providers register, in deferred_probe_initcall.
+- sdhc_2 now really probes: the SDC2 pins on GPIOs are accepted. It then fails:
+  - *"cliffs-pinctrl f000000.pinctrl: pin GPIO_31 already requested by
+    8804000.mmc; cannot claim for f000000.pinctrl:543"*;
+  - *"error -EINVAL: pin-31"*;
+  - *"sdhci_msm 8804000.mmc: probe with driver sdhci_msm failed with error
+    -22"*.
+- The kernel then waits forever in `Waiting for root device PARTUUID=…0002`.
+  The icc providers report *"sync_state() pending due to 8804000.mmc"*, which
+  is expected while a consumer is missing.
+
+**Cause:** our pinctrl port declares the "gpio" function with
+`MSM_PIN_FUNCTION`, not `MSM_GPIO_PIN_FUNCTION`. Strict pinmux therefore
+treats the sd-cd pinctrl state (gpio31 → "gpio") and the `cd-gpios` request as
+two owners.
+- **Driver fix:** patch 0002 and port_pinctrl.py, compile-checked. It needs the
+  next kernel build.
+- **DT workaround (rev5):** gpio31 is left out of pinctrl-0/1, and
+  `cd-gpios = <&tlmm 31 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>` keeps the vendor
+  pull-up through gpiolib.
+
+`release/tier0-qcomabl/rev5/` has the KERNEL and a full SD image. The cmdline
+is the same as rev4's.
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0

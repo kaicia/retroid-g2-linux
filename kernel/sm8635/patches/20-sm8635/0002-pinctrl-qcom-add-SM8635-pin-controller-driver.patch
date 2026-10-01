@@ -1602,7 +1602,7 @@ index 000000000..8f6ae02b8
 +};
 +
 +static const struct pinfunction cliffs_functions[] = {
-+	MSM_PIN_FUNCTION(gpio),
++	MSM_GPIO_PIN_FUNCTION(gpio),
 +	MSM_PIN_FUNCTION(HOST2WLAN_SOL),
 +	MSM_PIN_FUNCTION(RESOUT_GPIO_N),
 +	MSM_PIN_FUNCTION(aoss_cti),

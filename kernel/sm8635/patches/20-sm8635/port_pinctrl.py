@@ -122,6 +122,13 @@ text = text.replace(
 text = text.replace("static const struct msm_function cliffs_functions[]",
                     "static const struct pinfunction cliffs_functions[]")
 text = re.sub(r'(?<![_\w])FUNCTION\(', 'MSM_PIN_FUNCTION(', text)
+# 5b. The "gpio" function must be flagged as GPIO (PINFUNCTION_FLAG_GPIO), as
+# every mainline msm driver does. Otherwise pinmux_generic_function_is_gpio()
+# says no, and with .strict a pin muxed to "gpio" by a pinctrl state cannot then
+# be requested through gpiolib. Found on hardware 2026-10-01: sdhc_2's sd-cd
+# state (gpio31) followed by cd-gpios failed with "pin GPIO_31 already requested
+# by 8804000.mmc", and probe failed with -22.
+text = text.replace("\tMSM_PIN_FUNCTION(gpio),", "\tMSM_GPIO_PIN_FUNCTION(gpio),")
 # 6. msm_pinctrl_remove does not exist upstream; mainline drivers set no .remove.
 text = text.replace("\n\t.remove = msm_pinctrl_remove,", "")
 

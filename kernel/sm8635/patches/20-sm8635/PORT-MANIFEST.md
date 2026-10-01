@@ -52,3 +52,15 @@ board wiring and was cross-checked against these headers three ways
 - Keep patches split by driver so each can be validated independently.
 - Do not fetch device trees from the Xiaomi repo (it has none for the G2); the
   archived G2 DT is authoritative for board wiring.
+
+## Hardware fixes (2026-10-01)
+- **pinctrl-sm8635:** the "gpio" function is now `MSM_GPIO_PIN_FUNCTION(gpio)`, as in
+  every mainline msm driver. Before this, `pinmux_generic_function_is_gpio()`
+  returned false. Under `.strict`, a pinctrl state muxing gpio31 to "gpio",
+  followed by sdhc_2's `cd-gpios` request, failed with "pin GPIO_31 already
+  requested by 8804000.mmc", and sdhci_msm probe returned -22.
+  - Changed in `port_pinctrl.py`, `drivers/pinctrl/qcom/pinctrl-sm8635.c` and
+    patch 0002.
+  - Compile-checked on 2026-10-01.
+  - Not yet in a built Image. The DT avoids the case meanwhile; see `cliffs.dtsi`
+    sdhc_2.

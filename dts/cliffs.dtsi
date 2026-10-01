@@ -760,9 +760,19 @@
 			vqmmc-supply = <&vreg_l23b>;
 
 			pinctrl-names = "default", "sleep";
-			pinctrl-0 = <&sdc2_default>, <&sd_cd>;
-			pinctrl-1 = <&sdc2_sleep>, <&sd_cd>;
-			cd-gpios = <&tlmm 31 GPIO_ACTIVE_LOW>;
+			/*
+			 * gpio31 (card detect) is NOT in pinctrl-0/1. A pinctrl state
+			 * that muxes it to "gpio" and a cd-gpios request on the same
+			 * pin collide under the strict msm pinmux unless the driver
+			 * flags "gpio" as a GPIO function. The 7.1 build on the card
+			 * does not (fixed in patch 0002 for the next build): rev4 failed
+			 * with "pin GPIO_31 already requested by 8804000.mmc" and
+			 * probe -22. The pull-up the vendor sd-cd state applies is
+			 * requested through the GPIO flags instead.
+			 */
+			pinctrl-0 = <&sdc2_default>;
+			pinctrl-1 = <&sdc2_sleep>;
+			cd-gpios = <&tlmm 31 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
 
 			status = "okay";
 		};

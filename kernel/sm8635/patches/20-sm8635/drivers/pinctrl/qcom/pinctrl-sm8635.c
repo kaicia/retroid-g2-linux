@@ -1557,7 +1557,7 @@ static const char *const vsense_trigger_mirnat_groups[] = {
 };
 
 static const struct pinfunction cliffs_functions[] = {
-	MSM_PIN_FUNCTION(gpio),
+	MSM_GPIO_PIN_FUNCTION(gpio),
 	MSM_PIN_FUNCTION(HOST2WLAN_SOL),
 	MSM_PIN_FUNCTION(RESOUT_GPIO_N),
 	MSM_PIN_FUNCTION(aoss_cti),
