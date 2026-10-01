@@ -7,9 +7,10 @@
 #   3. saves a full diagnostic bundle to the SD card's FAT partition
 #      (POCKNIX/g2-logs/boot-NNN.txt) so it can be read on a PC,
 #   4. keeps refreshing a small live status block forever. PID 1 must never exit.
-# No input drivers exist yet, so there is nothing to type at. Hold the power
-# key to turn the device off; the FAT partition is unmounted again right after
-# the log is written, so that is safe.
+# No input drivers exist yet. With a USB cable to a PC, a shell is available on
+# the USB serial gadget (COM port / ttyACM0, any baud). Hold the power key to
+# turn the device off; the FAT partition is unmounted again right after the log
+# is written, so that is safe.
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 export HOME=/root TERM=linux
@@ -56,6 +57,45 @@ summary() {
 	line
 }
 
+usb_gadget() {
+	# USB device mode: one CDC-ACM serial function (shows up as a COM port
+	# on Windows, /dev/ttyACM0 on Linux) with a shell on it.
+	mount -t configfs configfs /sys/kernel/config 2>/dev/null
+	if [ ! -d /sys/kernel/config/usb_gadget ]; then
+		echo " usb      : no configfs gadget support in this kernel"; return
+	fi
+	UDC=$(ls /sys/class/udc 2>/dev/null | head -1)
+	if [ -z "$UDC" ]; then
+		echo " usb      : no USB device controller (dwc3 did not probe)"; return
+	fi
+	G=/sys/kernel/config/usb_gadget/g2
+	mkdir -p $G/strings/0x409 $G/configs/c.1/strings/0x409 $G/functions/acm.usb0
+	echo 0x1d6b > $G/idVendor		# Linux Foundation
+	echo 0x0104 > $G/idProduct		# Multifunction Composite Gadget
+	echo 0x0200 > $G/bcdUSB
+	echo "Retroid" > $G/strings/0x409/manufacturer
+	echo "Retroid Pocket G2 (Linux)" > $G/strings/0x409/product
+	echo "G2-$(cut -c1-8 /proc/sys/kernel/random/boot_id)" > $G/strings/0x409/serialnumber
+	echo "ACM shell" > $G/configs/c.1/strings/0x409/configuration
+	echo 250 > $G/configs/c.1/MaxPower
+	ln -s $G/functions/acm.usb0 $G/configs/c.1/ 2>/dev/null
+	if echo "$UDC" > $G/UDC; then
+		echo " usb      : gadget bound to $UDC (CDC-ACM serial; shell on ttyGS0)"
+	else
+		echo " usb      : binding the gadget to $UDC failed"; return
+	fi
+	# Respawning shell on the gadget serial port.
+	(
+		while :; do
+			if [ -c /dev/ttyGS0 ]; then
+				setsid -c /bin/sh -c 'echo; echo "Retroid Pocket G2 -- busybox shell over USB"; export PS1="g2# "; exec /bin/sh -i' \
+					</dev/ttyGS0 >/dev/ttyGS0 2>&1
+			fi
+			sleep 1
+		done
+	) &
+}
+
 save_logs() {
 	mkdir -p /mnt/boot
 	if ! mount -t vfat -o rw,noatime /dev/mmcblk0p1 /mnt/boot 2>/dev/null; then
@@ -80,6 +120,7 @@ save_logs() {
 		echo "===== pinmux-pins";        cat /sys/kernel/debug/pinctrl/f000000.pinctrl*/pinmux-pins
 		echo "===== device-tree model";  tr -d '\0' < /proc/device-tree/model; echo
 		echo "===== /sys/bus/platform/devices"; ls -l /sys/bus/platform/devices
+		echo "===== usb";              ls -l /sys/class/udc; cat /sys/class/udc/*/state 2>/dev/null; ls /sys/kernel/config/usb_gadget/g2 2>/dev/null
 		echo "===== drivers bound"
 		for d in /sys/bus/platform/drivers/*/; do
 			for l in "$d"*; do [ -L "$l" ] && echo "$(basename "$d") -> $(basename "$l")"; done
@@ -91,15 +132,17 @@ save_logs() {
 
 clear
 summary
+usb_gadget
 save_logs
 echo
 echo " Live status below. Hold the power key to power off."
 
 # PID 1 must never return. Refresh a short status block in place.
 while :; do
-	printf "\r uptime %s | load %s | %s       " \
+	printf "\r uptime %s | load %s | %s | usb %s       " \
 		"$(awk '{printf "%ds", $1}' /proc/uptime)" \
 		"$(cut -d' ' -f1-3 /proc/loadavg)" \
-		"$(awk '/MemAvailable/{printf "%d MiB free", $2/1024}' /proc/meminfo)"
+		"$(awk '/MemAvailable/{printf "%d MiB free", $2/1024}' /proc/meminfo)" \
+		"$(cat /sys/class/udc/*/state 2>/dev/null || echo none)"
 	sleep 5
 done

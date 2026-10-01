@@ -185,4 +185,7 @@
 #define GCC_VIDEO_AXI1_CLK_ARES					27
 #define GCC_VIDEO_BCR						28
 
+/* GCC power domains (mainline-style GDSCs, not in the vendor header) */
+#define USB30_PRIM_GDSC						0
+
 #endif

@@ -114,6 +114,38 @@ text = re.sub(r'\n\t\t\.sync_state = gcc_cliffs_sync_state,', '', text)
 #    for the *_hw_ctl_clk branches (as gcc-sm8650 does).
 text = text.replace("&clk_branch2_hw_ctl_ops", "&clk_branch2_ops")
 
+# --- hardware bring-up additions (2026-10-01) ---
+# 4. USB30 primary GDSC, needed by dwc3. The vendor tree models GDSCs as
+#    regulator-style "qcom,gdsc" nodes (gcc_usb30_prim_gdsc @ 0x139004), so the
+#    vendor clock driver has none; add the mainline-style gdsc (same definition
+#    as gcc-sm8650) and USB30_PRIM_GDSC = 0 in qcom,gcc-cliffs.h.
+text = text.replace('#include "common.h"\n#include "reset.h"\n',
+                    '#include "common.h"\n#include "gdsc.h"\n#include "reset.h"\n', 1)
+text = text.replace('static const struct qcom_cc_desc gcc_cliffs_desc = {', """/*
+ * USB30 primary GDSC. The vendor tree models it as a regulator-style
+ * "qcom,gdsc" node at 0x139004 (gcc_usb30_prim_gdsc, retain-regs,
+ * support-cfg-gdscr); 0x39004 is the same register relative to GCC and the
+ * same definition mainline gcc-sm8650 uses. Needed by the dwc3 controller.
+ */
+static struct gdsc usb30_prim_gdsc = {
+\t.gdscr = 0x39004,
+\t.pd = {
+\t\t.name = "usb30_prim_gdsc",
+\t},
+\t.pwrsts = PWRSTS_RET_ON,
+\t.flags = POLL_CFG_GDSCR | RETAIN_FF_ENABLE,
+};
+
+static struct gdsc *gcc_cliffs_gdscs[] = {
+\t[USB30_PRIM_GDSC] = &usb30_prim_gdsc,
+};
+
+static const struct qcom_cc_desc gcc_cliffs_desc = {""", 1)
+text = text.replace("\t.num_resets = ARRAY_SIZE(gcc_cliffs_resets),\n};",
+                    "\t.num_resets = ARRAY_SIZE(gcc_cliffs_resets),\n"
+                    "\t.gdscs = gcc_cliffs_gdscs,\n"
+                    "\t.num_gdscs = ARRAY_SIZE(gcc_cliffs_gdscs),\n};", 1)
+
 # collapse 3+ blank lines to 1
 text = re.sub(r'\n\n\n+', '\n\n', text)
 open("gcc-sm8635.c", "w").write(text)

@@ -30,6 +30,8 @@
 #include <dt-bindings/clock/qcom,gcc-cliffs.h>
 #include <dt-bindings/interconnect/qcom,cliffs.h>
 #include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/clock/qcom,sm8650-tcsr.h>
+#include <dt-bindings/spmi/spmi.h>
 
 / {
 	interrupt-parent = <&intc>;
@@ -461,8 +463,8 @@
 
 		/*
 		 * GCC — global clock + reset controller. Binds gcc-sm8635.c.
-		 * No #power-domain-cells: this GCC exposes no GDSCs (the ported
-		 * driver has none; power domains come via rpmhpd, added later).
+		 * Power domains: only USB30_PRIM_GDSC so far (mainline-style gdsc
+		 * added to the port; the vendor tree models GDSCs as regulators).
 		 * Parents: bi_tcxo (XO) + sleep_clk. The PHY-derived parents the
 		 * driver also names (pcie_0_pipe, ufs_phy_*_symbol, usb3 pipe) are
 		 * added with their PHYs (Tier 3); the affected clocks simply don't
@@ -475,6 +477,8 @@
 			#reset-cells = <1>;
 			clocks = <&xo_board>, <&sleep_clk>;
 			clock-names = "bi_tcxo", "sleep_clk";
+			/* USB30_PRIM_GDSC (added 2026-10-01 for dwc3). */
+			#power-domain-cells = <1>;
 		};
 
 		/*
@@ -608,6 +612,37 @@
 					regulator-name = "vreg_l23b";
 					regulator-min-microvolt = <1650000>;
 					regulator-max-microvolt = <3544000>;
+				};
+
+				/*
+				 * USB HS path, values from the vendor tree: eUSB2 PHY
+				 * vdd (l2b 0.88 V) and vdda12 (l4b 1.2 V); PM7550BA
+				 * eUSB2 repeater vdd18 (l7b 1.8 V) and vdd3 (l17b). The
+				 * consumers only enable them, so each is pinned to one
+				 * voltage inside the vendor window.
+				 */
+				vreg_l2b_0p88: ldo2 {
+					regulator-name = "vreg_l2b_0p88";
+					regulator-min-microvolt = <880000>;
+					regulator-max-microvolt = <880000>;
+				};
+
+				vreg_l4b_1p2: ldo4 {
+					regulator-name = "vreg_l4b_1p2";
+					regulator-min-microvolt = <1200000>;
+					regulator-max-microvolt = <1200000>;
+				};
+
+				vreg_l7b_1p8: ldo7 {
+					regulator-name = "vreg_l7b_1p8";
+					regulator-min-microvolt = <1800000>;
+					regulator-max-microvolt = <1800000>;
+				};
+
+				vreg_l17b_3p1: ldo17 {
+					regulator-name = "vreg_l17b_3p1";
+					regulator-min-microvolt = <3104000>;
+					regulator-max-microvolt = <3104000>;
 				};
 			};
 		};
@@ -775,6 +810,130 @@
 			cd-gpios = <&tlmm 31 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
 
 			status = "okay";
+		};
+
+		/*
+		 * USB device mode (2026-10-01): the path to a shell over USB.
+		 * Topology from the vendor tree: dwc3 @ a600000 + Synopsys eUSB2
+		 * PHY @ 88e3000 + eUSB2 repeater in PM7550BA (SPMI SID 7, 0xfd00).
+		 * HS only; the QMP SS PHY @ 88e8000 and Type-C role switching
+		 * (pmic-glink) are not described, so dr_mode is peripheral and
+		 * dwc3-qcom forces the VBUS override on. Shapes follow mainline
+		 * sm8650.dtsi.
+		 */
+		tcsr: clock-controller@1fc0000 {
+			/*
+			 * Mainline sm8650 TCSR clock controller (the vendor tree's
+			 * cliffs node is "qcom,pineapple-tcsrcc", pineapple being
+			 * SM8650). Only TCSR_USB2_CLKREF_EN is used.
+			 */
+			compatible = "qcom,sm8650-tcsr", "syscon";
+			reg = <0x0 0x01fc0000 0x0 0xa0000>;
+			clocks = <&xo_board>;
+			#clock-cells = <1>;
+			#reset-cells = <1>;
+		};
+
+		pdc: interrupt-controller@b220000 {
+			compatible = "qcom,sm8635-pdc", "qcom,pdc";
+			reg = <0x0 0x0b220000 0x0 0x10000>, <0x0 0x174000f0 0x0 0x64>;
+			interrupt-parent = <&intc>;
+			/* vendor tree qcom,pdc-ranges, identical to mainline sm8650 */
+			qcom,pdc-ranges = <0 480 94>, <94 609 31>,
+					  <125 63 1>, <126 716 12>,
+					  <138 251 5>, <143 244 4>;
+			#interrupt-cells = <2>;
+			interrupt-controller;
+		};
+
+		spmi_bus: spmi@c400000 {
+			compatible = "qcom,spmi-pmic-arb";
+			reg = <0x0 0x0c400000 0x0 0x3000>,
+			      <0x0 0x0c500000 0x0 0x400000>,
+			      <0x0 0x0c440000 0x0 0x80000>,
+			      <0x0 0x0c4c0000 0x0 0x10000>,
+			      <0x0 0x0c42d000 0x0 0x4000>;
+			reg-names = "core", "chnls", "obsrvr", "intr", "cnfg";
+			interrupts-extended = <&pdc 1 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "periph_irq";
+			qcom,ee = <0>;
+			qcom,channel = <0>;
+			qcom,bus-id = <0>;
+			interrupt-controller;
+			#interrupt-cells = <4>;
+			#address-cells = <2>;
+			#size-cells = <0>;
+
+			pm7550ba: pmic@7 {
+				compatible = "qcom,pm7550ba", "qcom,spmi-pmic";
+				reg = <0x7 SPMI_USID>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				pm7550ba_eusb2_repeater: phy@fd00 {
+					compatible = "qcom,pm7550ba-eusb2-repeater",
+						     "qcom,pm8550b-eusb2-repeater";
+					reg = <0xfd00>;
+					vdd18-supply = <&vreg_l7b_1p8>;
+					vdd3-supply = <&vreg_l17b_3p1>;
+					#phy-cells = <0>;
+				};
+			};
+		};
+
+		usb_1_hsphy: phy@88e3000 {
+			compatible = "qcom,sm8635-snps-eusb2-phy",
+				     "qcom,sm8550-snps-eusb2-phy";
+			reg = <0x0 0x088e3000 0x0 0x154>;
+			clocks = <&tcsr TCSR_USB2_CLKREF_EN>;
+			clock-names = "ref";
+			resets = <&gcc GCC_QUSB2PHY_PRIM_BCR>;
+			vdd-supply = <&vreg_l2b_0p88>;
+			vdda12-supply = <&vreg_l4b_1p2>;
+			phys = <&pm7550ba_eusb2_repeater>;
+			#phy-cells = <0>;
+		};
+
+		usb_1: usb@a600000 {
+			compatible = "qcom,sm8635-dwc3", "qcom,snps-dwc3";
+			reg = <0x0 0x0a600000 0x0 0xfc100>;
+			interrupts-extended = <&intc GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>,
+					      <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
+					      <&intc GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>,
+					      <&pdc 14 IRQ_TYPE_EDGE_RISING>,
+					      <&pdc 15 IRQ_TYPE_EDGE_RISING>,
+					      <&pdc 17 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "dwc_usb3", "pwr_event", "hs_phy_irq",
+					  "dp_hs_phy_irq", "dm_hs_phy_irq", "ss_phy_irq";
+			clocks = <&gcc GCC_CFG_NOC_USB3_PRIM_AXI_CLK>,
+				 <&gcc GCC_USB30_PRIM_MASTER_CLK>,
+				 <&gcc GCC_AGGRE_USB3_PRIM_AXI_CLK>,
+				 <&gcc GCC_USB30_PRIM_SLEEP_CLK>,
+				 <&gcc GCC_USB30_PRIM_MOCK_UTMI_CLK>;
+			clock-names = "cfg_noc", "core", "iface", "sleep", "mock_utmi";
+			assigned-clocks = <&gcc GCC_USB30_PRIM_MOCK_UTMI_CLK>,
+					  <&gcc GCC_USB30_PRIM_MASTER_CLK>;
+			assigned-clock-rates = <19200000>, <200000000>;
+			resets = <&gcc GCC_USB30_PRIM_BCR>;
+			power-domains = <&gcc USB30_PRIM_GDSC>;
+			phys = <&usb_1_hsphy>;
+			phy-names = "usb2-phy";
+			interconnects = <&aggre1_noc MASTER_USB3_0 &mc_virt SLAVE_EBI1>,
+					<&gem_noc MASTER_APPSS_PROC &cnoc_cfg SLAVE_USB3_0>;
+			interconnect-names = "usb-ddr", "apps-usb";
+			iommus = <&apps_smmu 0x40 0x0>;
+			dma-coherent;
+
+			dr_mode = "peripheral";
+			maximum-speed = "high-speed";
+			snps,hird-threshold = /bits/ 8 <0x0>;
+			snps,usb2-gadget-lpm-disable;
+			snps,dis_u2_susphy_quirk;
+			snps,dis_enblslpm_quirk;
+			snps,is-utmi-l1-suspend;
+			snps,usb2-lpm-disable;
+			snps,has-lpm-erratum;
+			tx-fifo-resize;
 		};
 
 		/*

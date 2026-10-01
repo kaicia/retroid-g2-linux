@@ -17,6 +17,7 @@
 #include "clk-regmap-divider.h"
 #include "clk-regmap-mux.h"
 #include "common.h"
+#include "gdsc.h"
 #include "reset.h"
 
 enum {
@@ -2750,12 +2751,33 @@ static const struct regmap_config gcc_cliffs_regmap_config = {
 	.fast_io = true,
 };
 
+/*
+ * USB30 primary GDSC. The vendor tree models it as a regulator-style
+ * "qcom,gdsc" node at 0x139004 (gcc_usb30_prim_gdsc, retain-regs,
+ * support-cfg-gdscr); 0x39004 is the same register relative to GCC and the
+ * same definition mainline gcc-sm8650 uses. Needed by the dwc3 controller.
+ */
+static struct gdsc usb30_prim_gdsc = {
+	.gdscr = 0x39004,
+	.pd = {
+		.name = "usb30_prim_gdsc",
+	},
+	.pwrsts = PWRSTS_RET_ON,
+	.flags = POLL_CFG_GDSCR | RETAIN_FF_ENABLE,
+};
+
+static struct gdsc *gcc_cliffs_gdscs[] = {
+	[USB30_PRIM_GDSC] = &usb30_prim_gdsc,
+};
+
 static const struct qcom_cc_desc gcc_cliffs_desc = {
 	.config = &gcc_cliffs_regmap_config,
 	.clks = gcc_cliffs_clocks,
 	.num_clks = ARRAY_SIZE(gcc_cliffs_clocks),
 	.resets = gcc_cliffs_resets,
 	.num_resets = ARRAY_SIZE(gcc_cliffs_resets),
+	.gdscs = gcc_cliffs_gdscs,
+	.num_gdscs = ARRAY_SIZE(gcc_cliffs_gdscs),
 };
 
 static const struct of_device_id gcc_cliffs_match_table[] = {
