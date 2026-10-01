@@ -9,6 +9,7 @@ Read-only: it opens dump files and writes text and BMP files next to them.
 Usage:
   python g2-ramdump-scan.py <memory dir or .BIN files...> [--marker "Linux version 7.1"]
   python g2-ramdump-scan.py --fb <DDR .BIN file> <base address of that file>
+  python g2-ramdump-scan.py --resetinfo <memory dir>
 
 Log mode scans every file for the marker and for "Booting Linux". For each hit it
 writes <file>.<offset>.log.txt: the printable text from the hit to the end of the
@@ -111,11 +112,35 @@ def fb(path, base):
     return 0
 
 
+RESET_FILES = ["RST_STAT.BIN", "FSM_STS.BIN", "FSM_CTRL.BIN", "DBG_EN.BIN",
+               "PMIC_PON.BIN", "PMPONHIS.BIN", "PMON_HIS.BIN", "CD_STRCT.BIN"]
+
+
+def resetinfo(d):
+    """Print the small reset-reason regions as hex, and load.cmm as text, for pasting."""
+    for name in RESET_FILES:
+        p = os.path.join(d, name)
+        if not os.path.exists(p):
+            print("%-13s (missing)" % name)
+            continue
+        data = open(p, "rb").read()
+        print("%-13s %d bytes" % (name, len(data)))
+        for i in range(0, len(data), 16):
+            print("  %04x: %s" % (i, data[i:i + 16].hex(" ")))
+    p = os.path.join(d, "load.cmm")
+    if os.path.exists(p):
+        print("load.cmm:")
+        print(open(p, "rb").read().decode("ascii", "replace"))
+    return 0
+
+
 def main():
     a = sys.argv[1:]
     if not a:
         print(__doc__)
         return 2
+    if a[0] == "--resetinfo":
+        return resetinfo(a[1])
     if a[0] == "--fb":
         return fb(a[1], int(a[2], 0))
     marker = b"Linux version 7.1"
