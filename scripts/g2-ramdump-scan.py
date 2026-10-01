@@ -35,7 +35,7 @@ import sys
 FB_ADDR = 0xE3940000
 FB_W, FB_H = 1080, 1920
 FB_STRIDE = FB_W * 4
-WINDOW = 512 * 1024          # printk text ring (LOG_BUF_SHIFT 17-19 -> 128-512 KiB)
+WINDOW = 8 * 1024 * 1024    # log_buf_len=4M + initcall_debug: keep the whole ring
 
 
 def printable_lines(buf):
