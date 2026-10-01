@@ -369,6 +369,30 @@ copies). The new builds are:
 Both cmdlines add `initcall_debug log_buf_len=4M`, so the next RAM dump, if one
 is needed, names the last initcall.
 
+### Same dump: the framebuffer and the reset registers
+
+**The framebuffer is right.**
+`g2-ramdump-scan.py --fb memory\DDRCS0_0.BIN 0x80000000` renders 0xe3940000
+as 1080x1920 a8r8g8b8, stride 4320, and shows a clean **"QUALCOMM CrashDump
+Mode"** screen. XBL's ramdump UI wrote it after the reset:
+- "RAMDUMP BUILD @ 17:37:42 on Dec 10 2025"
+- "PM: PM_DT_PARSING_ERR: sw-config"
+- "UFS Spec 3.10, SKhynix HN8T05DEHKX073, Boot LUN 2, 128 GB"
+
+So the scanned-out buffer is at exactly the address and in exactly the format
+our simple-framebuffer declares. Once the kernel gets past the TLMM, fbcon
+draws where the panel looks. The panel was off during dump mode, which is why
+the screen looked black.
+
+Reset registers:
+- `RST_STAT` = 0x3;
+- `FSM_STS` = 0x00021101;
+- `PMIC_PON` = 00 02 40 02.
+
+The XBL build is `BOOT.MXF.2.1-02003-LANAI-1` (load.cmm). These fit a
+watchdog-initiated warm reset into dump mode, and agree with the kernel log
+stopping at 0.018 s.
+
 ## Next steps
 1. ~~Compat check~~: passed, see above.
 2. ~~Build the `qcom-abl` SD card, with KERNEL as a header-v0
