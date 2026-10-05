@@ -107,3 +107,33 @@ is the same as the first USB build.
   has dwc3 debugfs (mode, link_state, lsp_dump, regdump) and
   `/proc/interrupts`. It also runs `g2/autorun.sh` from the FAT partition if
   present, so later diagnostics need no rootfs rebuild.
+
+## Result 2026-10-05: snapshot logs → HS chirp OK, then stuck in "default"
+
+Logs: `dumps/g2/linux-boot/usb2-boot-00{1,2}*-20261005.txt`. The UDC goes from
+"not attached" to "default" when the cable is plugged in. Windows then lists
+nothing, having given up after its retries.
+
+- No SMMU faults, so DMA is not the problem. The dwc3 IRQ (GIC 165 = SPI 133)
+  fired 13 times, so interrupts are delivered.
+- `DSTS = 0x00820000`: CONNECTSPD = 0, which is **high speed**, so the HS
+  chirp handshake worked. Link state is U0/On. SOFFN = 0.
+- `GUSB2PHYCFG = 0x00102400`, `DCFG = 0x00a00800`, `DALEPENA = 0x3`
+  (ep0 in/out enabled).
+- **Reading:** bus reset and HS negotiation work, but the first control
+  transfer (GET_DESCRIPTOR) never completes. That points at HS data-packet
+  signal integrity.
+- The eUSB2 PHY init in mainline matches the vendor. The vendor
+  `qcom,param-override-seq = <0x00 0x58>` is the CFG_CTRL_1 PLL CPBIAS = 0
+  write that mainline already does.
+- **The repeater differs:** the mainline `pm8550b` config writes PM8550B board
+  tuning (IUSB2 0x8, SQUELCH 0x3, PREEM 0x5). The vendor G2 repeater node has
+  no tuning at all.
+
+**Change:** the repeater compatible is now `qcom,pmiv0104-eusb2-repeater`
+(same vdd18/vdd3 supplies, empty init table). This is DT only; the KERNEL is
+rebuilt with the same Image.
+
+**Fallback experiment:** `release/tier1-usb/g2/autorun-fullspeed.sh`. Copy it
+to FAT `g2/autorun.sh`; it rebinds the gadget with `max_speed = full-speed`.
+If FS enumerates but HS does not, HS signal tuning is confirmed as the cause.

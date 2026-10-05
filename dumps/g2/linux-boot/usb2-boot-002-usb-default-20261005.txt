@@ -1,0 +1,1841 @@
+===== summary
+--------------------------------------------------------------------------------
+ Retroid Pocket G2 -- Linux 7.1.0-00004-g7c11b878d2de-dirty -- minimal rootfs (busybox)
+--------------------------------------------------------------------------------
+ model    : Retroid Pocket G2
+ kernel   : #1 SMP PREEMPT Thu Oct  1 16:39:35 UTC 2026
+ cmdline  : console=tty0 loglevel=7 clk_ignore_unused pd_ignore_unused log_buf_len=4M root=PARTUUID=706f636b-6e69-7830-726f-6f7400000002 rootfstype=ext4 rootwait
+ cpus     : 8 online
+ memory   : 7209 MiB total, 7060 MiB available
+ root     : /dev/root ext4 ro,relatime
+ block    :
+   mmcblk0        119275 MiB
+   mmcblk0p1         128 MiB
+   mmcblk0p2          62 MiB
+ thermal  :
+ deferred probes:
+   (none)
+ kernel warnings/errors (last 15):
+   [    0.017805] qnoc-cliffs interconnect-0: failed to register ICC provider: -517
+   [    0.017898] qnoc-cliffs interconnect-1: failed to register ICC provider: -517
+   [    0.020251] qnoc-cliffs 16e0000.interconnect: failed to register ICC provider: -517
+   [    0.020349] qnoc-cliffs 1700000.interconnect: failed to register ICC provider: -517
+   [    0.020451] qnoc-cliffs 1600000.interconnect: failed to register ICC provider: -517
+   [    0.020532] qnoc-cliffs 1500000.interconnect: failed to register ICC provider: -517
+   [    0.020636] qnoc-cliffs 24100000.interconnect: failed to register ICC provider: -517
+   [    0.020719] qnoc-cliffs 7e40000.interconnect: failed to register ICC provider: -517
+   [    0.020795] qnoc-cliffs 7400000.interconnect: failed to register ICC provider: -517
+   [    0.020872] qnoc-cliffs 7430000.interconnect: failed to register ICC provider: -517
+   [    0.020964] qnoc-cliffs 1400000.interconnect: failed to register ICC provider: -517
+   [    0.021043] qnoc-cliffs 320c0000.interconnect: failed to register ICC provider: -517
+   [    0.021122] qnoc-cliffs 16c0000.interconnect: failed to register ICC provider: -517
+   [    0.021202] qnoc-cliffs 1680000.interconnect: failed to register ICC provider: -517
+   [    0.116376] WARNING: drivers/clk/qcom/clk-rcg2.c:136 at update_config+0xd4/0xe4, CPU#4: kworker/u32:3/93
+--------------------------------------------------------------------------------
+===== dmesg
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd801]
+[    0.000000] Linux version 7.1.0-00004-g7c11b878d2de-dirty (root@vm) (aarch64-linux-gnu-gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #1 SMP PREEMPT Thu Oct  1 16:39:35 UTC 2026
+[    0.000000] KASLR enabled
+[    0.000000] random: crng init done
+[    0.000000] Machine model: Retroid Pocket G2
+[    0.000000] efi: UEFI not found.
+[    0.000000] [Firmware Bug]: Kernel image misaligned at boot, please fix your bootloader!
+[    0.000000] OF: reserved mem: 0x0000000080000000..0x0000000080dfffff (14336 KiB) nomap non-reusable gunyah_hyp_region@80000000
+[    0.000000] OF: reserved mem: 0x0000000080e00000..0x00000000811fffff (4096 KiB) nomap non-reusable cpusys_vm_region@80e00000
+[    0.000000] OF: reserved mem: 0x0000000081200000..0x00000000816dffff (4992 KiB) nomap non-reusable tags_region@81200000
+[    0.000000] OF: reserved mem: 0x0000000081a00000..0x0000000081a3ffff (256 KiB) nomap non-reusable xbl_dtlog_region@81a00000
+[    0.000000] OF: reserved mem: 0x0000000081a40000..0x0000000081bfffff (1792 KiB) nomap non-reusable xbl_ramdump_region@81a40000
+[    0.000000] OF: reserved mem: 0x0000000081c00000..0x0000000081c5ffff (384 KiB) nomap non-reusable aop_image_region@81c00000
+[    0.000000] OF: reserved mem: 0x0000000081c60000..0x0000000081c7ffff (128 KiB) nomap non-reusable cmd-db@81c60000
+[    0.000000] OF: reserved mem: 0x0000000081c80000..0x0000000081c9ffff (128 KiB) nomap non-reusable aop_config_region@81c80000
+[    0.000000] OF: reserved mem: 0x0000000081ca0000..0x0000000081cdffff (256 KiB) nomap non-reusable tme_crash_dump_region@81ca0000
+[    0.000000] OF: reserved mem: 0x0000000081ce0000..0x0000000081ce3fff (16 KiB) nomap non-reusable tme_log_region@81ce0000
+[    0.000000] OF: reserved mem: 0x0000000081ce4000..0x0000000081cf3fff (64 KiB) nomap non-reusable uefi_log_region@81ce4000
+[    0.000000] OF: reserved mem: 0x0000000081cf4000..0x0000000081cf4fff (4 KiB) nomap non-reusable chipinfo_region@81cf4000
+[    0.000000] OF: reserved mem: 0x0000000081cff000..0x0000000081cfffff (4 KiB) nomap non-reusable secdata_apss_region@81cff000
+[    0.000000] OF: reserved mem: 0x0000000081d00000..0x0000000081efffff (2048 KiB) nomap non-reusable smem_region@81d00000
+[    0.000000] OF: reserved mem: 0x0000000081f00000..0x0000000081f1ffff (128 KiB) nomap non-reusable adsp_mhi_region@81f00000
+[    0.000000] OF: reserved mem: 0x00000000824a0000..0x000000008259ffff (1024 KiB) nomap non-reusable pvm_fw_region@824a0000
+[    0.000000] OF: reserved mem: 0x00000000825a0000..0x00000000825fffff (384 KiB) nomap non-reusable hyp_mem_database_region@825a0000
+[    0.000000] OF: reserved mem: 0x0000000082600000..0x00000000826fffff (1024 KiB) nomap non-reusable global_sync_region@82600000
+[    0.000000] OF: reserved mem: 0x0000000082700000..0x00000000827fffff (1024 KiB) nomap non-reusable tz_stat_region@82700000
+[    0.000000] OF: reserved mem: 0x0000000086b00000..0x000000008a1fffff (56320 KiB) nomap non-reusable dsm_partition_1_region@86b00000
+[    0.000000] OF: reserved mem: 0x000000008bc00000..0x00000000988fffff (209920 KiB) nomap non-reusable mpss_region@8bc00000
+[    0.000000] OF: reserved mem: 0x0000000098900000..0x000000009897ffff (512 KiB) nomap non-reusable q6_mpss_dtb_region@98900000
+[    0.000000] OF: reserved mem: 0x0000000098980000..0x000000009898ffff (64 KiB) nomap non-reusable ipa_fw_region@98980000
+[    0.000000] OF: reserved mem: 0x0000000098990000..0x0000000098999fff (40 KiB) nomap non-reusable ipa_gsi_region@98990000
+[    0.000000] OF: reserved mem: 0x000000009899a000..0x000000009899bfff (8 KiB) nomap non-reusable gpu_microcode_region@9899a000
+[    0.000000] OF: reserved mem: 0x000000009899c000..0x000000009919bfff (8192 KiB) nomap non-reusable video_region@9899c000
+[    0.000000] OF: reserved mem: 0x000000009919c000..0x000000009989bfff (7168 KiB) nomap non-reusable cvp_region@9919c000
+[    0.000000] OF: reserved mem: 0x0000000099900000..0x000000009acfffff (20480 KiB) nomap non-reusable cdsp_region@99900000
+[    0.000000] OF: reserved mem: 0x000000009ad00000..0x000000009ad7ffff (512 KiB) nomap non-reusable q6_cdsp_dtb_region@9ad00000
+[    0.000000] OF: reserved mem: 0x000000009b300000..0x000000009bafffff (8192 KiB) nomap non-reusable camera_region@9b300000
+[    0.000000] OF: reserved mem: 0x000000009bb00000..0x000000009d3fffff (25600 KiB) nomap non-reusable wpss_region@9bb00000
+[    0.000000] OF: reserved mem: 0x000000009d400000..0x00000000a05fffff (51200 KiB) nomap non-reusable adspslpi_region@9d400000
+[    0.000000] OF: reserved mem: 0x00000000a0600000..0x00000000a067ffff (512 KiB) nomap non-reusable q6_adsp_dtb_region@a0600000
+[    0.000000] OF: reserved mem: 0x00000000a6400000..0x00000000a6ffffff (12288 KiB) nomap non-reusable wlan_msa_region@a6400000
+[    0.000000] OF: reserved mem: 0x00000000d8000000..0x00000000d803ffff (256 KiB) nomap non-reusable xbl_sc_region@d8000000
+[    0.000000] OF: reserved mem: 0x00000000d8040000..0x00000000d81fffff (1792 KiB) nomap non-reusable cpucp_fw_region@d8040000
+[    0.000000] OF: reserved mem: 0x00000000d8200000..0x00000000d82dffff (896 KiB) nomap non-reusable reserved_region@d8200000
+[    0.000000] OF: reserved mem: 0x00000000d82e0000..0x00000000d87fffff (5248 KiB) nomap non-reusable qtee_region@d82e0000
+[    0.000000] OF: reserved mem: 0x00000000d8800000..0x00000000e1baffff (151232 KiB) nomap non-reusable tatags_region@d8800000
+[    0.000000] OF: reserved mem: 0x00000000e1bb0000..0x00000000e1d3ffff (1600 KiB) nomap non-reusable reserved_region@e1bb0000
+[    0.000000] OF: reserved mem: 0x00000000ff800000..0x00000000ffb7ffff (3584 KiB) nomap non-reusable llcc_lpi_region@ff800000
+[    0.000000] OF: reserved mem: 0x00000000e3940000..0x00000000e643ffff (44032 KiB) nomap non-reusable splash_region@e3940000
+[    0.000000] NUMA: Faking a node at [mem 0x0000000080000000-0x00000009ffffffff]
+[    0.000000] NODE_DATA(0) allocated [mem 0x9ff144040-0x9ff14673f]
+[    0.000000] cma: Reserved 32 MiB at 0x00000000fd800000
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: MIGRATE_INFO_TYPE not supported.
+[    0.000000] psci: SMC Calling Convention v1.3
+[    0.000000] psci: OSI mode supported.
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000080000000-0x00000000ffffffff]
+[    0.000000]   DMA32    empty
+[    0.000000]   Normal   [mem 0x0000000100000000-0x00000009ffffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000080000000-0x00000000811fffff]
+[    0.000000]   node   0: [mem 0x00000000816e0000-0x00000000819fffff]
+[    0.000000]   node   0: [mem 0x0000000081a00000-0x0000000081cf4fff]
+[    0.000000]   node   0: [mem 0x0000000081cf5000-0x0000000081cfefff]
+[    0.000000]   node   0: [mem 0x0000000081cff000-0x0000000081f1ffff]
+[    0.000000]   node   0: [mem 0x0000000081f20000-0x000000008249ffff]
+[    0.000000]   node   0: [mem 0x00000000824a0000-0x000000008259ffff]
+[    0.000000]   node   0: [mem 0x0000000082600000-0x00000000827fffff]
+[    0.000000]   node   0: [mem 0x0000000082800000-0x0000000086afffff]
+[    0.000000]   node   0: [mem 0x0000000086b00000-0x000000008a1fffff]
+[    0.000000]   node   0: [mem 0x000000008a200000-0x000000008bbfffff]
+[    0.000000]   node   0: [mem 0x000000008bc00000-0x000000009989bfff]
+[    0.000000]   node   0: [mem 0x000000009989c000-0x00000000998fffff]
+[    0.000000]   node   0: [mem 0x0000000099900000-0x000000009ad7ffff]
+[    0.000000]   node   0: [mem 0x000000009ad80000-0x000000009b2fffff]
+[    0.000000]   node   0: [mem 0x000000009b300000-0x00000000a067ffff]
+[    0.000000]   node   0: [mem 0x00000000a0680000-0x00000000a63fffff]
+[    0.000000]   node   0: [mem 0x00000000a6400000-0x00000000a6ffffff]
+[    0.000000]   node   0: [mem 0x00000000a7000000-0x00000000d7ffffff]
+[    0.000000]   node   0: [mem 0x00000000d8040000-0x00000000d805ffff]
+[    0.000000]   node   0: [mem 0x00000000e1bb0000-0x00000000e1d3ffff]
+[    0.000000]   node   0: [mem 0x00000000e1d40000-0x00000000e393ffff]
+[    0.000000]   node   0: [mem 0x00000000e3940000-0x00000000e643ffff]
+[    0.000000]   node   0: [mem 0x00000000e6440000-0x00000000ff7fffff]
+[    0.000000]   node   0: [mem 0x00000000ff800000-0x00000000ffb7ffff]
+[    0.000000]   node   0: [mem 0x00000000ffb80000-0x00000000ffffffff]
+[    0.000000]   node   0: [mem 0x0000000880000000-0x00000008afafdfff]
+[    0.000000]   node   0: [mem 0x00000008b0000000-0x00000008bb6fffff]
+[    0.000000]   node   0: [mem 0x00000008c0000000-0x00000009ffffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000080000000-0x00000009ffffffff]
+[    0.000000] On node 0, zone DMA: 1248 pages in unavailable ranges
+[    0.000000] On node 0, zone DMA: 96 pages in unavailable ranges
+[    0.000000] On node 0, zone DMA: 64 pages in unavailable ranges
+[    0.000000] On node 0, zone DMA: 39760 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 1282 pages in unavailable ranges
+[    0.000000] On node 0, zone Normal: 18688 pages in unavailable ranges
+[    0.000000] percpu: Embedded 26 pages/cpu s66904 r8192 d31400 u106496
+[    0.000000] pcpu-alloc: s66904 r8192 d31400 u106496 alloc=26*4096
+[    0.000000] pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3 [0] 4 [0] 5 [0] 6 [0] 7 
+[    0.000000] Detected PIPT I-cache on CPU0
+[    0.000000] CPU features: detected: Address authentication (architected QARMA3 algorithm)
+[    0.000000] CPU features: detected: GICv3 CPU interface
+[    0.000000] CPU features: detected: HCRX_EL2 register
+[    0.000000] CPU features: detected: Spectre-v4
+[    0.000000] CPU features: detected: ARM errata 2966298, 3117295
+[    0.000000] alternatives: applying boot alternatives
+[    0.000000] Kernel command line: console=tty0 loglevel=7 clk_ignore_unused pd_ignore_unused log_buf_len=4M root=PARTUUID=706f636b-6e69-7830-726f-6f7400000002 rootfstype=ext4 rootwait
+[    0.000000] printk: log buffer data + meta data: 4194304 + 14680064 = 18874368 bytes
+[    0.000000] printk: early log buf free: 121608(92%)
+[    0.000000] Dentry cache hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+[    0.000000] software IO TLB: area num 8.
+[    0.000000] software IO TLB: mapped [mem 0x00000000f9800000-0x00000000fd800000] (64MB)
+[    0.000000] Fallback order for Node 0: 0 
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 2036014
+[    0.000000] Policy zone: Normal
+[    0.000000] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=8, Nodes=1
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU event tracing is enabled.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=512 to nr_cpu_ids=8.
+[    0.000000] 	Trampoline variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=8
+[    0.000000] RCU Tasks: Setting shift to 3 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=8.
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] GICv3: 988 SPIs implemented
+[    0.000000] GICv3: 0 Extended SPIs implemented
+[    0.000000] Root IRQ handler: gic_handle_irq
+[    0.000000] GICv3: GICv3 features: 16 PPIs, DirectLPI
+[    0.000000] GICv3: GICD_CTLR.DS=1, SCR_EL3.FIQ=0
+[    0.000000] GICv3: Enabling SGIs without active state
+[    0.000000] GICv3: CPU0: found redistributor 0 region 0:0x0000000017180000
+[    0.000000] ITS: No ITS available, not enabling LPIs
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] arch_timer: cp15 timer running at 19.20MHz (virt).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x46d987e47, max_idle_ns: 440795202767 ns
+[    0.000000] sched_clock: 56 bits at 19MHz, resolution 52ns, wraps every 4398046511078ns
+[    0.000049] arm-pv: using stolen time PV
+[    0.000222] Console: colour dummy device 80x25
+[    0.000230] printk: legacy console [tty0] enabled
+[    0.000861] Calibrating delay loop (skipped), value calculated using timer frequency.. 38.40 BogoMIPS (lpj=76800)
+[    0.000876] pid_max: default: 32768 minimum: 301
+[    0.001038] Mount-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    0.001054] Mountpoint-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    0.001221] VFS: Finished mounting rootfs on nullfs
+[    0.001811] cacheinfo: Unable to detect cache hierarchy for CPU 0
+[    0.002356] rcu: Hierarchical SRCU implementation.
+[    0.002368] rcu: 	Max phase no-delay instances is 1000.
+[    0.002482] Timer migration: 1 hierarchy levels; 8 children per group; 1 crossnode level
+[    0.002982] EFI services will not be available.
+[    0.003173] smp: Bringing up secondary CPUs ...
+[    0.003676] Detected PIPT I-cache on CPU1
+[    0.003720] GICv3: CPU1: found redistributor 100 region 0:0x00000000171c0000
+[    0.003847] CPU1: Booted secondary processor 0x0000000100 [0x410fd801]
+[    0.004702] Detected PIPT I-cache on CPU2
+[    0.004741] GICv3: CPU2: found redistributor 200 region 0:0x0000000017200000
+[    0.004852] CPU2: Booted secondary processor 0x0000000200 [0x410fd801]
+[    0.005830] CPU features: detected: Spectre-BHB
+[    0.005848] CPU features: detected: SSBS not fully self-synchronizing
+[    0.005986] Detected PIPT I-cache on CPU3
+[    0.005994] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU3: 0x1001111010312122
+[    0.006003] CPU features: Unsupported CPU feature variation detected.
+[    0.006036] GICv3: CPU3: found redistributor 300 region 0:0x0000000017240000
+[    0.006163] CPU3: Booted secondary processor 0x0000000300 [0x410fd811]
+[    0.006936] Detected PIPT I-cache on CPU4
+[    0.006951] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU4: 0x1001111010312122
+[    0.006995] GICv3: CPU4: found redistributor 400 region 0:0x0000000017280000
+[    0.007122] CPU4: Booted secondary processor 0x0000000400 [0x410fd811]
+[    0.007961] Detected PIPT I-cache on CPU5
+[    0.007978] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU5: 0x1001111010312122
+[    0.008028] GICv3: CPU5: found redistributor 500 region 0:0x00000000172c0000
+[    0.008159] CPU5: Booted secondary processor 0x0000000500 [0x410fd811]
+[    0.008941] Detected PIPT I-cache on CPU6
+[    0.008948] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU6: 0x1001111010312122
+[    0.008968] GICv3: CPU6: found redistributor 600 region 0:0x0000000017300000
+[    0.009027] CPU6: Booted secondary processor 0x0000000600 [0x410fd811]
+[    0.009944] Detected PIPT I-cache on CPU7
+[    0.009969] CPU features: SANITY CHECK: Unexpected variation in SYS_ID_AA64MMFR1_EL1. Boot CPU: 0x1001111011312122, CPU7: 0x1001111010312122
+[    0.010136] GICv3: CPU7: found redistributor 700 region 0:0x0000000017340000
+[    0.010244] CPU7: Booted secondary processor 0x0000000700 [0x410fd821]
+[    0.010394] smp: Brought up 1 node, 8 CPUs
+[    0.010534] SMP: Total of 8 processors activated.
+[    0.010541] CPU: All CPU(s) started at EL1
+[    0.010555] CPU features: detected: Branch Target Identification
+[    0.010563] CPU features: detected: ARMv8.4 Translation Table Level
+[    0.010570] CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+[    0.010579] CPU features: detected: Common not Private translations
+[    0.010586] CPU features: detected: CRC32 instructions
+[    0.010592] CPU features: detected: Data independent timing control (DIT)
+[    0.010599] CPU features: detected: E0PD
+[    0.010604] CPU features: detected: Enhanced Counter Virtualization
+[    0.010611] CPU features: detected: Enhanced Counter Virtualization (CNTPOFF)
+[    0.010618] CPU features: detected: Enhanced Privileged Access Never
+[    0.010625] CPU features: detected: Enhanced Virtualization Traps
+[    0.010632] CPU features: detected: Fine Grained Traps
+[    0.010639] CPU features: detected: Generic authentication (architected QARMA3 algorithm)
+[    0.010648] CPU features: detected: RCpc load-acquire (LDAPR)
+[    0.010655] CPU features: detected: LSE atomic instructions
+[    0.010662] CPU features: detected: Privileged Access Never
+[    0.010668] CPU features: detected: PMUv3
+[    0.010674] CPU features: detected: Speculation barrier (SB)
+[    0.010680] CPU features: detected: Stage-2 Force Write-Back
+[    0.010687] CPU features: detected: TLB range maintenance instructions
+[    0.010694] CPU features: detected: XNX
+[    0.010700] CPU features: detected: Memory Partitioning And Monitoring
+[    0.010707] CPU features: detected: Memory Partitioning And Monitoring Virtualisation
+[    0.010716] CPU features: detected: Speculative Store Bypassing Safe (SSBS)
+[    0.010785] alternatives: applying system-wide alternatives
+[    0.012629] CPU features: detected: Activity Monitors Unit (AMU) on CPU0-7
+[    0.012654] CPU features: detected: Hardware dirty bit management on CPU0-7
+[    0.013033] Memory: 7329780K/8144056K available (18752K kernel code, 5546K rwdata, 14588K rodata, 12736K init, 718K bss, 773808K reserved, 32768K cma-reserved)
+[    0.013396] devtmpfs: initialized
+[    0.014692] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.014705] posixtimers hash table entries: 4096 (order: 4, 65536 bytes, linear)
+[    0.014723] futex hash table entries: 2048 (131072 bytes on 1 NUMA nodes, total 128 KiB, linear).
+[    0.014812] 2G module region forced by RANDOMIZE_MODULE_REGION_FULL
+[    0.014819] 0 pages in range for non-PLT usage
+[    0.014820] 511136 pages in range for PLT usage
+[    0.015213] DMI: not present or invalid.
+[    0.016015] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.016331] DMA: preallocated 1024 KiB GFP_KERNEL pool for atomic allocations
+[    0.016401] DMA: preallocated 1024 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    0.016419] audit: initializing netlink subsys (disabled)
+[    0.016496] audit: type=2000 audit(0.000:1): state=initialized audit_enabled=0 res=1
+[    0.016748] thermal_sys: Registered thermal governor 'step_wise'
+[    0.016752] thermal_sys: Registered thermal governor 'power_allocator'
+[    0.016792] cpuidle: using governor menu
+[    0.016851] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    0.016976] ASID allocator initialised with 65536 entries
+[    0.017375] Serial: AMBA PL011 UART driver
+[    0.017805] qnoc-cliffs interconnect-0: failed to register ICC provider: -517
+[    0.017898] qnoc-cliffs interconnect-1: failed to register ICC provider: -517
+[    0.018243] /soc@0/interrupt-controller@17100000: Fixed dependency cycle(s) with /soc@0/interrupt-controller@17100000
+[    0.020251] qnoc-cliffs 16e0000.interconnect: failed to register ICC provider: -517
+[    0.020349] qnoc-cliffs 1700000.interconnect: failed to register ICC provider: -517
+[    0.020451] qnoc-cliffs 1600000.interconnect: failed to register ICC provider: -517
+[    0.020532] qnoc-cliffs 1500000.interconnect: failed to register ICC provider: -517
+[    0.020636] qnoc-cliffs 24100000.interconnect: failed to register ICC provider: -517
+[    0.020719] qnoc-cliffs 7e40000.interconnect: failed to register ICC provider: -517
+[    0.020795] qnoc-cliffs 7400000.interconnect: failed to register ICC provider: -517
+[    0.020872] qnoc-cliffs 7430000.interconnect: failed to register ICC provider: -517
+[    0.020964] qnoc-cliffs 1400000.interconnect: failed to register ICC provider: -517
+[    0.021043] qnoc-cliffs 320c0000.interconnect: failed to register ICC provider: -517
+[    0.021122] qnoc-cliffs 16c0000.interconnect: failed to register ICC provider: -517
+[    0.021202] qnoc-cliffs 1680000.interconnect: failed to register ICC provider: -517
+[    0.021613] HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
+[    0.021619] HugeTLB: 0 KiB vmemmap can be freed for a 1.00 GiB page
+[    0.021622] HugeTLB: registered 32.0 MiB page size, pre-allocated 0 pages
+[    0.021624] HugeTLB: 0 KiB vmemmap can be freed for a 32.0 MiB page
+[    0.021625] HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+[    0.021627] HugeTLB: 0 KiB vmemmap can be freed for a 2.00 MiB page
+[    0.021629] HugeTLB: registered 64.0 KiB page size, pre-allocated 0 pages
+[    0.021630] HugeTLB: 0 KiB vmemmap can be freed for a 64.0 KiB page
+[    0.022303] ACPI: Interpreter disabled.
+[    0.023679] gcc-cliffs 100000.clock-controller: Registered GCC clocks
+[    0.023958] iommu: Default domain type: Translated
+[    0.023963] iommu: DMA domain TLB invalidation policy: strict mode
+[    0.024220] SCSI subsystem initialized
+[    0.024297] libata version 3.00 loaded.
+[    0.024358] usbcore: registered new interface driver usbfs
+[    0.024369] usbcore: registered new interface driver hub
+[    0.024379] usbcore: registered new device driver usb
+[    0.024507] pps_core: LinuxPPS API ver. 1 registered
+[    0.024512] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.024517] PTP clock support registered
+[    0.024546] EDAC MC: Ver: 3.0.0
+[    0.024667] scmi_core: SCMI protocol bus registered
+[    0.024707] qcom_scm: convention: smc arm 64
+[    0.025438] qcom_scm firmware:scm: qseecom: found qseecom with version 0x1402000
+[    0.025448] qcom_scm firmware:scm: qseecom: untested machine, skipping
+[    0.025843] FPGA manager framework
+[    0.026111] vgaarb: loaded
+[    0.026250] clocksource: Switched to clocksource arch_sys_counter
+[    0.026329] VFS: Disk quotas dquot_6.6.0
+[    0.026340] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.026498] pnp: PnP ACPI: disabled
+[    0.028100] NET: Registered PF_INET protocol family
+[    0.028159] IP idents hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+[    0.029408] tcp_listen_portaddr_hash hash table entries: 4096 (order: 4, 65536 bytes, linear)
+[    0.029423] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.029428] TCP established hash table entries: 65536 (order: 7, 524288 bytes, linear)
+[    0.029473] TCP bind hash table entries: 65536 (order: 9, 2097152 bytes, linear)
+[    0.029635] TCP: Hash tables configured (established 65536 bind 65536)
+[    0.029671] UDP hash table entries: 4096 (order: 6, 262144 bytes, linear)
+[    0.029735] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    0.029901] RPC: Registered named UNIX socket transport module.
+[    0.029907] RPC: Registered udp transport module.
+[    0.029908] RPC: Registered tcp transport module.
+[    0.029910] RPC: Registered tcp-with-tls transport module.
+[    0.029911] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    0.029916] PCI: CLS 0 bytes, default 64
+[    0.030015] Unpacking initramfs...
+[    0.030259] kvm [1]: HYP mode not available
+[    0.030524] Initialise system trusted keyrings
+[    0.030638] workingset: timestamp_bits=42 (anon: 38) max_order=21 bucket_order=0 (anon: 0)
+[    0.030751] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.030872] NFS: Registering the id_resolver key type
+[    0.030882] Key type id_resolver registered
+[    0.030884] Key type id_legacy registered
+[    0.030894] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[    0.030897] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Driver Registering...
+[    0.030956] 9p: Installing v9fs 9p2000 file system support
+[    0.031018] Key type asymmetric registered
+[    0.031023] Asymmetric key parser 'x509' registered
+[    0.031043] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 244)
+[    0.031047] io scheduler mq-deadline registered
+[    0.031050] io scheduler kyber registered
+[    0.031061] io scheduler bfq registered
+[    0.031442] /soc@0/interrupt-controller@b220000: invalid reg size, please fix DT
+[    0.033634] ledtrig-cpu: registered to indicate activity on CPUs
+[    0.034157] simple-framebuffer e3940000.framebuffer: framebuffer at 0xe3940000, 0x7e9000 bytes
+[    0.034166] simple-framebuffer e3940000.framebuffer: format=a8r8g8b8, mode=1080x1920x32, linelength=4320
+[    0.035062] Console: switching to colour frame buffer device 135x120
+[    0.035870] simple-framebuffer e3940000.framebuffer: fb0: simplefb registered!
+[    0.040801] vreg_l13b: Setting 2700000-3300000uV
+[    0.041013] vreg_l23b: Setting 1650000-3544000uV
+[    0.041162] vreg_l2b_0p88: Setting 880000-880000uV
+[    0.041296] vreg_l4b_1p2: Setting 1200000-1200000uV
+[    0.041440] vreg_l7b_1p8: Setting 1800000-1800000uV
+[    0.041575] vreg_l17b_3p1: Setting 3104000-3104000uV
+[    0.041983] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    0.042923] msm_serial: driver initialized
+[    0.043056] SuperH (H)SCI(F) driver initialized
+[    0.043101] STM32 USART driver initialized
+[    0.044218] arm-smmu 15000000.iommu: probing hardware configuration...
+[    0.044230] arm-smmu 15000000.iommu: SMMUv2 with:
+[    0.044266] arm-smmu 15000000.iommu: 	stage 1 translation
+[    0.044272] arm-smmu 15000000.iommu: 	coherent table walk
+[    0.044278] arm-smmu 15000000.iommu: 	stream matching with 110 register groups
+[    0.044305] arm-smmu 15000000.iommu: 	71 context banks (0 stage-2 only)
+[    0.046636] arm-smmu 15000000.iommu: 	Supported page sizes: 0x61311000
+[    0.046645] arm-smmu 15000000.iommu: 	Stage-1: 36-bit VA -> 36-bit IPA
+[    0.046713] arm-smmu 15000000.iommu: 	preserved 0 boot mappings
+[    0.051649] platform 8804000.mmc: Adding to iommu group 0
+[    0.051735] platform a600000.usb: Adding to iommu group 1
+[    0.053920] loop: module loaded
+[    0.054148] megasas: 07.734.00.00-rc1
+[    0.054937] spmi_pmic_arb c400000.spmi: PMIC arbiter version v7 (0x70010000)
+[    0.058809] tun: Universal TUN/TAP device driver, 1.6
+[    0.059089] thunder_xcv, ver 1.0
+[    0.059110] thunder_bgx, ver 1.0
+[    0.059123] nicpf, ver 1.0
+[    0.059417] e1000: Intel(R) PRO/1000 Network Driver
+[    0.059427] e1000: Copyright (c) 1999-2006 Intel Corporation.
+[    0.059442] e1000e: Intel(R) PRO/1000 Network Driver
+[    0.059448] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.
+[    0.059460] igb: Intel(R) Gigabit Ethernet Network Driver
+[    0.059465] igb: Copyright (c) 2007-2014 Intel Corporation.
+[    0.059478] igbvf: Intel(R) Gigabit Virtual Function Network Driver
+[    0.059485] igbvf: Copyright (c) 2009 - 2012 Intel Corporation.
+[    0.059563] sky2: driver version 1.30
+[    0.059946] VFIO - User Level meta-driver version: 0.3
+[    0.060665] usbcore: registered new interface driver usb-storage
+[    0.061412] i2c_dev: i2c /dev entries driver
+[    0.063962] SMCCC: SOC_ID: ARCH_SOC_ID not implemented, skipping ....
+[    0.064182] usbcore: registered new interface driver usbhid
+[    0.064191] usbhid: USB HID core driver
+[    0.065747] NET: Registered PF_INET6 protocol family
+[    0.066121] Segment Routing with IPv6
+[    0.066135] In-situ OAM (IOAM) with IPv6
+[    0.066157] NET: Registered PF_PACKET protocol family
+[    0.066186] 9pnet: Installing 9P2000 support
+[    0.066209] Key type dns_resolver registered
+[    0.068030] registered taskstats version 1
+[    0.068104] Loading compiled-in X.509 certificates
+[    0.069487] Demotion targets for Node 0: null
+[    0.071017] qnoc-cliffs interconnect-0: Registered CLIFFS ICC
+[    0.071790] qnoc-cliffs interconnect-1: Registered CLIFFS ICC
+[    0.072001] qnoc-cliffs 16e0000.interconnect: Registered CLIFFS ICC
+[    0.072302] qnoc-cliffs 1700000.interconnect: Registered CLIFFS ICC
+[    0.073637] qnoc-cliffs 1600000.interconnect: Registered CLIFFS ICC
+[    0.074280] qnoc-cliffs 1500000.interconnect: Registered CLIFFS ICC
+[    0.075496] qnoc-cliffs 24100000.interconnect: Registered CLIFFS ICC
+[    0.075714] qnoc-cliffs 7e40000.interconnect: Registered CLIFFS ICC
+[    0.076192] qnoc-cliffs 7400000.interconnect: Registered CLIFFS ICC
+[    0.076412] qnoc-cliffs 7430000.interconnect: Registered CLIFFS ICC
+[    0.077478] qnoc-cliffs 1400000.interconnect: Registered CLIFFS ICC
+[    0.077827] qnoc-cliffs 320c0000.interconnect: Registered CLIFFS ICC
+[    0.078129] qnoc-cliffs 16c0000.interconnect: Registered CLIFFS ICC
+[    0.078486] qnoc-cliffs 1680000.interconnect: Registered CLIFFS ICC
+[    0.108976] clk: Not disabling unused clocks
+[    0.108987] PM: genpd: Not disabling unused power domains
+[    0.109316] sdhci_msm 8804000.mmc: Got CD GPIO
+[    0.116358] ------------[ cut here ]------------
+[    0.116368] gcc_sdcc2_apps_clk_src: rcg didn't update its configuration.
+[    0.116376] WARNING: drivers/clk/qcom/clk-rcg2.c:136 at update_config+0xd4/0xe4, CPU#4: kworker/u32:3/93
+[    0.116398] Modules linked in:
+[    0.116405] CPU: 4 UID: 0 PID: 93 Comm: kworker/u32:3 Tainted: G S                  7.1.0-00004-g7c11b878d2de-dirty #1 PREEMPT 
+[    0.116416] Tainted: [S]=CPU_OUT_OF_SPEC
+[    0.116420] Hardware name: Retroid Pocket G2 (DT)
+[    0.116425] Workqueue: async async_run_entry_fn
+[    0.116435] pstate: 61400005 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+[    0.116442] pc : update_config+0xd4/0xe4
+[    0.116447] lr : update_config+0xd4/0xe4
+[    0.116453] sp : ffff800080cf3950
+[    0.116457] x29: ffff800080cf3960 x28: 0000000000000000 x27: ffffc118859325f8
+[    0.116465] x26: ffffc11885377590 x25: ffff000800d39410 x24: ffff00097f156a00
+[    0.116472] x23: ffff000800b9d400 x22: 00000000017d7840 x21: ffffc1188594cee0
+[    0.116480] x20: ffffc11886af5f28 x19: 0000000000000000 x18: ffffffffffc06e10
+[    0.116487] x17: ffff800080cf3350 x16: ffff800080cf337d x15: ffffffffffc06e58
+[    0.116494] x14: ffffc11886d36448 x13: ffff000975e00000 x12: 0000000000000186
+[    0.116501] x11: 0000000000000492 x10: ffff000976902490 x9 : ffff000975e00000
+[    0.116509] x8 : 3ffffffffffdffff x7 : ffff000976900000 x6 : 0000000000000186
+[    0.116787] x5 : 0000000000000187 x4 : 7ffffffffffe0186 x3 : 0000000000000000
+[    0.117058] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff00080242cec0
+[    0.117328] Call trace:
+[    0.117593]  update_config+0xd4/0xe4 (P)
+[    0.117862]  clk_rcg2_configure+0xb8/0xc0
+[    0.118130]  clk_rcg2_set_floor_rate_and_parent+0x2c/0x44
+[    0.118403]  clk_change_rate+0x7c/0x290
+[    0.118671]  clk_core_set_rate_nolock+0x16c/0x278
+[    0.118934]  clk_set_rate+0x38/0x14c
+[    0.119196]  _opp_config_clk_single+0x30/0xa8
+[    0.119465]  dev_pm_opp_set_rate+0x208/0x2c0
+[    0.119727]  sdhci_msm_probe+0x358/0xb44
+[    0.119988]  platform_probe+0x5c/0x98
+[    0.120248]  really_probe+0xbc/0x29c
+[    0.120506]  __driver_probe_device+0x80/0x160
+[    0.120764]  driver_probe_device+0x3c/0x164
+[    0.121023]  __device_attach_driver+0xb8/0x140
+[    0.121281]  bus_for_each_drv+0x88/0xe8
+[    0.121537]  __device_attach_async_helper+0xb4/0xd8
+[    0.121792]  async_run_entry_fn+0x34/0xe0
+[    0.122046]  process_one_work+0x154/0x294
+[    0.122297]  worker_thread+0x188/0x300
+[    0.122545]  kthread+0x118/0x124
+[    0.122792]  ret_from_fork+0x10/0x20
+[    0.123038] ---[ end trace 0000000000000000 ]---
+[    0.123363] sdhci_msm 8804000.mmc: TCXO clk not present (-2)
+[    0.155606] mmc0: SDHCI controller on 8804000.mmc [8804000.mmc] using ADMA 64-bit
+[    0.155950] Waiting for root device PARTUUID=706f636b-6e69-7830-726f-6f7400000002...
+[    0.219879] mmc0: new UHS-I speed SDR104 SDXC card at address 0001
+[    0.220585] mmcblk0: mmc0:0001 SD 116 GiB
+[    0.225044]  mmcblk0: p1 p2
+[    0.229842] EXT4-fs (mmcblk0p2): mounted filesystem f88e52b6-3658-4434-9e97-abb4fc6204a5 ro with ordered data mode. Quota mode: none.
+[    0.230442] VFS: Mounted root (ext4 filesystem) readonly on device 179:2.
+[    0.231086] devtmpfs: mounted
+[    0.231527] VFS: Pivoted into new rootfs
+[    0.232905] Freeing unused kernel memory: 12736K
+[    0.233212] Run /sbin/init as init process
+[    0.233473]   with arguments:
+[    0.233474]     /sbin/init
+[    0.233475]   with environment:
+[    0.233476]     HOME=/
+[    0.233476]     TERM=linux
+===== /proc/cpuinfo
+processor	: 0
+BogoMIPS	: 38.40
+Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 dgh bti ecv afp
+CPU implementer	: 0x41
+CPU architecture: 8
+CPU variant	: 0x0
+CPU part	: 0xd80
+CPU revision	: 1
+
+processor	: 1
+BogoMIPS	: 38.40
+Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 dgh bti ecv afp
+CPU implementer	: 0x41
+CPU architecture: 8
+CPU variant	: 0x0
+CPU part	: 0xd80
+CPU revision	: 1
+
+processor	: 2
+BogoMIPS	: 38.40
+Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 dgh bti ecv afp
+CPU implementer	: 0x41
+CPU architecture: 8
+CPU variant	: 0x0
+CPU part	: 0xd80
+CPU revision	: 1
+
+processor	: 3
+BogoMIPS	: 38.40
+Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 dgh bti ecv afp
+CPU implementer	: 0x41
+CPU architecture: 8
+CPU variant	: 0x0
+CPU part	: 0xd81
+CPU revision	: 1
+
+processor	: 4
+BogoMIPS	: 38.40
+Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 dgh bti ecv afp
+CPU implementer	: 0x41
+CPU architecture: 8
+CPU variant	: 0x0
+CPU part	: 0xd81
+CPU revision	: 1
+
+processor	: 5
+BogoMIPS	: 38.40
+Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 dgh bti ecv afp
+CPU implementer	: 0x41
+CPU architecture: 8
+CPU variant	: 0x0
+CPU part	: 0xd81
+CPU revision	: 1
+
+processor	: 6
+BogoMIPS	: 38.40
+Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 dgh bti ecv afp
+CPU implementer	: 0x41
+CPU architecture: 8
+CPU variant	: 0x0
+CPU part	: 0xd81
+CPU revision	: 1
+
+processor	: 7
+BogoMIPS	: 38.40
+Features	: fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint i8mm bf16 dgh bti ecv afp
+CPU implementer	: 0x41
+CPU architecture: 8
+CPU variant	: 0x0
+CPU part	: 0xd82
+CPU revision	: 1
+
+===== /proc/meminfo
+MemTotal:        7382984 kB
+MemFree:         7315676 kB
+MemAvailable:    7228844 kB
+Buffers:             192 kB
+Cached:             1668 kB
+SwapCached:            0 kB
+Active:             1748 kB
+Inactive:            700 kB
+Active(anon):          8 kB
+Inactive(anon):      580 kB
+Active(file):       1740 kB
+Inactive(file):      120 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:           592 kB
+Mapped:             1572 kB
+Shmem:                 0 kB
+KReclaimable:       6744 kB
+Slab:              19736 kB
+SReclaimable:       6744 kB
+SUnreclaim:        12992 kB
+KernelStack:        2068 kB
+PageTables:         1140 kB
+SecPageTables:        28 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     3691492 kB
+Committed_AS:       1476 kB
+VmallocTotal:   135288315904 kB
+VmallocUsed:        4692 kB
+VmallocChunk:          0 kB
+Percpu:              928 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+FileHugePages:         0 kB
+FilePmdMapped:         0 kB
+CmaTotal:          32768 kB
+CmaFree:           30720 kB
+Balloon:               0 kB
+GPUActive:             0 kB
+GPUReclaim:            0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+===== /proc/interrupts
+           CPU0       CPU1       CPU2       CPU3       CPU4       CPU5       CPU6       CPU7       
+ 11:        187         64         99        149        202        218        140         14    GICv3  27 Level     arch_timer
+ 14:        140          0          0          0          0          0          0          0    GICv3  37 Level     17a00000.rsc
+ 15:          0          0          0          0          0          0          0          0    GICv3 962 Edge      qcom-scm
+ 16:          0          0          0          0          0          0          0          0    GICv3  97 Level     arm-smmu global fault
+ 17:          0          0          0          0          0          0          0          0    GICv3 129 Level     arm-smmu-context-fault
+ 18:          0          0          0          0          0          0          0          0    GICv3 130 Level     arm-smmu-context-fault
+114:          0          0          0          0          0          0          0          0      PDC  14 Edge      dp_hs_phy_irq
+115:          0          0          0          0          0          0          0          0      PDC  15 Edge      dm_hs_phy_irq
+116:          0          0          0          0          0          0          0          0      PDC  17 Level     ss_phy_irq
+117:         13          0          0          0          0          0          0          0    GICv3 165 Level     dwc3
+118:        224          0          0          0          0          0          0          0    GICv3 239 Level     mmc0
+119:          2          0          0          0          0          0          0          0    GICv3 255 Level     8804000.mmc
+120:          0          0          0          0          0          0          0          0  msmgpio  31 Edge      8804000.mmc cd
+IPI0:        10          7         10        128         69         56         31          4       Rescheduling interrupts
+IPI1:        96         83         34        295        245        429         57         27       Function call interrupts
+IPI2:         0          0          0          0          0          0          0          0       CPU stop interrupts
+IPI3:         0          0          0          0          0          0          0          0       CPU stop NMIs
+IPI4:         0          0          0          0          0          0          0          0       Timer broadcast interrupts
+IPI5:         2          0          0          3          1          1          0          0       IRQ work interrupts
+IPI6:         0          0          0          0          0          0          0          0       CPU backtrace interrupts
+IPI7:         0          0          0          0          0          0          0          0       KGDB roundup interrupts
+Err:          0
+===== /proc/iomem
+00100000-002f41ff : 100000.clock-controller clock-controller@100000
+01fc0000-0205ffff : 1fc0000.clock-controller clock-controller@1fc0000
+08804000-08804fff : 8804000.mmc mmc@8804000
+088e3000-088e3153 : 88e3000.phy phy@88e3000
+0a60c100-0a6f8800 : a600000.usb usb@a600000
+0c42d000-0c430fff : c400000.spmi cnfg
+0c440000-0c4bffff : c400000.spmi obsrvr
+0c4c0000-0c4cffff : c400000.spmi intr
+0c500000-0c8fffff : c400000.spmi chnls
+0f000000-0fffffff : f000000.pinctrl pinctrl@f000000
+15000000-150fffff : 15000000.iommu iommu@15000000
+17100000-1710ffff : GICD
+17180000-1737ffff : GICR
+17a20000-17a2ffff : 17a00000.rsc drv-2
+80000000-811fffff : reserved
+816e0000-819fffff : System RAM
+81a00000-81cf4fff : reserved
+81cf5000-81cfefff : System RAM
+81cff000-81f1ffff : reserved
+81f20000-8249ffff : System RAM
+824a0000-8259ffff : reserved
+82600000-827fffff : reserved
+82800000-86afffff : System RAM
+86b00000-8a1fffff : reserved
+8a200000-8bbfffff : System RAM
+8bc00000-9989bfff : reserved
+9989c000-998fffff : System RAM
+99900000-9ad7ffff : reserved
+9ad80000-9b2fffff : System RAM
+9b300000-a067ffff : reserved
+a0680000-a63fffff : System RAM
+a6400000-a6ffffff : reserved
+a7000000-d7ffffff : System RAM
+  a8080000-aa13ffff : Kernel code
+  aa140000-aadaffff : reserved
+  aadb0000-ab3dffff : Kernel data
+  b7dfe000-b7e02fff : reserved
+  b7fff000-b7ffffff : reserved
+d8040000-d805ffff : reserved
+e1bb0000-e1d3ffff : reserved
+e1d40000-e393ffff : System RAM
+e3940000-e643ffff : reserved
+  e3940000-e4128fff : simplefb
+e6440000-ff7fffff : System RAM
+  f9800000-ff7fffff : reserved
+ff800000-ffb7ffff : reserved
+ffb80000-ffffffff : System RAM
+880000000-8afafdfff : System RAM
+8b0000000-8bb6fffff : System RAM
+8c0000000-9ffffffff : System RAM
+  9f5140000-9feffffff : reserved
+  9ff05b000-9ff05bfff : reserved
+  9ff05c000-9ff12bfff : reserved
+  9ff12d000-9ff130fff : reserved
+  9ff131000-9ff146fff : reserved
+  9ff147000-9ff15dfff : reserved
+  9ff15e000-9ffffffff : reserved
+===== devices_deferred
+===== clk_summary
+                                 enable  prepare  protect                                duty  hardware                            connection
+   clock                          count    count    count        rate   accuracy phase  cycle    enable   consumer                         id
+---------------------------------------------------------------------------------------------------------------------------------------------
+ gcc_video_axi1_clk                  0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_video_axi0_clk                  0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_usb30_prim_sleep_clk            1       1        0        0           0          0     50000      Y   usb@a600000                     no_connection_id         
+                                                                                                           deviceless                      no_connection_id         
+ gcc_ufs_phy_ahb_clk                 0       0        0        0           0          0     50000      Y   deviceless                      no_connection_id         
+ gcc_sdcc2_ahb_clk                   1       1        0        0           0          0     50000      Y   8804000.mmc                     iface                    
+                                                                                                           deviceless                      no_connection_id         
+ gcc_qupv3_wrap_1_s_ahb_clk          0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qupv3_wrap_1_m_ahb_clk          0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qupv3_wrap_1_ibi_3_ahb_clk      0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qupv3_wrap_1_ibi_2_ahb_clk      0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qupv3_wrap_0_s_ahb_clk          0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qupv3_wrap_0_m_ahb_clk          0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qupv3_wrap1_core_clk            0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qupv3_wrap1_core_2x_clk         0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qupv3_wrap0_core_clk            0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qupv3_wrap0_core_2x_clk         0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qmip_video_vcodec_ahb_clk       0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qmip_video_v_cpu_ahb_clk        0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qmip_video_cvp_ahb_clk          0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qmip_video_cv_cpu_ahb_clk       0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qmip_pcie_ahb_clk               0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qmip_gpu_ahb_clk                0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qmip_disp_ahb_clk               0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qmip_camera_rt_ahb_clk          0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_qmip_camera_nrt_ahb_clk         0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_pdm_xo4_clk                     0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_pdm_ahb_clk                     0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_pcie_0_slv_q2a_axi_clk          0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_pcie_0_slv_axi_clk              0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_pcie_0_mstr_axi_clk             0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_pcie_0_cfg_ahb_clk              0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_gpu_snoc_dvm_gfx_clk            0       0        0        0           0          0     50000      Y   deviceless                      no_connection_id         
+ gcc_gpu_memnoc_gfx_clk              0       0        0        0           0          0     50000      Y   deviceless                      no_connection_id         
+ gcc_disp_hf_axi_clk                 0       0        0        0           0          0     50000      Y   deviceless                      no_connection_id         
+ gcc_ddrss_pcie_sf_qtb_clk           0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_ddrss_gpu_axi_clk               0       0        0        0           0          0     50000      Y   deviceless                      no_connection_id         
+ gcc_cnoc_pcie_sf_axi_clk            0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_cfg_noc_pcie_anoc_ahb_clk       0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_camera_sf_axi_clk               0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_camera_hf_axi_clk               0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ gcc_boot_rom_ahb_clk                0       0        0        0           0          0     50000      Y   deviceless                      no_connection_id         
+ gcc_aggre_noc_pcie_axi_clk          0       0        0        0           0          0     50000      N   deviceless                      no_connection_id         
+ sleep_clk                           0       0        0        32000       0          0     50000      Y   deviceless                      no_connection_id         
+ xo_board                            4       4        0        19200000    0          0     50000      Y   deviceless                      no_connection_id         
+    gcc_usb3_prim_phy_aux_clk_src    0       0        0        19200000    0          0     50000      Y      deviceless                      no_connection_id         
+       gcc_usb3_prim_phy_com_aux_clk 0       0        0        19200000    0          0     50000      Y         deviceless                      no_connection_id         
+       gcc_usb3_prim_phy_aux_clk     0       0        0        19200000    0          0     50000      Y         deviceless                      no_connection_id         
+    gcc_usb30_prim_mock_utmi_clk_src 1       1        0        19200000    0          0     50000      Y      deviceless                      no_connection_id         
+       gcc_usb30_prim_mock_utmi_postdiv_clk_src 1       1        0        19200000    0          0     50000      Y         deviceless                      no_connection_id         
+          gcc_usb30_prim_mock_utmi_clk 1       1        0        19200000    0          0     50000      Y            usb@a600000                     no_connection_id         
+                                                                                                                    deviceless                      no_connection_id         
+    gcc_ufs_phy_phy_aux_clk_src      0       0        0        19200000    0          0     50000      Y      deviceless                      no_connection_id         
+       gcc_ufs_phy_phy_aux_hw_ctl_clk 0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+       gcc_ufs_phy_phy_aux_clk       0       0        0        19200000    0          0     50000      Y         deviceless                      no_connection_id         
+    gcc_qupv3_wrap1_s7_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap1_s7_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap1_s6_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap1_s6_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap1_s5_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap1_s5_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap1_s4_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap1_s4_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap1_s3_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap1_s3_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap1_s2_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap1_s2_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap1_s1_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap1_s1_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap1_s0_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap1_s0_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap1_ibi_ctrl_0_clk_src 0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap1_ibi_ctrl_3_clk 0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+       gcc_qupv3_wrap1_ibi_ctrl_2_clk 0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap0_s7_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap0_s7_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap0_s6_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap0_s6_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap0_s4_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap0_s4_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap0_s3_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap0_s3_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap0_s1_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap0_s1_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap0_s0_clk_src       0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap0_s0_clk        0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_qupv3_wrap0_qspi_ref_clk_src 0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_qupv3_wrap0_s2_clk_src    0       0        0        19200000    0          0     50000      Y         deviceless                      no_connection_id         
+          gcc_qupv3_wrap0_s2_clk     0       0        0        19200000    0          0     50000      N            deviceless                      no_connection_id         
+       gcc_qupv3_wrap0_qspi_ref_clk  0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_pdm2_clk_src                 0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_pdm2_clk                  0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_pcie_0_pipe_clk_src          0       0        0        19200000    0          0     50000      Y      deviceless                      no_connection_id         
+       gcc_pcie_0_pipe_div2_clk_src  0       0        0        9600000     0          0     50000      Y         deviceless                      no_connection_id         
+          gcc_pcie_0_pipe_div2_clk   0       0        0        9600000     0          0     50000      N            deviceless                      no_connection_id         
+       gcc_pcie_0_pipe_clk           0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_pcie_0_phy_rchng_clk_src     0       0        0        19200000    0          0     50000      Y      deviceless                      no_connection_id         
+       gcc_pcie_0_phy_rchng_clk      0       0        0        19200000    0          0     50000      Y         deviceless                      no_connection_id         
+    gcc_pcie_0_aux_clk_src           0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_pcie_0_aux_clk            0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_gp3_clk_src                  0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_gp3_clk                   0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_gp2_clk_src                  0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_gp2_clk                   0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_gp1_clk_src                  0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+       gcc_gp1_clk                   0       0        0        19200000    0          0     50000      N         deviceless                      no_connection_id         
+    gcc_gpll9                        1       1        0        807999902   0          0     50000      N      deviceless                      no_connection_id         
+       gcc_sdcc2_apps_clk_src        1       1        0        201999975   0          0     50000      Y         deviceless                      no_connection_id         
+          gcc_sdcc2_apps_clk         1       1        0        201999975   0          0     50000      Y            8804000.mmc                     core                     
+                                                                                                                    8804000.mmc                     core                     
+                                                                                                                    deviceless                      no_connection_id         
+    gcc_gpll7                        0       0        0        499999804   0          0     50000      N      deviceless                      no_connection_id         
+    gcc_gpll4                        0       0        0        805999804   0          0     50000      N      deviceless                      no_connection_id         
+       gcc_ufs_phy_unipro_core_clk_src 0       0        0        402999902   0          0     50000      Y         deviceless                      no_connection_id         
+          gcc_ufs_phy_unipro_core_hw_ctl_clk 0       0        0        402999902   0          0     50000      N            deviceless                      no_connection_id         
+          gcc_ufs_phy_unipro_core_clk 0       0        0        402999902   0          0     50000      Y            deviceless                      no_connection_id         
+       gcc_ufs_phy_ice_core_clk_src  0       0        0        402999902   0          0     50000      Y         deviceless                      no_connection_id         
+          gcc_ufs_phy_ice_core_hw_ctl_clk 0       0        0        402999902   0          0     50000      N            deviceless                      no_connection_id         
+          gcc_ufs_phy_ice_core_clk   0       0        0        402999902   0          0     50000      Y            deviceless                      no_connection_id         
+       gcc_ufs_phy_axi_clk_src       0       0        0        402999902   0          0     50000      Y         deviceless                      no_connection_id         
+          gcc_ufs_phy_axi_hw_ctl_clk 0       0        0        402999902   0          0     50000      N            deviceless                      no_connection_id         
+          gcc_aggre_ufs_phy_axi_hw_ctl_clk 0       0        0        402999902   0          0     50000      N            deviceless                      no_connection_id         
+          gcc_aggre_ufs_phy_axi_clk  0       0        0        402999902   0          0     50000      Y            deviceless                      no_connection_id         
+          gcc_ufs_phy_axi_clk        0       0        0        402999902   0          0     50000      Y            deviceless                      no_connection_id         
+    gcc_gpll1                        0       0        0        1065999902  0          0     50000      N      deviceless                      no_connection_id         
+    gcc_gpll0                        1       1        0        600000000   0          0     50000      N      deviceless                      no_connection_id         
+       gcc_usb30_prim_master_clk_src 3       3        0        200000000   0          0     50000      Y         deviceless                      no_connection_id         
+          gcc_aggre_usb3_prim_axi_clk 1       1        0        200000000   0          0     50000      Y            usb@a600000                     no_connection_id         
+                                                                                                                    deviceless                      no_connection_id         
+          gcc_cfg_noc_usb3_prim_axi_clk 1       1        0        200000000   0          0     50000      Y            usb@a600000                     no_connection_id         
+                                                                                                                    deviceless                      no_connection_id         
+          gcc_usb30_prim_master_clk  1       1        0        200000000   0          0     50000      Y            usb@a600000                     no_connection_id         
+                                                                                                                    deviceless                      no_connection_id         
+       gcc_gpu_gpll0_clk_src         0       0        0        600000000   0          0     50000      N         deviceless                      no_connection_id         
+       gcc_gpll0_out_even            0       0        0        300000000   0          0     50000      Y         deviceless                      no_connection_id         
+          gcc_qupv3_wrap0_s5_clk_src 0       0        0        7372800     0          0     50003      Y            deviceless                      no_connection_id         
+             gcc_qupv3_wrap0_s5_clk  0       0        0        7372800     0          0     50000      Y               deviceless                      no_connection_id         
+          gcc_gpu_gpll0_div_clk_src  0       0        0        300000000   0          0     50000      N            deviceless                      no_connection_id         
+    tcsr_usb3_clkref_en              0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+    tcsr_usb2_clkref_en              1       1        0        19200000    0          0     50000      Y      88e3000.phy                     ref                      
+                                                                                                              deviceless                      no_connection_id         
+    tcsr_ufs_pad_clkref_en           0       0        0        19200000    0          0     50000      Y      deviceless                      no_connection_id         
+    tcsr_ufs_clkref_en               0       0        0        19200000    0          0     50000      Y      deviceless                      no_connection_id         
+    tcsr_pcie_1_clkref_en            0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+    tcsr_pcie_0_clkref_en            0       0        0        19200000    0          0     50000      N      deviceless                      no_connection_id         
+ gcc_usb3_prim_phy_pipe_clk_src      0       0        0        0           0          0     50000      Y   deviceless                      no_connection_id         
+    gcc_usb3_prim_phy_pipe_clk       0       0        0        0           0          0     50000      Y      deviceless                      no_connection_id         
+ gcc_ufs_phy_tx_symbol_0_clk_src     0       0        0        0           0          0     50000      Y   deviceless                      no_connection_id         
+    gcc_ufs_phy_tx_symbol_0_clk      0       0        0        0           0          0     50000      Y      deviceless                      no_connection_id         
+ gcc_ufs_phy_rx_symbol_1_clk_src     0       0        0        0           0          0     50000      Y   deviceless                      no_connection_id         
+    gcc_ufs_phy_rx_symbol_1_clk      0       0        0        0           0          0     50000      Y      deviceless                      no_connection_id         
+ gcc_ufs_phy_rx_symbol_0_clk_src     0       0        0        0           0          0     50000      Y   deviceless                      no_connection_id         
+    gcc_ufs_phy_rx_symbol_0_clk      0       0        0        0           0          0     50000      Y      deviceless                      no_connection_id         
+===== regulator_summary
+ regulator                      use open bypass  opmode voltage current     min     max
+---------------------------------------------------------------------------------------
+ regulator-dummy                  7    6      0 unknown     0mV     0mA     0mV     0mV 
+    vreg_l13b                     1    1      0 unknown  3200mV     0mA  2704mV  3296mV 
+       8804000.mmc-vmmc           1                               800mA  3200mV  3296mV
+    vreg_l23b                     1    1      0 unknown  1800mV     0mA  1656mV  3544mV 
+       8804000.mmc-vqmmc          1                               325mA  1800mV  1950mV
+    vreg_l2b_0p88                 1    1      0 unknown   880mV     0mA   880mV   880mV 
+       88e3000.phy-vdd            1                                 0mA     0mV     0mV
+    vreg_l4b_1p2                  1    1      0 unknown  1200mV     0mA  1200mV  1200mV 
+       88e3000.phy-vdda12         1                                 0mA     0mV     0mV
+    vreg_l7b_1p8                  1    1      0 unknown  1800mV     0mA  1800mV  1800mV 
+       c400000.spmi:pmic@7:phy@fd00-vdd18   1                                 0mA     0mV     0mV
+    vreg_l17b_3p1                 1    1      0 unknown  3104mV     0mA  3104mV  3104mV 
+       c400000.spmi:pmic@7:phy@fd00-vdd3   1                                 0mA     0mV     0mV
+===== interconnect_summary
+ node                                  tag          avg         peak
+--------------------------------------------------------------------
+qup0_core_master@interconnect-0                       0            0
+qup1_core_master@interconnect-0                       0            0
+qup0_core_slave@interconnect-0                        0            0
+qup1_core_slave@interconnect-0                        0            0
+ipa_core_master_pcie_crm_hw_0@interconnect-0            0            0
+ipa_core_slave_pcie_crm_hw_0@interconnect-0            0            0
+llcc_mc@interconnect-1                       2147483647   2147483647
+  a600000.usb                            0       240000       700000
+ebi@interconnect-1                           2147483647   2147483647
+  a600000.usb                            0       240000       700000
+llcc_mc_disp@interconnect-1                           0            0
+ebi_disp@interconnect-1                               0            0
+llcc_mc_cam_ife_0@interconnect-1                      0            0
+ebi_cam_ife_0@interconnect-1                          0            0
+llcc_mc_cam_ife_1@interconnect-1                      0            0
+ebi_cam_ife_1@interconnect-1                          0            0
+llcc_mc_cam_ife_2@interconnect-1                      0            0
+ebi_cam_ife_2@interconnect-1                          0            0
+llcc_mc_pcie_crm_hw_0@interconnect-1                  0            0
+ebi_pcie_crm_hw_0@interconnect-1                      0            0
+qhm_qspi@16e0000.interconnect                         0            0
+qhm_qup0@16e0000.interconnect                         0            0
+xm_sdc2@16e0000.interconnect                          0            0
+xm_ufs_mem@16e0000.interconnect                       0            0
+xm_usb3_0@16e0000.interconnect               2147483647   2147483647
+  a600000.usb                            0       240000       700000
+qns_a1noc_snoc@16e0000.interconnect          2147483647   2147483647
+  a600000.usb                            0       240000       700000
+qhm_qdss_bam@1700000.interconnect                     0            0
+qhm_qup1@1700000.interconnect                         0            0
+qxm_crypto@1700000.interconnect                       0            0
+qxm_ipa@1700000.interconnect                          0            0
+xm_qdss_etr_0@1700000.interconnect                    0            0
+xm_qdss_etr_1@1700000.interconnect                    0            0
+qns_a2noc_snoc@1700000.interconnect                   0            0
+qsm_cfg@1600000.interconnect                 2147483647   2147483647
+  a600000.usb                            0            0        40000
+qhs_ahb2phy0@1600000.interconnect                     0            0
+qhs_ahb2phy1@1600000.interconnect                     0            0
+qhs_camera_cfg@1600000.interconnect                   0            0
+qhs_clk_ctl@1600000.interconnect                      0            0
+qhs_cpr_cx@1600000.interconnect                       0            0
+qhs_cpr_mmcx@1600000.interconnect                     0            0
+qhs_cpr_mxc@1600000.interconnect                      0            0
+qhs_cpr_nspcx@1600000.interconnect                    0            0
+qhs_crypto0_cfg@1600000.interconnect                  0            0
+qhs_cx_rdpm@1600000.interconnect                      0            0
+qhs_gpuss_cfg@1600000.interconnect                    0            0
+qhs_i3c_ibi0_cfg@1600000.interconnect                 0            0
+qhs_i3c_ibi1_cfg@1600000.interconnect                 0            0
+qhs_imem_cfg@1600000.interconnect                     0            0
+qhs_mss_cfg@1600000.interconnect                      0            0
+qhs_mx_2_rdpm@1600000.interconnect                    0            0
+qhs_mx_rdpm@1600000.interconnect                      0            0
+qhs_pcie_rscc@1600000.interconnect                    0            0
+qhs_pdm@1600000.interconnect                          0            0
+qhs_qdss_cfg@1600000.interconnect                     0            0
+qhs_qspi@1600000.interconnect                         0            0
+qhs_qup0@1600000.interconnect                         0            0
+qhs_qup1@1600000.interconnect                         0            0
+qhs_sdc2@1600000.interconnect                         0            0
+qhs_tcsr@1600000.interconnect                         0            0
+qhs_tlmm@1600000.interconnect                         0            0
+qhs_ufs_mem_cfg@1600000.interconnect                  0            0
+qhs_usb3_0@1600000.interconnect              2147483647   2147483647
+  a600000.usb                            0            0        40000
+qhs_venus_cfg@1600000.interconnect                    0            0
+qhs_vsense_ctrl_cfg@1600000.interconnect              0            0
+qhs_wlan_q6@1600000.interconnect                      0            0
+qss_mnoc_hf_cfg@1600000.interconnect                  0            0
+qss_mnoc_sf_cfg@1600000.interconnect                  0            0
+qss_nsp_qtb_cfg@1600000.interconnect                  0            0
+qss_pcie_anoc_cfg@1600000.interconnect                0            0
+qss_wlan_q6_throttle_cfg@1600000.interconnect            0            0
+srvc_cnoc_cfg@1600000.interconnect                    0            0
+xs_qdss_stm@1600000.interconnect                      0            0
+xs_sys_tcu_cfg@1600000.interconnect                   0            0
+qnm_gemnoc_cnoc@1500000.interconnect         2147483647   2147483647
+  a600000.usb                            0            0        40000
+qnm_gemnoc_pcie@1500000.interconnect                  0            0
+qhs_aoss@1500000.interconnect                         0            0
+qhs_display_cfg@1500000.interconnect                  0            0
+qhs_ipa@1500000.interconnect                          0            0
+qhs_ipc_router@1500000.interconnect                   0            0
+qhs_pcie0_cfg@1500000.interconnect                    0            0
+qhs_prng@1500000.interconnect                         0            0
+qhs_tme_cfg@1500000.interconnect                      0            0
+qss_apss@1500000.interconnect                         0            0
+qss_cfg@1500000.interconnect                 2147483647   2147483647
+  a600000.usb                            0            0        40000
+qss_ddrss_cfg@1500000.interconnect                    0            0
+qxs_imem@1500000.interconnect                         0            0
+srvc_cnoc_main@1500000.interconnect                   0            0
+xs_pcie_0@1500000.interconnect                        0            0
+alm_gpu_tcu@24100000.interconnect                     0            0
+alm_sys_tcu@24100000.interconnect                     0            0
+chm_apps@24100000.interconnect               2147483647   2147483647
+  a600000.usb                            0            0        40000
+qnm_gpu@24100000.interconnect                         0            0
+qnm_lpass_gemnoc@24100000.interconnect                0            0
+qnm_mdsp@24100000.interconnect                        0            0
+qnm_mnoc_hf@24100000.interconnect                     0            0
+qnm_mnoc_sf@24100000.interconnect                     0            0
+qnm_nsp_gemnoc@24100000.interconnect                  0            0
+qnm_pcie@24100000.interconnect                        0            0
+qnm_snoc_sf@24100000.interconnect            2147483647   2147483647
+  a600000.usb                            0       240000       700000
+qxm_wlan_q6@24100000.interconnect                     0            0
+xm_gic@24100000.interconnect                          0            0
+qns_gem_noc_cnoc@24100000.interconnect       2147483647   2147483647
+  a600000.usb                            0            0        40000
+qns_llcc@24100000.interconnect               2147483647   2147483647
+  a600000.usb                            0       240000       700000
+qns_pcie@24100000.interconnect                        0            0
+qnm_mnoc_hf_disp@24100000.interconnect                0            0
+qnm_pcie_disp@24100000.interconnect                   0            0
+qns_llcc_disp@24100000.interconnect                   0            0
+qnm_mnoc_hf_cam_ife_0@24100000.interconnect            0            0
+qnm_mnoc_sf_cam_ife_0@24100000.interconnect            0            0
+qnm_pcie_cam_ife_0@24100000.interconnect              0            0
+qns_llcc_cam_ife_0@24100000.interconnect              0            0
+qnm_mnoc_hf_cam_ife_1@24100000.interconnect            0            0
+qnm_mnoc_sf_cam_ife_1@24100000.interconnect            0            0
+qnm_pcie_cam_ife_1@24100000.interconnect              0            0
+qns_llcc_cam_ife_1@24100000.interconnect              0            0
+qnm_mnoc_hf_cam_ife_2@24100000.interconnect            0            0
+qnm_mnoc_sf_cam_ife_2@24100000.interconnect            0            0
+qnm_pcie_cam_ife_2@24100000.interconnect              0            0
+qns_llcc_cam_ife_2@24100000.interconnect              0            0
+qnm_pcie_pcie_crm_hw_0@24100000.interconnect            0            0
+qns_llcc_pcie_crm_hw_0@24100000.interconnect            0            0
+qnm_lpiaon_noc@7e40000.interconnect                   0            0
+qns_lpass_ag_noc_gemnoc@7e40000.interconnect            0            0
+qnm_lpass_lpinoc@7400000.interconnect                 0            0
+qns_lpass_aggnoc@7400000.interconnect                 0            0
+qxm_lpinoc_dsp_axim@7430000.interconnect              0            0
+qns_lpi_aon_noc@7430000.interconnect                  0            0
+qnm_camnoc_hf@1400000.interconnect                    0            0
+qnm_camnoc_icp@1400000.interconnect                   0            0
+qnm_camnoc_sf@1400000.interconnect                    0            0
+qnm_mdp@1400000.interconnect                          0            0
+qnm_video@1400000.interconnect                        0            0
+qnm_video_cv_cpu@1400000.interconnect                 0            0
+qnm_video_cvp@1400000.interconnect                    0            0
+qnm_video_v_cpu@1400000.interconnect                  0            0
+qsm_hf_mnoc_cfg@1400000.interconnect                  0            0
+qsm_sf_mnoc_cfg@1400000.interconnect                  0            0
+qns_mem_noc_hf@1400000.interconnect                   0            0
+qns_mem_noc_sf@1400000.interconnect                   0            0
+srvc_mnoc_hf@1400000.interconnect                     0            0
+srvc_mnoc_sf@1400000.interconnect                     0            0
+qnm_mdp_disp@1400000.interconnect                     0            0
+qns_mem_noc_hf_disp@1400000.interconnect              0            0
+qnm_camnoc_hf_cam_ife_0@1400000.interconnect            0            0
+qnm_camnoc_icp_cam_ife_0@1400000.interconnect            0            0
+qnm_camnoc_sf_cam_ife_0@1400000.interconnect            0            0
+qns_mem_noc_hf_cam_ife_0@1400000.interconnect            0            0
+qns_mem_noc_sf_cam_ife_0@1400000.interconnect            0            0
+qnm_camnoc_hf_cam_ife_1@1400000.interconnect            0            0
+qnm_camnoc_icp_cam_ife_1@1400000.interconnect            0            0
+qnm_camnoc_sf_cam_ife_1@1400000.interconnect            0            0
+qns_mem_noc_hf_cam_ife_1@1400000.interconnect            0            0
+qns_mem_noc_sf_cam_ife_1@1400000.interconnect            0            0
+qnm_camnoc_hf_cam_ife_2@1400000.interconnect            0            0
+qnm_camnoc_icp_cam_ife_2@1400000.interconnect            0            0
+qnm_camnoc_sf_cam_ife_2@1400000.interconnect            0            0
+qns_mem_noc_hf_cam_ife_2@1400000.interconnect            0            0
+qns_mem_noc_sf_cam_ife_2@1400000.interconnect            0            0
+qxm_nsp@320c0000.interconnect                         0            0
+qns_nsp_gemnoc@320c0000.interconnect                  0            0
+qsm_pcie_anoc_cfg@16c0000.interconnect                0            0
+xm_pcie3_0@16c0000.interconnect                       0            0
+qns_pcie_mem_noc@16c0000.interconnect                 0            0
+srvc_pcie_aggre_noc@16c0000.interconnect              0            0
+xm_pcie3_0_pcie_crm_hw_0@16c0000.interconnect            0            0
+qns_pcie_mem_noc_pcie_crm_hw_0@16c0000.interconnect            0            0
+qnm_aggre1_noc@1680000.interconnect          2147483647   2147483647
+  a600000.usb                            0       240000       700000
+qnm_aggre2_noc@1680000.interconnect                   0            0
+qnm_apss_noc@1680000.interconnect                     0            0
+qnm_cnoc_data@1680000.interconnect                    0            0
+qns_gemnoc_sf@1680000.interconnect           2147483647   2147483647
+  a600000.usb                            0       240000       700000
+===== gpio
+gpiochip0: 179 GPIOs, parent: platform/f000000.pinctrl, f000000.pinctrl:
+ gpio0   : egpio
+ gpio1   : egpio
+ gpio2   : egpio
+ gpio3   : egpio
+ gpio4   : in  high func0 2mA pull down
+ gpio5   : in  high func0 2mA pull down
+ gpio6   : in  low  func0 2mA pull down
+ gpio7   : in  high func0 2mA pull down
+ gpio8   : in  low  func0 2mA pull down
+ gpio9   : in  low  func0 2mA pull down
+ gpio10  : in  high func0 2mA pull down
+ gpio11  : in  high func0 2mA pull down
+ gpio12  : in  high func0 2mA pull down
+ gpio13  : in  high func0 2mA pull down
+ gpio14  : in  low  func0 2mA pull down
+ gpio15  : in  low  func0 2mA pull down
+ gpio16  : out high func0 2mA pull up
+ gpio17  : out high func0 2mA pull up
+ gpio18  : in  low  func0 2mA pull down
+ gpio19  : in  low  func0 2mA pull down
+ gpio20  : in  low  func0 2mA pull down
+ gpio21  : in  low  func0 2mA pull down
+ gpio22  : out low  func1 2mA pull up
+ gpio23  : in  low  func1 2mA pull down
+ gpio24  : in  low  func0 2mA pull down
+ gpio25  : in  low  func0 2mA pull down
+ gpio26  : in  low  func0 2mA pull down
+ gpio27  : in  low  func0 2mA pull down
+ gpio28  : in  low  func0 2mA pull down
+ gpio29  : in  low  func0 2mA pull down
+ gpio30  : in  low  func0 2mA pull down
+ gpio31  : in  low  func0 2mA no pull
+ gpio32  : in  high func0 2mA no pull
+ gpio33  : in  low  func0 2mA pull down
+ gpio34  : in  low  func0 2mA pull down
+ gpio35  : in  low  func0 2mA pull down
+ gpio36  : out high func0 2mA pull up
+ gpio37  : out high func0 2mA pull up
+ gpio38  : out low  func1 10mA pull up
+ gpio39  : out low  func1 10mA pull up
+ gpio40  : in  high func0 2mA pull down
+ gpio41  : in  low  func0 2mA pull down
+ gpio42  : out high func0 2mA pull up
+ gpio43  : in  low  func0 2mA pull down
+ gpio44  : out high func0 2mA pull up
+ gpio45  : out high func0 2mA pull up
+ gpio46  : in  low  func0 2mA pull down
+ gpio47  : in  low  func0 2mA pull down
+ gpio48  : out low  func1 10mA pull up
+ gpio49  : out low  func1 10mA pull up
+ gpio50  : out low  func1 12mA no pull
+ gpio51  : out low  func1 10mA pull up
+ gpio52  : out high func0 2mA pull up
+ gpio53  : out high func0 2mA pull up
+ gpio54  : in  low  func0 2mA pull down
+ gpio55  : in  low  func0 2mA pull down
+ gpio61  : in  low  func0 2mA pull down
+ gpio62  : out low  func1 16mA no pull
+ gpio63  : in  low  func0 2mA pull down
+ gpio64  : in  low  func0 2mA pull down
+ gpio65  : in  low  func0 2mA pull down
+ gpio66  : in  low  func0 2mA pull down
+ gpio67  : in  low  func0 2mA pull down
+ gpio68  : in  low  func0 2mA pull down
+ gpio69  : in  low  func0 2mA pull down
+ gpio70  : in  low  func0 2mA pull down
+ gpio71  : in  low  func0 2mA pull down
+ gpio72  : in  low  func0 2mA pull down
+ gpio73  : in  low  func0 2mA pull down
+ gpio74  : in  low  func0 2mA pull down
+ gpio75  : in  low  func0 2mA pull down
+ gpio76  : in  low  func0 2mA pull down
+ gpio77  : in  low  func1 2mA no pull
+ gpio78  : in  low  func0 2mA pull down
+ gpio79  : in  low  func0 2mA pull down
+ gpio80  : in  low  func0 2mA pull down
+ gpio81  : out high func0 2mA pull up
+ gpio82  : out high func0 2mA pull up
+ gpio83  : in  low  func0 2mA pull down
+ gpio84  : in  low  func0 2mA pull down
+ gpio85  : in  low  func0 2mA pull down
+ gpio86  : in  low  func0 2mA pull down
+ gpio87  : in  low  func0 2mA pull down
+ gpio88  : out low  func0 2mA no pull
+ gpio89  : out low  func0 2mA no pull
+ gpio90  : out low  func0 2mA no pull
+ gpio91  : in  low  func0 2mA pull down
+ gpio92  : in  low  func0 2mA no pull
+ gpio93  : in  low  func0 2mA no pull
+ gpio94  : in  low  func0 2mA no pull
+ gpio95  : in  low  func0 2mA no pull
+ gpio96  : in  low  func0 2mA no pull
+ gpio97  : in  low  func0 2mA no pull
+ gpio98  : in  low  func0 2mA no pull
+ gpio99  : in  low  func0 2mA no pull
+ gpio100 : in  low  func0 2mA pull down
+ gpio101 : in  low  func0 2mA pull down
+ gpio102 : in  low  func0 2mA pull down
+ gpio103 : in  low  func0 2mA pull down
+ gpio104 : in  low  func0 2mA pull down
+ gpio105 : in  low  func0 2mA pull down
+ gpio106 : in  low  func0 2mA pull down
+ gpio107 : in  low  func0 2mA pull down
+ gpio108 : in  low  func0 2mA pull down
+ gpio109 : in  low  func0 2mA pull down
+ gpio110 : in  low  func0 2mA pull down
+ gpio111 : in  low  func0 2mA pull down
+ gpio112 : in  low  func0 2mA pull down
+ gpio113 : in  low  func0 2mA pull down
+ gpio114 : in  low  func0 2mA pull down
+ gpio115 : in  low  func0 2mA pull down
+ gpio116 : in  low  func0 2mA pull down
+ gpio117 : in  low  func0 2mA no pull
+ gpio118 : out high func0 2mA pull up
+ gpio119 : in  low  func0 2mA pull down
+ gpio120 : in  low  func0 2mA pull down
+ gpio121 : in  low  func0 2mA pull down
+ gpio122 : in  low  func0 2mA pull down
+ gpio123 : in  low  func0 2mA pull down
+ gpio124 : in  low  func0 2mA pull down
+ gpio125 : in  low  func0 2mA pull down
+ gpio126 : in  low  func0 2mA pull down
+ gpio127 : in  low  func0 2mA pull down
+ gpio128 : in  low  func0 2mA pull down
+ gpio129 : in  low  func0 2mA pull down
+ gpio130 : in  low  func0 2mA pull up
+ gpio131 : in  low  func0 2mA pull down
+ gpio132 : in  low  func0 2mA no pull
+ gpio133 : in  low  func0 2mA no pull
+ gpio134 : in  low  func0 2mA pull down
+ gpio135 : in  low  func0 2mA no pull
+ gpio136 : out low  func0 16mA no pull
+ gpio137 : out low  func0 16mA no pull
+ gpio138 : in  low  func0 2mA pull down
+ gpio139 : egpio
+ gpio140 : egpio
+ gpio141 : egpio
+ gpio142 : egpio
+ gpio143 : egpio
+ gpio144 : egpio
+ gpio145 : egpio
+ gpio146 : egpio
+ gpio147 : egpio
+ gpio148 : egpio
+ gpio149 : egpio
+ gpio150 : egpio
+ gpio151 : egpio
+ gpio152 : egpio
+ gpio153 : egpio
+ gpio154 : egpio
+ gpio155 : egpio
+ gpio156 : egpio
+ gpio157 : egpio
+ gpio158 : egpio
+ gpio159 : egpio
+ gpio160 : egpio
+ gpio161 : egpio
+ gpio162 : egpio
+ gpio163 : egpio
+ gpio164 : egpio
+ gpio165 : egpio
+ gpio166 : egpio
+ gpio167 : egpio
+ gpio168 : egpio
+ gpio169 : egpio
+ gpio170 : egpio
+ gpio171 : egpio
+ gpio172 : egpio
+ gpio173 : egpio
+ gpio174 : egpio
+ gpio175 : egpio
+ gpio176 : egpio
+ gpio177 : out high func0 8mA pull up
+ ufs_reset: in  low  func0 8mA pull down
+===== pinmux-pins
+Pinmux settings per pin
+Format: pin (name): mux_owner|gpio_owner (strict) hog?
+pin 0 (GPIO_0): UNCLAIMED
+pin 1 (GPIO_1): UNCLAIMED
+pin 2 (GPIO_2): UNCLAIMED
+pin 3 (GPIO_3): UNCLAIMED
+pin 4 (GPIO_4): UNCLAIMED
+pin 5 (GPIO_5): UNCLAIMED
+pin 6 (GPIO_6): UNCLAIMED
+pin 7 (GPIO_7): UNCLAIMED
+pin 8 (GPIO_8): UNCLAIMED
+pin 9 (GPIO_9): UNCLAIMED
+pin 10 (GPIO_10): UNCLAIMED
+pin 11 (GPIO_11): UNCLAIMED
+pin 12 (GPIO_12): UNCLAIMED
+pin 13 (GPIO_13): UNCLAIMED
+pin 14 (GPIO_14): UNCLAIMED
+pin 15 (GPIO_15): UNCLAIMED
+pin 16 (GPIO_16): UNCLAIMED
+pin 17 (GPIO_17): UNCLAIMED
+pin 18 (GPIO_18): UNCLAIMED
+pin 19 (GPIO_19): UNCLAIMED
+pin 20 (GPIO_20): UNCLAIMED
+pin 21 (GPIO_21): UNCLAIMED
+pin 22 (GPIO_22): UNCLAIMED
+pin 23 (GPIO_23): UNCLAIMED
+pin 24 (GPIO_24): UNCLAIMED
+pin 25 (GPIO_25): UNCLAIMED
+pin 26 (GPIO_26): UNCLAIMED
+pin 27 (GPIO_27): UNCLAIMED
+pin 28 (GPIO_28): UNCLAIMED
+pin 29 (GPIO_29): UNCLAIMED
+pin 30 (GPIO_30): UNCLAIMED
+pin 31 (GPIO_31): GPIO f000000.pinctrl:543
+pin 32 (GPIO_32): UNCLAIMED
+pin 33 (GPIO_33): UNCLAIMED
+pin 34 (GPIO_34): UNCLAIMED
+pin 35 (GPIO_35): UNCLAIMED
+pin 36 (GPIO_36): UNCLAIMED
+pin 37 (GPIO_37): UNCLAIMED
+pin 38 (GPIO_38): device 8804000.mmc function sdc2_data group gpio38
+pin 39 (GPIO_39): device 8804000.mmc function sdc2_data group gpio39
+pin 40 (GPIO_40): UNCLAIMED
+pin 41 (GPIO_41): UNCLAIMED
+pin 42 (GPIO_42): UNCLAIMED
+pin 43 (GPIO_43): UNCLAIMED
+pin 44 (GPIO_44): UNCLAIMED
+pin 45 (GPIO_45): UNCLAIMED
+pin 46 (GPIO_46): UNCLAIMED
+pin 47 (GPIO_47): UNCLAIMED
+pin 48 (GPIO_48): device 8804000.mmc function sdc2_data group gpio48
+pin 49 (GPIO_49): device 8804000.mmc function sdc2_data group gpio49
+pin 50 (GPIO_50): UNCLAIMED
+pin 51 (GPIO_51): device 8804000.mmc function sdc2_cmd group gpio51
+pin 52 (GPIO_52): UNCLAIMED
+pin 53 (GPIO_53): UNCLAIMED
+pin 54 (GPIO_54): UNCLAIMED
+pin 55 (GPIO_55): UNCLAIMED
+pin 56 (GPIO_56): UNCLAIMED
+pin 57 (GPIO_57): UNCLAIMED
+pin 58 (GPIO_58): UNCLAIMED
+pin 59 (GPIO_59): UNCLAIMED
+pin 60 (GPIO_60): UNCLAIMED
+pin 61 (GPIO_61): UNCLAIMED
+pin 62 (GPIO_62): device 8804000.mmc function sdc2_clk group gpio62
+pin 63 (GPIO_63): UNCLAIMED
+pin 64 (GPIO_64): UNCLAIMED
+pin 65 (GPIO_65): UNCLAIMED
+pin 66 (GPIO_66): UNCLAIMED
+pin 67 (GPIO_67): UNCLAIMED
+pin 68 (GPIO_68): UNCLAIMED
+pin 69 (GPIO_69): UNCLAIMED
+pin 70 (GPIO_70): UNCLAIMED
+pin 71 (GPIO_71): UNCLAIMED
+pin 72 (GPIO_72): UNCLAIMED
+pin 73 (GPIO_73): UNCLAIMED
+pin 74 (GPIO_74): UNCLAIMED
+pin 75 (GPIO_75): UNCLAIMED
+pin 76 (GPIO_76): UNCLAIMED
+pin 77 (GPIO_77): UNCLAIMED
+pin 78 (GPIO_78): UNCLAIMED
+pin 79 (GPIO_79): UNCLAIMED
+pin 80 (GPIO_80): UNCLAIMED
+pin 81 (GPIO_81): UNCLAIMED
+pin 82 (GPIO_82): UNCLAIMED
+pin 83 (GPIO_83): UNCLAIMED
+pin 84 (GPIO_84): UNCLAIMED
+pin 85 (GPIO_85): UNCLAIMED
+pin 86 (GPIO_86): UNCLAIMED
+pin 87 (GPIO_87): UNCLAIMED
+pin 88 (GPIO_88): UNCLAIMED
+pin 89 (GPIO_89): UNCLAIMED
+pin 90 (GPIO_90): UNCLAIMED
+pin 91 (GPIO_91): UNCLAIMED
+pin 92 (GPIO_92): UNCLAIMED
+pin 93 (GPIO_93): UNCLAIMED
+pin 94 (GPIO_94): UNCLAIMED
+pin 95 (GPIO_95): UNCLAIMED
+pin 96 (GPIO_96): UNCLAIMED
+pin 97 (GPIO_97): UNCLAIMED
+pin 98 (GPIO_98): UNCLAIMED
+pin 99 (GPIO_99): UNCLAIMED
+pin 100 (GPIO_100): UNCLAIMED
+pin 101 (GPIO_101): UNCLAIMED
+pin 102 (GPIO_102): UNCLAIMED
+pin 103 (GPIO_103): UNCLAIMED
+pin 104 (GPIO_104): UNCLAIMED
+pin 105 (GPIO_105): UNCLAIMED
+pin 106 (GPIO_106): UNCLAIMED
+pin 107 (GPIO_107): UNCLAIMED
+pin 108 (GPIO_108): UNCLAIMED
+pin 109 (GPIO_109): UNCLAIMED
+pin 110 (GPIO_110): UNCLAIMED
+pin 111 (GPIO_111): UNCLAIMED
+pin 112 (GPIO_112): UNCLAIMED
+pin 113 (GPIO_113): UNCLAIMED
+pin 114 (GPIO_114): UNCLAIMED
+pin 115 (GPIO_115): UNCLAIMED
+pin 116 (GPIO_116): UNCLAIMED
+pin 117 (GPIO_117): UNCLAIMED
+pin 118 (GPIO_118): UNCLAIMED
+pin 119 (GPIO_119): UNCLAIMED
+pin 120 (GPIO_120): UNCLAIMED
+pin 121 (GPIO_121): UNCLAIMED
+pin 122 (GPIO_122): UNCLAIMED
+pin 123 (GPIO_123): UNCLAIMED
+pin 124 (GPIO_124): UNCLAIMED
+pin 125 (GPIO_125): UNCLAIMED
+pin 126 (GPIO_126): UNCLAIMED
+pin 127 (GPIO_127): UNCLAIMED
+pin 128 (GPIO_128): UNCLAIMED
+pin 129 (GPIO_129): UNCLAIMED
+pin 130 (GPIO_130): UNCLAIMED
+pin 131 (GPIO_131): UNCLAIMED
+pin 132 (GPIO_132): UNCLAIMED
+pin 133 (GPIO_133): UNCLAIMED
+pin 134 (GPIO_134): UNCLAIMED
+pin 135 (GPIO_135): UNCLAIMED
+pin 136 (GPIO_136): UNCLAIMED
+pin 137 (GPIO_137): UNCLAIMED
+pin 138 (GPIO_138): UNCLAIMED
+pin 139 (GPIO_139): UNCLAIMED
+pin 140 (GPIO_140): UNCLAIMED
+pin 141 (GPIO_141): UNCLAIMED
+pin 142 (GPIO_142): UNCLAIMED
+pin 143 (GPIO_143): UNCLAIMED
+pin 144 (GPIO_144): UNCLAIMED
+pin 145 (GPIO_145): UNCLAIMED
+pin 146 (GPIO_146): UNCLAIMED
+pin 147 (GPIO_147): UNCLAIMED
+pin 148 (GPIO_148): UNCLAIMED
+pin 149 (GPIO_149): UNCLAIMED
+pin 150 (GPIO_150): UNCLAIMED
+pin 151 (GPIO_151): UNCLAIMED
+pin 152 (GPIO_152): UNCLAIMED
+pin 153 (GPIO_153): UNCLAIMED
+pin 154 (GPIO_154): UNCLAIMED
+pin 155 (GPIO_155): UNCLAIMED
+pin 156 (GPIO_156): UNCLAIMED
+pin 157 (GPIO_157): UNCLAIMED
+pin 158 (GPIO_158): UNCLAIMED
+pin 159 (GPIO_159): UNCLAIMED
+pin 160 (GPIO_160): UNCLAIMED
+pin 161 (GPIO_161): UNCLAIMED
+pin 162 (GPIO_162): UNCLAIMED
+pin 163 (GPIO_163): UNCLAIMED
+pin 164 (GPIO_164): UNCLAIMED
+pin 165 (GPIO_165): UNCLAIMED
+pin 166 (GPIO_166): UNCLAIMED
+pin 167 (GPIO_167): UNCLAIMED
+pin 168 (GPIO_168): UNCLAIMED
+pin 169 (GPIO_169): UNCLAIMED
+pin 170 (GPIO_170): UNCLAIMED
+pin 171 (GPIO_171): UNCLAIMED
+pin 172 (GPIO_172): UNCLAIMED
+pin 173 (GPIO_173): UNCLAIMED
+pin 174 (GPIO_174): UNCLAIMED
+pin 175 (GPIO_175): UNCLAIMED
+pin 176 (GPIO_176): UNCLAIMED
+pin 177 (GPIO_177): UNCLAIMED
+pin 178 (UFS_RESET): UNCLAIMED
+===== device-tree model
+Retroid Pocket G2
+===== /sys/bus/platform/devices
+total 0
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 100000.clock-controller -> ../../../devices/platform/soc@0/100000.clock-controller
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 1400000.interconnect -> ../../../devices/platform/soc@0/1400000.interconnect
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 1500000.interconnect -> ../../../devices/platform/soc@0/1500000.interconnect
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 15000000.iommu -> ../../../devices/platform/soc@0/15000000.iommu
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 1600000.interconnect -> ../../../devices/platform/soc@0/1600000.interconnect
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 1680000.interconnect -> ../../../devices/platform/soc@0/1680000.interconnect
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 16c0000.interconnect -> ../../../devices/platform/soc@0/16c0000.interconnect
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 16e0000.interconnect -> ../../../devices/platform/soc@0/16e0000.interconnect
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 1700000.interconnect -> ../../../devices/platform/soc@0/1700000.interconnect
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 17a00000.rsc -> ../../../devices/platform/soc@0/17a00000.rsc
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 17a00000.rsc:bcm-voter -> ../../../devices/platform/soc@0/17a00000.rsc/17a00000.rsc:bcm-voter
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 17a00000.rsc:regulators-0 -> ../../../devices/platform/soc@0/17a00000.rsc/17a00000.rsc:regulators-0
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 1fc0000.clock-controller -> ../../../devices/platform/soc@0/1fc0000.clock-controller
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 24100000.interconnect -> ../../../devices/platform/soc@0/24100000.interconnect
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 320c0000.interconnect -> ../../../devices/platform/soc@0/320c0000.interconnect
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 7400000.interconnect -> ../../../devices/platform/soc@0/7400000.interconnect
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 7430000.interconnect -> ../../../devices/platform/soc@0/7430000.interconnect
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 7e40000.interconnect -> ../../../devices/platform/soc@0/7e40000.interconnect
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 81c60000.cmd-db -> ../../../devices/platform/81c60000.cmd-db
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 8804000.mmc -> ../../../devices/platform/soc@0/8804000.mmc
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 88e3000.phy -> ../../../devices/platform/soc@0/88e3000.phy
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 a600000.usb -> ../../../devices/platform/soc@0/a600000.usb
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 ae00000.display-subsystem -> ../../../devices/platform/soc@0/ae00000.display-subsystem
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 b220000.interrupt-controller -> ../../../devices/platform/soc@0/b220000.interrupt-controller
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 c400000.spmi -> ../../../devices/platform/soc@0/c400000.spmi
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 c400000.spmi:pmic@7:phy@fd00 -> ../../../devices/platform/soc@0/c400000.spmi/spmi-0/0-07/c400000.spmi:pmic@7:phy@fd00
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 e3940000.framebuffer -> ../../../devices/platform/e3940000.framebuffer
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 f000000.pinctrl -> ../../../devices/platform/soc@0/f000000.pinctrl
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 firmware:scm -> ../../../devices/platform/firmware:scm
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 gunyah-wdt -> ../../../devices/platform/gunyah-wdt
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 interconnect-0 -> ../../../devices/platform/interconnect-0
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 interconnect-1 -> ../../../devices/platform/interconnect-1
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 psci -> ../../../devices/platform/psci
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 qcomtee -> ../../../devices/platform/firmware:scm/qcomtee
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 serial8250 -> ../../../devices/platform/serial8250
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 smccc_trng -> ../../../devices/platform/smccc_trng
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 soc@0 -> ../../../devices/platform/soc@0
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 timer -> ../../../devices/platform/timer
+===== usb
+total 0
+lrwxrwxrwx    1 root     root             0 Jan  1 00:00 a600000.usb -> ../../devices/platform/soc@0/a600000.usb/udc/a600000.usb
+default
+UDC
+bDeviceClass
+bDeviceProtocol
+bDeviceSubClass
+bMaxPacketSize0
+bcdDevice
+bcdUSB
+configs
+functions
+idProduct
+idVendor
+max_speed
+os_desc
+strings
+webusb
+--- /sys/kernel/debug/usb/a600000.usb/mode
+device
+--- /sys/kernel/debug/usb/a600000.usb/link_state
+On
+--- /sys/kernel/debug/usb/a600000.usb/lsp_dump
+GDBGLSP[0] = 0x00000000
+GDBGLSP[1] = 0x00000000
+GDBGLSP[2] = 0x00000000
+GDBGLSP[3] = 0x00000000
+GDBGLSP[4] = 0x00001000
+GDBGLSP[5] = 0x3f800000
+GDBGLSP[6] = 0x00003f80
+GDBGLSP[7] = 0xfc03f000
+GDBGLSP[8] = 0x00003fff
+GDBGLSP[9] = 0x00000040
+GDBGLSP[10] = 0x000005f8
+GDBGLSP[11] = 0x000005f8
+GDBGLSP[12] = 0x000005f8
+GDBGLSP[13] = 0x000005f8
+GDBGLSP[14] = 0x000005f8
+GDBGLSP[15] = 0x000005f8
+--- /sys/kernel/debug/usb/a600000.usb/regdump
+GSBUSCFG0 = 0x2222000e
+GSBUSCFG1 = 0x00007f00
+GTXTHRCFG = 0x00000000
+GRXTHRCFG = 0x00b00000
+GCTL = 0x00102000
+GEVTEN = 0x00000000
+GSTS = 0x7e800000
+GUCTL1 = 0x81001808
+GSNPSID = 0x33313130
+GGPIO = 0x00000000
+GUID = 0x00070100
+GUCTL = 0x0d014802
+GBUSERRADDR0 = 0x00000000
+GBUSERRADDR1 = 0x00000000
+GPRTBIMAP0 = 0x00000000
+GPRTBIMAP1 = 0x00000000
+GHWPARAMS0 = 0x4020400a
+GHWPARAMS1 = 0x01092486
+GHWPARAMS2 = 0x17013c42
+GHWPARAMS3 = 0x10420086
+GHWPARAMS4 = 0x48622010
+GHWPARAMS5 = 0x68410410
+GHWPARAMS6 = 0x1834003f
+GHWPARAMS7 = 0x08a00d86
+GDBGFIFOSPACE = 0x00430000
+GDBGLTSSM = 0x9cc20026
+GDBGBMU = 0x20340000
+GPRTBIMAP_HS0 = 0x00000000
+GPRTBIMAP_HS1 = 0x00000000
+GPRTBIMAP_FS0 = 0x00000000
+GPRTBIMAP_FS1 = 0x00000000
+GUCTL2 = 0x00000000
+VER_NUMBER = 0x3139302a
+VER_TYPE = 0x67612a2a
+GUSB2PHYCFG(0) = 0x00102400
+GUSB2PHYCFG(1) = 0x00000000
+GUSB2PHYCFG(2) = 0x00000000
+GUSB2PHYCFG(3) = 0x00000000
+GUSB2PHYCFG(4) = 0x00000000
+GUSB2PHYCFG(5) = 0x00000000
+GUSB2PHYCFG(6) = 0x00000000
+GUSB2PHYCFG(7) = 0x00000000
+GUSB2PHYCFG(8) = 0x00000000
+GUSB2PHYCFG(9) = 0x00000000
+GUSB2PHYCFG(10) = 0x00000000
+GUSB2PHYCFG(11) = 0x00000000
+GUSB2PHYCFG(12) = 0x00000000
+GUSB2PHYCFG(13) = 0x00000000
+GUSB2PHYCFG(14) = 0x00000000
+GUSB2PHYCFG(15) = 0x00000000
+GUSB2I2CCTL(0) = 0x00000000
+GUSB2I2CCTL(1) = 0x00000000
+GUSB2I2CCTL(2) = 0x00000000
+GUSB2I2CCTL(3) = 0x00000000
+GUSB2I2CCTL(4) = 0x00000000
+GUSB2I2CCTL(5) = 0x00000000
+GUSB2I2CCTL(6) = 0x00000000
+GUSB2I2CCTL(7) = 0x00000000
+GUSB2I2CCTL(8) = 0x00000000
+GUSB2I2CCTL(9) = 0x00000000
+GUSB2I2CCTL(10) = 0x00000000
+GUSB2I2CCTL(11) = 0x00000000
+GUSB2I2CCTL(12) = 0x00000000
+GUSB2I2CCTL(13) = 0x00000000
+GUSB2I2CCTL(14) = 0x00000000
+GUSB2I2CCTL(15) = 0x00000000
+GUSB2PHYACC(0) = 0x00000000
+GUSB2PHYACC(1) = 0x00000000
+GUSB2PHYACC(2) = 0x00000000
+GUSB2PHYACC(3) = 0x00000000
+GUSB2PHYACC(4) = 0x00000000
+GUSB2PHYACC(5) = 0x00000000
+GUSB2PHYACC(6) = 0x00000000
+GUSB2PHYACC(7) = 0x00000000
+GUSB2PHYACC(8) = 0x00000000
+GUSB2PHYACC(9) = 0x00000000
+GUSB2PHYACC(10) = 0x00000000
+GUSB2PHYACC(11) = 0x00000000
+GUSB2PHYACC(12) = 0x00000000
+GUSB2PHYACC(13) = 0x00000000
+GUSB2PHYACC(14) = 0x00000000
+GUSB2PHYACC(15) = 0x00000000
+GUSB3PIPECTL(0) = 0x030e1002
+GUSB3PIPECTL(1) = 0x00000000
+GUSB3PIPECTL(2) = 0x00000000
+GUSB3PIPECTL(3) = 0x00000000
+GUSB3PIPECTL(4) = 0x00000000
+GUSB3PIPECTL(5) = 0x00000000
+GUSB3PIPECTL(6) = 0x00000000
+GUSB3PIPECTL(7) = 0x00000000
+GUSB3PIPECTL(8) = 0x00000000
+GUSB3PIPECTL(9) = 0x00000000
+GUSB3PIPECTL(10) = 0x00000000
+GUSB3PIPECTL(11) = 0x00000000
+GUSB3PIPECTL(12) = 0x00000000
+GUSB3PIPECTL(13) = 0x00000000
+GUSB3PIPECTL(14) = 0x00000000
+GUSB3PIPECTL(15) = 0x00000000
+GTXFIFOSIZ(0) = 0x00000043
+GTXFIFOSIZ(1) = 0x0043030d
+GTXFIFOSIZ(2) = 0x03500083
+GTXFIFOSIZ(3) = 0x03d3030d
+GTXFIFOSIZ(4) = 0x06e00083
+GTXFIFOSIZ(5) = 0x07630105
+GTXFIFOSIZ(6) = 0x08680083
+GTXFIFOSIZ(7) = 0x08eb0083
+GTXFIFOSIZ(8) = 0x096e0083
+GTXFIFOSIZ(9) = 0x09f10083
+GTXFIFOSIZ(10) = 0x0a740083
+GTXFIFOSIZ(11) = 0x0af70083
+GTXFIFOSIZ(12) = 0x0b7a0083
+GTXFIFOSIZ(13) = 0x0bfd0083
+GTXFIFOSIZ(14) = 0x0c800083
+GTXFIFOSIZ(15) = 0x0d030083
+GTXFIFOSIZ(16) = 0x00000000
+GTXFIFOSIZ(17) = 0x00000000
+GTXFIFOSIZ(18) = 0x00000000
+GTXFIFOSIZ(19) = 0x00000000
+GTXFIFOSIZ(20) = 0x00000000
+GTXFIFOSIZ(21) = 0x00000000
+GTXFIFOSIZ(22) = 0x00000000
+GTXFIFOSIZ(23) = 0x00000000
+GTXFIFOSIZ(24) = 0x00000000
+GTXFIFOSIZ(25) = 0x00000000
+GTXFIFOSIZ(26) = 0x00000000
+GTXFIFOSIZ(27) = 0x00000000
+GTXFIFOSIZ(28) = 0x00000000
+GTXFIFOSIZ(29) = 0x00000000
+GTXFIFOSIZ(30) = 0x00000000
+GTXFIFOSIZ(31) = 0x00000000
+GRXFIFOSIZ(0) = 0x00000313
+GRXFIFOSIZ(1) = 0x03138313
+GRXFIFOSIZ(2) = 0x06260000
+GRXFIFOSIZ(3) = 0x06268000
+GRXFIFOSIZ(4) = 0x06260000
+GRXFIFOSIZ(5) = 0x06268000
+GRXFIFOSIZ(6) = 0x00000000
+GRXFIFOSIZ(7) = 0x00000000
+GRXFIFOSIZ(8) = 0x00000000
+GRXFIFOSIZ(9) = 0x00000000
+GRXFIFOSIZ(10) = 0x00000000
+GRXFIFOSIZ(11) = 0x00000000
+GRXFIFOSIZ(12) = 0x00000000
+GRXFIFOSIZ(13) = 0x00000000
+GRXFIFOSIZ(14) = 0x00000000
+GRXFIFOSIZ(15) = 0x00000000
+GRXFIFOSIZ(16) = 0x00000000
+GRXFIFOSIZ(17) = 0x00000000
+GRXFIFOSIZ(18) = 0x00000000
+GRXFIFOSIZ(19) = 0x00000000
+GRXFIFOSIZ(20) = 0x00000000
+GRXFIFOSIZ(21) = 0x00000000
+GRXFIFOSIZ(22) = 0x00000000
+GRXFIFOSIZ(23) = 0x00000000
+GRXFIFOSIZ(24) = 0x00000000
+GRXFIFOSIZ(25) = 0x00000000
+GRXFIFOSIZ(26) = 0x00000000
+GRXFIFOSIZ(27) = 0x00000000
+GRXFIFOSIZ(28) = 0x00000000
+GRXFIFOSIZ(29) = 0x00000000
+GRXFIFOSIZ(30) = 0x00000000
+GRXFIFOSIZ(31) = 0x00000000
+GEVNTADRLO(0) = 0xfffff000
+GEVNTADRHI(0) = 0x0000000f
+GEVNTSIZ(0) = 0x00001000
+GEVNTCOUNT(0) = 0x00000000
+GHWPARAMS8 = 0x00001834
+GUCTL3 = 0x0000560c
+GFLADJ = 0x8c80c8a0
+DCFG = 0x00a00800
+DCTL = 0x80f00000
+DEVTEN = 0x00000e57
+DSTS = 0x00820000
+DGCMDPAR = 0x00000000
+DGCMD = 0x00000000
+DALEPENA = 0x00000003
+DEPCMDPAR2(0) = 0x00000000
+DEPCMDPAR1(0) = 0x00000500
+DEPCMDPAR0(0) = 0x80000200
+DEPCMD(0) = 0x00000001
+DEPCMDPAR2(1) = 0x00000000
+DEPCMDPAR1(1) = 0x02000500
+DEPCMDPAR0(1) = 0x80000200
+DEPCMD(1) = 0x00000001
+DEPCMDPAR2(2) = 0x00000000
+DEPCMDPAR1(2) = 0x00000000
+DEPCMDPAR0(2) = 0x00000000
+DEPCMD(2) = 0x00000000
+DEPCMDPAR2(3) = 0x00000000
+DEPCMDPAR1(3) = 0x00000000
+DEPCMDPAR0(3) = 0x00000000
+DEPCMD(3) = 0x00000000
+DEPCMDPAR2(4) = 0x00000000
+DEPCMDPAR1(4) = 0x00000000
+DEPCMDPAR0(4) = 0x00000000
+DEPCMD(4) = 0x00000000
+DEPCMDPAR2(5) = 0x00000000
+DEPCMDPAR1(5) = 0x00000000
+DEPCMDPAR0(5) = 0x00000000
+DEPCMD(5) = 0x00000000
+DEPCMDPAR2(6) = 0x00000000
+DEPCMDPAR1(6) = 0x00000000
+DEPCMDPAR0(6) = 0x00000000
+DEPCMD(6) = 0x00000000
+DEPCMDPAR2(7) = 0x00000000
+DEPCMDPAR1(7) = 0x00000000
+DEPCMDPAR0(7) = 0x00000000
+DEPCMD(7) = 0x00000000
+DEPCMDPAR2(8) = 0x00000000
+DEPCMDPAR1(8) = 0x00000000
+DEPCMDPAR0(8) = 0x00000000
+DEPCMD(8) = 0x00000000
+DEPCMDPAR2(9) = 0x00000000
+DEPCMDPAR1(9) = 0x00000000
+DEPCMDPAR0(9) = 0x00000000
+DEPCMD(9) = 0x00000000
+DEPCMDPAR2(10) = 0x00000000
+DEPCMDPAR1(10) = 0x00000000
+DEPCMDPAR0(10) = 0x00000000
+DEPCMD(10) = 0x00000000
+DEPCMDPAR2(11) = 0x00000000
+DEPCMDPAR1(11) = 0x00000000
+DEPCMDPAR0(11) = 0x00000000
+DEPCMD(11) = 0x00000000
+DEPCMDPAR2(12) = 0x00000000
+DEPCMDPAR1(12) = 0x00000000
+DEPCMDPAR0(12) = 0x00000000
+DEPCMD(12) = 0x00000000
+DEPCMDPAR2(13) = 0x00000000
+DEPCMDPAR1(13) = 0x00000000
+DEPCMDPAR0(13) = 0x00000000
+DEPCMD(13) = 0x00000000
+DEPCMDPAR2(14) = 0x00000000
+DEPCMDPAR1(14) = 0x00000000
+DEPCMDPAR0(14) = 0x00000000
+DEPCMD(14) = 0x00000000
+DEPCMDPAR2(15) = 0x00000000
+DEPCMDPAR1(15) = 0x00000000
+DEPCMDPAR0(15) = 0x00000000
+DEPCMD(15) = 0x00000000
+DEPCMDPAR2(16) = 0x00000000
+DEPCMDPAR1(16) = 0x00000000
+DEPCMDPAR0(16) = 0x00000000
+DEPCMD(16) = 0x00000000
+DEPCMDPAR2(17) = 0x00000000
+DEPCMDPAR1(17) = 0x00000000
+DEPCMDPAR0(17) = 0x00000000
+DEPCMD(17) = 0x00000000
+DEPCMDPAR2(18) = 0x00000000
+DEPCMDPAR1(18) = 0x00000000
+DEPCMDPAR0(18) = 0x00000000
+DEPCMD(18) = 0x00000000
+DEPCMDPAR2(19) = 0x00000000
+DEPCMDPAR1(19) = 0x00000000
+DEPCMDPAR0(19) = 0x00000000
+DEPCMD(19) = 0x00000000
+DEPCMDPAR2(20) = 0x00000000
+DEPCMDPAR1(20) = 0x00000000
+DEPCMDPAR0(20) = 0x00000000
+DEPCMD(20) = 0x00000000
+DEPCMDPAR2(21) = 0x00000000
+DEPCMDPAR1(21) = 0x00000000
+DEPCMDPAR0(21) = 0x00000000
+DEPCMD(21) = 0x00000000
+DEPCMDPAR2(22) = 0x00000000
+DEPCMDPAR1(22) = 0x00000000
+DEPCMDPAR0(22) = 0x00000000
+DEPCMD(22) = 0x00000000
+DEPCMDPAR2(23) = 0x00000000
+DEPCMDPAR1(23) = 0x00000000
+DEPCMDPAR0(23) = 0x00000000
+DEPCMD(23) = 0x00000000
+DEPCMDPAR2(24) = 0x00000000
+DEPCMDPAR1(24) = 0x00000000
+DEPCMDPAR0(24) = 0x00000000
+DEPCMD(24) = 0x00000000
+DEPCMDPAR2(25) = 0x00000000
+DEPCMDPAR1(25) = 0x00000000
+DEPCMDPAR0(25) = 0x00000000
+DEPCMD(25) = 0x00000000
+DEPCMDPAR2(26) = 0x00000000
+DEPCMDPAR1(26) = 0x00000000
+DEPCMDPAR0(26) = 0x00000000
+DEPCMD(26) = 0x00000000
+DEPCMDPAR2(27) = 0x00000000
+DEPCMDPAR1(27) = 0x00000000
+DEPCMDPAR0(27) = 0x00000000
+DEPCMD(27) = 0x00000000
+DEPCMDPAR2(28) = 0x00000000
+DEPCMDPAR1(28) = 0x00000000
+DEPCMDPAR0(28) = 0x00000000
+DEPCMD(28) = 0x00000000
+DEPCMDPAR2(29) = 0x00000000
+DEPCMDPAR1(29) = 0x00000000
+DEPCMDPAR0(29) = 0x00000000
+DEPCMD(29) = 0x00000000
+DEPCMDPAR2(30) = 0x00000000
+DEPCMDPAR1(30) = 0x00000000
+DEPCMDPAR0(30) = 0x00000000
+DEPCMD(30) = 0x00000000
+DEPCMDPAR2(31) = 0x00000000
+DEPCMDPAR1(31) = 0x00000000
+DEPCMDPAR0(31) = 0x00000000
+DEPCMD(31) = 0x00000000
+OCFG = 0x00000000
+OCTL = 0x00000000
+OEVT = 0x00000000
+OEVTEN = 0x00000000
+OSTS = 0x00000000
+===== drivers bound
+arm-smmu -> 15000000.iommu
+bcm_voter -> 17a00000.rsc:bcm-voter
+cliffs-pinctrl -> f000000.pinctrl
+cmd-db -> 81c60000.cmd-db
+dwc3-qcom -> a600000.usb
+gcc-cliffs -> 100000.clock-controller
+psci-cpuidle-domain -> psci
+qcom-eusb2-repeater -> c400000.spmi:pmic@7:phy@fd00
+qcom-rpmh-regulator -> 17a00000.rsc:regulators-0
+qcom_pdc -> b220000.interrupt-controller
+qcom_scm -> firmware:scm
+qnoc-cliffs -> 1400000.interconnect
+qnoc-cliffs -> 1500000.interconnect
+qnoc-cliffs -> 1600000.interconnect
+qnoc-cliffs -> 1680000.interconnect
+qnoc-cliffs -> 16c0000.interconnect
+qnoc-cliffs -> 16e0000.interconnect
+qnoc-cliffs -> 1700000.interconnect
+qnoc-cliffs -> 24100000.interconnect
+qnoc-cliffs -> 320c0000.interconnect
+qnoc-cliffs -> 7400000.interconnect
+qnoc-cliffs -> 7430000.interconnect
+qnoc-cliffs -> 7e40000.interconnect
+qnoc-cliffs -> interconnect-0
+qnoc-cliffs -> interconnect-1
+rpmh -> 17a00000.rsc
+sdhci_msm -> 8804000.mmc
+serial8250 -> serial8250
+simple-framebuffer -> e3940000.framebuffer
+simple-pm-bus -> soc@0
+smccc_trng -> smccc_trng
+snps-eusb2-hsphy -> 88e3000.phy
+spmi_pmic_arb -> c400000.spmi
+tcsr_cc-sm8650 -> 1fc0000.clock-controller

@@ -870,9 +870,19 @@
 				#address-cells = <1>;
 				#size-cells = <0>;
 
+				/*
+				 * Compatible chosen for driver behaviour, not identity.
+				 * The "pm8550b" config writes PM8550B board tuning
+				 * (IUSB2 0x8, SQUELCH 0x3, PREEM 0x5). The vendor G2 node
+				 * has no tuning at all, so it runs the PMIC or bootloader
+				 * defaults. With pm8550b tuning, 2026-10-05: HS chirp
+				 * succeeded (DSTS speed = HS) but enumeration stalled in
+				 * "default" with "device descriptor request failed".
+				 * "pmiv0104" selects the same supplies and an empty
+				 * tuning table, which matches the vendor.
+				 */
 				pm7550ba_eusb2_repeater: phy@fd00 {
-					compatible = "qcom,pm7550ba-eusb2-repeater",
-						     "qcom,pm8550b-eusb2-repeater";
+					compatible = "qcom,pmiv0104-eusb2-repeater";
 					reg = <0xfd00>;
 					vdd18-supply = <&vreg_l7b_1p8>;
 					vdd3-supply = <&vreg_l17b_3p1>;
