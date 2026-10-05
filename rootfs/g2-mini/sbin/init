@@ -96,6 +96,20 @@ usb_gadget() {
 	) &
 }
 
+run_hook() {
+	# Optional hook on the FAT partition: g2/autorun.sh is copied to /tmp
+	# and run in the background, so diagnostics can change without
+	# rewriting the root filesystem. Its output goes to g2-logs.
+	mkdir -p /mnt/boot
+	mount -t vfat -o rw,noatime /dev/mmcblk0p1 /mnt/boot 2>/dev/null || return
+	if [ -f /mnt/boot/g2/autorun.sh ]; then
+		cp /mnt/boot/g2/autorun.sh /tmp/autorun.sh
+		echo " hook     : running g2/autorun.sh from the FAT partition"
+	fi
+	sync; umount /mnt/boot
+	[ -f /tmp/autorun.sh ] && (sh /tmp/autorun.sh > /tmp/autorun.log 2>&1 &)
+}
+
 save_logs() {
 	mkdir -p /mnt/boot
 	if ! mount -t vfat -o rw,noatime /dev/mmcblk0p1 /mnt/boot 2>/dev/null; then
@@ -103,8 +117,12 @@ save_logs() {
 		return
 	fi
 	mkdir -p /mnt/boot/g2-logs
-	n=$(ls /mnt/boot/g2-logs 2>/dev/null | wc -l)
-	f=$(printf "/mnt/boot/g2-logs/boot-%03d.txt" $((n + 1)))
+	tag=${1:+-$1}
+	if [ -z "$BOOTN" ]; then
+		BOOTN=$(ls /mnt/boot/g2-logs 2>/dev/null | grep -c '^boot-[0-9]*\.txt$')
+		BOOTN=$((BOOTN + 1))
+	fi
+	f=$(printf "/mnt/boot/g2-logs/boot-%03d%s.txt" $BOOTN "$tag")
 	{
 		echo "===== summary";            summary
 		echo "===== dmesg";              dmesg
@@ -121,6 +139,12 @@ save_logs() {
 		echo "===== device-tree model";  tr -d '\0' < /proc/device-tree/model; echo
 		echo "===== /sys/bus/platform/devices"; ls -l /sys/bus/platform/devices
 		echo "===== usb";              ls -l /sys/class/udc; cat /sys/class/udc/*/state 2>/dev/null; ls /sys/kernel/config/usb_gadget/g2 2>/dev/null
+		for d in /sys/kernel/debug/usb/a600000.usb /sys/kernel/debug/usb/*.usb; do
+			[ -d "$d" ] || continue
+			for x in mode link_state lsp_dump; do echo "--- $d/$x"; cat "$d/$x" 2>&1; done
+			echo "--- $d/regdump"; cat "$d/regdump" 2>&1
+			break
+		done
 		echo "===== drivers bound"
 		for d in /sys/bus/platform/drivers/*/; do
 			for l in "$d"*; do [ -L "$l" ] && echo "$(basename "$d") -> $(basename "$l")"; done
@@ -134,15 +158,28 @@ clear
 summary
 usb_gadget
 save_logs
+run_hook
 echo
 echo " Live status below. Hold the power key to power off."
 
-# PID 1 must never return. Refresh a short status block in place.
+# PID 1 must never return. Refresh a short status block in place, and save a
+# fresh log snapshot 30 s after boot and whenever the USB state changes (the
+# interesting dmesg for USB only exists once a cable is plugged in).
+last_usb=""; late_saved=""; snaps=0
 while :; do
-	printf "\r uptime %s | load %s | %s | usb %s       " \
-		"$(awk '{printf "%ds", $1}' /proc/uptime)" \
+	usb=$(cat /sys/class/udc/*/state 2>/dev/null || echo none)
+	up=$(cut -d. -f1 /proc/uptime)
+	printf "\r uptime %ss | load %s | %s | usb %s       " \
+		"$up" \
 		"$(cut -d' ' -f1-3 /proc/loadavg)" \
 		"$(awk '/MemAvailable/{printf "%d MiB free", $2/1024}' /proc/meminfo)" \
-		"$(cat /sys/class/udc/*/state 2>/dev/null || echo none)"
+		"$usb"
+	if [ -z "$late_saved" ] && [ "$up" -ge 30 ]; then
+		late_saved=1; save_logs "30s" >/dev/null
+	fi
+	if [ -n "$last_usb" ] && [ "$usb" != "$last_usb" ] && [ $snaps -lt 8 ]; then
+		snaps=$((snaps + 1)); save_logs "usb-$snaps-$usb" >/dev/null
+	fi
+	last_usb=$usb
 	sleep 5
 done

@@ -89,3 +89,21 @@ there is no PIPE clock.
 `PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW` in QSCRATCH before the core probes,
 as mainline HS-only ports (hamoa, lemans) do. The change is DT only; the kernel
 is the same as the first USB build.
+
+## Result 2026-10-05: with UTMI-as-PIPE → enumeration starts, descriptor fails
+
+- The panel shows `usb : gadget bound to a600000.usb (CDC-ACM serial: shell on
+  ttyGS0)`. dwc3 now probes, the UDC exists, and the configfs gadget binds.
+- Windows: **"Unknown USB device (device descriptor request failed)"**. The
+  pull-up, PHY and repeater work well enough for the host to see an
+  attach. The device then does not answer the first control transfer.
+- Candidates:
+  - dwc3 interrupt delivery (SPI 133);
+  - event-buffer DMA through the SMMU (SID 0x40);
+  - eUSB2 signal integrity (repeater or PHY tuning; the vendor hsphy carries
+    `qcom,param-override-seq = <0x00 0x58>`).
+- The init now saves extra snapshots: `boot-NNN-30s.txt`, and
+  `boot-NNN-usb-K-<state>.txt` whenever the UDC state changes. Each snapshot
+  has dwc3 debugfs (mode, link_state, lsp_dump, regdump) and
+  `/proc/interrupts`. It also runs `g2/autorun.sh` from the FAT partition if
+  present, so later diagnostics need no rootfs rebuild.
