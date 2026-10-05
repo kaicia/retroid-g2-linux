@@ -61,3 +61,31 @@ from the vendor gcc-cliffs.c):
 - If the tcsr clkref offset differs on cliffs, the PHY has no ref clock. The
   log bundle will show it: the eUSB2 PHY init fails, or the UDC stays at
   "not attached".
+
+## Result 2026-10-05: first USB boot → dwc3 soft reset timeout
+
+Log: `dumps/g2/linux-boot/usb-boot-001-20261005.txt`.
+
+The new kernel boots normally. All of the new parts bind:
+- `spmi_pmic_arb c400000.spmi: PMIC arbiter version v7`;
+- `qcom_pdc`;
+- `tcsr_cc-sm8650`;
+- `snps-eusb2-hsphy -> 88e3000.phy`;
+- `qcom-eusb2-repeater -> pmic@7:phy@fd00`;
+- the four new LDOs.
+
+The TCSR layout matches SM8650: the UFS clkrefs that the bootloader leaves on
+read "hardware enable Y" at the sm8650 offsets.
+
+dwc3 itself fails:
+- `dwc3-qcom a600000.usb: DWC3 controller soft reset failed.`
+- `... failed to initialize core` and `probe ... failed with error -110`.
+
+**Cause:** this is a DWC_usb31 core, whose `DCTL.CSFTRST` clears only after
+every clock has synchronised, the PIPE clock included. With no SS/QMP PHY
+there is no PIPE clock.
+
+**Fix:** add `qcom,select-utmi-as-pipe-clk` to `usb_1`. dwc3-qcom then sets
+`PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW` in QSCRATCH before the core probes,
+as mainline HS-only ports (hamoa, lemans) do. The change is DT only; the kernel
+is the same as the first USB build.

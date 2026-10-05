@@ -926,6 +926,14 @@
 
 			dr_mode = "peripheral";
 			maximum-speed = "high-speed";
+			/*
+			 * No SS PHY, so no PIPE clock. DWC_usb31 core soft reset
+			 * waits for every clock to sync and timed out without one
+			 * (2026-10-05: "DWC3 controller soft reset failed", probe
+			 * -110). This makes dwc3-qcom feed UTMI in as the PIPE
+			 * clock, as mainline HS-only ports (hamoa, lemans) do.
+			 */
+			qcom,select-utmi-as-pipe-clk;
 			snps,hird-threshold = /bits/ 8 <0x0>;
 			snps,usb2-gadget-lpm-disable;
 			snps,dis_u2_susphy_quirk;
